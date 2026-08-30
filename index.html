@@ -1,507 +1,210 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Geografiya Test — Attestatsiya & Milliy Sertifikat</title>
-  <style>
-    :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --success: #16a34a;
-      --danger: #dc2626;
-      --bg: #f1f5f9;
-      --card: #ffffff;
-      --text: #0f172a;
-      --muted: #64748b;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.5;
-    }
-    .container {
-      max-width: 480px;
-      margin: 0 auto;
-      padding: 16px;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    header {
-      text-align: center;
-      padding: 20px 0 12px;
-    }
-    header h1 {
-      font-size: 1.5rem;
-      color: var(--primary);
-      margin-bottom: 4px;
-    }
-    header p {
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-    .card {
-      background: var(--card);
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-      margin-bottom: 16px;
-    }
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 14px 20px;
-      border: none;
-      border-radius: 12px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-    }
-    .btn-primary:active { background: var(--primary-dark); }
-    .btn-secondary {
-      background: #e2e8f0;
-      color: var(--text);
-    }
-    .btn-success { background: var(--success); color: white; }
-    .btn-outline {
-      background: transparent;
-      border: 2px solid var(--primary);
-      color: var(--primary);
-    }
-    .option {
-      display: block;
-      width: 100%;
-      padding: 14px 16px;
-      margin-bottom: 10px;
-      border: 2px solid #e2e8f0;
-      border-radius: 12px;
-      background: white;
-      text-align: left;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .option:active { transform: scale(0.98); }
-    .option.correct {
-      border-color: var(--success);
-      background: #dcfce7;
-      color: #166534;
-    }
-    .option.wrong {
-      border-color: var(--danger);
-      background: #fee2e2;
-      color: #991b1b;
-    }
-    .option.disabled { pointer-events: none; opacity: 0.7; }
-    .progress-bar {
-      height: 8px;
-      background: #e2e8f0;
-      border-radius: 4px;
-      overflow: hidden;
-      margin: 12px 0;
-    }
-    .progress-fill {
-      height: 100%;
-      background: var(--primary);
-      transition: width 0.3s;
-    }
-    .timer {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--primary);
-      text-align: center;
-      margin-bottom: 8px;
-    }
-    .timer.warning { color: var(--danger); }
-    .question-num {
-      color: var(--muted);
-      font-size: 0.85rem;
-      margin-bottom: 8px;
-    }
-    .question-text {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-    .result-big {
-      font-size: 2.5rem;
-      font-weight: 800;
-      text-align: center;
-      margin: 12px 0;
-    }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 16px 0;
-    }
-    .stat-box {
-      background: #f8fafc;
-      border-radius: 12px;
-      padding: 14px;
-      text-align: center;
-    }
-    .stat-box .num {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--primary);
-    }
-    .stat-box .label {
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-    .hidden { display: none !important; }
-    .explanation {
-      background: #f0f9ff;
-      border-left: 4px solid var(--primary);
-      padding: 10px 12px;
-      border-radius: 0 8px 8px 0;
-      margin-top: 12px;
-      font-size: 0.9rem;
-      color: #1e40af;
-    }
-    footer {
-      text-align: center;
-      padding: 16px;
-      color: var(--muted);
-      font-size: 0.8rem;
-      margin-top: auto;
-    }
-    .screen { animation: fadeIn 0.25s ease; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milliy Sertifikat va Attestatsiya</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7f6; color: #333; display: flex; flex-direction: column; min-height: 100vh; }
+        header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: #fff; padding: 30px 20px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        header h1 { font-size: 2rem; margin-bottom: 8px; }
+        .container { max-width: 900px; margin: 30px auto; padding: 0 20px; flex: 1; }
+        .section-title { text-align: center; margin-bottom: 20px; font-size: 1.4rem; color: #1e3c72; }
+        
+        /* Grid va kartalar */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .card { background: #fff; border-radius: 10px; padding: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+        .card:hover, .card.selected { border-color: #2a5298; background-color: #eef3fc; transform: translateY(-3px); }
+        .card h3 { font-size: 1.1rem; color: #2c3e50; }
+
+        /* Tugmalar */
+        .btn-group { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 30px; }
+        .btn { background: #2a5298; color: white; padding: 12px 25px; border-radius: 6px; border: none; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn:hover { background: #1e3c72; }
+        .btn-secondary { background: #6c757d; }
+        .btn-secondary:hover { background: #5a6268; }
+
+        /* Test oynasi */
+        .quiz-container { background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: none; }
+        .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .question-text { font-size: 1.15rem; margin-bottom: 20px; font-weight: 600; line-height: 1.5; }
+        .options-list { list-style: none; }
+        .option-item { background: #f8f9fa; border: 1px solid #ddd; padding: 12px 15px; border-radius: 6px; margin-bottom: 10px; cursor: pointer; transition: 0.2s; }
+        .option-item:hover { background: #e2e6ea; }
+        .option-item.selected-option { background: #d1e7dd; border-color: #0f5132; color: #0f5132; font-weight: bold; }
+        
+        /* Natija oynasi */
+        .result-box { text-align: center; padding: 20px; display: none; }
+        .result-score { font-size: 2rem; color: #2a5298; font-weight: bold; margin: 15px 0; }
+
+        footer { background: #1a252f; color: #fff; text-align: center; padding: 15px; margin-top: auto; }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <!-- HOME -->
-    <div id="home" class="screen">
-      <header>
-        <h1>🌍 Geografiya Test</h1>
-        <p>Attestatsiya & Milliy Sertifikat</p>
-      </header>
-      <div class="card">
-        <p style="margin-bottom:16px;color:var(--muted);text-align:center;">
-          10 ta savol • Har biriga 45 soniya<br>
-          To‘g‘ri javob va izoh ko‘rsatiladi
-        </p>
-        <button class="btn btn-primary" onclick="startTest()">📝 Testni boshlash</button>
-        <button class="btn btn-secondary" onclick="showStats()">📊 Mening statistikam</button>
-        <button class="btn btn-secondary" onclick="showRanking()">🏆 Reyting</button>
-      </div>
-    </div>
 
-    <!-- QUIZ -->
-    <div id="quiz" class="screen hidden">
-      <div class="card">
-        <div class="timer" id="timer">45</div>
-        <div class="progress-bar">
-          <div class="progress-fill" id="progress" style="width:0%"></div>
+    <header>
+        <h1>Milliy Sertifikat va Attestatsiya</h1>
+        <p>Barcha fanlar va murakkablashtirilgan savollar bazasi</p>
+    </header>
+
+    <div class="container" id="mainContainer">
+        <!-- 1. Fan tanlash -->
+        <h2 class="section-title">1. Fanni tanlang:</h2>
+        <div class="grid-container" id="subjectsGrid">
+            <div class="card selected" onclick="selectSubject(this, 'Geografiya')"><h3>Geografiya</h3></div>
+            <div class="card" onclick="selectSubject(this, 'Matematika')"><h3>Matematika</h3></div>
+            <div class="card" onclick="selectSubject(this, 'Fizika')"><h3>Fizika</h3></div>
+            <div class="card" onclick="selectSubject(this, 'Ona tili')"><h3>Ona tili va adabiyot</h3></div>
+            <div class="card" onclick="selectSubject(this, 'Tarix')"><h3>Tarix</h3></div>
+            <div class="card" onclick="selectSubject(this, 'Biologiya')"><h3>Biologiya</h3></div>
+            <div class="card" onclick="selectSubject(this, 'Kimyo')"><h3>Kimyo</h3></div>
+            <div class="card" onclick="selectSubject(this, 'Ingliz tili')"><h3>Ingliz tili</h3></div>
         </div>
-        <div class="question-num" id="qNum">Savol 1/10</div>
-        <div class="question-text" id="qText"></div>
-        <div id="options"></div>
-        <div id="explanation" class="explanation hidden"></div>
-        <button class="btn btn-primary hidden" id="nextBtn" onclick="nextQuestion()">Keyingi savol →</button>
-      </div>
-    </div>
 
-    <!-- RESULT -->
-    <div id="result" class="screen hidden">
-      <div class="card" style="text-align:center;">
-        <h2>🏁 Test yakunlandi!</h2>
-        <div class="result-big" id="scoreBig">0/10</div>
-        <div id="percentText" style="font-size:1.2rem;margin-bottom:8px;"></div>
-        <div id="gradeText" style="font-size:1.1rem;margin-bottom:16px;"></div>
-        <div class="stats-grid">
-          <div class="stat-box">
-            <div class="num" id="resCorrect">0</div>
-            <div class="label">To‘g‘ri</div>
-          </div>
-          <div class="stat-box">
-            <div class="num" id="resWrong">0</div>
-            <div class="label">Noto‘g‘ri</div>
-          </div>
+        <!-- 2. Rejim tanlash -->
+        <h2 class="section-title">2. Test turini tanlang:</h2>
+        <div class="btn-group">
+            <button class="btn" onclick="startQuiz('Attestatsiya')">Attestatsiya Rejimi</button>
+            <button class="btn" onclick="startQuiz('Milliy Sertifikat')">Milliy Sertifikat Rejimi</button>
         </div>
-        <button class="btn btn-primary" onclick="startTest()">🔄 Yana yechish</button>
-        <button class="btn btn-secondary" onclick="goHome()">🏠 Bosh sahifa</button>
-      </div>
-    </div>
 
-    <!-- STATS -->
-    <div id="stats" class="screen hidden">
-      <div class="card">
-        <h2 style="text-align:center;margin-bottom:16px;">📊 Mening statistikam</h2>
-        <div class="stats-grid">
-          <div class="stat-box">
-            <div class="num" id="stTests">0</div>
-            <div class="label">Jami test</div>
-          </div>
-          <div class="stat-box">
-            <div class="num" id="stBest">0%</div>
-            <div class="label">Eng yaxshi</div>
-          </div>
-          <div class="stat-box">
-            <div class="num" id="stAvg">0%</div>
-            <div class="label">O‘rtacha</div>
-          </div>
-          <div class="stat-box">
-            <div class="num" id="stCorrect">0</div>
-            <div class="label">Jami to‘g‘ri</div>
-          </div>
+        <!-- Test oynasi -->
+        <div class="quiz-container" id="quizContainer">
+            <div class="quiz-header">
+                <h3 id="quizTitle">Test</h3>
+                <span>Savol: <strong id="qNum">1</strong> / <span id="qTotal">50</span></span>
+            </div>
+            <div class="question-text" id="qText">Savol yuklanmoqda...</div>
+            <div class="options-list" id="optionsGroup"></div>
+            <div style="margin-top:20px; display:flex; justify-between; justify-content: space-between;">
+                <button class="btn btn-secondary" onclick="resetApp()">Bosh sahifa</button>
+                <button class="btn" onclick="nextQuestion()">Keyingisi &rarr;</button>
+            </div>
         </div>
-        <button class="btn btn-secondary" onclick="goHome()">← Orqaga</button>
-      </div>
+
+        <!-- Natija oynasi -->
+        <div class="quiz-container result-box" id="resultContainer">
+            <h2>Test Yakunlandi!</h2>
+            <div class="result-score" id="scoreText">0 / 50</div>
+            <p id="resultFeedback">Natijangiz hisoblandi.</p>
+            <br>
+            <button class="btn" onclick="resetApp()">Qaytadan boshlash</button>
+        </div>
     </div>
 
-    <!-- RANKING (local) -->
-    <div id="ranking" class="screen hidden">
-      <div class="card">
-        <h2 style="text-align:center;margin-bottom:16px;">🏆 Reyting (shu qurilma)</h2>
-        <div id="rankList" style="margin-bottom:16px;"></div>
-        <button class="btn btn-secondary" onclick="goHome()">← Orqaga</button>
-      </div>
-    </div>
+    <footer>
+        <p>Muallif: <strong>Nurmataliyev Muzaffar</strong></p>
+        <p>© 2026 Barcha huquqlar himoyalangan.</p>
+    </footer>
 
-    <footer>Geografiya Test • Attestatsiya & Milliy Sertifikat</footer>
-  </div>
+    <script>
+        // Savollar bazasi (Misol tariqasida har bir fanga savollar)
+        const quizDatabase = {
+            "Geografiya": [
+                { q: "O'zbekiston relyefining qaysi qismida karst g'orlari va relyef shakllari ko'p uchraydi?", opts: ["Zarafshon va Hisor tizmalarida", "Qizilqum plato qismida", "Ustyurt platosida", "Farg'ona botig'ida"], a: 0 },
+                { q: "Iqlim shakllanishida quyosh radiatsiyasining umumiy miqdori eng yuqori bo'lgan hudud:", opts: ["Termiz va janubiy tumanlar", "Toshkent shahri", "Nukus shahri", "Andijon viloyati"], a: 0 },
+                { q: "O'zbekistonning qaysi daryo havzasida gidroenergetika salohiyati eng yuqori hisoblanadi?", opts: ["Chirchiq va Ohangaron", "Sirdaryo", "Amudaryo", "Zarafshon"], a: 0 },
+                { q: "Aholi zichligi bo'yicha dunyoda va O'zbekistonda yetakchi o'rin tutuvchi asosiy omil nima?", opts: ["Tabiiy-geografik va shahar infratuzilmasi", "Faqat foydali qazilmalar", "Sanoat korxonalari soni", "Iqlimning keskin kontinental bo'lishi"], a: 0 }
+            ],
+            "Matematika": [
+                { q: "Agar $x^2 - 5x + 6 = 0$ bo'lsa, ildizlari yig'indisini toping.", opts: ["5", "6", "-5", "-6"], a: 0 },
+                { q: "Teng yonli uchburchakning asosidagi burchagi 50° bo'lsa, uchidagi burchakni toping.", opts: ["80°", "50°", "100°", "60°"], a: 0 }
+            ],
+            "Fizika": [
+                { q: "Jismning tezlanishi unga ta'sir etuvchi kuchga to'g'ri, massasiga teskari mutanosib. Bu qaysi qonun?", opts: ["Nyutonning II qonuni", "Nyutonning I qonuni", "Nyutonning III qonuni", "Paskal qonuni"], a: 0 }
+            ]
+        };
 
-  <script>
-    // ========== SAVOLLAR ==========
-    const QUESTIONS = [
-      {q:"O‘zbekiston Respublikasi nechta viloyatdan iborat?", options:["12","13","14","15"], answer:1, explanation:"O‘zbekiston 12 viloyat + Qoraqalpog‘iston + Toshkent shahri."},
-      {q:"O‘zbekistonning eng baland nuqtasi qaysi tog‘ tizmasida joylashgan?", options:["Hisori","Turkiston","Gissar","Chatqol"], answer:0, explanation:"Xazrat Sulton (4643 m) Hisori tizmasida."},
-      {q:"Orol dengizi qaysi ikki daryo suvining kamayishi natijasida qurigan?", options:["Sirdaryo va Amudaryo","Zarafshon va Qashqadaryo","Chirchiq va Angren","Surxondaryo va Sherobod"], answer:0, explanation:"Amudaryo va Sirdaryo suvlari sug‘orishga olingani sababli."},
-      {q:"O‘zbekistonning eng katta ko‘li qaysi?", options:["Aydarko‘l","Sariosiyo","Tudako‘l","Arnasoy"], answer:0, explanation:"Aydarko‘l – eng katta sun’iy ko‘l."},
-      {q:"Toshkent shahri qaysi daryo bo‘yida joylashgan?", options:["Chirchiq","Angren","Ohangaron","Sirdaryo"], answer:0, explanation:"Toshkent Chirchiq daryosi vodiysida."},
-      {q:"O‘zbekistonning eng uzun daryosi qaysi?", options:["Amudaryo","Sirdaryo","Zarafshon","Qashqadaryo"], answer:0, explanation:"Amudaryo eng uzun daryo."},
-      {q:"Qizilqum cho‘li asosan qaysi viloyatlar hududida joylashgan?", options:["Buxoro, Navoiy, Xorazm","Surxondaryo, Qashqadaryo","Farg‘ona, Andijon","Jizzax, Sirdaryo"], answer:0, explanation:"Qizilqum Buxoro, Navoiy va Xorazmda."},
-      {q:"Farg‘ona vodiysi qaysi tog‘ tizmalari orasida joylashgan?", options:["Turkiston va Oloy","Hisori va Zarafshon","Chatqol va Qurama","Nurota va Turkiston"], answer:0, explanation:"Turkiston va Oloy tizmalari orasida."},
-      {q:"O‘zbekiston qaysi iqlim mintaqasiga kiradi?", options:["Mo‘tadil","Subtropik","Quruq subtropik (kontinental)","Tropik"], answer:2, explanation:"Keskin kontinental (quruq subtropik) iqlim."},
-      {q:"Samarqand shahri qaysi daryo bo‘yida joylashgan?", options:["Zarafshon","Qashqadaryo","Surxondaryo","Sirdaryo"], answer:0, explanation:"Samarqand Zarafshon vodiysida."},
-      {q:"O‘zbekistonning eng janubiy nuqtasi qaysi viloyatda?", options:["Surxondaryo","Qashqadaryo","Buxoro","Xorazm"], answer:0, explanation:"Surxondaryo viloyatida (Termiz atrofida)."},
-      {q:"Nurota tog‘lari qaysi viloyatlar hududida joylashgan?", options:["Jizzax va Navoiy","Samarqand va Buxoro","Toshkent va Sirdaryo","Farg‘ona va Namangan"], answer:0, explanation:"Nurota tizmasi Jizzax va Navoiyda."},
-      {q:"Qoraqalpog‘iston Respublikasi poytaxti qaysi shahar?", options:["Nukus","Urganch","Xiva","Mo‘ynoq"], answer:0, explanation:"Poytaxt – Nukus."},
-      {q:"O‘zbekistonda eng katta maydonga ega viloyat qaysi?", options:["Navoiy","Buxoro","Qashqadaryo","Surxondaryo"], answer:0, explanation:"Navoiy viloyati eng katta."},
-      {q:"Chatqol biosfera qo‘riqxonasi qaysi viloyatda joylashgan?", options:["Toshkent","Namangan","Farg‘ona","Andijon"], answer:0, explanation:"Toshkent viloyatida."},
-      {q:"O‘zbekiston qaysi materikda joylashgan?", options:["Yevrosiyo","Afrika","Shimoliy Amerika","Avstraliya"], answer:0, explanation:"Yevrosiyo materigida."},
-      {q:"Zarafshon daryosi qaysi tog‘lardan boshlanadi?", options:["Turkiston tizmasi","Hisori tizmasi","Oloy tizmasi","Chatqol tizmasi"], answer:0, explanation:"Turkiston tizmasidan."},
-      {q:"O‘zbekistonning eng sharqiy nuqtasi qaysi viloyatda?", options:["Andijon","Farg‘ona","Namangan","Toshkent"], answer:0, explanation:"Andijon viloyatida."},
-      {q:"O‘zbekistonda eng past nuqta qayerda joylashgan?", options:["Sariqamish botig‘i","Mingbuloq botig‘i","Arnasoy","Aydarko‘l atrofi"], answer:1, explanation:"Mingbuloq botig‘i (–12,8 m)."},
-      {q:"Surxondaryo viloyatining markazi qaysi shahar?", options:["Termiz","Denov","Sherobod","Jarqo‘rg‘on"], answer:0, explanation:"Markaz – Termiz."},
-      {q:"Hisori qo‘riqxonasi qaysi viloyatda joylashgan?", options:["Qashqadaryo","Surxondaryo","Samarqand","Jizzax"], answer:0, explanation:"Qashqadaryo viloyatida."},
-      {q:"O‘zbekistonning eng yirik shahri (aholi soni bo‘yicha) qaysi?", options:["Toshkent","Samarqand","Namangan","Andijon"], answer:0, explanation:"Toshkent eng yirik."},
-      {q:"O‘zbekiston hududining necha foizi tog‘li relefga ega?", options:["Taxminan 20%","Taxminan 40%","Taxminan 60%","Taxminan 10%"], answer:0, explanation:"Taxminan 20% i tog‘li."},
-      {q:"O‘zbekiston qaysi davlatlar bilan chegaradosh?", options:["5 ta","6 ta","4 ta","7 ta"], answer:0, explanation:"Qozog‘iston, Qirg‘iziston, Tojikiston, Afg‘oniston, Turkmaniston."},
-      {q:"Sirdaryo daryosi qaysi mamlakatdan boshlanadi?", options:["Qirg‘iziston","Tojikiston","Qozog‘iston","O‘zbekiston"], answer:0, explanation:"Qirg‘izistondan boshlanadi."},
-      {q:"Xiva shahri qaysi viloyatda joylashgan?", options:["Xorazm","Buxoro","Navoiy","Qoraqalpog‘iston"], answer:0, explanation:"Xorazm viloyatida."},
-      {q:"O‘zbekistonda eng katta cho‘l qaysi?", options:["Qizilqum","Qoraqum","Muyunkum","Barsakelmes"], answer:0, explanation:"Qizilqum eng katta cho‘l."},
-      {q:"Termiz shahri qaysi daryo bo‘yida joylashgan?", options:["Amudaryo","Surxondaryo","Sherobod","To‘polondaryo"], answer:0, explanation:"Amudaryo bo‘yida."},
-      {q:"Ugom-Chatqol milliy bog‘i qaysi viloyatda joylashgan?", options:["Toshkent","Namangan","Sirdaryo","Jizzax"], answer:0, explanation:"Toshkent viloyatida."},
-      {q:"O‘zbekistonda eng yirik oltin koni qaysi?", options:["Muruntov","Kalmoqqir","Kochbulok","Zarmitan"], answer:0, explanation:"Muruntov – eng yirik oltin koni."},
-      {q:"Toshkent viloyatining markazi qaysi shahar?", options:["Nurafshon","Chirchiq","Angren","Olmaliq"], answer:0, explanation:"Markaz – Nurafshon."},
-      {q:"Jizzax viloyatining markazi qaysi shahar?", options:["Jizzax","G‘allaorol","Do‘stlik","Zomin"], answer:0, explanation:"Markaz – Jizzax."},
-      {q:"Andijon viloyatining markazi qaysi shahar?", options:["Andijon","Asaka","Shahrixon","Xo‘jaobod"], answer:0, explanation:"Markaz – Andijon."},
-      {q:"O‘zbekiston qaysi tabiiy zonada joylashgan?", options:["Cho‘l va yarim cho‘l","O‘rmon","Tundra","Savanna"], answer:0, explanation:"Asosan cho‘l va yarim cho‘l."},
-      {q:"Buxoro shahri qaysi tarixiy yo‘l ustida joylashgan?", options:["Buyuk Ipak yo‘li","Shimoliy yo‘l","Janubiy yo‘l","Dengiz yo‘li"], answer:0, explanation:"Buyuk Ipak yo‘li manzili."},
-      {q:"O‘zbekistonda eng ko‘p yog‘in yog‘adigan hudud qaysi?", options:["Farg‘ona vodiysi","Toshkent viloyati tog‘lari","Surxondaryo","Qoraqalpog‘iston"], answer:1, explanation:"Tog‘li hududlar, ayniqsa Toshkent viloyati."},
-      {q:"Amudaryo hozir qaysi dengizga quyiladi?", options:["Orol dengizi","Kaspiy dengizi","Qora dengiz","Hech qaysiga (hozir)"], answer:3, explanation:"Hozir Orol dengiziga yetib bormaydi."},
-      {q:"Quyidagi shaharlardan qaysi biri 'Yashil shahar' deb ataladi?", options:["Toshkent","Samarqand","Buxoro","Xiva"], answer:0, explanation:"Toshkent – Yashil shahar."},
-      {q:"O‘zbekistonning eng shimoliy nuqtasi qaysi hududda?", options:["Qoraqalpog‘iston","Xorazm","Navoiy","Jizzax"], answer:0, explanation:"Qoraqalpog‘istonda."},
-      {q:"O‘zbekistonning eng yirik gidroelektr stansiyasi qaysi?", options:["Chorvoq GES","Andijon GES","Farhod GES","Qayroqqum GES"], answer:0, explanation:"Chorvoq GES eng yiriklaridan."},
-      {q:"Angren daryosi qaysi daryoga quyiladi?", options:["Chirchiq","Sirdaryo","Ohangaron","Aksu"], answer:1, explanation:"Angren Sirdaryoga quyiladi."},
-      {q:"O‘zbekistonda eng yirik neft koni qaysi hududda?", options:["Qashqadaryo (Ko‘kdumaloq)","Buxoro","Farg‘ona","Surxondaryo"], answer:0, explanation:"Ko‘kdumaloq Qashqadaryoda."},
-      {q:"Quyidagi tog‘ tizmalaridan qaysi biri O‘zbekiston hududida joylashgan?", options:["Turkiston","Pamir","Kavkaz","Ural"], answer:0, explanation:"Turkiston tizmasi O‘zbekistonda."},
-      {q:"O‘zbekistonda eng ko‘p paxta yetishtiriladigan viloyat an’anaviy ravishda qaysi?", options:["Qashqadaryo","Surxondaryo","Andijon","Buxoro"], answer:0, explanation:"Qashqadaryo an’anaviy yirik paxta hududi."},
-      {q:"Hisori tog‘lari asosan qaysi viloyatda?", options:["Qashqadaryo","Surxondaryo","Samarqand","Jizzax"], answer:0, explanation:"Qashqadaryo viloyatida."},
-      {q:"O‘zbekiston ochiq dengizga chiqish imkoniyatiga egami?", options:["Ha","Yo‘q","Faqat Kaspiy orqali","Faqat Orol orqali"], answer:1, explanation:"Ochiq dengizga chiqish imkoniyati yo‘q."},
-      {q:"Muruntov koni nima bilan mashhur?", options:["Oltin","Mis","Neft","Uran"], answer:0, explanation:"Dunyodagi eng yirik ochiq usuldagi oltin konlaridan."},
-      {q:"Chorvoq suv ombori qaysi daryoda joylashgan?", options:["Chirchiq","Angren","Sirdaryo","Ohangaron"], answer:0, explanation:"Chirchiq daryosida."},
-      {q:"O‘zbekistonning poytaxti qaysi shahar?", options:["Toshkent","Samarqand","Buxoro","Nukus"], answer:0, explanation:"Poytaxt – Toshkent."},
-      {q:"Qizilqum nomining ma’nosi nima?", options:["Qizil qum","Qora qum","Oq qum","Sariq qum"], answer:0, explanation:"Qizil qum degani."}
-    ];
+        let currentSubject = "Geografiya";
+        let currentMode = "";
+        let currentIndex = 0;
+        let score = 0;
+        let selectedAnswers = [];
 
-    // ========== STATE ==========
-    const TOTAL = 10;
-    const TIME = 45;
-    let quiz = [];
-    let current = 0;
-    let correct = 0;
-    let answered = false;
-    let timerInterval = null;
-    let timeLeft = TIME;
-
-    // ========== STORAGE ==========
-    function getStats() {
-      const s = localStorage.getItem('geo_stats');
-      return s ? JSON.parse(s) : { tests: 0, totalCorrect: 0, totalQuestions: 0, bestPercent: 0, history: [] };
-    }
-    function saveStats(correctCount, total) {
-      const s = getStats();
-      const percent = (correctCount / total) * 100;
-      s.tests += 1;
-      s.totalCorrect += correctCount;
-      s.totalQuestions += total;
-      if (percent > s.bestPercent) s.bestPercent = percent;
-      s.history.unshift({ date: new Date().toLocaleString('uz'), score: correctCount, total, percent: percent.toFixed(1) });
-      if (s.history.length > 20) s.history.pop();
-      localStorage.setItem('geo_stats', JSON.stringify(s));
-    }
-
-    // ========== UI HELPERS ==========
-    function show(id) {
-      ['home','quiz','result','stats','ranking'].forEach(s => {
-        document.getElementById(s).classList.toggle('hidden', s !== id);
-      });
-    }
-    function goHome() { show('home'); }
-
-    // ========== QUIZ LOGIC ==========
-    function startTest() {
-      // shuffle and pick
-      quiz = [...QUESTIONS].sort(() => Math.random() - 0.5).slice(0, TOTAL);
-      current = 0;
-      correct = 0;
-      answered = false;
-      show('quiz');
-      renderQuestion();
-    }
-
-    function renderQuestion() {
-      answered = false;
-      timeLeft = TIME;
-      const q = quiz[current];
-      document.getElementById('qNum').textContent = `Savol ${current + 1}/${TOTAL}`;
-      document.getElementById('qText').textContent = q.q;
-      document.getElementById('progress').style.width = `${(current / TOTAL) * 100}%`;
-      document.getElementById('explanation').classList.add('hidden');
-      document.getElementById('nextBtn').classList.add('hidden');
-
-      const opts = document.getElementById('options');
-      opts.innerHTML = '';
-      q.options.forEach((opt, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'option';
-        btn.textContent = `${String.fromCharCode(65 + i)}) ${opt}`;
-        btn.onclick = () => selectAnswer(i);
-        opts.appendChild(btn);
-      });
-
-      startTimer();
-    }
-
-    function startTimer() {
-      clearInterval(timerInterval);
-      const el = document.getElementById('timer');
-      el.textContent = timeLeft;
-      el.classList.remove('warning');
-      timerInterval = setInterval(() => {
-        timeLeft--;
-        el.textContent = timeLeft;
-        if (timeLeft <= 10) el.classList.add('warning');
-        if (timeLeft <= 0) {
-          clearInterval(timerInterval);
-          if (!answered) selectAnswer(-1); // time out
+        function selectSubject(element, subject) {
+            document.querySelectorAll('#subjectsGrid .card').forEach(c => c.classList.remove('selected'));
+            element.classList.add('selected');
+            currentSubject = subject;
         }
-      }, 1000);
-    }
 
-    function selectAnswer(chosen) {
-      if (answered) return;
-      answered = true;
-      clearInterval(timerInterval);
+        function startQuiz(mode) {
+            currentMode = mode;
+            currentIndex = 0;
+            score = 0;
 
-      const q = quiz[current];
-      const options = document.querySelectorAll('.option');
-      options.forEach((btn, i) => {
-        btn.classList.add('disabled');
-        if (i === q.answer) btn.classList.add('correct');
-        else if (i === chosen && chosen !== q.answer) btn.classList.add('wrong');
-      });
+            const questions = quizDatabase[currentSubject] || quizDatabase["Geografiya"];
+            
+            document.getElementById('subjectsGrid').parentElement.style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('resultContainer').style.display = 'none';
+            document.getElementById('quizTitle').innerText = `${currentSubject} - ${mode}`;
+            document.getElementById('qTotal').innerText = questions.length;
 
-      if (chosen === q.answer) correct++;
+            renderQuestion();
+        }
 
-      const exp = document.getElementById('explanation');
-      if (q.explanation) {
-        exp.textContent = '💡 ' + q.explanation;
-        exp.classList.remove('hidden');
-      }
+        function renderQuestion() {
+            const questions = quizDatabase[currentSubject] || quizDatabase["Geografiya"];
+            const qData = questions[currentIndex];
 
-      if (current < TOTAL - 1) {
-        document.getElementById('nextBtn').classList.remove('hidden');
-      } else {
-        setTimeout(finishTest, 1200);
-      }
-    }
+            document.getElementById('qNum').innerText = currentIndex + 1;
+            document.getElementById('qText').innerText = qData.q;
 
-    function nextQuestion() {
-      current++;
-      if (current < TOTAL) renderQuestion();
-      else finishTest();
-    }
+            const optsDiv = document.getElementById('optionsGroup');
+            optsDiv.innerHTML = '';
 
-    function finishTest() {
-      clearInterval(timerInterval);
-      saveStats(correct, TOTAL);
-      const percent = (correct / TOTAL) * 100;
-      document.getElementById('scoreBig').textContent = `${correct}/${TOTAL}`;
-      document.getElementById('percentText').textContent = `${percent.toFixed(1)}%`;
-      document.getElementById('resCorrect').textContent = correct;
-      document.getElementById('resWrong').textContent = TOTAL - correct;
+            qData.opts.forEach((opt, idx) => {
+                const item = document.createElement('div');
+                item.className = 'option-item';
+                item.innerText = `${String.fromCharCode(65 + idx)}) ${opt}`;
+                item.onclick = () => selectOption(idx, item);
+                optsDiv.appendChild(item);
+            });
+        }
 
-      let grade = '';
-      if (percent >= 90) grade = '🌟 A’lo!';
-      else if (percent >= 70) grade = '👍 Yaxshi';
-      else if (percent >= 50) grade = '😊 Qoniqarli';
-      else grade = '💪 Yana urinib ko‘ring!';
-      document.getElementById('gradeText').textContent = grade;
+        let tempSelectedIndex = null;
 
-      document.getElementById('progress').style.width = '100%';
-      show('result');
-    }
+        function selectOption(idx, element) {
+            document.querySelectorAll('.option-item').forEach(el => el.classList.remove('selected-option'));
+            element.classList.add('selected-option');
+            tempSelectedIndex = idx;
+        }
 
-    // ========== STATS & RANKING ==========
-    function showStats() {
-      const s = getStats();
-      document.getElementById('stTests').textContent = s.tests;
-      document.getElementById('stBest').textContent = s.bestPercent.toFixed(0) + '%';
-      const avg = s.totalQuestions ? (s.totalCorrect / s.totalQuestions * 100) : 0;
-      document.getElementById('stAvg').textContent = avg.toFixed(0) + '%';
-      document.getElementById('stCorrect').textContent = s.totalCorrect;
-      show('stats');
-    }
+        function nextQuestion() {
+            const questions = quizDatabase[currentSubject] || quizDatabase["Geografiya"];
+            
+            if (tempSelectedIndex !== null) {
+                if (tempSelectedIndex === questions[currentIndex].a) {
+                    score++;
+                }
+            }
 
-    function showRanking() {
-      const s = getStats();
-      const list = document.getElementById('rankList');
-      if (!s.history.length) {
-        list.innerHTML = '<p style="text-align:center;color:var(--muted);">Hali natija yo‘q. Test yeching!</p>';
-      } else {
-        list.innerHTML = s.history.map((h, i) => `
-          <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #e2e8f0;">
-            <span>${i + 1}. ${h.date}</span>
-            <strong>${h.score}/${h.total} (${h.percent}%)</strong>
-          </div>
-        `).join('');
-      }
-      show('ranking');
-    }
+            tempSelectedIndex = null;
+            currentIndex++;
 
-    // Start at home
-    show('home');
-  </script>
+            if (currentIndex < questions.length) {
+                renderQuestion();
+            } else {
+                showResults(questions.length);
+            }
+        }
+
+        function showResults(total) {
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'block';
+            document.getElementById('scoreText').innerText = `${score} / ${total}`;
+            
+            let percentage = (score / total) * 100;
+            let feedback = percentage >= 80 ? "Ajoyib natija! Milliy sertifikat / Attestatsiyadan o'tdingiz." : "Yana biroz tayyorgarlik ko'rishingiz kerak.";
+            document.getElementById('resultFeedback').innerText = feedback;
+        }
+
+        function resetApp() {
+            document.getElementById('subjectsGrid').parentElement.style.display = 'block';
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
