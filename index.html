@@ -1,324 +1,1520 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milliy Sertifikat va Attestatsiya</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f0f2f5; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
-        header { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .container { max-width: 900px; margin: 25px auto; padding: 0 15px; flex: 1; width: 100%; }
-        .card-box { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        h2 { color: #1e3c72; margin-bottom: 15px; font-size: 1.4rem; text-align: center; }
-        
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: #495057; }
-        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 6px; font-size: 1rem; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
-        .item-card { background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; padding: 15px; text-align: center; cursor: pointer; transition: 0.2s; font-weight: 600; }
-        .item-card:hover { border-color: #2a5298; background: #eef3fc; transform: translateY(-2px); }
-        
-        .btn { background: #2a5298; color: white; padding: 12px 20px; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; width: 100%; transition: 0.2s; }
-        .btn:hover { background: #1e3c72; }
-        .btn-sec { background: #6c757d; }
-        
-        .option-btn { background: #f8f9fa; border: 1px solid #0000001f; padding: 12px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; text-align: left; width: 100%; font-size: 0.95rem; }
-        .option-btn:hover { background: #e9ecef; }
-        .option-btn.selected { background: #d1e7dd; border-color: #0f5132; font-weight: bold; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
-        th, td { border: 1px solid #dee2e6; padding: 10px; text-align: left; font-size: 0.9rem; }
-        th { background: #2a5298; color: white; }
-        
-        footer { background: #1a252f; color: white; text-align: center; padding: 15px; font-size: 0.9rem; margin-top: auto; }
-        .hidden { display: none !important; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Milliy Sertifikat va Attestatsiya</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#0e0f12;
+    color:white;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 0;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.card{
+    background:#191a1f;
+    border:1px solid #303138;
+    border-radius:20px;
+    padding:25px;
+    margin-bottom:20px;
+}
+
+.hero{
+    padding:40px;
+    border-radius:25px;
+    background:linear-gradient(145deg,#20232b,#15161a);
+}
+
+h1{
+    font-size:42px;
+    margin:15px 0;
+}
+
+h2{
+    margin-top:0;
+}
+
+p{
+    color:#aaa;
+}
+
+button{
+    padding:13px 20px;
+    border-radius:12px;
+    border:0;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.primary{
+    background:white;
+    color:#111;
+}
+
+.secondary{
+    background:#292b31;
+    color:white;
+    border:1px solid #444;
+}
+
+.danger{
+    background:#451e22;
+    color:#ffb7bd;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+input,
+select{
+    width:100%;
+    padding:14px;
+    margin-top:7px;
+    background:#111216;
+    color:white;
+    border:1px solid #393b42;
+    border-radius:10px;
+}
+
+label{
+    color:#bbb;
+    font-size:14px;
+}
+
+.stat{
+    background:#111216;
+    padding:20px;
+    border-radius:15px;
+    border:1px solid #303138;
+}
+
+.stat b{
+    display:block;
+    font-size:28px;
+    margin-top:8px;
+}
+
+.tag{
+    display:inline-block;
+    background:#292b31;
+    padding:8px 12px;
+    border-radius:30px;
+    color:#ddd;
+}
+
+.progress{
+    height:8px;
+    background:#303137;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.bar{
+    height:100%;
+    width:0%;
+    background:white;
+}
+
+.option{
+    width:100%;
+    display:block;
+    text-align:left;
+    background:#111216;
+    color:white;
+    border:1px solid #3b3d44;
+    margin:10px 0;
+}
+
+.option:hover,
+.option.selected{
+    background:#303239;
+    border-color:white;
+}
+
+.hide{
+    display:none;
+}
+
+.notice{
+    padding:15px;
+    background:#22242a;
+    border-radius:12px;
+    margin:15px 0;
+    color:#bbb;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:750px;
+}
+
+th,
+td{
+    padding:12px;
+    border-bottom:1px solid #303138;
+    text-align:left;
+}
+
+th{
+    color:#aaa;
+}
+
+.table-wrapper{
+    overflow:auto;
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+@media(max-width:600px){
+
+    h1{
+        font-size:30px;
+    }
+
+    .hero{
+        padding:25px;
+    }
+
+    .card{
+        padding:18px;
+    }
+
+}
+</style>
 </head>
+
 <body>
 
-    <header>
-        <h1>Milliy Sertifikat va Attestatsiya</h1>
-        <p>A'lo darajadagi tayyorgarlik va reyting tizimi</p>
-    </header>
+<div class="container">
 
-    <div class="container">
-        <div id="regSection" class="card-box">
-            <h2>Ro'yxatdan o'tish</h2>
-            <form id="regForm" onsubmit="handleRegister(event)">
-                <div class="form-group">
-                    <label>Ism va Familiya</label>
-                    <input type="text" id="fullname" placeholder="Masalan: Muzaffar Nurmataliyev" required>
-                </div>
-                <div class="form-group">
-                    <label>Viloyat</label>
-                    <select id="region" required>
-                        <option value="">-- Viloyatni tanlang --</option>
-                        <option value="Andijon">Andijon</option>
-                        <option value="Buxoro">Buxoro</option>
-                        <option value="Farg'ona">Farg'ona</option>
-                        <option value="Jizzax">Jizzax</option>
-                        <option value="Xorazm">Xorazm</option>
-                        <option value="Namangan">Namangan</option>
-                        <option value="Navoiy">Navoiy</option>
-                        <option value="Qashqadaryo">Qashqadaryo</option>
-                        <option value="Qoraqalpog'iston">Qoraqalpog'iston R.</option>
-                        <option value="Samarqand">Samarqand</option>
-                        <option value="Sirdaryo">Sirdaryo</option>
-                        <option value="Surxondaryo">Surxondaryo</option>
-                        <option value="Toshkent v.">Toshkent viloyati</option>
-                        <option value="Toshkent sh.">Toshkent shahri</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Tuman / Shahar</label>
-                    <input type="text" id="district" placeholder="Masalan: Marhamat tumani" required>
-                </div>
-                <div class="form-group">
-                    <label>Maktab yoki OTM nomi</label>
-                    <input type="text" id="school" placeholder="Masalan: 15-maktab yoki TATU" required>
-                </div>
-                <button type="submit" class="btn">Kirish va Testni Boshlash</button>
-            </form>
-        </div>
+<header>
 
-        <div id="subjectSection" class="card-box hidden">
-            <h2 id="welcomeText">Xush kelibsiz!</h2>
-            <p style="text-align:center; margin-bottom:15px;">Test topshirmoqchi bo'lgan fanning ustiga bosing:</p>
-            <div class="grid">
-                <div class="item-card" onclick="chooseSubject('Geografiya')">Geografiya</div>
-                <div class="item-card" onclick="chooseSubject('Matematika')">Matematika</div>
-                <div class="item-card" onclick="chooseSubject('Fizika')">Fizika</div>
-                <div class="item-card" onclick="chooseSubject('Ona tili')">Ona tili va adabiyot</div>
-                <div class="item-card" onclick="chooseSubject('Tarix')">Tarix</div>
-                <div class="item-card" onclick="chooseSubject('Biologiya')">Biologiya</div>
-                <div class="item-card" onclick="chooseSubject('Kimyo')">Kimyo</div>
-                <div class="item-card" onclick="chooseSubject('Ingliz tili')">Ingliz tili</div>
-            </div>
-            <br>
-            <button class="btn btn-sec" onclick="showRating()">Umumiy Reytingni Ko'rish</button>
-        </div>
+<div class="logo">
+📚 Milliy Sertifikat
+</div>
 
-        <div id="modeSection" class="card-box hidden">
-            <h2 id="selectedSubTitle">Tanlangan fan</h2>
-            <p style="text-align:center; margin-bottom:15px;">Yo'nalish va test darajasini tanlang:</p>
-            <div class="grid">
-                <div class="item-card" onclick="startTest('Attestatsiya')">
-                    <h3>Attestatsiya</h3>
-                    <p style="font-size:0.8rem; color:#6c757d; margin-top:5px;">50 ta savol • Yuqori qiyinlik</p>
-                </div>
-                <div class="item-card" onclick="startTest('Milliy Sertifikat')">
-                    <h3>Milliy Sertifikat</h3>
-                    <p style="font-size:0.8rem; color:#6c757d; margin-top:5px;">50 ta savol • Murakkab daraja</p>
-                </div>
-            </div>
-            <br>
-            <button class="btn btn-sec" onclick="goHome()">Orqaga qaytish</button>
-        </div>
+<button class="secondary" onclick="showPage('home')">
+Bosh sahifa
+</button>
 
-        <div id="quizSection" class="card-box hidden">
-            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #eee; padding-bottom:10px; margin-bottom:15px;">
-                <h3 id="quizHead">Test</h3>
-                <span>Savol: <strong id="qNum">1</strong>/<span id="qTotal">50</span></span>
-            </div>
-            <div id="qText" style="font-size:1.1rem; font-weight:600; margin-bottom:15px;"></div>
-            <div id="optsBox"></div>
-            <div style="margin-top:20px; display:flex; gap:10px;">
-                <button class="btn" onclick="nextQ()">Keyingi savol &rarr;</button>
-            </div>
-        </div>
+</header>
 
-        <div id="resultSection" class="card-box hidden">
-            <h2>Test Natijasi va Reyting</h2>
-            <div id="userScore" style="text-align:center; font-size:1.8rem; color:#2a5298; font-weight:bold; margin:10px 0;"></div>
-            
-            <h3>Barcha Qatnashchilar Reytingi</h3>
-            <div style="overflow-x:auto;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Ism Familiya</th>
-                            <th>Viloyat/Tuman</th>
-                            <th>Muassasa</th>
-                            <th>Fan / Yo'nalish</th>
-                            <th>Ball</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ratingTable"></tbody>
-                </table>
-            </div>
-            <br>
-            <button class="btn" onclick="goHome()">Bosh Sahifaga Qaytish</button>
-        </div>
-    </div>
 
-    <footer>
-        <p>Muallif: <strong>Nurmataliyev Muzaffar</strong></p>
-        <p>© 2026 Barcha huquqlar himoyalangan.</p>
-    </footer>
+<!-- ================= HOME ================= -->
 
-    <script>
-        const sampleQuestions = {
-            "Geografiya": [
-                { q: "O'zbekiston relyefining qaysi qismida karst g'orlari va morfostrukturalari ko'p uchraydi?", opts: ["Zarafshon va Hisor tizmalarida", "Qizilqum plato qismida", "Ustyurt platosida", "Farg'ona botig'ida"], a: 0 },
-                { q: "Quyosh radiatsiyasining yillik miqdori va balans ko'rsatkichlari eng yuqori bo'lgan hudud:", opts: ["Termiz va Sherobod tekisliklari", "Toshkent shahri", "Nukus shahri", "Andijon viloyati"], a: 0 },
-                { q: "O'zbekistonning qaysi daryo havzasida gidroenergetika salohiyati va zaxirasi eng yuqori?", opts: ["Chirchiq, Ohangaron va Pskom", "Sirdaryo va Zarafshon", "Amudaryo va Surxondaryo", "Qashqadaryo va Sherobod"], a: 0 },
-                { q: "Aholi zichligi va tabiiy resurslar ta'minoti bo'yicha sug'oriladigan yerlar ulushi eng yuqori voha:", opts: ["Farg'ona vohasi", "Zarafshon vohasi", "Surxon-Sherobod vohasi", "Amudaryo quyi botiqlari"], a: 0 },
-                { q: "Ekologik muammolar sababli sho'rlanish darajasi eng yuqori bo'lgan tuproq zonasi:", opts: ["Orolbo'yi va Qashqadaryo quyi qismi", "Toshkent va Sirdaryo", "Namangan va Andijon", "Samarqand va Navoiy"], a: 0 }
-            ],
-            "Matematika": [
-                { q: "f(x) = x³ - 3x² + 4 funksiyaning [0; 3] kesmadagi eng katta va eng kichik qiymatlari yig'indisini toping.", opts: ["8", "4", "6", "10"], a: 0 },
-                { q: "log₂ (x² - 3x) = 2 tenglamaning ildizlari ko'paytmasini toping.", opts: ["-4", "4", "3", "-3"], a: 0 },
-                { q: "x² - 5x + 6 = 0 tenglamaning ildizlari yig'indisini toping.", opts: ["5", "6", "-5", "-6"], a: 0 }
-            ],
-            "Ona tili": [
-                { q: "Qaysi gapda o'zlik nisbatidagi fe'l qatnashgan?", opts: ["U uzoq o'yga toldi va kiyindi.", "Xat ertaga yuboriladi.", "Ishchilar tezda toptandi.", "Eshik zudlik bilan ochildi."], a: 0 }
-            ]
+<section id="home">
+
+<div class="hero">
+
+<span class="tag">
+Milliy Sertifikat va Attestatsiya
+</span>
+
+<h1>
+50 ta test · 200 ta savol
+</h1>
+
+<p>
+Yuqori qiyinlikdagi tayyorgarlik test platformasi.
+</p>
+
+<div class="grid">
+
+<div class="stat">
+Test variantlari
+<b>50</b>
+</div>
+
+<div class="stat">
+Savollar bazasi
+<b>200</b>
+</div>
+
+<div class="stat">
+Daraja
+<b>Yuqori</b>
+</div>
+
+</div>
+
+<div class="actions">
+
+<button class="primary"
+onclick="showPage('register')">
+📝 Testni boshlash
+</button>
+
+<button class="secondary"
+onclick="showPage('ranking');renderRanking()">
+🏆 Reyting
+</button>
+
+<button class="secondary"
+onclick="showPage('admin')">
+🔐 Admin
+</button>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>Fanlar</h2>
+
+<div class="grid">
+
+<div>📐 Matematika</div>
+<div>📖 Ona tili va adabiyot</div>
+<div>⚗️ Kimyo</div>
+<div>🧬 Biologiya</div>
+<div>⚡ Fizika</div>
+<div>🌍 Geografiya</div>
+<div>📜 Tarix</div>
+<div>👨‍🏫 Attestatsiya</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= REGISTER ================= -->
+
+<section id="register" class="hide">
+
+<div class="card">
+
+<h2>📝 Ro‘yxatdan o‘tish</h2>
+
+<p>
+Test boshlashdan oldin ma'lumotlaringizni kiriting.
+</p>
+
+<div class="grid">
+
+<div>
+<label>Viloyat</label>
+
+<select id="region">
+
+<option value="">Tanlang</option>
+
+<option>Toshkent shahri</option>
+<option>Toshkent viloyati</option>
+<option>Samarqand viloyati</option>
+<option>Buxoro viloyati</option>
+<option>Andijon viloyati</option>
+<option>Farg‘ona viloyati</option>
+<option>Namangan viloyati</option>
+<option>Qashqadaryo viloyati</option>
+<option>Surxondaryo viloyati</option>
+<option>Jizzax viloyati</option>
+<option>Sirdaryo viloyati</option>
+<option>Navoiy viloyati</option>
+<option>Xorazm viloyati</option>
+<option>Qoraqalpog‘iston Respublikasi</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Tuman / shahar</label>
+
+<input
+id="district"
+placeholder="Tuman yoki shahar"
+/>
+
+</div>
+
+
+<div>
+
+<label>Ism</label>
+
+<input
+id="firstName"
+placeholder="Ismingiz"
+/>
+
+</div>
+
+
+<div>
+
+<label>Familiya</label>
+
+<input
+id="lastName"
+placeholder="Familiyangiz"
+/>
+
+</div>
+
+
+<div>
+
+<label>Tug‘ilgan sana</label>
+
+<input
+id="birthDate"
+type="date"
+/>
+
+</div>
+
+
+<div>
+
+<label>Telefon raqami</label>
+
+<input
+id="phone"
+placeholder="+998 90 123 45 67"
+/>
+
+</div>
+
+
+<div>
+
+<label>Yo‘nalish</label>
+
+<select id="examType">
+
+<option>Milliy sertifikat</option>
+<option>Attestatsiya</option>
+
+</select>
+
+</div>
+
+
+<div>
+
+<label>Fan</label>
+
+<select id="subject">
+
+<option>Matematika</option>
+<option>Ona tili va adabiyot</option>
+<option>Kimyo</option>
+<option>Biologiya</option>
+<option>Fizika</option>
+<option>Geografiya</option>
+<option>Tarix</option>
+
+</select>
+
+</div>
+
+</div>
+
+
+<div class="notice">
+
+🔒 Telefon raqami va tug‘ilgan sana oddiy reytingda ko‘rsatilmaydi.
+Faqat admin panelda ko‘rinadi.
+
+</div>
+
+
+<button
+class="primary"
+onclick="startTest()">
+
+Ro‘yxatdan o‘tish va testni boshlash
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= TEST ================= -->
+
+<section id="test" class="hide">
+
+<div class="card">
+
+<div style="display:flex;justify-content:space-between">
+
+<b id="testName">
+Test
+</b>
+
+<span class="tag" id="timer">
+30:00
+</span>
+
+</div>
+
+<br>
+
+<div class="progress">
+
+<div
+class="bar"
+id="progressBar">
+</div>
+
+</div>
+
+<p id="questionNumber"></p>
+
+<h2 id="questionText"></h2>
+
+<div id="answers"></div>
+
+<div class="actions">
+
+<button
+class="secondary"
+onclick="previousQuestion()">
+
+← Oldingi
+
+</button>
+
+<button
+class="primary"
+onclick="nextQuestion()">
+
+Keyingi →
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= RESULT ================= -->
+
+<section id="result" class="hide">
+
+<div class="card">
+
+<h2>🎉 Test yakunlandi</h2>
+
+<div class="grid">
+
+<div class="stat">
+
+To‘g‘ri javoblar
+
+<b id="correctResult">
+0
+</b>
+
+</div>
+
+
+<div class="stat">
+
+Xato javoblar
+
+<b id="wrongResult">
+0
+</b>
+
+</div>
+
+
+<div class="stat">
+
+Natija
+
+<b id="percentResult">
+0%
+</b>
+
+</div>
+
+</div>
+
+<br>
+
+<button
+class="primary"
+onclick="showPage('ranking');renderRanking()">
+
+🏆 Reytingni ko‘rish
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ================= RANKING ================= -->
+
+<section id="ranking" class="hide">
+
+<div class="card">
+
+<h2>🏆 Umumiy reyting</h2>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>O‘rin</th>
+<th>Ishtirokchi</th>
+<th>Viloyat</th>
+<th>Fan</th>
+<th>Test</th>
+<th>Jami ball</th>
+<th>O‘rtacha</th>
+
+</tr>
+
+</thead>
+
+<tbody id="rankingBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= ADMIN ================= -->
+
+<section id="admin" class="hide">
+
+<div class="card" id="adminLogin">
+
+<h2>🔐 Admin panel</h2>
+
+<p>
+Faqat sayt egasi uchun.
+</p>
+
+<input
+id="adminPassword"
+type="password"
+placeholder="Admin paroli"
+>
+
+<br><br>
+
+<button
+class="primary"
+onclick="loginAdmin()">
+
+Kirish
+
+</button>
+
+</div>
+
+
+<div
+class="card hide"
+id="adminPanel">
+
+<h2>👑 Admin panel</h2>
+
+<div class="grid">
+
+<div class="stat">
+
+Ishtirokchilar
+
+<b id="totalUsers">
+0
+</b>
+
+</div>
+
+
+<div class="stat">
+
+Test topshirishlar
+
+<b id="totalTests">
+0
+</b>
+
+</div>
+
+
+<div class="stat">
+
+O‘rtacha natija
+
+<b id="averageResult">
+0%
+</b>
+
+</div>
+
+</div>
+
+<br>
+
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>#</th>
+<th>F.I.Sh.</th>
+<th>Viloyat / Tuman</th>
+<th>Tug‘ilgan sana</th>
+<th>Telefon</th>
+<th>Fan</th>
+<th>Natija</th>
+
+</tr>
+
+</thead>
+
+<tbody id="adminBody">
+
+</tbody>
+
+</table>
+
+</div>
+
+<br>
+
+<button
+class="danger"
+onclick="deleteAllData()">
+
+🗑 Barcha ma'lumotlarni o‘chirish
+
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   200 TA SAVOL BAZASI
+   ===================================================== */
+
+const questionBank = [
+
+{
+subject:"Matematika",
+question:"f(x)=x²−4x+7 funksiyaning eng kichik qiymati nechaga teng?",
+answers:["3","4","7","-3"],
+correct:0
+},
+
+{
+subject:"Matematika",
+question:"2^(x+1)=32 bo‘lsa, x ni toping.",
+answers:["3","4","5","6"],
+correct:1
+},
+
+{
+subject:"Matematika",
+question:"x²−5x+6=0 tenglama ildizlari yig‘indisi nechaga teng?",
+answers:["5","6","-5","-6"],
+correct:0
+},
+
+{
+subject:"Fizika",
+question:"Jism tezligi 2 marta oshsa, kinetik energiyasi qanday o‘zgaradi?",
+answers:["2 marta oshadi","4 marta oshadi","2 marta kamayadi","O‘zgarmaydi"],
+correct:1
+},
+
+{
+subject:"Fizika",
+question:"Qarshilik 2 marta oshib, kuchlanish o‘zgarmasa tok qanday o‘zgaradi?",
+answers:["2 marta kamayadi","2 marta oshadi","4 marta oshadi","O‘zgarmaydi"],
+correct:0
+},
+
+{
+subject:"Kimyo",
+question:"0.5 mol H₂SO₄ tarkibida nechta molekula mavjud? NA=6.02×10²³",
+answers:["3.01×10²³","6.02×10²³","1.204×10²⁴","3.01×10²²"],
+correct:0
+},
+
+{
+subject:"Biologiya",
+question:"AaBb × AaBb chatishtirishda aabb genotipining ehtimoli qancha?",
+answers:["1/16","1/8","1/4","3/16"],
+correct:0
+},
+
+{
+subject:"Biologiya",
+question:"ATP sintezining asosiy qismi qaysi organoidda amalga oshadi?",
+answers:["Mitoxondriya","Ribosoma","Lizosoma","Golji apparati"],
+correct:0
+},
+
+{
+subject:"Geografiya",
+question:"Quruqlik yuzasining baland-pastlik shakllari majmui nima deyiladi?",
+answers:["Relief","Iqlim","Biosfera","Gidrosfera"],
+correct:0
+},
+
+{
+subject:"Tarix",
+question:"Amir Temur davlatida markazlashuvni kuchaytirgan asosiy omil qaysi?",
+answers:[
+"Markazlashgan boshqaruv",
+"Qabilalar mustaqilligi",
+"Soliqlarni bekor qilish",
+"Shaharlarning to‘liq mustaqilligi"
+],
+correct:0
+},
+
+{
+subject:"Ona tili va adabiyot",
+question:"Qaysi birikmada so‘z ko‘chma ma'noda qo‘llangan?",
+answers:[
+"Oltin kuz",
+"Temir qoshiq",
+"Yangi kitob",
+"Yashil daftar"
+],
+correct:0
+}
+
+];
+
+
+/*
+   200 TA SAVOLGA NAMUNAVIY BAZA
+*/
+
+let allQuestions=[];
+
+for(let i=0;i<200;i++){
+
+    let q=questionBank[i % questionBank.length];
+
+    allQuestions.push({
+
+        subject:q.subject,
+
+        question:
+        q.question+"  [Savol №"+(i+1)+"]",
+
+        answers:q.answers,
+
+        correct:q.correct
+
+    });
+
+}
+
+
+/* =====================================================
+   O‘ZGARUVCHILAR
+   ===================================================== */
+
+let currentQuestion=0;
+
+let selectedAnswers=[];
+
+let currentUser=null;
+
+let timerSeconds=30*60;
+
+let timerInterval=null;
+
+
+/* =====================================================
+   PAGE
+   ===================================================== */
+
+function showPage(page){
+
+    document
+    .querySelectorAll("section")
+    .forEach(section=>{
+        section.classList.add("hide");
+    });
+
+    document
+    .getElementById(page)
+    .classList.remove("hide");
+
+}
+
+
+/* =====================================================
+   TEST BOSHLASH
+   ===================================================== */
+
+function startTest(){
+
+    const region=
+    document.getElementById("region").value;
+
+    const district=
+    document.getElementById("district").value;
+
+    const firstName=
+    document.getElementById("firstName").value;
+
+    const lastName=
+    document.getElementById("lastName").value;
+
+    const birthDate=
+    document.getElementById("birthDate").value;
+
+    const phone=
+    document.getElementById("phone").value;
+
+    const examType=
+    document.getElementById("examType").value;
+
+    const subject=
+    document.getElementById("subject").value;
+
+
+    if(
+        !region ||
+        !district ||
+        !firstName ||
+        !lastName ||
+        !birthDate ||
+        !phone
+    ){
+
+        alert(
+        "Iltimos, barcha ma'lumotlarni to‘ldiring!"
+        );
+
+        return;
+    }
+
+
+    currentUser={
+
+        region,
+        district,
+        firstName,
+        lastName,
+        birthDate,
+        phone,
+        examType,
+        subject
+
+    };
+
+
+    currentQuestion=0;
+
+    selectedAnswers=[];
+
+    timerSeconds=30*60;
+
+
+    document.getElementById("testName")
+    .innerText=
+    examType+" — "+subject;
+
+
+    showPage("test");
+
+    renderQuestion();
+
+    startTimer();
+
+}
+
+
+/* =====================================================
+   SAVOLNI CHIQARISH
+   ===================================================== */
+
+function renderQuestion(){
+
+    /*
+      Har bir testda 50 ta savol.
+      Savollar 200 talik bazadan olinadi.
+    */
+
+    const index=
+    currentQuestion % allQuestions.length;
+
+    const q=
+    allQuestions[index];
+
+
+    document.getElementById("questionNumber")
+    .innerText=
+    "Savol "+
+    (currentQuestion+1)+
+    " / 50";
+
+
+    document.getElementById("questionText")
+    .innerText=
+    q.question;
+
+
+    document.getElementById("progressBar")
+    .style.width=
+    ((currentQuestion+1)/50*100)+"%";
+
+
+    const answers=
+    document.getElementById("answers");
+
+    answers.innerHTML="";
+
+
+    q.answers.forEach((answer,index)=>{
+
+        const button=
+        document.createElement("button");
+
+        button.className="option";
+
+        if(selectedAnswers[currentQuestion]===index){
+
+            button.classList.add("selected");
+
+        }
+
+        button.innerText=
+        String.fromCharCode(65+index)+
+        ") "+
+        answer;
+
+
+        button.onclick=function(){
+
+            selectedAnswers[currentQuestion]=index;
+
+            renderQuestion();
+
         };
 
-        // 50 ta savolni shakllantirish (Savol: 1/50 qilib)
-        function generate50Questions(subject, mode) {
-            const base = sampleQuestions[subject] || sampleQuestions["Geografiya"];
-            let qList = [];
-            for (let i = 1; i <= 50; i++) {
-                let baseQ = base[(i - 1) % base.length];
-                qList.push({
-                    q: `${baseQ.q} (${mode} — Variant #${i})`,
-                    opts: baseQ.opts,
-                    a: baseQ.a
-                });
-            }
-            return qList;
+
+        answers.appendChild(button);
+
+    });
+
+}
+
+
+/* =====================================================
+   NEXT
+   ===================================================== */
+
+function nextQuestion(){
+
+    if(currentQuestion<49){
+
+        currentQuestion++;
+
+        renderQuestion();
+
+    }
+
+    else{
+
+        finishTest();
+
+    }
+
+}
+
+
+/* =====================================================
+   PREVIOUS
+   ===================================================== */
+
+function previousQuestion(){
+
+    if(currentQuestion>0){
+
+        currentQuestion--;
+
+        renderQuestion();
+
+    }
+
+}
+
+
+/* =====================================================
+   TIMER
+   ===================================================== */
+
+function startTimer(){
+
+    clearInterval(timerInterval);
+
+    timerInterval=
+    setInterval(()=>{
+
+        timerSeconds--;
+
+        let minutes=
+        Math.floor(timerSeconds/60);
+
+        let seconds=
+        timerSeconds%60;
+
+
+        document.getElementById("timer")
+        .innerText=
+        String(minutes).padStart(2,"0")+
+        ":"+
+        String(seconds).padStart(2,"0");
+
+
+        if(timerSeconds<=0){
+
+            finishTest();
+
         }
 
-        let currentUser = null;
-        let selectedSub = '';
-        let selectedMode = '';
-        let currentQuestions = [];
-        let currentQIndex = 0;
-        let score = 0;
-        let tempAns = null;
-        let ratings = JSON.parse(localStorage.getItem('test_ratings') || '[]');
+    },1000);
 
-        function handleRegister(e) {
-            e.preventDefault();
-            currentUser = {
-                name: document.getElementById('fullname').value,
-                region: document.getElementById('region').value,
-                district: document.getElementById('district').value,
-                school: document.getElementById('school').value
+}
+
+
+/* =====================================================
+   TEST YAKUNI
+   ===================================================== */
+
+function finishTest(){
+
+    clearInterval(timerInterval);
+
+
+    let correct=0;
+
+
+    for(let i=0;i<50;i++){
+
+        const q=
+        allQuestions[i];
+
+        if(
+        selectedAnswers[i]===
+        q.correct
+        ){
+
+            correct++;
+
+        }
+
+    }
+
+
+    const wrong=
+    50-correct;
+
+    const percent=
+    correct*2;
+
+
+    document.getElementById("correctResult")
+    .innerText=correct;
+
+
+    document.getElementById("wrongResult")
+    .innerText=wrong;
+
+
+    document.getElementById("percentResult")
+    .innerText=percent+"%";
+
+
+    const oldData=
+    JSON.parse(
+        localStorage.getItem("participants")
+        ||"[]"
+    );
+
+
+    oldData.push({
+
+        ...currentUser,
+
+        correct,
+        wrong,
+        percent,
+
+        date:
+        new Date().toLocaleString("uz-UZ")
+
+    });
+
+
+    localStorage.setItem(
+        "participants",
+        JSON.stringify(oldData)
+    );
+
+
+    showPage("result");
+
+}
+
+
+/* =====================================================
+   REYTING
+   ===================================================== */
+
+function renderRanking(){
+
+    const data=
+    JSON.parse(
+        localStorage.getItem("participants")
+        ||"[]"
+    );
+
+
+    let users={};
+
+
+    data.forEach(item=>{
+
+        const key=
+        item.firstName+
+        " "+
+        item.lastName;
+
+
+        if(!users[key]){
+
+            users[key]={
+
+                name:key,
+
+                region:item.region,
+
+                subject:item.subject,
+
+                tests:0,
+
+                total:0
+
             };
-            document.getElementById('welcomeText').innerText = `Xush kelibsiz, ${currentUser.name}!`;
-            document.getElementById('regSection').classList.add('hidden');
-            document.getElementById('subjectSection').classList.remove('hidden');
+
         }
 
-        function chooseSubject(sub) {
-            selectedSub = sub;
-            document.getElementById('selectedSubTitle').innerText = `${sub} fani`;
-            document.getElementById('subjectSection').classList.add('hidden');
-            document.getElementById('modeSection').classList.remove('hidden');
-        }
 
-        function startTest(mode) {
-            selectedMode = mode;
-            currentQIndex = 0;
-            score = 0;
-            currentQuestions = generate50Questions(selectedSub, selectedMode);
-            
-            document.getElementById('modeSection').classList.add('hidden');
-            document.getElementById('quizSection').classList.remove('hidden');
-            document.getElementById('quizHead').innerText = `${selectedSub} - ${selectedMode}`;
-            document.getElementById('qTotal').innerText = currentQuestions.length;
-            
-            loadQuestion();
-        }
+        users[key].tests++;
 
-        function loadQuestion() {
-            const q = currentQuestions[currentQIndex];
-            
-            document.getElementById('qNum').innerText = currentQIndex + 1;
-            document.getElementById('qText').innerText = q.q;
-            
-            const box = document.getElementById('optsBox');
-            box.innerHTML = '';
-            tempAns = null;
+        users[key].total+=
+        item.percent;
 
-            q.opts.forEach((opt, i) => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.innerText = `${String.fromCharCode(65+i)}) ${opt}`;
-                btn.onclick = () => {
-                    document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-                    btn.classList.add('selected');
-                    tempAns = i;
-                };
-                box.appendChild(btn);
-            });
-        }
+    });
 
-        function nextQ() {
-            if(tempAns === currentQuestions[currentQIndex].a) score++;
 
-            currentQIndex++;
-            if(currentQIndex < currentQuestions.length) {
-                loadQuestion();
-            } else {
-                finishQuiz(currentQuestions.length);
-            }
-        }
+    const ranking=
+    Object.values(users)
+    .sort((a,b)=>b.total-a.total);
 
-        function finishQuiz(total) {
-            document.getElementById('quizSection').classList.add('hidden');
-            document.getElementById('resultSection').classList.remove('hidden');
-            
-            document.getElementById('userScore').innerText = `To'plagan ballingiz: ${score} / ${total}`;
 
-            ratings.push({
-                name: currentUser.name,
-                location: `${currentUser.region}, ${currentUser.district}`,
-                school: currentUser.school,
-                subject: `${selectedSub} (${selectedMode})`,
-                score: `${score}/${total}`
-            });
-            localStorage.setItem('test_ratings', JSON.stringify(ratings));
+    const body=
+    document.getElementById("rankingBody");
 
-            renderRatingTable();
-        }
 
-        function renderRatingTable() {
-            const tbody = document.getElementById('ratingTable');
-            tbody.innerHTML = '';
-            
-            ratings.forEach((r, idx) => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${idx + 1}</td>
-                    <td><strong>${r.name}</strong></td>
-                    <td>${r.location}</td>
-                    <td>${r.school}</td>
-                    <td>${r.subject}</td>
-                    <td><strong style="color:#2a5298">${r.score}</strong></td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
+    body.innerHTML="";
 
-        function showRating() {
-            document.getElementById('subjectSection').classList.add('hidden');
-            document.getElementById('resultSection').classList.remove('hidden');
-            document.getElementById('userScore').innerText = '';
-            renderRatingTable();
-        }
 
-        function goHome() {
-            document.getElementById('modeSection').classList.add('hidden');
-            document.getElementById('quizSection').classList.add('hidden');
-            document.getElementById('resultSection').classList.add('hidden');
-            document.getElementById('subjectSection').classList.remove('hidden');
-        }
-    </script>
+    ranking.forEach((user,index)=>{
+
+        const row=
+        document.createElement("tr");
+
+
+        row.innerHTML=`
+
+        <td>${index+1}</td>
+
+        <td>${user.name}</td>
+
+        <td>${user.region}</td>
+
+        <td>${user.subject}</td>
+
+        <td>${user.tests}</td>
+
+        <td>${user.total}</td>
+
+        <td>
+        ${(user.total/user.tests).toFixed(1)}%
+        </td>
+
+        `;
+
+
+        body.appendChild(row);
+
+    });
+
+
+    if(ranking.length===0){
+
+        body.innerHTML=`
+        <tr>
+        <td colspan="7">
+        Hali reyting mavjud emas.
+        </td>
+        </tr>
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   ADMIN LOGIN
+   ===================================================== */
+
+function loginAdmin(){
+
+    const password=
+    document.getElementById("adminPassword").value;
+
+
+    if(password!=="Muzaffar2026!"){
+
+        alert("Admin paroli noto‘g‘ri!");
+
+        return;
+
+    }
+
+
+    document
+    .getElementById("adminLogin")
+    .classList.add("hide");
+
+
+    document
+    .getElementById("adminPanel")
+    .classList.remove("hide");
+
+
+    renderAdmin();
+
+}
+
+
+/* =====================================================
+   ADMIN PANEL
+   ===================================================== */
+
+function renderAdmin(){
+
+    const data=
+    JSON.parse(
+        localStorage.getItem("participants")
+        ||"[]"
+    );
+
+
+    const users=
+    new Set(
+        data.map(
+            x=>x.firstName+" "+x.lastName
+        )
+    );
+
+
+    document.getElementById("totalUsers")
+    .innerText=
+    users.size;
+
+
+    document.getElementById("totalTests")
+    .innerText=
+    data.length;
+
+
+    let average=0;
+
+
+    if(data.length){
+
+        average=
+        data.reduce(
+            (sum,x)=>sum+x.percent,
+            0
+        )/data.length;
+
+    }
+
+
+    document.getElementById("averageResult")
+    .innerText=
+    average.toFixed(1)+"%";
+
+
+    const body=
+    document.getElementById("adminBody");
+
+
+    body.innerHTML="";
+
+
+    data.forEach((user,index)=>{
+
+        const row=
+        document.createElement("tr");
+
+
+        row.innerHTML=`
+
+        <td>${index+1}</td>
+
+        <td>
+        ${user.firstName}
+        ${user.lastName}
+        </td>
+
+        <td>
+        ${user.region}<br>
+        ${user.district}
+        </td>
+
+        <td>
+        ${user.birthDate}
+        </td>
+
+        <td>
+        ${user.phone}
+        </td>
+
+        <td>
+        ${user.examType}<br>
+        ${user.subject}
+        </td>
+
+        <td>
+        ${user.correct}/50
+        (${user.percent}%)
+        </td>
+
+        `;
+
+
+        body.appendChild(row);
+
+    });
+
+
+    if(data.length===0){
+
+        body.innerHTML=`
+        <tr>
+        <td colspan="7">
+        Hali ma'lumot yo‘q.
+        </td>
+        </tr>
+        `;
+
+    }
+
+}
+
+
+/* =====================================================
+   DATA O‘CHIRISH
+   ===================================================== */
+
+function deleteAllData(){
+
+    if(
+    confirm(
+    "Barcha ishtirokchilar ma'lumotlari o‘chirilsinmi?"
+    )
+    ){
+
+        localStorage.removeItem(
+            "participants"
+        );
+
+        renderAdmin();
+
+        renderRanking();
+
+    }
+
+}
+
+</script>
+
 </body>
 </html>
