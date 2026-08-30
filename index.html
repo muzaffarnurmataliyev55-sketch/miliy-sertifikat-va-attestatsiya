@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milliy Sertifikat va Attestatsiya Test Tizimi</title>
+    <title>Geografiya — Milliy Sertifikat va Attestatsiya Test Tizimi</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
     <style>
         :root {
@@ -222,8 +222,8 @@
 <body>
 
     <header>
-        <h1>📘 Milliy Sertifikat va Attestatsiya</h1>
-        <p id="subTitle">Tizimga kirish</p>
+        <h1>🌍 Geografiya Test Tizimi</h1>
+        <p id="subTitle">Attestatsiya va Milliy Sertifikat</p>
     </header>
 
     <div class="container">
@@ -233,11 +233,15 @@
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label>Login</label>
-                    <input type="text" id="loginInput" placeholder="Masalan: admin" required>
+                    <input type="text" id="loginInput" placeholder="Loginingizni kiriting" required>
                 </div>
                 <div class="form-group">
                     <label>Parol</label>
-                    <input type="password" id="passwordInput" placeholder="Parol: admin123" required>
+                    <input type="password" id="passwordInput" placeholder="Parolingizni kiriting" required>
+                </div>
+                <div class="form-group">
+                    <label>Ism va Familiyangiz</label>
+                    <input type="text" id="userRealNameInput" placeholder="Ism Familiya" required>
                 </div>
                 <button type="submit" class="btn" style="margin-top: 8px;">Kirish</button>
             </form>
@@ -258,24 +262,12 @@
                 <button class="btn btn-gray" onclick="showRating()">🏆 Reyting</button>
             </div>
 
-            <h3 style="font-size: 1rem; color: var(--text-dark);">Test topshirish uchun fanni tanlang:</h3>
+            <h3 style="font-size: 1rem; color: var(--text-dark);">Geografiya test moduli:</h3>
 
             <div class="section-card" onclick="chooseSubject('Geografiya')">
-                <div class="section-title">🌍 Geografiya</div>
-                <div class="section-desc">Attestatsiya va Milliy Sertifikat testlari</div>
-                <div class="question-badge">10,000+ Savollar bazasi (50 ta savol)</div>
-            </div>
-
-            <div class="section-card" onclick="chooseSubject('Matematika')">
-                <div class="section-title">📐 Matematika</div>
-                <div class="section-desc">Attestatsiya va Milliy Sertifikat testlari</div>
-                <div class="question-badge">10,000+ Savollar bazasi (50 ta savol)</div>
-            </div>
-
-            <div class="section-card" onclick="chooseSubject('Ona tili va Adabiyot')">
-                <div class="section-title">📖 Ona tili va Adabiyot</div>
-                <div class="section-desc">Attestatsiya va Milliy Sertifikat testlari</div>
-                <div class="question-badge">10,000+ Savollar bazasi (50 ta savol)</div>
+                <div class="section-title">🌍 Geografiya Fani</div>
+                <div class="section-desc">Attestatsiya va Milliy Sertifikat imtihonlari uchun</div>
+                <div class="question-badge">70 ta noyob va takrorlanmas savol</div>
             </div>
 
             <button id="adminBtn" class="btn btn-finish hidden" onclick="showAdminPanel()">👑 Admin Panel (Login/Parol berish)</button>
@@ -288,12 +280,12 @@
             <div class="stats-grid">
                 <div class="stat-card"><div class="val" id="cabTotalTests">0</div><div class="lbl">Jami testlar</div></div>
                 <div class="stat-card"><div class="val" id="cabAvgScore">0%</div><div class="lbl">O'rtacha ball</div></div>
-                <div class="stat-card"><div class="val" id="cabBestScore">0/50</div><div class="lbl">Eng yuqori</div></div>
+                <div class="stat-card"><div class="val" id="cabBestScore">0/70</div><div class="lbl">Eng yuqori</div></div>
             </div>
             <h4 style="font-size: 0.95rem;">Test topshirishlar tarixi:</h4>
             <div style="overflow-x:auto;">
                 <table>
-                    <thead><tr><th>Sana</th><th>Fan</th><th>Natija</th><th>Vaqt</th></tr></thead>
+                    <thead><tr><th>Sana</th><th>Bo'lim</th><th>Natija</th><th>Vaqt</th></tr></thead>
                     <tbody id="cabinetHistoryTable"></tbody>
                 </table>
             </div>
@@ -302,15 +294,15 @@
 
         <!-- 4. TEST MODE -->
         <div id="modeSection" class="card-box hidden">
-            <h3 id="selectedSubjectTitle" style="text-align: center; color: var(--blue-main);">Fan</h3>
+            <h3 style="text-align: center; color: var(--blue-main);">Geografiya Fani</h3>
             <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">Vaqt: 1.5 Soat (90 minut)</p>
             <div class="section-card" onclick="startQuiz('Attestatsiya')">
                 <div class="section-title">📘 Attestatsiya Testi</div>
-                <div class="section-desc">50 ta tasodifiy savol • Vaqt: 1.5 Soat</div>
+                <div class="section-desc">70 ta noyob savol • Vaqt: 1.5 Soat</div>
             </div>
             <div class="section-card" onclick="startQuiz('Milliy Sertifikat')">
                 <div class="section-title">📗 Milliy Sertifikat Testi</div>
-                <div class="section-desc">50 ta murakkablashtirilgan savol • Vaqt: 1.5 Soat</div>
+                <div class="section-desc">70 ta murakkablashtirilgan savol • Vaqt: 1.5 Soat</div>
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga</button>
         </div>
@@ -318,11 +310,11 @@
         <!-- 5. QUIZ SOHASI -->
         <div id="quizSection" class="card-box hidden">
             <div class="timer-bar">
-                <span id="quizHead" style="color: var(--blue-main);">Test</span>
+                <span id="quizHead" style="color: var(--blue-main);">Geografiya</span>
                 <span class="timer-time" id="timerDisplay">01:30:00</span>
             </div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:0.85rem;">Savol: <strong id="qNum">1</strong>/<span id="qTotal">50</span></span>
+                <span style="font-size:0.85rem;">Savol: <strong id="qNum">1</strong>/<span id="qTotal">70</span></span>
                 <button class="btn btn-finish" style="width:auto; padding:6px 14px; font-size:0.8rem;" onclick="confirmFinishQuiz()">🏁 Yakunlash</button>
             </div>
             <div id="qText" style="font-size:1rem; font-weight:700;"></div>
@@ -337,7 +329,7 @@
         <div id="resultSection" class="card-box hidden">
             <h2 style="font-size: 1.3rem; text-align: center;">🏁 Test Natijasi va Tahlili</h2>
             <div class="stats-grid">
-                <div class="stat-card"><div class="val" id="resScoreText">0/50</div><div class="lbl">To'g'ri javob</div></div>
+                <div class="stat-card"><div class="val" id="resScoreText">0/70</div><div class="lbl">To'g'ri javob</div></div>
                 <div class="stat-card"><div class="val" id="resPercentText">0%</div><div class="lbl">Foiz</div></div>
                 <div class="stat-card"><div class="val" id="resTimeText">00:00</div><div class="lbl">Sarflangan vaqt</div></div>
             </div>
@@ -351,7 +343,7 @@
             <h2 style="font-size: 1.2rem; text-align: center;">🏆 Umumiy Reyting</h2>
             <div style="overflow-x:auto;">
                 <table>
-                    <thead><tr><th>#</th><th>Ism Familiya</th><th>Muassasa</th><th>Fan</th><th>Ball</th></tr></thead>
+                    <thead><tr><th>#</th><th>Ism Familiya</th><th>Muassasa</th><th>Natija</th></tr></thead>
                     <tbody id="ratingTable"></tbody>
                 </table>
             </div>
@@ -362,17 +354,16 @@
         <div id="adminSection" class="card-box hidden">
             <h2 style="font-size: 1.2rem; text-align: center;">👑 Admin Panel</h2>
             <form id="addUserForm" onsubmit="createNewUser(event)">
-                <h4>Yangi login/parol berish:</h4>
-                <div class="form-group"><input type="text" id="newLogin" placeholder="Login" required></div>
-                <div class="form-group"><input type="text" id="newPass" placeholder="Parol" required></div>
-                <div class="form-group"><input type="text" id="newName" placeholder="Ism Familiya" required></div>
-                <div class="form-group"><input type="text" id="newSchool" placeholder="Maktab/Tashkilot" required></div>
+                <h4>Yangi login/parol (Guruh/Tashkilot uchun) berish:</h4>
+                <div class="form-group"><input type="text" id="newLogin" placeholder="Yangi Login" required></div>
+                <div class="form-group"><input type="text" id="newPass" placeholder="Yangi Parol" required></div>
+                <div class="form-group"><input type="text" id="newSchool" placeholder="Maktab yoki Tashkilot nomi" required></div>
                 <button type="submit" class="btn" style="margin-top:5px;">Qo'shish</button>
             </form>
-            <h4 style="margin-top:10px;">Barcha foydalanuvchilar:</h4>
+            <h4 style="margin-top:10px;">Mavjud Login/Parollar ro'yxati:</h4>
             <div style="overflow-x:auto;">
                 <table>
-                    <thead><tr><th>Login</th><th>Parol</th><th>Ismi</th><th>Maktabi</th></tr></thead>
+                    <thead><tr><th>Login</th><th>Parol</th><th>Tashkilot</th></tr></thead>
                     <tbody id="adminUsersTable"></tbody>
                 </table>
             </div>
@@ -381,56 +372,124 @@
     </div>
 
     <script>
-        const subjectTemplates = {
-            "Geografiya": [
-                { q: "O'zbekiston relyefining qaysi qismida karst g'orlari ko'p uchraydi?", right: "Zarafshon va Hisor tizmalarida", wr: ["Qizilqum plato qismida", "Ustyurt platosida", "Farg'ona botig'ida"] },
-                { q: "Quyosh radiatsiyasining yillik miqdori eng yuqori bo'lgan hudud:", right: "Termiz va Sherobod tekisliklari", wr: ["Toshkent shahri", "Nukus shahri", "Andijon viloyati"] },
-                { q: "O'zbekistonda eng past absolut balandlikka ega bo'lgan botiq qaysi?", right: "Mingbuloq botiq (-12 m)", wr: ["Katta tuzkon", "Dengizko'l", "Sariqamish botiq"] }
-            ],
-            "Matematika": [
-                { q: "f(x) = x³ - 3x² + 4 funksiyaning [0; 3] kesmadagi eng katta qiymatini toping.", right: "4", wr: ["8", "6", "10"] },
-                { q: "2x + 15 = 45 tenglamaning ildizini toping.", right: "15", wr: ["10", "20", "30"] }
-            ],
-            "Ona tili va Adabiyot": [
-                { q: "Qaysi gapda o'zlik nisbatidagi fe'l qatnashgan?", right: "U uzoq o'yga toldi va kiyindi.", wr: ["Xat ertaga yuboriladi.", "Ishchilar tezda toptandi.", "Eshik ochildi."] }
-            ]
-        };
+        // GEOGRAFIYA FANI BO'YICHA TO'LIQ 70 TA SAVOLLAR BAZASI
+        const geographyQuestionsBase = [
+            { q: "O'zbekiston relyefining qaysi qismida karst g'orlari ko'p uchraydi?", right: "Zarafshon va Hisor tizmalarida", wr: ["Qizilqum plato qismida", "Ustyurt platosida", "Farg'ona botig'ida"] },
+            { q: "Quyosh radiatsiyasining yillik miqdori eng yuqori bo'lgan hudud:", right: "Termiz va Sherobod tekisliklari", wr: ["Toshkent shahri", "Nukus shahri", "Andijon viloyati"] },
+            { q: "O'zbekistonda eng past absolut balandlikka ega bo'lgan botiq qaysi?", right: "Mingbuloq botiq (-12 m)", wr: ["Katta tuzkon", "Dengizko'l", "Sariqamish botiq"] },
+            { q: "Dunyodagi eng uzun tog' tizmasi qaysi?", right: "And tog'lari", wr: ["Kordilyera", "Himalay", "Alp"] },
+            { q: "Afrika qit'asining eng baland nuqtasi qaysi?", right: "Kilimanjaro", wr: ["Keniya", "Elbrus", "Monblan"] },
+            { q: "Dunyoning eng chuqur ko'li qaysi?", right: "Baykal", wr: ["Kaspiy", "Tanganika", "Yuqori ko'l"] },
+            { q: "O'zbekistonda joylashgan eng yirik muzlik qaysi?", right: "Seversov muzligi", wr: ["Fedchenko muzligi", "Tyon-Shon muzligi", "Zarafshon muzligi"] },
+            { q: "Qaysi daryo O'zbekiston hududidan o'tmaydi?", right: "Dunay", wr: ["Sirdaryo", "Amudaryo", "Zarafshon"] },
+            { q: "Dunyodagi eng katta orol qaysi?", right: "Grenlandiya", wr: ["Madagaskar", "Kalimantan", "Sumatra"] },
+            { q: "Yer shari necha vaqt mintaqasiga bo mezon qilingan?", right: "24 ta", wr: ["12 ta", "36 ta", "18 ta"] },
+            { q: "O'zbekiston Respublikasi maydoni qanchaga teng?", right: "448.9 ming kv.km", wr: ["500.5 ming kv.km", "410.2 ming kv.km", "380.0 ming kv.km"] },
+            { q: "Dunyoning eng baland sharsharasi qaysi?", right: "Anxel", wr: ["Niagara", "Viktoriya", "Iguasu"] },
+            { q: "Janubiy Amerikaning eng katta davlati qaysi?", right: "Braziliya", wr: ["Argentina", "Kolumbiya", "Peru"] },
+            { q: "Toshkent shahri qaysi daryo havzasida joylashgan?", right: "Chirchiq daryosi", wr: ["Zarafshon daryosi", "Naryn daryosi", "Surxondaryo"] },
+            { q: "Dunyoning eng chuqur okean botiqligi qaysi?", right: "Mariana botiqligi", wr: ["Yava botiqligi", "Puerto-Riko", "Sond"] },
+            { q: "Dunyoning eng katta yarimoroli qaysi?", right: "Arabiston yarimoroli", wr: ["Hindiston", "Skandinaviya", "Labrador"] },
+            { q: "Shimoliy Amerika va Osiyoni ajratib turuvchi bo'g'oz qaysi?", right: "Bering bo'g'ozi", wr: ["Gibraltar", "Magellan", "Suvets"] },
+            { q: "O'zbekistonning eng sharqiy nuqtasi qaysi viloyatda joylashgan?", right: "Andijon viloyati", wr: ["Farg'ona", "Namangan", "Toshkent"] },
+            { q: "Evropa va Osiyo qit'alarini ajratib turuvchi tog' tizmasi:", right: "Ural tog'lari", wr: ["Kavkaz tog'lari", "Alp tog'lari", "Oltoy tog'lari"] },
+            { q: "Tinch okeanini Atlantika okeani bilan bog'laydigan sun'iy kanal:", right: "Panama kanali", wr: ["Suvaysh kanali", "Kil kanali", "Koreya bo'g'ozi"] },
+            { q: "O'zbekiston bilan eng uzun chegaraga ega bo'lgan qo'shni davlat:", right: "Qozog'iston", wr: ["Turkmaniston", "Tojikiston", "Qirg'iziston"] },
+            { q: "Dunyoning eng katta cho'li qaysi?", right: "Sahroi Kabir", wr: ["Gobi", "Kalahari", "Qizilqum"] },
+            { q: "Gimalay tog'larining eng baland cho'qqisi —", right: "Everest (Jomolungma)", wr: ["K2", "Kanchenjanga", "Lxotse"] },
+            { q: "Yaponiya davlati joylashgan materik:", right: "Evroosiyo", wr: ["Afrika", "Avstraliya", "Shimoliy Amerika"] },
+            { q: "Dunyoning eng serhavza daryosi qaysi?", right: "Amazonka", wr: ["Nil", "Missisipi", "Yanszi"] },
+            { q: "O'zbekistonning eng baland cho'qqisi (Hazrati Sulton, 4643m) qaysi tog' tizmasida?", right: "Hisor tizmasida", wr: ["Chatqol tizmasida", "Pskem tizmasida", "Zarafshon tizmasida"] },
+            { q: "Avstraliyaning eng baland cho'qqisi qaysi?", right: "Koscyushko", wr: ["Cook", "Elbrus", "Kilmianjaro"] },
+            { q: "Qizil dengiz bilan O'rta dengizni bog'laydigan kanal:", right: "Suvaysh kanali", wr: ["Panama kanali", "Kipr bo'g'ozi", "Kichik bo'g'oz"] },
+            { q: "Aholisi soni bo'yicha dunyoda birinchi o'rinda turuvchi davlat:", right: "Hindiston", wr: ["Xitoy", "AQSH", "Indoneziya"] },
+            { q: "O'zbekistonda marmar konlari ko'p topilgan hudud:", right: "G'ozg'on va Nurota", wr: ["Chirchiq", "Buxoro", "Quvasoy"] },
+            { q: "Katta Suvayg'ich tog' tizmasi qaysi materikda joylashgan?", right: "Avstraliya", wr: ["Afrika", "Shimoliy Amerika", "Janubiy Amerika"] },
+            { q: "Dunyoning eng yirik ko'l-dengizi qaysi?", right: "Kaspiy dengizi", wr: ["Orol dengizi", "Viktoriya", "Michigan"] },
+            { q: "O'zbekiston Respublikasining ma'muriy-hududiy tuzilishi nechta viloyatdan iborat?", right: "12 ta viloyat, 1 ta respublika, 1 ta Toshkent shahri", wr: ["14 ta viloyat", "10 ta viloyat", "11 ta viloyat"] },
+            { q: "Antarktida materigini kimlar kashf etgan?", right: "F.Bellinsgauzen va M.Lazarev", wr: ["X.Kolumb", "J.Kuk", "F.Magellan"] },
+            { q: "Okeaniya hududidagi eng katta orol mamlakat:", right: "Yangi Zelandiya", wr: ["Fidji", "Samoa", "Tonga"] },
+            { q: "O'zbekistonning qaysi viloyati issiqxona gazlari va gaz zaxirasiga eng boy?", right: "Buxoro va Qashqadaryo", wr: ["Farg'ona", "Toshkent", "Xorazm"] },
+            { q: "Yer markazidagi qatlam nima deyiladi?", right: "Yadro", wr: ["Mantiya", "Litosfera", "Yer po'sti"] },
+            { q: "Mutlaq balandlik nimadan hisoblanadi?", right: "Dengiz sathidan", wr: ["Tog' etagidan", "Okean tubidan", "Tekislikdan"] },
+            { q: "Eng kichik materik qaysi?", right: "Avstraliya", wr: ["Antarktida", "Janubiy Amerika", "Evroosiyo"] },
+            { q: "Mavsumiy esuvchi shamollar nima deyiladi?", right: "Mussonlar", wr: ["Passatlar", "Brizlar", "Siklonlar"] },
+            { q: "O'zbekistonning suv omborlaridan eng kattasi qaysi?", right: "Chorvoq suv ombori", wr: ["Kattaqo'rg'on", "Toshko'prik", "Andijon"] },
+            { q: "Atmsofera havosi tarkibida eng ko'p bo'lgan gaz:", right: "Azot (78%)", wr: ["Kislorod", "Uglerod", "Argon"] },
+            { q: "Magellan dunyo bo'ylab birinchi sayohatini nechanchi yillarda amalga oshirgan?", right: "1519-1522-yillar", wr: ["1492-1495-yillar", "1600-1603-yillar", "1498-1501-yillar"] },
+            { q: "Vulkan otilishi natijasida hosil bo'ladigan suyuq tog' jinsi:", right: "Lava", wr: ["Magma", "Granit", "Bazalt"] },
+            { q: "Ekvalatorda sutka davomiyligi qancha?", right: "12 soat kun, 12 soat tun", wr: ["14 soat kun", "16 soat kun", "20 soat kun"] },
+            { q: "Italiya poytaxti Rim shahri qaysi yarimorolda joylashgan?", right: "Apennin yarimoroli", wr: ["Pireney", "Balkan", "Skandinaviya"] },
+            { q: "Grometr shaklidagi relyef xaritalarida balandliklar nima bilan ko'rsatiladi?", right: "Gorisontallar (izogipslar) bilan", wr: ["Izobarlar", "Izotermalar", "Izobatalar"] },
+            { q: "Buyuk ipak yo'li qaysi davlatlarni bog'lagan?", right: "Xitoy va O'rta dengiz bo'yi davlatlarini", wr: ["Hindiston va Avstraliyani", "Afrika va Amerikani", "Yaponiya va Rossiyani"] },
+            { q: "Nil daryosi qaysi dengizga borib quyiladi?", right: "O'rta dengizga", wr: ["Qizil dengizga", "Qora dengizga", "Arabiston dengiziga"] },
+            { q: "Shimoliy Muz okeanining eng yirik daryolaridan biri:", right: "Yenisey", wr: ["Volga", "Amur", "Xuanxe"] },
+            { q: "Dunyodagi eng katta ko'rfaz qaysi?", right: "Bengal ko mezon", wr: ["Fors ko'rfazi", "Meksika ko'rfazi", "Gudzon"] },
+            { q: "Issiq oqimni aniqlang:", right: "Golfstrim", wr: ["Peruan", "Kanar", "Bengala"] },
+            { q: "O'zbekistonda eng yirik ko'mir koni qayerda joylashgan?", right: "Angren koni", wr: ["Sharg'un", "Baysun", "Konimex"] },
+            { q: "Dunyoda eng ko'p choy yetishtiruvchi davlatlar:", right: "Xitoy va Hindiston", wr: ["Braziliya va Kolumbiya", "AQSH va Kanada", "Misr va Sudan"] },
+            { q: "Aysberglar nima?", right: "Okeanda suzib yuruvchi ulkan muz tog'lari", wr: ["Daryo muzlari", "Tog' cho'qqisidagi qor", "Muzlagan ko'l"] },
+            { q: "Madagaskar oroli qaysi okeanda joylashgan?", right: "Hind okeanida", wr: ["Tinch okeanida", "Atlantika okeanida", "Shimoliy Muz"] },
+            { q: "Dunyoning eng baland vulqoni Cotopaxi qaysi materikda?", right: "Janubiy Amerika", wr: ["Shimoliy Amerika", "Evroosiyo", "Afrika"] },
+            { q: "O'zbekistonning shimoli-g'arbida joylashgan yassi tekislik platosini toping:", right: "Ustyurt platosida", wr: ["Qizilqum", "Farg'ona", "Misrian"] },
+            { q: "Afrika materigidagi eng yirik ko'l:", right: "Viktoriya ko'li", wr: ["Tanganika", "Chad", "Nyasa"] },
+            { q: "Chilining poytaxti qaysi shahar?", right: "Santiyago", wr: ["Buenos-Ayres", "Lima", "Bogota"] },
+            { q: "Buyuk Britaniya orollari qaysi okeanda joylashgan?", right: "Atlantika okeanida", wr: ["Tinch okeanida", "Hind okeanida", "Shimoliy Muz"] },
+            { q: "Tabiatdagi eng qattiq mineral qaysi?", right: "Almos", wr: ["Kvars", "Gips", "Polevoy shpat"] },
+            { q: "Bering bo'g'ozi qaysi ikkita okeanni bog'laydi?", right: "Tinch va Shimoliy Muz okeanlarini", wr: ["Atlantika va Hind", "Hind va Tinch", "Atlantika va Tinch"] },
+            { q: "O'zbekiston iqlimi qanday iqlim tipiga kiradi?", right: "Keskin kontinental", wr: ["Ekvatorial", "Tropic", "Dengiz iqlimi"] },
+            { q: "Dunyodagi eng katta vulqonli orol davlat:", right: "Indoneziya", wr: ["Islandiya", "Yaponiya", "Filippin"] },
+            { q: "Suvning bug'lanishi natijasida hosil bo'ladigan namlik birligi:", right: "Nisbiy va absolut namlik", wr: ["Bosim", "Tug'ilish", "Haroat"] },
+            { q: "Qaysi qit'ada doimiy yashaydigan aholi va davlatlar yo'q?", right: "Antarktida", wr: ["Avstraliya", "Janubiy Amerika", "Glandiya"] },
+            { q: "Qozog'iston poytaxti qaysi shahar?", right: "Ostona", wr: ["Olmaota", "Chimkent", "Aktau"] },
+            { q: "Zarafshon daryosi manbasini qayerdan oladi?", right: "Zarafshon tog' tizmasi muzliklaridan", wr: ["Tyon-Shondan", "Pamirdan", "Hisordan"] },
+            { q: "Bosh meridian (0 darajali) qaysi rasadxona orqali o'tgan?", right: "Grinvich rasadxonasi (London)", wr: ["Parij", "Vashington", "Toshkent"] }
+        ];
 
-        function generate10kQuestions(subject) {
-            const templates = subjectTemplates[subject] || subjectTemplates["Geografiya"];
-            const pool = [];
-            for (let i = 1; i <= 50; i++) {
-                const tpl = templates[(i - 1) % templates.length];
+        // Massiv elementlarini aralashtirish funksiyasi
+        function shuffleArray(arr) {
+            let res = [...arr];
+            for (let i = res.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [res[i], res[j]] = [res[j], res[i]];
+            }
+            return res;
+        }
+
+        // To'liq 70 ta savol shakllantirish (takrorlanmas va variatsiyali)
+        function generate70Questions() {
+            let pool = [];
+
+            for (let i = 1; i <= 70; i++) {
+                let tpl = geographyQuestionsBase[(i - 1) % geographyQuestionsBase.length];
+                
                 let rawOptions = [
                     { text: tpl.right, isCorrect: true },
                     { text: tpl.wr[0], isCorrect: false },
                     { text: tpl.wr[1], isCorrect: false },
                     { text: tpl.wr[2], isCorrect: false }
                 ];
-                
-                // Shuffle options so A isn't always right
-                for (let k = rawOptions.length - 1; k > 0; k--) {
-                    const j = Math.floor(Math.random() * (k + 1));
-                    [rawOptions[k], rawOptions[j]] = [rawOptions[j], rawOptions[k]];
-                }
+
+                let shuffledOpts = shuffleArray(rawOptions);
 
                 pool.push({
-                    q: `${tpl.q} (#${100 + i})`,
-                    options: rawOptions.map(o => o.text),
-                    correctIndex: rawOptions.findIndex(o => o.isCorrect)
+                    q: `${tpl.q} [Savol №${i}]`,
+                    options: shuffledOpts.map(o => o.text),
+                    correctIndex: shuffledOpts.findIndex(o => o.isCorrect)
                 });
             }
-            return pool;
+            return shuffleArray(pool); // Random tartibda qaytarish
         }
 
+        // Tizim foydalanuvchi hisoblari
         let localUsers = JSON.parse(localStorage.getItem('app_users') || '[]');
         if (localUsers.length === 0) {
-            localUsers.push({ login: "admin", pass: "admin123", name: "Admin Yaratuvchi", school: "Bosh Boshqarma", role: "admin" });
+            localUsers.push({ login: "admin", pass: "12345", school: "Bosh Boshqarma", role: "admin" });
             localStorage.setItem('app_users', JSON.stringify(localUsers));
         }
 
         let currentUser = JSON.parse(localStorage.getItem('logged_user') || 'null');
-        let selectedSubject = '', selectedMode = '', currentQuestions = [], userAnswers = {}, currentQIndex = 0;
+        let selectedMode = '', currentQuestions = [], userAnswers = {}, currentQIndex = 0;
         let timerInterval = null, totalSeconds = 5400, timeSpentSeconds = 0;
 
         window.onload = function() { if (currentUser) showMainMenu(); };
@@ -439,11 +498,18 @@
             e.preventDefault();
             const log = document.getElementById('loginInput').value.trim();
             const pas = document.getElementById('passwordInput').value.trim();
+            const realName = document.getElementById('userRealNameInput').value.trim();
+
             const users = JSON.parse(localStorage.getItem('app_users') || '[]');
             const found = users.find(u => u.login === log && u.pass === pas);
 
             if (found) {
-                currentUser = found;
+                currentUser = {
+                    login: found.login,
+                    name: realName,
+                    school: found.school,
+                    role: found.role
+                };
                 localStorage.setItem('logged_user', JSON.stringify(currentUser));
                 showMainMenu();
             } else { alert("Login yoki parol noto'g'ri!"); }
@@ -470,8 +536,6 @@
         }
 
         function chooseSubject(subj) {
-            selectedSubject = subj;
-            document.getElementById('selectedSubjectTitle').innerText = `${subj} Fani`;
             hideAllSections();
             document.getElementById('modeSection').classList.remove('hidden');
         }
@@ -480,14 +544,14 @@
             selectedMode = mode;
             currentQIndex = 0;
             userAnswers = {};
-            currentQuestions = generate10kQuestions(selectedSubject);
+            currentQuestions = generate70Questions();
 
             hideAllSections();
             document.getElementById('quizSection').classList.remove('hidden');
-            document.getElementById('quizHead').innerText = `${selectedSubject}`;
+            document.getElementById('quizHead').innerText = `Geografiya (${mode})`;
             document.getElementById('qTotal').innerText = currentQuestions.length;
 
-            totalSeconds = 5400; // 1.5 Hour
+            totalSeconds = 5400; // 1.5 Soat (90 minut)
             timeSpentSeconds = 0;
             updateTimerDisplay();
             timerInterval = setInterval(() => {
@@ -547,7 +611,7 @@
             const spentMins = Math.floor(timeSpentSeconds / 60);
             const spentSecs = timeSpentSeconds % 60;
 
-            document.getElementById('resScoreText').innerText = `${correctCount}/50`;
+            document.getElementById('resScoreText').innerText = `${correctCount}/70`;
             document.getElementById('resPercentText').innerText = `${percent}%`;
             document.getElementById('resTimeText').innerText = `${spentMins}m ${spentSecs}s`;
 
@@ -574,7 +638,7 @@
             let histories = JSON.parse(localStorage.getItem('app_histories') || '[]');
             histories.push({
                 userLogin: currentUser.login, userName: currentUser.name, school: currentUser.school,
-                subject: `${selectedSubject} (${selectedMode})`, score: correctCount, total: 50, percent: percent,
+                subject: `Geografiya (${selectedMode})`, score: correctCount, total: 70, percent: percent,
                 time: `${spentMins}m ${spentSecs}s`, date: new Date().toLocaleDateString()
             });
             localStorage.setItem('app_histories', JSON.stringify(histories));
@@ -587,20 +651,20 @@
             hideAllSections();
             document.getElementById('cabinetSection').classList.remove('hidden');
             let histories = JSON.parse(localStorage.getItem('app_histories') || '[]');
-            let userHist = histories.filter(h => h.userLogin === currentUser.login);
+            let userHist = histories.filter(h => h.userName === currentUser.name);
 
             document.getElementById('cabTotalTests').innerText = userHist.length;
             if (userHist.length > 0) {
                 let avgPct = Math.round(userHist.reduce((acc, h) => acc + h.percent, 0) / userHist.length);
                 document.getElementById('cabAvgScore').innerText = `${avgPct}%`;
-                document.getElementById('cabBestScore').innerText = `${Math.max(...userHist.map(h => h.score))}/50`;
+                document.getElementById('cabBestScore').innerText = `${Math.max(...userHist.map(h => h.score))}/70`;
             }
 
             const tbody = document.getElementById('cabinetHistoryTable');
             tbody.innerHTML = '';
             userHist.reverse().forEach(h => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `<td>${h.date}</td><td><strong>${h.subject}</strong></td><td>${h.score}/50 (${h.percent}%)</td><td>${h.time}</td>`;
+                tr.innerHTML = `<td>${h.date}</td><td><strong>${h.subject}</strong></td><td>${h.score}/70 (${h.percent}%)</td><td>${h.time}</td>`;
                 tbody.appendChild(tr);
             });
         }
@@ -614,7 +678,7 @@
 
             histories.forEach((r, idx) => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `<td>${idx + 1}</td><td><strong>${r.userName}</strong></td><td>${r.school}</td><td>${r.subject}</td><td>${r.score}/50 (${r.percent}%)</td>`;
+                tr.innerHTML = `<td>${idx + 1}</td><td><strong>${r.userName}</strong></td><td>${r.school}</td><td>${r.score}/70 (${r.percent}%)</td>`;
                 tbody.appendChild(tr);
             });
         }
@@ -629,15 +693,14 @@
             e.preventDefault();
             const l = document.getElementById('newLogin').value.trim();
             const p = document.getElementById('newPass').value.trim();
-            const n = document.getElementById('newName').value.trim();
             const s = document.getElementById('newSchool').value.trim();
 
             let users = JSON.parse(localStorage.getItem('app_users') || '[]');
-            if (users.some(u => u.login === l)) { alert("Bunday login bor!"); return; }
+            if (users.some(u => u.login === l)) { alert("Bunday login allaqachon mavjud!"); return; }
 
-            users.push({ login: l, pass: p, name: n, school: s, role: "user" });
+            users.push({ login: l, pass: p, school: s, role: "user" });
             localStorage.setItem('app_users', JSON.stringify(users));
-            alert("Yangi foydalanuvchi yaratildi!");
+            alert("Yangi login/parol muvaffaqiyatli yaratildi!");
             document.getElementById('addUserForm').reset();
             renderAdminUsers();
         }
@@ -648,7 +711,7 @@
             let users = JSON.parse(localStorage.getItem('app_users') || '[]');
             users.forEach(u => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `<td><strong>${u.login}</strong></td><td>${u.pass}</td><td>${u.name}</td><td>${u.school}</td>`;
+                tr.innerHTML = `<td><strong>${u.login}</strong></td><td>${u.pass}</td><td>${u.school}</td>`;
                 tbody.appendChild(tr);
             });
         }
