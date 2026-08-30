@@ -7,256 +7,291 @@
 <title>Milliy Sertifikat va Attestatsiya</title>
 
 <style>
+
 *{
-    box-sizing:border-box;
+box-sizing:border-box;
 }
 
 body{
-    margin:0;
-    font-family:Arial, sans-serif;
-    background:#0d0f12;
-    color:#fff;
+margin:0;
+font-family:Arial,sans-serif;
+background:#0d0f12;
+color:#fff;
 }
 
 .container{
-    width:100%;
-    max-width:1100px;
-    margin:auto;
-    padding:20px;
+width:100%;
+max-width:1100px;
+margin:auto;
+padding:20px;
 }
 
 header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+margin-bottom:20px;
 }
 
 .logo{
-    font-size:21px;
-    font-weight:bold;
+font-size:21px;
+font-weight:bold;
 }
 
 .card{
-    background:#181a1f;
-    border:1px solid #30333a;
-    border-radius:22px;
-    padding:25px;
-    margin-bottom:20px;
+background:#181a1f;
+border:1px solid #30333a;
+border-radius:22px;
+padding:25px;
+margin-bottom:20px;
 }
 
 .hero{
-    padding:40px;
-    border-radius:28px;
-    background:linear-gradient(145deg,#222630,#15161a);
+padding:40px;
+border-radius:28px;
+background:linear-gradient(145deg,#222630,#15161a);
 }
 
 h1{
-    font-size:42px;
-    margin:15px 0;
+font-size:42px;
+margin:15px 0;
 }
 
 h2{
-    margin-top:0;
+margin-top:0;
 }
 
 p{
-    color:#a8abb2;
-    line-height:1.6;
+color:#a8abb2;
+line-height:1.6;
 }
 
 button{
-    font-family:inherit;
-    cursor:pointer;
+font-family:inherit;
+cursor:pointer;
 }
 
 .primary{
-    padding:13px 20px;
-    background:#fff;
-    color:#111;
-    border:0;
-    border-radius:12px;
-    font-weight:bold;
+padding:13px 20px;
+background:#fff;
+color:#111;
+border:0;
+border-radius:12px;
+font-weight:bold;
 }
 
 .secondary{
-    padding:12px 18px;
-    background:#282a31;
-    color:#fff;
-    border:1px solid #42454e;
-    border-radius:12px;
-    font-weight:bold;
+padding:12px 18px;
+background:#282a31;
+color:#fff;
+border:1px solid #42454e;
+border-radius:12px;
+font-weight:bold;
 }
 
 .danger{
-    padding:12px 18px;
-    background:#461f24;
-    color:#ffb8be;
-    border:1px solid #6d3339;
-    border-radius:12px;
+padding:12px 18px;
+background:#461f24;
+color:#ffb8be;
+border:1px solid #6d3339;
+border-radius:12px;
 }
 
 .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:15px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:15px;
 }
 
 .field{
-    margin-bottom:5px;
+margin-bottom:10px;
 }
 
 label{
-    display:block;
-    color:#bbbfc7;
-    font-size:14px;
-    margin-bottom:6px;
+display:block;
+color:#bbbfc7;
+font-size:14px;
+margin-bottom:6px;
 }
 
 input,
 select{
-    width:100%;
-    padding:14px;
-    background:#101216;
-    color:#fff;
-    border:1px solid #3b3e46;
-    border-radius:11px;
-    outline:none;
+width:100%;
+padding:14px;
+background:#101216;
+color:#fff;
+border:1px solid #3b3e46;
+border-radius:11px;
+outline:none;
 }
 
 input:focus,
 select:focus{
-    border-color:#fff;
+border-color:#fff;
 }
 
 .stat{
-    background:#101216;
-    border:1px solid #30333a;
-    border-radius:15px;
-    padding:18px;
+background:#101216;
+border:1px solid #30333a;
+border-radius:15px;
+padding:18px;
 }
 
 .stat b{
-    display:block;
-    font-size:27px;
-    margin-top:8px;
+display:block;
+font-size:27px;
+margin-top:8px;
 }
 
 .tag{
-    display:inline-block;
-    background:#2a2c33;
-    color:#ddd;
-    padding:8px 12px;
-    border-radius:50px;
-    font-size:13px;
+display:inline-block;
+background:#2a2c33;
+color:#ddd;
+padding:8px 12px;
+border-radius:50px;
+font-size:13px;
 }
 
 .actions{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    margin-top:20px;
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:20px;
 }
 
 .notice{
-    background:#23252b;
-    color:#bfc1c7;
-    border-radius:12px;
-    padding:14px;
-    margin:18px 0;
+background:#23252b;
+color:#bfc1c7;
+border-radius:12px;
+padding:14px;
+margin:18px 0;
+}
+
+.success{
+background:#18351f;
+color:#b9f5c5;
+border:1px solid #2f7040;
+}
+
+.warning{
+background:#3a3018;
+color:#ffe9a8;
+border:1px solid #665522;
 }
 
 .progress{
-    width:100%;
-    height:8px;
-    background:#303239;
-    border-radius:20px;
-    overflow:hidden;
+width:100%;
+height:8px;
+background:#303239;
+border-radius:20px;
+overflow:hidden;
 }
 
 .progressBar{
-    width:0%;
-    height:100%;
-    background:#fff;
-    transition:.3s;
+width:0%;
+height:100%;
+background:#fff;
+transition:.3s;
 }
 
 .questionNumber{
-    color:#999ca4;
-    margin-top:15px;
+color:#999ca4;
+margin-top:15px;
 }
 
 .option{
-    display:block;
-    width:100%;
-    text-align:left;
-    padding:15px;
-    margin:10px 0;
-    background:#101216;
-    color:#fff;
-    border:1px solid #3a3d45;
-    border-radius:13px;
-    font-size:15px;
+display:block;
+width:100%;
+text-align:left;
+padding:15px;
+margin:10px 0;
+background:#101216;
+color:#fff;
+border:1px solid #3a3d45;
+border-radius:13px;
+font-size:15px;
 }
 
 .option:hover{
-    border-color:#fff;
+border-color:#fff;
 }
 
 .option.selected{
-    background:#30333b;
-    border-color:#fff;
+background:#30333b;
+border-color:#fff;
 }
 
 .hide{
-    display:none !important;
+display:none !important;
 }
 
 .tableWrap{
-    width:100%;
-    overflow:auto;
+width:100%;
+overflow:auto;
 }
 
 table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:750px;
+width:100%;
+border-collapse:collapse;
+min-width:750px;
 }
 
 th,
 td{
-    padding:12px;
-    border-bottom:1px solid #30333a;
-    text-align:left;
+padding:12px;
+border-bottom:1px solid #30333a;
+text-align:left;
 }
 
 th{
-    color:#aeb1b8;
+color:#aeb1b8;
 }
 
-.rank1{
-    font-weight:bold;
+.loginBox{
+max-width:500px;
+margin:40px auto;
+}
+
+.credentials{
+font-size:18px;
+background:#101216;
+border:1px solid #454952;
+border-radius:15px;
+padding:20px;
+margin:20px 0;
+}
+
+.credentials span{
+display:block;
+margin:10px 0;
 }
 
 @media(max-width:600px){
 
-    .container{
-        padding:12px;
-    }
+.container{
+padding:12px;
+}
 
-    .hero{
-        padding:25px;
-    }
+.hero{
+padding:25px;
+}
 
-    h1{
-        font-size:30px;
-    }
+h1{
+font-size:30px;
+}
 
-    .card{
-        padding:18px;
-    }
+.card{
+padding:18px;
+}
+
+header{
+align-items:flex-start;
+flex-direction:column;
+}
 
 }
+
 </style>
 </head>
 
@@ -274,35 +309,45 @@ th{
 📚 Milliy Sertifikat va Attestatsiya
 </div>
 
+<div class="actions" style="margin-top:0">
+
 <button
 class="secondary"
 onclick="showPage('home')">
-
 Bosh sahifa
-
 </button>
+
+<button
+class="secondary"
+onclick="logoutUser()">
+Chiqish
+</button>
+
+</div>
 
 </header>
 
 
 
-<!-- ================= HOME ================= -->
+<!-- =====================================================
+HOME
+===================================================== -->
 
 <section id="home">
 
 <div class="hero">
 
 <span class="tag">
-Yuqori darajadagi tayyorgarlik
+50 ta test varianti
 </span>
 
 <h1>
-50 ta test · 200 ta savol
+Milliy Sertifikat va Attestatsiya
 </h1>
 
 <p>
-Milliy sertifikat va attestatsiyaga tayyorgarlik
-uchun test platformasi.
+Milliy sertifikat va attestatsiya imtihonlariga
+tayyorgarlik uchun test platformasi.
 </p>
 
 
@@ -314,13 +359,13 @@ Test variantlari
 </div>
 
 <div class="stat">
-Savollar
-<b>200+</b>
+Har bir variant
+<b>50 ta savol</b>
 </div>
 
 <div class="stat">
-Qiyinlik
-<b>Yuqori</b>
+Jami
+<b>2500 savol</b>
 </div>
 
 </div>
@@ -331,33 +376,30 @@ Qiyinlik
 <button
 class="primary"
 onclick="showPage('register')">
-
-📝 Testni boshlash
-
+📝 Yangi ro‘yxatdan o‘tish
 </button>
-
 
 <button
 class="secondary"
-onclick="showPage('ranking');renderRanking()">
-
-🏆 Reyting
-
+onclick="showPage('login')">
+🔑 Akkauntga kirish
 </button>
 
+<button
+class="secondary"
+onclick="showPage('ranking')">
+🏆 Reyting
+</button>
 
 <button
 class="secondary"
 onclick="showPage('admin')">
-
 🔐 Admin
-
 </button>
 
 </div>
 
 </div>
-
 
 
 <div class="card">
@@ -367,17 +409,11 @@ onclick="showPage('admin')">
 <div class="grid">
 
 <div>📐 Matematika</div>
-
 <div>🌍 Geografiya</div>
-
 <div>🧬 Biologiya</div>
-
 <div>⚗️ Kimyo</div>
-
 <div>⚡ Fizika</div>
-
 <div>📜 Tarix</div>
-
 <div>📖 Ona tili va adabiyot</div>
 
 </div>
@@ -388,7 +424,9 @@ onclick="showPage('admin')">
 
 
 
-<!-- ================= REGISTER ================= -->
+<!-- =====================================================
+REGISTER
+===================================================== -->
 
 <section id="register" class="hide">
 
@@ -397,37 +435,29 @@ onclick="showPage('admin')">
 <h2>📝 Ro‘yxatdan o‘tish</h2>
 
 <p>
-Testni boshlash uchun ma'lumotlaringizni kiriting.
+Bir marta ro‘yxatdan o‘ting.
+Keyingi safar username va parol bilan kirasiz.
 </p>
 
 
 <div class="grid">
 
 
-<!-- FISH -->
-
 <div class="field">
 
-<label>
-F.I.Sh.
-</label>
+<label>F.I.Sh.</label>
 
 <input
 id="fullName"
 type="text"
-placeholder="Ism Familiya"
->
+placeholder="Ism Familiya">
 
 </div>
 
 
-<!-- VILOYAT -->
-
 <div class="field">
 
-<label>
-Viloyat
-</label>
+<label>Viloyat</label>
 
 <select id="region">
 
@@ -435,147 +465,78 @@ Viloyat
 Viloyatni tanlang
 </option>
 
-<option>
-Toshkent shahri
-</option>
-
-<option>
-Toshkent viloyati
-</option>
-
-<option>
-Samarqand viloyati
-</option>
-
-<option>
-Buxoro viloyati
-</option>
-
-<option>
-Andijon viloyati
-</option>
-
-<option>
-Farg‘ona viloyati
-</option>
-
-<option>
-Namangan viloyati
-</option>
-
-<option>
-Qashqadaryo viloyati
-</option>
-
-<option>
-Surxondaryo viloyati
-</option>
-
-<option>
-Jizzax viloyati
-</option>
-
-<option>
-Sirdaryo viloyati
-</option>
-
-<option>
-Navoiy viloyati
-</option>
-
-<option>
-Xorazm viloyati
-</option>
-
-<option>
-Qoraqalpog‘iston Respublikasi
-</option>
+<option>Toshkent shahri</option>
+<option>Toshkent viloyati</option>
+<option>Samarqand viloyati</option>
+<option>Buxoro viloyati</option>
+<option>Andijon viloyati</option>
+<option>Farg‘ona viloyati</option>
+<option>Namangan viloyati</option>
+<option>Qashqadaryo viloyati</option>
+<option>Surxondaryo viloyati</option>
+<option>Jizzax viloyati</option>
+<option>Sirdaryo viloyati</option>
+<option>Navoiy viloyati</option>
+<option>Xorazm viloyati</option>
+<option>Qoraqalpog‘iston Respublikasi</option>
 
 </select>
 
 </div>
 
 
-<!-- TUMAN -->
-
 <div class="field">
 
-<label>
-Tuman / shahar
-</label>
+<label>Tuman / shahar</label>
 
 <input
 id="district"
 type="text"
-placeholder="Masalan: Chilonzor tumani"
->
+placeholder="Masalan: Chilonzor tumani">
 
 </div>
 
 
-<!-- TUGILGAN SANA -->
-
 <div class="field">
 
-<label>
-Tug‘ilgan sana
-</label>
+<label>Tug‘ilgan sana</label>
 
 <input
 id="birthDate"
-type="date"
->
+type="date">
 
 </div>
 
 
-<!-- TELEFON -->
-
 <div class="field">
 
-<label>
-Telefon raqami
-</label>
+<label>Telefon raqami</label>
 
 <input
 id="phone"
 type="tel"
-placeholder="+998 90 123 45 67"
->
+placeholder="+998 90 123 45 67">
 
 </div>
 
 
-<!-- YO'NALISH -->
-
 <div class="field">
 
-<label>
-Yo‘nalish
-</label>
+<label>Yo‘nalish</label>
 
 <select id="examType">
 
-<option>
-Milliy sertifikat
-</option>
-
-<option>
-Attestatsiya
-</option>
+<option>Milliy sertifikat</option>
+<option>Attestatsiya</option>
 
 </select>
 
 </div>
 
 
-<!-- FAN -->
-
 <div class="field">
 
-<label>
-Fan
-</label>
+<label>Fan</label>
 
 <select id="subject">
 
@@ -583,33 +544,13 @@ Fan
 Fanni tanlang
 </option>
 
-<option>
-Matematika
-</option>
-
-<option>
-Geografiya
-</option>
-
-<option>
-Biologiya
-</option>
-
-<option>
-Kimyo
-</option>
-
-<option>
-Fizika
-</option>
-
-<option>
-Tarix
-</option>
-
-<option>
-Ona tili va adabiyot
-</option>
+<option>Matematika</option>
+<option>Geografiya</option>
+<option>Biologiya</option>
+<option>Kimyo</option>
+<option>Fizika</option>
+<option>Tarix</option>
+<option>Ona tili va adabiyot</option>
 
 </select>
 
@@ -620,18 +561,15 @@ Ona tili va adabiyot
 
 <div class="notice">
 
-🔒 Telefon raqami va tug‘ilgan sana umumiy reytingda
-ko‘rsatilmaydi. Ular faqat admin panelda ko‘rinadi.
+🔒 Bir telefon raqami bilan faqat bitta akkaunt ochiladi.
 
 </div>
 
 
 <button
 class="primary"
-onclick="startTest()">
-
-🚀 Ro‘yxatdan o‘tish va testni boshlash
-
+onclick="registerUser()">
+🚀 Ro‘yxatdan o‘tish
 </button>
 
 </div>
@@ -640,7 +578,123 @@ onclick="startTest()">
 
 
 
-<!-- ================= TEST ================= -->
+<!-- =====================================================
+CREDENTIALS
+===================================================== -->
+
+<section id="credentialsPage" class="hide">
+
+<div class="card loginBox">
+
+<h2>🎉 Akkauntingiz yaratildi!</h2>
+
+<p>
+Quyidagi username va parolni saqlab qo‘ying.
+Keyingi safar shu ma'lumotlar bilan kirasiz.
+</p>
+
+
+<div class="credentials">
+
+<span>
+👤 Username:
+<b id="createdUsername"></b>
+</span>
+
+<span>
+🔐 Parol:
+<b id="createdPassword"></b>
+</span>
+
+</div>
+
+
+<div class="notice warning">
+
+⚠️ Username va parolni yo‘qotmang.
+
+</div>
+
+
+<div class="actions">
+
+<button
+class="primary"
+onclick="loginWithCreatedAccount()">
+🚀 Testni boshlash
+</button>
+
+<button
+class="secondary"
+onclick="showPage('home')">
+Bosh sahifa
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+LOGIN
+===================================================== -->
+
+<section id="login" class="hide">
+
+<div class="card loginBox">
+
+<h2>🔑 Akkauntga kirish</h2>
+
+<p>
+Username va parolingizni kiriting.
+</p>
+
+
+<div class="field">
+
+<label>Username</label>
+
+<input
+id="loginUsername"
+type="text"
+placeholder="Username">
+
+</div>
+
+
+<div class="field">
+
+<label>Parol</label>
+
+<input
+id="loginPassword"
+type="password"
+placeholder="Parol">
+
+</div>
+
+
+<br>
+
+
+<button
+class="primary"
+onclick="loginUser()">
+🔓 Kirish
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- =====================================================
+TEST
+===================================================== -->
 
 <section id="test" class="hide">
 
@@ -661,9 +715,7 @@ Test
 <span
 class="tag"
 id="timer">
-
 30:00
-
 </span>
 
 </div>
@@ -685,9 +737,7 @@ id="progressBar">
 <div
 class="questionNumber"
 id="questionNumber">
-
 Savol 1 / 50
-
 </div>
 
 
@@ -696,9 +746,7 @@ Savol
 </h2>
 
 
-<div id="answers">
-
-</div>
+<div id="answers"></div>
 
 
 <div class="actions">
@@ -706,22 +754,17 @@ Savol
 <button
 class="secondary"
 onclick="previousQuestion()">
-
 ← Oldingi
-
 </button>
 
 
 <button
 class="primary"
 onclick="nextQuestion()">
-
 Keyingi →
-
 </button>
 
 </div>
-
 
 </div>
 
@@ -729,7 +772,9 @@ Keyingi →
 
 
 
-<!-- ================= RESULT ================= -->
+<!-- =====================================================
+RESULT
+===================================================== -->
 
 <section id="result" class="hide">
 
@@ -742,45 +787,27 @@ Keyingi →
 
 <div class="grid">
 
-
 <div class="stat">
-
 To‘g‘ri
-
-<b id="correctResult">
-0
-</b>
-
+<b id="correctResult">0</b>
 </div>
 
-
 <div class="stat">
-
 Xato
-
-<b id="wrongResult">
-0
-</b>
-
+<b id="wrongResult">0</b>
 </div>
-
 
 <div class="stat">
-
 Natija
-
-<b id="percentResult">
-0%
-</b>
-
+<b id="percentResult">0%</b>
 </div>
 
 </div>
 
 
-<div class="notice">
+<div class="notice success">
 
-Sizning natijangiz umumiy reytingga qo‘shildi.
+Natijangiz muvaffaqiyatli saqlandi.
 
 </div>
 
@@ -789,19 +816,22 @@ Sizning natijangiz umumiy reytingga qo‘shildi.
 
 <button
 class="primary"
-onclick="showPage('ranking');renderRanking()">
+onclick="prepareNextTest()">
+🔄 Keyingi test
+</button>
 
+
+<button
+class="secondary"
+onclick="showPage('ranking')">
 🏆 Reyting
-
 </button>
 
 
 <button
 class="secondary"
 onclick="showPage('home')">
-
 Bosh sahifa
-
 </button>
 
 </div>
@@ -812,7 +842,9 @@ Bosh sahifa
 
 
 
-<!-- ================= RANKING ================= -->
+<!-- =====================================================
+RANKING
+===================================================== -->
 
 <section id="ranking" class="hide">
 
@@ -821,6 +853,7 @@ Bosh sahifa
 <h2>
 🏆 Umumiy reyting
 </h2>
+
 
 <div class="tableWrap">
 
@@ -831,17 +864,11 @@ Bosh sahifa
 <tr>
 
 <th>O‘rin</th>
-
 <th>F.I.Sh.</th>
-
 <th>Viloyat</th>
-
 <th>Fan</th>
-
 <th>Testlar</th>
-
 <th>Jami ball</th>
-
 <th>O‘rtacha</th>
 
 </tr>
@@ -849,9 +876,7 @@ Bosh sahifa
 </thead>
 
 
-<tbody id="rankingBody">
-
-</tbody>
+<tbody id="rankingBody"></tbody>
 
 </table>
 
@@ -863,7 +888,9 @@ Bosh sahifa
 
 
 
-<!-- ================= ADMIN ================= -->
+<!-- =====================================================
+ADMIN
+===================================================== -->
 
 <section id="admin" class="hide">
 
@@ -884,8 +911,7 @@ Faqat sayt egasi uchun.
 <input
 id="adminPassword"
 type="password"
-placeholder="Admin paroli"
->
+placeholder="Admin paroli">
 
 
 <br><br>
@@ -894,9 +920,7 @@ placeholder="Admin paroli"
 <button
 class="primary"
 onclick="loginAdmin()">
-
 Kirish
-
 </button>
 
 </div>
@@ -909,7 +933,7 @@ id="adminPanel">
 
 
 <h2>
-👑 Ega / Admin panel
+👑 Admin panel
 </h2>
 
 
@@ -918,7 +942,7 @@ id="adminPanel">
 
 <div class="stat">
 
-Ishtirokchilar
+Foydalanuvchilar
 
 <b id="totalUsers">
 0
@@ -963,21 +987,14 @@ O‘rtacha natija
 <tr>
 
 <th>#</th>
-
+<th>Username</th>
 <th>F.I.Sh.</th>
-
 <th>Viloyat</th>
-
 <th>Tuman</th>
-
 <th>Tug‘ilgan sana</th>
-
 <th>Telefon</th>
-
 <th>Yo‘nalish</th>
-
 <th>Fan</th>
-
 <th>Natija</th>
 
 </tr>
@@ -985,9 +1002,7 @@ O‘rtacha natija
 </thead>
 
 
-<tbody id="adminBody">
-
-</tbody>
+<tbody id="adminBody"></tbody>
 
 </table>
 
@@ -1000,9 +1015,7 @@ O‘rtacha natija
 <button
 class="danger"
 onclick="deleteAllData()">
-
 🗑 Barcha ma'lumotlarni o‘chirish
-
 </button>
 
 </div>
@@ -1018,25 +1031,39 @@ onclick="deleteAllData()">
 
 
 /* =====================================================
-   FANLAR BO‘YICHA SAVOLLAR
-   ===================================================== */
+   SAVOLLAR BAZASI
+=====================================================
 
-
-/*
    MUHIM:
-   Har bir savol o‘z faniga tegishli.
 
-   Saytda fan tanlanganda faqat shu
-   fan savollari olinadi.
+   Har bir savolning ID raqami boshqa savollardan
+   farqli bo‘lishi kerak.
+
+   Masalan:
+
+   geo001
+   geo002
+   geo003
+
+   va hokazo.
+
+   50 ta savolli test uchun kamida 50 ta
+   NOYOB savol kerak.
+
 */
 
 
-const questionBank = {
+const questionBank={
 
+
+/* =====================================================
+   GEOGRAFIYA
+===================================================== */
 
 "Geografiya":[
 
 {
+id:"geo001",
 q:"Yer yuzasining baland-pastlik shakllari majmui nima deyiladi?",
 a:[
 "Relief",
@@ -1048,6 +1075,7 @@ c:0
 },
 
 {
+id:"geo002",
 q:"Okean suvining sho‘rlanishiga qaysi omil kuchli ta'sir qiladi?",
 a:[
 "Bug‘lanish va yog‘in nisbati",
@@ -1059,6 +1087,7 @@ c:0
 },
 
 {
+id:"geo003",
 q:"Atmosferaning eng quyi qatlami qaysi?",
 a:[
 "Troposfera",
@@ -1070,6 +1099,7 @@ c:0
 },
 
 {
+id:"geo004",
 q:"Dunyoning eng chuqur okean botig‘i qaysi?",
 a:[
 "Mariana",
@@ -1081,6 +1111,7 @@ c:0
 },
 
 {
+id:"geo005",
 q:"Ekvator Yer sharini qanday qismlarga ajratadi?",
 a:[
 "Shimoliy va Janubiy yarimsharga",
@@ -1095,9 +1126,14 @@ c:0
 
 
 
+/* =====================================================
+   MATEMATIKA
+===================================================== */
+
 "Matematika":[
 
 {
+id:"mat001",
 q:"f(x)=x²−4x+7 funksiyaning eng kichik qiymatini toping.",
 a:[
 "3",
@@ -1109,6 +1145,7 @@ c:0
 },
 
 {
+id:"mat002",
 q:"2^(x+1)=32 bo‘lsa, x nechaga teng?",
 a:[
 "3",
@@ -1120,6 +1157,7 @@ c:1
 },
 
 {
+id:"mat003",
 q:"x²−5x+6=0 tenglama ildizlari yig‘indisi nechaga teng?",
 a:[
 "5",
@@ -1131,6 +1169,7 @@ c:0
 },
 
 {
+id:"mat004",
 q:"Agar a=3 va b=4 bo‘lsa, a²+b² qiymatini toping.",
 a:[
 "7",
@@ -1142,6 +1181,7 @@ c:2
 },
 
 {
+id:"mat005",
 q:"3x−7=11 tenglamani yeching.",
 a:[
 "4",
@@ -1156,9 +1196,14 @@ c:1
 
 
 
+/* =====================================================
+   BIOLOGIYA
+===================================================== */
+
 "Biologiya":[
 
 {
+id:"bio001",
 q:"ATP sintezining asosiy qismi qaysi organoidda amalga oshadi?",
 a:[
 "Mitoxondriya",
@@ -1170,6 +1215,7 @@ c:0
 },
 
 {
+id:"bio002",
 q:"AaBb × AaBb chatishtirishda aabb genotipining ehtimoli qancha?",
 a:[
 "1/16",
@@ -1181,6 +1227,7 @@ c:0
 },
 
 {
+id:"bio003",
 q:"Fotosintez jarayonida qaysi gaz yutiladi?",
 a:[
 "CO₂",
@@ -1192,6 +1239,7 @@ c:0
 },
 
 {
+id:"bio004",
 q:"DNKning asosiy vazifasi nima?",
 a:[
 "Irsiy axborotni saqlash",
@@ -1203,6 +1251,7 @@ c:0
 },
 
 {
+id:"bio005",
 q:"Odam yuragida nechta kamera mavjud?",
 a:[
 "2",
@@ -1217,9 +1266,14 @@ c:2
 
 
 
+/* =====================================================
+   KIMYO
+===================================================== */
+
 "Kimyo":[
 
 {
+id:"kim001",
 q:"0.5 mol H₂SO₄ tarkibida nechta molekula mavjud?",
 a:[
 "3.01×10²³",
@@ -1231,6 +1285,7 @@ c:0
 },
 
 {
+id:"kim002",
 q:"Suvning kimyoviy formulasi qaysi?",
 a:[
 "H₂O",
@@ -1242,6 +1297,7 @@ c:0
 },
 
 {
+id:"kim003",
 q:"NaCl qanday bog‘lanishga ega?",
 a:[
 "Ion",
@@ -1253,6 +1309,7 @@ c:0
 },
 
 {
+id:"kim004",
 q:"Kislorodning nisbiy atom massasi nechaga teng?",
 a:[
 "8",
@@ -1264,11 +1321,12 @@ c:1
 },
 
 {
+id:"kim005",
 q:"pH=7 bo‘lgan eritma qanday muhitga ega?",
 a:[
 "Kislotali",
 "Ishqoriy",
-" Neytral",
+"Neytral",
 "Juda kislotali"
 ],
 c:2
@@ -1278,9 +1336,14 @@ c:2
 
 
 
+/* =====================================================
+   FIZIKA
+===================================================== */
+
 "Fizika":[
 
 {
+id:"fiz001",
 q:"Jism tezligi 2 marta oshsa, kinetik energiyasi qanday o‘zgaradi?",
 a:[
 "2 marta oshadi",
@@ -1292,6 +1355,7 @@ c:1
 },
 
 {
+id:"fiz002",
 q:"Qarshilik 2 marta oshib, kuchlanish o‘zgarmasa tok qanday o‘zgaradi?",
 a:[
 "2 marta kamayadi",
@@ -1303,17 +1367,19 @@ c:0
 },
 
 {
+id:"fiz003",
 q:"Kuchning SI dagi birligi qaysi?",
 a:[
 "Joul",
 "Vatt",
 "Nyuton",
-"Pascal"
+"Paskal"
 ],
 c:2
 },
 
 {
+id:"fiz004",
 q:"Yorug‘lik vakuumda taxminan qanday tezlikda tarqaladi?",
 a:[
 "3×10⁸ m/s",
@@ -1325,6 +1391,7 @@ c:0
 },
 
 {
+id:"fiz005",
 q:"Elektr quvvatining SI dagi birligi nima?",
 a:[
 "Volt",
@@ -1339,9 +1406,14 @@ c:2
 
 
 
+/* =====================================================
+   TARIX
+===================================================== */
+
 "Tarix":[
 
 {
+id:"tar001",
 q:"Amir Temur davlatida markazlashuvni kuchaytirgan asosiy omil qaysi?",
 a:[
 "Markazlashgan boshqaruv",
@@ -1353,6 +1425,7 @@ c:0
 },
 
 {
+id:"tar002",
 q:"O‘zbekiston Respublikasi mustaqilligi qachon e'lon qilingan?",
 a:[
 "1990-yil",
@@ -1364,6 +1437,7 @@ c:1
 },
 
 {
+id:"tar003",
 q:"Buyuk Ipak yo‘li asosan nimani bog‘lagan?",
 a:[
 "Sharq va G‘arbni",
@@ -1375,6 +1449,7 @@ c:0
 },
 
 {
+id:"tar004",
 q:"Mirzo Ulug‘bek qaysi sohada mashhur olim bo‘lgan?",
 a:[
 "Astronomiya",
@@ -1386,7 +1461,8 @@ c:0
 },
 
 {
-q:"Amir Temur qaysi shaharda o‘z davlatining markazini barpo etgan?",
+id:"tar005",
+q:"Amir Temur davlatining markazi qaysi shahar bo‘lgan?",
 a:[
 "Samarqand",
 "Buxoro",
@@ -1400,9 +1476,14 @@ c:0
 
 
 
+/* =====================================================
+   ONA TILI
+===================================================== */
+
 "Ona tili va adabiyot":[
 
 {
+id:"ona001",
 q:"Qaysi birikmada so‘z ko‘chma ma'noda qo‘llangan?",
 a:[
 "Oltin kuz",
@@ -1414,6 +1495,7 @@ c:0
 },
 
 {
+id:"ona002",
 q:"Ot so‘z turkumi nimani bildiradi?",
 a:[
 "Shaxs va predmet nomini",
@@ -1425,6 +1507,7 @@ c:0
 },
 
 {
+id:"ona003",
 q:"Fe'l qanday ma'noni bildiradi?",
 a:[
 "Harakat yoki holatni",
@@ -1436,6 +1519,7 @@ c:0
 },
 
 {
+id:"ona004",
 q:"Sinonim so‘zlar qanday so‘zlardir?",
 a:[
 "Ma'nodosh so‘zlar",
@@ -1447,6 +1531,7 @@ c:0
 },
 
 {
+id:"ona005",
 q:"Alisher Navoiy qaysi asarning muallifi?",
 a:[
 "Xamsa",
@@ -1464,43 +1549,8 @@ c:0
 
 
 /* =====================================================
-   200 TA SAVOLNI FAN BO‘YICHA KENGAYTIRISH
-   ===================================================== */
-
-
-let questionsBySubject={};
-
-
-Object.keys(questionBank).forEach(subject=>{
-
-    questionsBySubject[subject]=[];
-
-    let original=questionBank[subject];
-
-    for(let i=0;i<200;i++){
-
-        let q=original[i%original.length];
-
-        questionsBySubject[subject].push({
-
-            question:
-            q.q+"  [Savol №"+(i+1)+"]",
-
-            answers:q.a,
-
-            correct:q.c
-
-        });
-
-    }
-
-});
-
-
-
-/* =====================================================
-   VARIABLES
-   ===================================================== */
+   O'ZGARUVCHILAR
+===================================================== */
 
 let currentQuestion=0;
 
@@ -1517,255 +1567,811 @@ let timerInterval=null;
 
 
 /* =====================================================
+   STORAGE
+===================================================== */
+
+function getUsers(){
+
+return JSON.parse(
+localStorage.getItem("users") || "[]"
+);
+
+}
+
+
+function saveUsers(users){
+
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+
+}
+
+
+function getParticipants(){
+
+return JSON.parse(
+localStorage.getItem("participants") || "[]"
+);
+
+}
+
+
+function saveParticipants(data){
+
+localStorage.setItem(
+"participants",
+JSON.stringify(data)
+);
+
+}
+
+
+
+/* =====================================================
    PAGE
-   ===================================================== */
+===================================================== */
 
 function showPage(page){
 
-    document
-    .querySelectorAll("section")
-    .forEach(section=>{
-
-        section.classList.add("hide");
-
-    });
+document
+.querySelectorAll("section")
+.forEach(section=>{
+section.classList.add("hide");
+});
 
 
-    document
-    .getElementById(page)
-    .classList.remove("hide");
+document
+.getElementById(page)
+.classList.remove("hide");
 
 
-    if(page==="ranking"){
+if(page==="ranking"){
 
-        renderRanking();
+renderRanking();
 
-    }
+}
 
 }
 
 
 
 /* =====================================================
-   START TEST
-   ===================================================== */
+   RANDOM SHUFFLE
+===================================================== */
 
-function startTest(){
+function shuffle(array){
 
-    const fullName=
-    document.getElementById("fullName").value.trim();
-
-    const region=
-    document.getElementById("region").value;
-
-    const district=
-    document.getElementById("district").value.trim();
-
-    const birthDate=
-    document.getElementById("birthDate").value;
-
-    const phone=
-    document.getElementById("phone").value.trim();
-
-    const examType=
-    document.getElementById("examType").value;
-
-    const subject=
-    document.getElementById("subject").value;
+const arr=[...array];
 
 
-    if(
-        !fullName ||
-        !region ||
-        !district ||
-        !birthDate ||
-        !phone ||
-        !subject
-    ){
+for(
+let i=arr.length-1;
+i>0;
+i--
+){
 
-        alert(
-        "Iltimos, barcha maydonlarni to‘ldiring!"
-        );
-
-        return;
-
-    }
+const j=
+Math.floor(
+Math.random()*(i+1)
+);
 
 
-    /*
-       FOYDALANUVCHI MA'LUMOTI
-    */
+[
+arr[i],
+arr[j]
+]=
+[
+arr[j],
+arr[i]
+];
 
-    currentUser={
-
-        fullName:fullName,
-
-        region:region,
-
-        district:district,
-
-        birthDate:birthDate,
-
-        phone:phone,
-
-        examType:examType,
-
-        subject:subject
-
-    };
+}
 
 
-    /*
-       ENG MUHIM QISM:
-
-       Tanlangan fanning o‘z savollari olinadi.
-       Masalan Geografiya tanlansa,
-       faqat Geografiya savollari.
-    */
-
-    currentQuestions=
-    questionsBySubject[subject];
-
-
-    currentQuestion=0;
-
-    selectedAnswers=[];
-
-    timerSeconds=30*60;
-
-
-    document.getElementById("testTitle")
-    .innerText=
-    examType+
-    " — "+
-    subject;
-
-
-    showPage("test");
-
-
-    renderQuestion();
-
-    startTimer();
+return arr;
 
 }
 
 
 
 /* =====================================================
-   RENDER QUESTION
-   ===================================================== */
+   USERNAME
+===================================================== */
+
+function generateUsername(fullName){
+
+let base=
+fullName
+.toLowerCase()
+.replace(/[^a-zA-Z0-9]/g,"")
+.slice(0,8);
+
+
+if(!base){
+
+base="user";
+
+}
+
+
+let username=base;
+
+let number=1;
+
+const users=getUsers();
+
+
+while(
+users.some(
+u=>u.username===username
+)
+){
+
+username=
+base+
+number;
+
+number++;
+
+}
+
+
+return username;
+
+}
+
+
+
+/* =====================================================
+   PASSWORD
+===================================================== */
+
+function generatePassword(){
+
+const chars=
+"ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
+
+
+let password="";
+
+
+for(let i=0;i<8;i++){
+
+password+=
+chars.charAt(
+Math.floor(
+Math.random()*chars.length
+)
+);
+
+}
+
+
+return password;
+
+}
+
+
+
+/* =====================================================
+   REGISTER
+===================================================== */
+
+function registerUser(){
+
+const fullName=
+document.getElementById("fullName")
+.value.trim();
+
+
+const region=
+document.getElementById("region")
+.value;
+
+
+const district=
+document.getElementById("district")
+.value.trim();
+
+
+const birthDate=
+document.getElementById("birthDate")
+.value;
+
+
+const phone=
+document.getElementById("phone")
+.value.trim();
+
+
+const examType=
+document.getElementById("examType")
+.value;
+
+
+const subject=
+document.getElementById("subject")
+.value;
+
+
+if(
+!fullName ||
+!region ||
+!district ||
+!birthDate ||
+!phone ||
+!subject
+){
+
+alert(
+"Iltimos, barcha maydonlarni to‘ldiring!"
+);
+
+return;
+
+}
+
+
+const users=getUsers();
+
+
+const existing=
+users.find(
+u=>u.phone===phone
+);
+
+
+if(existing){
+
+alert(
+"Bu telefon raqami bilan akkaunt allaqachon mavjud.\n\n"+
+"Username: "+
+existing.username+
+"\n\nIltimos, akkauntga kiring."
+);
+
+showPage("login");
+
+return;
+
+}
+
+
+const username=
+generateUsername(fullName);
+
+
+const password=
+generatePassword();
+
+
+const user={
+
+id:
+Date.now().toString(),
+
+username:username,
+
+password:password,
+
+fullName:fullName,
+
+region:region,
+
+district:district,
+
+birthDate:birthDate,
+
+phone:phone,
+
+examType:examType,
+
+subject:subject,
+
+usedTests:[]
+
+};
+
+
+users.push(user);
+
+saveUsers(users);
+
+
+currentUser=user;
+
+
+document.getElementById("createdUsername")
+.innerText=username;
+
+
+document.getElementById("createdPassword")
+.innerText=password;
+
+
+showPage("credentialsPage");
+
+}
+
+
+
+/* =====================================================
+   CREATED ACCOUNT
+===================================================== */
+
+function loginWithCreatedAccount(){
+
+startUserTest(currentUser);
+
+}
+
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function loginUser(){
+
+const username=
+document.getElementById("loginUsername")
+.value.trim();
+
+
+const password=
+document.getElementById("loginPassword")
+.value;
+
+
+const users=getUsers();
+
+
+const user=
+users.find(
+u=>
+u.username===username &&
+u.password===password
+);
+
+
+if(!user){
+
+alert(
+"Username yoki parol noto‘g‘ri!"
+);
+
+return;
+
+}
+
+
+currentUser=user;
+
+
+startUserTest(user);
+
+}
+
+
+
+/* =====================================================
+   NEXT TEST NUMBER
+===================================================== */
+
+function getNextTestNumber(user){
+
+const used=
+user.usedTests || [];
+
+
+for(let i=1;i<=50;i++){
+
+if(!used.includes(i)){
+
+return i;
+
+}
+
+}
+
+
+return null;
+
+}
+
+
+
+/* =====================================================
+   JAVOBLARNI ARALASHTIRISH
+===================================================== */
+
+function shuffleQuestion(question){
+
+/*
+   Har bir javobni to‘g‘ri/noto‘g‘ri
+   belgisi bilan birga olib yuramiz.
+*/
+
+const answers=
+question.a.map(
+(text,index)=>{
+
+return{
+
+text:text,
+
+correct:
+index===question.c
+
+};
+
+}
+);
+
+
+/*
+   A/B/C/D ni aralashtiramiz
+*/
+
+const shuffled=
+shuffle(answers);
+
+
+/*
+   To‘g‘ri javobning yangi indeksini topamiz
+*/
+
+const newCorrectIndex=
+shuffled.findIndex(
+answer=>answer.correct
+);
+
+
+return{
+
+id:question.id,
+
+q:question.q,
+
+a:
+shuffled.map(
+answer=>answer.text
+),
+
+c:newCorrectIndex
+
+};
+
+}
+
+
+
+/* =====================================================
+   50 TA SAVOL YARATISH
+===================================================== */
+
+function createTestQuestions(subject){
+
+const bank=
+questionBank[subject];
+
+
+if(!bank){
+
+alert(
+"Tanlangan fan uchun savollar mavjud emas."
+);
+
+return null;
+
+}
+
+
+/*
+   ID bo‘yicha takrorlangan savollarni
+   olib tashlaymiz.
+*/
+
+const unique=[];
+
+const ids=new Set();
+
+
+bank.forEach(question=>{
+
+if(
+question.id &&
+!ids.has(question.id)
+){
+
+ids.add(question.id);
+
+unique.push(question);
+
+}
+
+});
+
+
+/*
+   50 ta noyob savol bo‘lmasa
+   testni boshlamaymiz.
+
+   ESKI KODDAGI KABI SAVOLNI
+   200 MARTA TAKRORLAMAYMIZ.
+*/
+
+if(unique.length<50){
+
+alert(
+
+subject+
+" fanida hozircha "+
+unique.length+
+" ta noyob savol mavjud.\n\n"+
+"50 ta savolli test uchun kamida 50 ta "+
+"noyob savol kerak.\n\n"+
+"Savollar bazasini ko‘paytiring."
+
+);
+
+return null;
+
+}
+
+
+/*
+   Savollarni aralashtirish
+*/
+
+const shuffled=
+shuffle(unique);
+
+
+/*
+   Birinchi 50 ta noyob savol
+*/
+
+const selected=
+shuffled.slice(0,50);
+
+
+/*
+   Har bir savolning javoblarini
+   ham alohida aralashtiramiz.
+*/
+
+return selected.map(
+question=>
+shuffleQuestion(question)
+);
+
+}
+
+
+
+/* =====================================================
+   TEST START
+===================================================== */
+
+function startUserTest(user){
+
+const subject=
+user.subject;
+
+
+/*
+   Faqat shu fan.
+*/
+
+const testQuestions=
+createTestQuestions(subject);
+
+
+if(!testQuestions){
+
+return;
+
+}
+
+
+/*
+   Qaysi variant ekanini aniqlaymiz.
+*/
+
+const testNumber=
+getNextTestNumber(user);
+
+
+if(testNumber===null){
+
+alert(
+"Siz ushbu fan bo‘yicha barcha 50 ta test variantini ishlab bo‘lgansiz."
+);
+
+return;
+
+}
+
+
+currentQuestions=
+testQuestions;
+
+
+currentQuestion=0;
+
+selectedAnswers=[];
+
+timerSeconds=30*60;
+
+
+currentUser.currentTestNumber=
+testNumber;
+
+
+document.getElementById("testTitle")
+.innerText=
+user.examType+
+" — "+
+user.subject+
+" — Variant "+
+testNumber;
+
+
+showPage("test");
+
+
+renderQuestion();
+
+
+startTimer();
+
+}
+
+
+
+/* =====================================================
+   SAVOLNI KO‘RSATISH
+===================================================== */
 
 function renderQuestion(){
 
-    const q=
-    currentQuestions[currentQuestion];
+const q=
+currentQuestions[currentQuestion];
 
 
-    document.getElementById("questionNumber")
-    .innerText=
-    "Savol "+
-    (currentQuestion+1)+
-    " / 50";
+if(!q){
+
+return;
+
+}
 
 
-    document.getElementById("questionText")
-    .innerText=
-    q.question;
+document.getElementById("questionNumber")
+.innerText=
+"Savol "+
+(currentQuestion+1)+
+" / 50";
 
 
-    document.getElementById("progressBar")
-    .style.width=
-    ((currentQuestion+1)/50*100)+"%";
+document.getElementById("questionText")
+.innerText=
+q.q;
 
 
-    const answers=
-    document.getElementById("answers");
+document.getElementById("progressBar")
+.style.width=
+(
+(currentQuestion+1)/50*100
+)+
+"%";
 
 
-    answers.innerHTML="";
+const answers=
+document.getElementById("answers");
 
 
-    q.answers.forEach((answer,index)=>{
+answers.innerHTML="";
 
 
-        const button=
-        document.createElement("button");
+q.a.forEach(
+(answer,index)=>{
 
 
-        button.className="option";
+const button=
+document.createElement("button");
 
 
-        if(
-        selectedAnswers[currentQuestion]===
-        index
-        ){
-
-            button.classList.add("selected");
-
-        }
+button.className="option";
 
 
-        button.innerText=
-        String.fromCharCode(65+index)+
-        ") "+
-        answer;
+if(
+selectedAnswers[currentQuestion]===
+index
+){
+
+button.classList.add("selected");
+
+}
 
 
-        button.onclick=function(){
-
-            selectedAnswers[currentQuestion]=index;
-
-            renderQuestion();
-
-        };
+button.innerText=
+String.fromCharCode(65+index)+
+") "+
+answer;
 
 
-        answers.appendChild(button);
+button.onclick=function(){
 
-    });
+selectedAnswers[currentQuestion]=
+index;
+
+
+renderQuestion();
+
+};
+
+
+answers.appendChild(button);
+
+});
 
 }
 
 
 
 /* =====================================================
-   NEXT QUESTION
-   ===================================================== */
+   NEXT
+===================================================== */
 
 function nextQuestion(){
 
-    if(currentQuestion<49){
+if(
+selectedAnswers[currentQuestion]===undefined
+){
 
-        currentQuestion++;
+alert(
+"Iltimos, javobni tanlang!"
+);
 
-        renderQuestion();
+return;
 
-    }
+}
 
-    else{
 
-        finishTest();
+if(currentQuestion<49){
 
-    }
+currentQuestion++;
+
+renderQuestion();
+
+}
+
+else{
+
+finishTest();
+
+}
 
 }
 
 
 
 /* =====================================================
-   PREVIOUS QUESTION
-   ===================================================== */
+   PREVIOUS
+===================================================== */
 
 function previousQuestion(){
 
-    if(currentQuestion>0){
+if(currentQuestion>0){
 
-        currentQuestion--;
+currentQuestion--;
 
-        renderQuestion();
+renderQuestion();
 
-    }
+}
 
 }
 
@@ -1773,139 +2379,247 @@ function previousQuestion(){
 
 /* =====================================================
    TIMER
-   ===================================================== */
+===================================================== */
 
 function startTimer(){
 
-    clearInterval(timerInterval);
+clearInterval(timerInterval);
 
 
-    timerInterval=
-    setInterval(function(){
-
-        timerSeconds--;
+document.getElementById("timer")
+.innerText="30:00";
 
 
-        const minutes=
-        Math.floor(timerSeconds/60);
+timerInterval=
+setInterval(function(){
+
+timerSeconds--;
 
 
-        const seconds=
-        timerSeconds%60;
+const minutes=
+Math.floor(
+timerSeconds/60
+);
 
 
-        document.getElementById("timer")
-        .innerText=
-        String(minutes).padStart(2,"0")+
-        ":"+
-        String(seconds).padStart(2,"0");
+const seconds=
+timerSeconds%60;
 
 
-        if(timerSeconds<=0){
+document.getElementById("timer")
+.innerText=
+String(minutes).padStart(2,"0")+
+":"+
+String(seconds).padStart(2,"0");
 
-            finishTest();
 
-        }
+if(timerSeconds<=0){
 
+clearInterval(timerInterval);
 
-    },1000);
+finishTest();
+
+}
+
+},1000);
 
 }
 
 
 
 /* =====================================================
-   FINISH TEST
-   ===================================================== */
+   TESTNI YAKUNLASH
+===================================================== */
 
 function finishTest(){
 
-    clearInterval(timerInterval);
+clearInterval(timerInterval);
 
 
-    let correct=0;
+if(!currentUser){
+
+return;
+
+}
 
 
-    /*
-       Faqat tanlangan fanning
-       50 ta savoli tekshiriladi.
-    */
-
-    for(let i=0;i<50;i++){
-
-        const q=
-        currentQuestions[i];
-
-        if(
-        selectedAnswers[i]===
-        q.correct
-        ){
-
-            correct++;
-
-        }
-
-    }
+let correct=0;
 
 
-    const wrong=
-    50-correct;
+/*
+   Javoblarni tekshirish.
+
+   MUHIM:
+   q.c endi javoblar aralashgandan keyingi
+   yangi to‘g‘ri javob indeksidir.
+*/
+
+for(let i=0;i<50;i++){
+
+const q=
+currentQuestions[i];
 
 
-    const percent=
-    correct*2;
+if(
+selectedAnswers[i]===
+q.c
+){
+
+correct++;
+
+}
+
+}
 
 
-    document.getElementById("correctResult")
-    .innerText=
-    correct;
+const wrong=
+50-correct;
 
 
-    document.getElementById("wrongResult")
-    .innerText=
-    wrong;
+const percent=
+correct*2;
 
 
-    document.getElementById("percentResult")
-    .innerText=
-    percent+"%";
+document.getElementById("correctResult")
+.innerText=
+correct;
 
 
-    /*
-       MA'LUMOTNI SAQLASH
-    */
-
-    const data=
-    JSON.parse(
-        localStorage.getItem("participants")
-        ||
-        "[]"
-    );
+document.getElementById("wrongResult")
+.innerText=
+wrong;
 
 
-    data.push({
-
-        ...currentUser,
-
-        correct:correct,
-
-        wrong:wrong,
-
-        percent:percent,
-
-        date:
-        new Date().toLocaleString("uz-UZ")
-
-    });
+document.getElementById("percentResult")
+.innerText=
+percent+
+"%";
 
 
-    localStorage.setItem(
-        "participants",
-        JSON.stringify(data)
-    );
+/*
+   Natijani saqlash
+*/
+
+const participants=
+getParticipants();
 
 
-    showPage("result");
+participants.push({
+
+username:
+currentUser.username,
+
+fullName:
+currentUser.fullName,
+
+region:
+currentUser.region,
+
+district:
+currentUser.district,
+
+birthDate:
+currentUser.birthDate,
+
+phone:
+currentUser.phone,
+
+examType:
+currentUser.examType,
+
+subject:
+currentUser.subject,
+
+testNumber:
+currentUser.currentTestNumber,
+
+correct:
+correct,
+
+wrong:
+wrong,
+
+percent:
+percent,
+
+date:
+new Date().toLocaleString("uz-UZ")
+
+});
+
+
+saveParticipants(participants);
+
+
+/*
+   Variant ishlangan deb belgilanadi.
+*/
+
+const users=
+getUsers();
+
+
+const index=
+users.findIndex(
+u=>
+u.username===
+currentUser.username
+);
+
+
+if(index!==-1){
+
+if(!users[index].usedTests){
+
+users[index].usedTests=[];
+
+}
+
+
+if(
+!users[index].usedTests.includes(
+currentUser.currentTestNumber
+)
+){
+
+users[index].usedTests.push(
+currentUser.currentTestNumber
+);
+
+}
+
+
+saveUsers(users);
+
+
+currentUser=
+users[index];
+
+}
+
+
+showPage("result");
+
+}
+
+
+
+/* =====================================================
+   KEYINGI TEST
+===================================================== */
+
+function prepareNextTest(){
+
+if(!currentUser){
+
+showPage("login");
+
+return;
+
+}
+
+
+startUserTest(currentUser);
 
 }
 
@@ -1913,151 +2627,139 @@ function finishTest(){
 
 /* =====================================================
    RANKING
-   ===================================================== */
+===================================================== */
 
 function renderRanking(){
 
-    const data=
-    JSON.parse(
-        localStorage.getItem("participants")
-        ||
-        "[]"
-    );
+const data=
+getParticipants();
 
 
-    const users={};
+const users={};
 
 
-    data.forEach(item=>{
+data.forEach(item=>{
+
+const key=
+item.username;
 
 
-        const key=
-        item.fullName;
+if(!users[key]){
+
+users[key]={
+
+fullName:
+item.fullName,
+
+region:
+item.region,
+
+subject:
+item.subject,
+
+tests:0,
+
+total:0
+
+};
+
+}
 
 
-        if(!users[key]){
+users[key].tests++;
 
-            users[key]={
+users[key].total+=
+item.percent;
 
-                fullName:item.fullName,
-
-                region:item.region,
-
-                subject:item.subject,
-
-                tests:0,
-
-                total:0
-
-            };
-
-        }
+});
 
 
-        users[key].tests++;
+const ranking=
+Object.values(users)
+.sort(
+(a,b)=>
+b.total-a.total
+);
 
 
-        users[key].total+=
-        item.percent;
-
-    });
+const body=
+document.getElementById("rankingBody");
 
 
-    const ranking=
-    Object.values(users)
-    .sort(
-        (a,b)=>
-        b.total-a.total
-    );
+body.innerHTML="";
 
 
-    const body=
-    document.getElementById("rankingBody");
+ranking.forEach(
+(user,index)=>{
+
+const row=
+document.createElement("tr");
 
 
-    body.innerHTML="";
+row.innerHTML=`
+
+<td>
+${
+index===0
+?"🥇"
+:
+index===1
+?"🥈"
+:
+index===2
+?"🥉"
+:
+index+1
+}
+</td>
+
+<td>
+${escapeHTML(user.fullName)}
+</td>
+
+<td>
+${escapeHTML(user.region)}
+</td>
+
+<td>
+${escapeHTML(user.subject)}
+</td>
+
+<td>
+${user.tests}
+</td>
+
+<td>
+${user.total}
+</td>
+
+<td>
+${(user.total/user.tests).toFixed(1)}%
+</td>
+
+`;
 
 
-    ranking.forEach((user,index)=>{
+body.appendChild(row);
+
+});
 
 
-        const row=
-        document.createElement("tr");
+if(ranking.length===0){
 
+body.innerHTML=`
 
-        if(index<3){
+<tr>
 
-            row.classList.add("rank1");
+<td colspan="7">
+Hali reyting mavjud emas.
+</td>
 
-        }
+</tr>
 
+`;
 
-        row.innerHTML=`
-
-        <td>
-        ${
-            index===0
-            ?"🥇"
-            :
-            index===1
-            ?"🥈"
-            :
-            index===2
-            ?"🥉"
-            :
-            index+1
-        }
-        </td>
-
-        <td>
-        ${user.fullName}
-        </td>
-
-        <td>
-        ${user.region}
-        </td>
-
-        <td>
-        ${user.subject}
-        </td>
-
-        <td>
-        ${user.tests}
-        </td>
-
-        <td>
-        ${user.total}
-        </td>
-
-        <td>
-        ${(user.total/user.tests).toFixed(1)}%
-        </td>
-
-        `;
-
-
-        body.appendChild(row);
-
-    });
-
-
-    if(ranking.length===0){
-
-        body.innerHTML=`
-
-        <tr>
-
-        <td colspan="7">
-
-        Hali reyting mavjud emas.
-
-        </td>
-
-        </tr>
-
-        `;
-
-    }
+}
 
 }
 
@@ -2065,218 +2767,292 @@ function renderRanking(){
 
 /* =====================================================
    ADMIN LOGIN
-   ===================================================== */
+===================================================== */
 
 function loginAdmin(){
 
-    const password=
-    document.getElementById("adminPassword")
-    .value;
+const password=
+document.getElementById("adminPassword")
+.value;
 
 
-    if(
-    password!=="Muzaffar2026!"
-    ){
+/*
+   ADMIN PAROLI:
+   Muzaffar2026!
+*/
 
-        alert(
-        "Admin paroli noto‘g‘ri!"
-        );
+if(
+password!=="Muzaffar2026!"
+){
 
-        return;
+alert(
+"Admin paroli noto‘g‘ri!"
+);
 
-    }
+return;
 
-
-    document
-    .getElementById("adminLogin")
-    .classList.add("hide");
-
-
-    document
-    .getElementById("adminPanel")
-    .classList.remove("hide");
+}
 
 
-    renderAdmin();
+document
+.getElementById("adminLogin")
+.classList.add("hide");
+
+
+document
+.getElementById("adminPanel")
+.classList.remove("hide");
+
+
+renderAdmin();
 
 }
 
 
 
 /* =====================================================
-   ADMIN PANEL
-   ===================================================== */
+   ADMIN
+===================================================== */
 
 function renderAdmin(){
 
-    const data=
-    JSON.parse(
-        localStorage.getItem("participants")
-        ||
-        "[]"
-    );
+const users=
+getUsers();
 
 
-    const uniqueUsers=
-    new Set(
-        data.map(
-            x=>x.fullName
-        )
-    );
+const data=
+getParticipants();
 
 
-    document.getElementById("totalUsers")
-    .innerText=
-    uniqueUsers.size;
+document.getElementById("totalUsers")
+.innerText=
+users.length;
 
 
-    document.getElementById("totalTests")
-    .innerText=
-    data.length;
+document.getElementById("totalTests")
+.innerText=
+data.length;
 
 
-    let average=0;
+let average=0;
 
 
-    if(data.length>0){
+if(data.length){
 
-        average=
-        data.reduce(
-            (sum,x)=>
-            sum+x.percent,
-            0
-        )
-        /
-        data.length;
+average=
+data.reduce(
+(sum,x)=>
+sum+x.percent,
+0
+)/
+data.length;
 
-    }
-
-
-    document.getElementById("averageResult")
-    .innerText=
-    average.toFixed(1)+"%";
+}
 
 
-    const body=
-    document.getElementById("adminBody");
+document.getElementById("averageResult")
+.innerText=
+average.toFixed(1)+
+"%";
 
 
-    body.innerHTML="";
+const body=
+document.getElementById("adminBody");
 
 
-    data.forEach((user,index)=>{
+body.innerHTML="";
 
 
-        const row=
-        document.createElement("tr");
+users.forEach(
+(user,index)=>{
 
 
-        row.innerHTML=`
-
-        <td>
-        ${index+1}
-        </td>
-
-        <td>
-        ${user.fullName}
-        </td>
-
-        <td>
-        ${user.region}
-        </td>
-
-        <td>
-        ${user.district}
-        </td>
-
-        <td>
-        ${user.birthDate}
-        </td>
-
-        <td>
-        ${user.phone}
-        </td>
-
-        <td>
-        ${user.examType}
-        </td>
-
-        <td>
-        ${user.subject}
-        </td>
-
-        <td>
-        ${user.correct}/50
-        <br>
-        ${user.percent}%
-        </td>
-
-        `;
+const userTests=
+data.filter(
+x=>
+x.username===
+user.username
+);
 
 
-        body.appendChild(row);
-
-    });
+let lastResult="—";
 
 
-    if(data.length===0){
+if(userTests.length){
 
-        body.innerHTML=`
+const last=
+userTests[userTests.length-1];
 
-        <tr>
 
-        <td colspan="9">
+lastResult=
+last.correct+
+"/50 ("+
+last.percent+
+"%)";
 
-        Hali ishtirokchi yo‘q.
+}
 
-        </td>
 
-        </tr>
+const row=
+document.createElement("tr");
 
-        `;
 
-    }
+row.innerHTML=`
+
+<td>
+${index+1}
+</td>
+
+<td>
+${escapeHTML(user.username)}
+</td>
+
+<td>
+${escapeHTML(user.fullName)}
+</td>
+
+<td>
+${escapeHTML(user.region)}
+</td>
+
+<td>
+${escapeHTML(user.district)}
+</td>
+
+<td>
+${escapeHTML(user.birthDate)}
+</td>
+
+<td>
+${escapeHTML(user.phone)}
+</td>
+
+<td>
+${escapeHTML(user.examType)}
+</td>
+
+<td>
+${escapeHTML(user.subject)}
+</td>
+
+<td>
+${lastResult}
+</td>
+
+`;
+
+
+body.appendChild(row);
+
+});
+
+
+if(users.length===0){
+
+body.innerHTML=`
+
+<tr>
+
+<td colspan="10">
+Hali foydalanuvchi yo‘q.
+</td>
+
+</tr>
+
+`;
+
+}
 
 }
 
 
 
 /* =====================================================
-   DELETE DATA
-   ===================================================== */
+   BARCHA MA'LUMOTLARNI O‘CHIRISH
+===================================================== */
 
 function deleteAllData(){
 
-    const ok=
-    confirm(
-    "Barcha ma'lumotlarni o‘chirishni xohlaysizmi?"
-    );
+const ok=
+confirm(
+"Barcha foydalanuvchilar va test natijalari o‘chiriladi. Davom etasizmi?"
+);
 
 
-    if(!ok){
+if(!ok){
 
-        return;
-
-    }
-
-
-    localStorage.removeItem(
-        "participants"
-    );
-
-
-    renderAdmin();
-
-    renderRanking();
-
-    alert(
-    "Barcha ma'lumotlar o‘chirildi."
-    );
+return;
 
 }
 
+
+localStorage.removeItem("users");
+
+localStorage.removeItem("participants");
+
+
+renderAdmin();
+
+renderRanking();
+
+
+alert(
+"Barcha ma'lumotlar o‘chirildi."
+);
+
+}
+
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logoutUser(){
+
+currentUser=null;
+
+currentQuestions=[];
+
+selectedAnswers=[];
+
+clearInterval(timerInterval);
+
+showPage("home");
+
+}
+
+
+
+/* =====================================================
+   XAVFSIZ HTML
+===================================================== */
+
+function escapeHTML(value){
+
+return String(value)
+
+.replace(/&/g,"&amp;")
+
+.replace(/</g,"&lt;")
+
+.replace(/>/g,"&gt;")
+
+.replace(/"/g,"&quot;")
+
+.replace(/'/g,"&#039;");
+
+}
+
+
+
+/* =====================================================
+   BOSHLANG‘ICH SAHIFA
+===================================================== */
+
+showPage("home");
 
 </script>
 
 </body>
-    </html>
+</html>
