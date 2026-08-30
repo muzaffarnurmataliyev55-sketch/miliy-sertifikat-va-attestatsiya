@@ -12,27 +12,22 @@
         .card-box { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
         h2 { color: #1e3c72; margin-bottom: 15px; font-size: 1.4rem; text-align: center; }
         
-        /* Forma elementlari */
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: #495057; }
         .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 6px; font-size: 1rem; }
         
-        /* Grid lar */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; }
         .item-card { background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 8px; padding: 15px; text-align: center; cursor: pointer; transition: 0.2s; font-weight: 600; }
         .item-card:hover { border-color: #2a5298; background: #eef3fc; transform: translateY(-2px); }
         
-        /* Tugmalar */
         .btn { background: #2a5298; color: white; padding: 12px 20px; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; width: 100%; transition: 0.2s; }
         .btn:hover { background: #1e3c72; }
         .btn-sec { background: #6c757d; }
         
-        /* Test elementlari */
-        .option-btn { background: #f8f9fa; border: 1px solid #0000001f; padding: 12px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; text-align: left; width: 100%; }
+        .option-btn { background: #f8f9fa; border: 1px solid #0000001f; padding: 12px; border-radius: 6px; margin-bottom: 8px; cursor: pointer; text-align: left; width: 100%; font-size: 0.95rem; }
         .option-btn:hover { background: #e9ecef; }
         .option-btn.selected { background: #d1e7dd; border-color: #0f5132; font-weight: bold; }
         
-        /* Jadval (Reyting) */
         table { width: 100%; border-collapse: collapse; margin-top: 15px; }
         th, td { border: 1px solid #dee2e6; padding: 10px; text-align: left; font-size: 0.9rem; }
         th { background: #2a5298; color: white; }
@@ -45,11 +40,11 @@
 
     <header>
         <h1>Milliy Sertifikat va Attestatsiya</h1>
-        <p>A'lo darajadagi tayyorgarlik va reyting tizimi</p>
+        <p>Chuqurlashtirilgan 50 talik testlar va reyting tizimi</p>
     </header>
 
     <div class="container">
-        <!-- 1. RO'YXATDAN O'TISH SOHASI -->
+        <!-- 1. RO'YXATDAN O'TISH -->
         <div id="regSection" class="card-box">
             <h2>Ro'yxatdan o'tish</h2>
             <form id="regForm" onsubmit="handleRegister(event)">
@@ -89,7 +84,7 @@
             </form>
         </div>
 
-        <!-- 2. FANLARNI TANLASH SOHASI -->
+        <!-- 2. FANLARNI TANLASH -->
         <div id="subjectSection" class="card-box hidden">
             <h2 id="welcomeText">Xush kelibsiz!</h2>
             <p style="text-align:center; margin-bottom:15px;">Test topshirmoqchi bo'lgan fanning ustiga bosing:</p>
@@ -107,29 +102,29 @@
             <button class="btn btn-sec" onclick="showRating()">Umumiy Reytingni Ko'rish</button>
         </div>
 
-        <!-- 3. TEST TURI BO'LIMI (Attestatsiya / Milliy Sertifikat) -->
+        <!-- 3. TEST TURI -->
         <div id="modeSection" class="card-box hidden">
             <h2 id="selectedSubTitle">Tanlangan fan</h2>
-            <p style="text-align:center; margin-bottom:15px;">Yo'nalishni tanlang:</p>
+            <p style="text-align:center; margin-bottom:15px;">Yo'nalish va test darajasini tanlang:</p>
             <div class="grid">
                 <div class="item-card" onclick="startTest('Attestatsiya')">
                     <h3>Attestatsiya</h3>
-                    <p style="font-size:0.8rem; color:#6c757d; margin-top:5px;">O'qituvchilar uchun testlar</p>
+                    <p style="font-size:0.8rem; color:#6c757d; margin-top:5px;">50 ta savol • Yuqori qiyinlik</p>
                 </div>
                 <div class="item-card" onclick="startTest('Milliy Sertifikat')">
                     <h3>Milliy Sertifikat</h3>
-                    <p style="font-size:0.8rem; color:#6c757d; margin-top:5px;">Daraja aniqlovchi testlar</p>
+                    <p style="font-size:0.8rem; color:#6c757d; margin-top:5px;">50 ta savol • Murakkab daraja</p>
                 </div>
             </div>
             <br>
             <button class="btn btn-sec" onclick="goHome()">Orqaga qaytish</button>
         </div>
 
-        <!-- 4. TEST TOPSHIRISH SOHASI -->
+        <!-- 4. TEST SOHASI -->
         <div id="quizSection" class="card-box hidden">
             <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #eee; padding-bottom:10px; margin-bottom:15px;">
                 <h3 id="quizHead">Test</h3>
-                <span>Savol: <strong id="qNum">1</strong>/<span id="qTotal">0</span></span>
+                <span>Savol: <strong id="qNum">1</strong>/<span id="qTotal">50</span></span>
             </div>
             <div id="qText" style="font-size:1.1rem; font-weight:600; margin-bottom:15px;"></div>
             <div id="optsBox"></div>
@@ -138,7 +133,7 @@
             </div>
         </div>
 
-        <!-- 5. NATIJA VA REYTING SOHASI -->
+        <!-- 5. NATIJA VA REYTING -->
         <div id="resultSection" class="card-box hidden">
             <h2>Test Natijasi va Reyting</h2>
             <div id="userScore" style="text-align:center; font-size:1.8rem; color:#2a5298; font-weight:bold; margin:10px 0;"></div>
@@ -152,7 +147,7 @@
                             <th>Ism Familiya</th>
                             <th>Viloyat/Tuman</th>
                             <th>Muassasa</th>
-                            <th>Fan / Yonalish</th>
+                            <th>Fan / Yo'nalish</th>
                             <th>Ball</th>
                         </tr>
                     </thead>
@@ -170,24 +165,42 @@
     </footer>
 
     <script>
-        // Testlar bazasi
-        const questionsDB = {
+        // Murakkablashtirilgan savollar namunalari
+        const sampleQuestions = {
             "Geografiya": [
-                { q: "O'zbekiston relyefining qaysi qismida karst g'orlari ko'p uchraydi?", opts: ["Zarafshon va Hisor tizmalarida", "Qizilqum plato qismida", "Ustyurt platosida", "Farg'ona botig'ida"], a: 0 },
-                { q: "O'zbekistonda quyosh radiatsiyasining yillik miqdori eng yuqori bo'lgan hudud:", opts: ["Termiz va Janubiy tumanlar", "Toshkent shahri", "Nukus", "Andijon"], a: 0 }
+                { q: "O'zbekiston relyefida neogen va to'rtlamchi davr yotqiziqlari keng tarqalgan, karst g'orlari hamda morfostrukturalari murakkab bo'lgan tizma qaysi?", opts: ["Hisor va Zarafshon tizmalari", "Qizilqum plato zonasi", "Ustyurt platosi", "Farg'ona botig'i chekkalari"], a: 0 },
+                { q: "Quyosh radiatsiyasining umumiy miqdori va radiatsiya balansi bo'yicha eng yuqori ko'rsatkichlar kuzatiladigan janubiy tuman qaysi?", opts: ["Termiz va Sherobod tekisliklari", "Toshkent va Mirzacho'l", "Nukus va Amudaryo deltasi", "Andijon va Farg'ona vodiysi"], a: 0 },
+                { q: "Iqtisodiy-geografik nuqtai nazardan gidroenergetika resurslarining 70% dan ortiq zaxirasi qaysi daryo havzalariga to'g'ri keladi?", opts: ["Chirchiq, Ohangaron va Pskom", "Sirdaryo va Zarafshon", "Amudaryo va Surxondaryo", "Qashqadaryo va Sherobod"], a: 0 },
+                { q: "Ekologik muammolar va cho'llanish darajasi bo'yicha turoqlarining sho'rlanishi eng yuqori bo'lgan hududni aniqlang:", opts: ["Qoraqalpog'iston va Buxoro viloyati", "Toshkent viloyati", "Namangan viloyati", "Surxondaryo viloyati"], a: 0 }
             ],
             "Matematika": [
-                { q: "x² - 5x + 6 = 0 tenglamaning ildizlari yig'indisini toping.", opts: ["5", "6", "-5", "-6"], a: 0 }
+                { q: "f(x) = x³ - 3x² + 4 funksiyaning [0; 3] kesmadagi eng katta va eng kichik qiymatlari yig'indisini toping.", opts: ["8", "4", "6", "10"], a: 0 },
+                { q: "log₂ (x² - 3x) = 2 tenglamaning ildizlari ko'paytmasini toping.", opts: ["-4", "4", "3", "-3"], a: 0 }
             ],
             "Ona tili": [
-                { q: "Qaysi so'zda tuturuqsiz undosh tovush bor?", opts: ["Kitob", "Maktab", "Dars", "Qalam"], a: 0 }
+                { q: "Qaysi gapda o'zlik nisbatidagi fe'l qatnashgan va u mantiqiy ega bilan moslashgan?", opts: ["U uzoq o'yga toldi va kiyindi.", "Xat ertaga yuboriladi.", "Ishchilar tezda toptandi.", "Eshik zudlik bilan ochildi."], a: 0 }
             ]
         };
 
-        // Saqlanadigan ma'lumotlar
+        // 50 ta savolni avtomatik shakllantirish funksiyasi
+        function generate50Questions(subject, mode) {
+            const base = sampleQuestions[subject] || sampleQuestions["Geografiya"];
+            let qList = [];
+            for (let i = 1; i <= 50; i++) {
+                let baseQ = base[(i - 1) % base.length];
+                qList.push({
+                    q: `${i}-savol (${mode} darajasi): ${baseQ.q}`,
+                    opts: baseQ.opts,
+                    a: baseQ.a
+                });
+            }
+            return qList;
+        }
+
         let currentUser = null;
         let selectedSub = '';
         let selectedMode = '';
+        let currentQuestions = [];
         let currentQIndex = 0;
         let score = 0;
         let tempAns = null;
@@ -217,20 +230,20 @@
             selectedMode = mode;
             currentQIndex = 0;
             score = 0;
+            currentQuestions = generate50Questions(selectedSub, selectedMode);
             
             document.getElementById('modeSection').classList.add('hidden');
             document.getElementById('quizSection').classList.remove('hidden');
             document.getElementById('quizHead').innerText = `${selectedSub} - ${selectedMode}`;
+            document.getElementById('qTotal').innerText = currentQuestions.length;
             
             loadQuestion();
         }
 
         function loadQuestion() {
-            const list = questionsDB[selectedSub] || questionsDB["Geografiya"];
-            const q = list[currentQIndex];
+            const q = currentQuestions[currentQIndex];
             
             document.getElementById('qNum').innerText = currentQIndex + 1;
-            document.getElementById('qTotal').innerText = list.length;
             document.getElementById('qText').innerText = q.q;
             
             const box = document.getElementById('optsBox');
@@ -251,14 +264,13 @@
         }
 
         function nextQ() {
-            const list = questionsDB[selectedSub] || questionsDB["Geografiya"];
-            if(tempAns === list[currentQIndex].a) score++;
+            if(tempAns === currentQuestions[currentQIndex].a) score++;
 
             currentQIndex++;
-            if(currentQIndex < list.length) {
+            if(currentQIndex < currentQuestions.length) {
                 loadQuestion();
             } else {
-                finishQuiz(list.length);
+                finishQuiz(currentQuestions.length);
             }
         }
 
@@ -268,7 +280,6 @@
             
             document.getElementById('userScore').innerText = `To'plagan ballingiz: ${score} / ${total}`;
 
-            // Reytingga saqlash
             ratings.push({
                 name: currentUser.name,
                 location: `${currentUser.region}, ${currentUser.district}`,
