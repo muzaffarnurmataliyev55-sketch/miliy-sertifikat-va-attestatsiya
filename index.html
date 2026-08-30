@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geografiya — Milliy Sertifikat va Attestatsiya Test Tizimi</title>
+    <title>Geografiya — AI Test va Ro'yxatdan o'tish Tizimi</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
     <style>
         :root {
@@ -18,218 +18,77 @@
             --emerald-bg: #ecfdf5;
             --rose-main: #f43f5e;
             --rose-bg: #fff1f2;
+            --purple-main: #8b5cf6;
+            --purple-bg: #f5f3ff;
             --amber-main: #f59e0b;
             --border-color: #e2e8f0;
             --radius: 16px;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding: 16px 12px;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-            width: 100%;
-            max-width: 550px;
-        }
-
-        header h1 {
-            color: var(--blue-main);
-            font-size: 1.5rem;
-            font-weight: 800;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            margin-top: 4px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 550px;
-        }
-
-        .card-box {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 24px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .form-group label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .form-group input, .form-group select {
-            padding: 12px 14px;
-            border: 1.5px solid var(--border-color);
-            border-radius: 12px;
-            font-size: 0.95rem;
-            outline: none;
-            background: #f8fafc;
-        }
-
-        .user-profile-card {
-            background: linear-gradient(135deg, #1e40af, #3b82f6);
-            color: white;
-            border-radius: 14px;
-            padding: 16px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-dark); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 16px 12px; }
+        header { text-align: center; margin-bottom: 20px; width: 100%; max-width: 550px; }
+        header h1 { color: var(--blue-main); font-size: 1.5rem; font-weight: 800; }
+        header p { color: var(--text-muted); font-size: 0.88rem; margin-top: 4px; }
+        .container { width: 100%; max-width: 550px; }
+        .card-box { background: var(--card-bg); border-radius: var(--radius); padding: 24px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); display: flex; flex-direction: column; gap: 16px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+        .form-group input { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem; outline: none; background: #f8fafc; }
+        .user-profile-card { background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; border-radius: 14px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
         .user-info-name { font-size: 1.1rem; font-weight: 700; }
         .user-info-school { font-size: 0.85rem; opacity: 0.9; margin-top: 2px; }
-
-        .admin-badge {
-            background-color: #fef08a;
-            color: #854d0e;
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 20px;
-        }
-
+        .admin-badge { background-color: #fef08a; color: #854d0e; font-size: 0.75rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; }
         .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-        .section-card {
-            background: #ffffff;
-            border: 1.5px solid var(--border-color);
-            border-radius: 14px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .section-card:hover {
-            border-color: var(--blue-main);
-            transform: translateY(-2px);
-        }
-
+        .section-card { background: #ffffff; border: 1.5px solid var(--border-color); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; transition: all 0.2s ease; }
+        .section-card:hover { border-color: var(--blue-main); transform: translateY(-2px); }
         .section-title { font-size: 1.05rem; font-weight: 700; }
         .section-desc { color: var(--text-muted); font-size: 0.82rem; }
-
-        .question-badge {
-            align-self: flex-start;
-            background-color: var(--blue-bg);
-            color: var(--blue-main);
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 20px;
-            margin-top: 4px;
-        }
-
-        .btn {
-            background-color: var(--blue-main);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            padding: 13px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            width: 100%;
-        }
-
+        .btn { background-color: var(--blue-main); color: white; border: none; border-radius: 12px; padding: 13px; font-size: 0.95rem; font-weight: 700; cursor: pointer; width: 100%; }
         .btn-gray { background-color: #e2e8f0; color: #334155; }
         .btn-red { background-color: var(--rose-bg); color: var(--rose-main); border: 1px solid #fecdd3; }
         .btn-finish { background-color: var(--amber-main); color: white; }
-
-        .timer-bar {
-            background: #f1f5f9;
-            border: 1.5px solid var(--border-color);
-            border-radius: 12px;
-            padding: 10px 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 700;
-        }
-
+        .timer-bar { background: #f1f5f9; border: 1.5px solid var(--border-color); border-radius: 12px; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
         .timer-time { color: var(--rose-main); font-size: 1.1rem; font-family: monospace; }
-
-        .option-btn {
-            background: #f8fafc;
-            border: 1.5px solid var(--border-color);
-            padding: 14px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 0.9rem;
-            display: flex;
-            gap: 10px;
-        }
-
-        .option-btn.selected {
-            background: var(--blue-bg);
-            border-color: var(--blue-main);
-            color: var(--blue-main);
-            font-weight: 600;
-        }
-
+        .option-btn { background: #f8fafc; border: 1.5px solid var(--border-color); padding: 14px; border-radius: 12px; margin-bottom: 10px; cursor: pointer; width: 100%; font-size: 0.9rem; display: flex; gap: 10px; }
+        .option-btn.selected { background: var(--blue-bg); border-color: var(--blue-main); color: var(--blue-main); font-weight: 600; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 10px 8px; text-align: left; font-size: 0.82rem; border-bottom: 1px solid var(--border-color); }
-
-        .review-item {
-            border: 1.5px solid var(--border-color);
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 12px;
-        }
+        .review-item { border: 1.5px solid var(--border-color); border-radius: 12px; padding: 14px; margin-bottom: 12px; }
         .review-item.correct-item { border-color: var(--emerald-main); background: var(--emerald-bg); }
         .review-item.wrong-item { border-color: var(--rose-main); background: var(--rose-bg); }
-
         .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .stat-card { background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; text-align: center; }
         .stat-card .val { font-size: 1.3rem; font-weight: 800; color: var(--blue-main); }
         .stat-card .lbl { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
-
+        
+        /* AI Tahlilchi blok stili */
+        .ai-box { background: var(--purple-bg); border: 1.5px solid var(--purple-main); border-radius: 14px; padding: 16px; color: #4c1d95; margin-top: 10px; }
+        .ai-box h4 { font-size: 0.95rem; display: flex; align-items: center; gap: 6px; margin-bottom: 6px; color: #5b21b6; }
         .hidden { display: none !important; }
+        
+        /* Auth Tab stili */
+        .tab-btn-group { display: flex; gap: 8px; margin-bottom: 10px; }
+        .tab-btn { flex: 1; padding: 10px; border: 1px solid var(--border-color); background: #f8fafc; border-radius: 10px; font-weight: 600; cursor: pointer; text-align: center; }
+        .tab-btn.active { background: var(--blue-main); color: white; border-color: var(--blue-main); }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>🌍 Geografiya Test Tizimi</h1>
-        <p id="subTitle">Attestatsiya va Milliy Sertifikat</p>
+        <h1>🌍 Geografiya — AI Test Tizimi</h1>
+        <p>Attestatsiya va Milliy Sertifikat imtihoni</p>
     </header>
 
     <div class="container">
-        <!-- 1. LOGIN SOHASI -->
-        <div id="loginSection" class="card-box">
-            <h2 style="font-size: 1.25rem; text-align: center;">Tizimga kirish</h2>
+        <!-- 1. LOGIN VA RO'YXATDAN O'TISH -->
+        <div id="authSection" class="card-box">
+            <div class="tab-btn-group">
+                <div id="tabLoginBtn" class="tab-btn active" onclick="switchAuthTab('login')">Kirish</div>
+                <div id="tabRegBtn" class="tab-btn" onclick="switchAuthTab('register')">Ro'yxatdan o'tish</div>
+            </div>
+
+            <!-- Kirish Formasi -->
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label>Login</label>
@@ -239,11 +98,28 @@
                     <label>Parol</label>
                     <input type="password" id="passwordInput" placeholder="Parolingizni kiriting" required>
                 </div>
+                <button type="submit" class="btn" style="margin-top: 10px;">Tizimga kirish</button>
+            </form>
+
+            <!-- Ro'yxatdan o'tish Formasi -->
+            <form id="registerForm" class="hidden" onsubmit="handleRegister(event)">
                 <div class="form-group">
                     <label>Ism va Familiyangiz</label>
-                    <input type="text" id="userRealNameInput" placeholder="Ism Familiya" required>
+                    <input type="text" id="regNameInput" placeholder="Masalan: Ali Valiyev" required>
                 </div>
-                <button type="submit" class="btn" style="margin-top: 8px;">Kirish</button>
+                <div class="form-group">
+                    <label>Maktab / Muassasa nomi</label>
+                    <input type="text" id="regSchoolInput" placeholder="Masalan: 5-maktab" required>
+                </div>
+                <div class="form-group">
+                    <label>Yangi Login</label>
+                    <input type="text" id="regLoginInput" placeholder="Tizim uchun login o'ylang" required>
+                </div>
+                <div class="form-group">
+                    <label>Yangi Parol</label>
+                    <input type="password" id="regPassInput" placeholder="Kutgan parolingiz" required>
+                </div>
+                <button type="submit" class="btn" style="margin-top: 10px; background-color: var(--emerald-main);">Ro'yxatdan o'tish</button>
             </form>
         </div>
 
@@ -258,19 +134,16 @@
             </div>
 
             <div class="nav-grid">
-                <button class="btn btn-gray" onclick="showCabinet()">👤 Shaxsiy Kabinet</button>
+                <button class="btn btn-gray" onclick="showCabinet()">👤 Kabinet</button>
                 <button class="btn btn-gray" onclick="showRating()">🏆 Reyting</button>
             </div>
 
-            <h3 style="font-size: 1rem; color: var(--text-dark);">Geografiya test moduli:</h3>
-
-            <div class="section-card" onclick="chooseSubject('Geografiya')">
-                <div class="section-title">🌍 Geografiya Fani</div>
-                <div class="section-desc">Attestatsiya va Milliy Sertifikat imtihonlari uchun</div>
-                <div class="question-badge">70 ta noyob va takrorlanmas savol</div>
+            <div class="section-card" onclick="showModeSection()">
+                <div class="section-title">🌍 Geografiya Fani Testi</div>
+                <div class="section-desc">70 ta noyob va takrorlanmas savol</div>
             </div>
 
-            <button id="adminBtn" class="btn btn-finish hidden" onclick="showAdminPanel()">👑 Admin Panel (Login/Parol berish)</button>
+            <button id="adminBtn" class="btn btn-finish hidden" onclick="showAdminPanel()">👑 Admin Panel</button>
             <button class="btn btn-red" onclick="logout()">Chiqish</button>
         </div>
 
@@ -282,7 +155,7 @@
                 <div class="stat-card"><div class="val" id="cabAvgScore">0%</div><div class="lbl">O'rtacha ball</div></div>
                 <div class="stat-card"><div class="val" id="cabBestScore">0/70</div><div class="lbl">Eng yuqori</div></div>
             </div>
-            <h4 style="font-size: 0.95rem;">Test topshirishlar tarixi:</h4>
+            <h4 style="font-size: 0.95rem;">Testlar tarixi:</h4>
             <div style="overflow-x:auto;">
                 <table>
                     <thead><tr><th>Sana</th><th>Bo'lim</th><th>Natija</th><th>Vaqt</th></tr></thead>
@@ -294,15 +167,15 @@
 
         <!-- 4. TEST MODE -->
         <div id="modeSection" class="card-box hidden">
-            <h3 style="text-align: center; color: var(--blue-main);">Geografiya Fani</h3>
+            <h3 style="text-align: center; color: var(--blue-main);">Geografiya Imtihoni</h3>
             <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">Vaqt: 1.5 Soat (90 minut)</p>
             <div class="section-card" onclick="startQuiz('Attestatsiya')">
                 <div class="section-title">📘 Attestatsiya Testi</div>
-                <div class="section-desc">70 ta noyob savol • Vaqt: 1.5 Soat</div>
+                <div class="section-desc">70 ta savol • Vaqt: 1.5 Soat</div>
             </div>
             <div class="section-card" onclick="startQuiz('Milliy Sertifikat')">
                 <div class="section-title">📗 Milliy Sertifikat Testi</div>
-                <div class="section-desc">70 ta murakkablashtirilgan savol • Vaqt: 1.5 Soat</div>
+                <div class="section-desc">70 ta murakkab savol • Vaqt: 1.5 Soat</div>
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga</button>
         </div>
@@ -325,16 +198,23 @@
             </div>
         </div>
 
-        <!-- 6. NATIJALAR -->
+        <!-- 6. NATIJALAR VA AI TAHLIL -->
         <div id="resultSection" class="card-box hidden">
-            <h2 style="font-size: 1.3rem; text-align: center;">🏁 Test Natijasi va Tahlili</h2>
+            <h2 style="font-size: 1.3rem; text-align: center;">🏁 Test Natijasi va Tahlil</h2>
             <div class="stats-grid">
                 <div class="stat-card"><div class="val" id="resScoreText">0/70</div><div class="lbl">To'g'ri javob</div></div>
                 <div class="stat-card"><div class="val" id="resPercentText">0%</div><div class="lbl">Foiz</div></div>
                 <div class="stat-card"><div class="val" id="resTimeText">00:00</div><div class="lbl">Sarflangan vaqt</div></div>
             </div>
-            <h3 style="font-size:1rem; margin-top:10px;">Batafsil xato va to'g'ri javoblar:</h3>
-            <div id="reviewBox" style="max-height: 400px; overflow-y: auto;"></div>
+
+            <!-- AI Sun'iy Intellekt Maslahatchisi -->
+            <div class="ai-box">
+                <h4>🤖 Sun'iy Intellekt (AI) Bahosi va Maslahati:</h4>
+                <div id="aiFeedbackText" style="font-size: 0.88rem; line-height: 1.4;">Tahlil qilinmoqda...</div>
+            </div>
+
+            <h3 style="font-size:1rem; margin-top:10px;">Batafsil javoblar:</h3>
+            <div id="reviewBox" style="max-height: 350px; overflow-y: auto;"></div>
             <button class="btn" onclick="showMainMenu()">Bosh sahifaga qaytish</button>
         </div>
 
@@ -353,17 +233,10 @@
         <!-- 8. ADMIN PANEL -->
         <div id="adminSection" class="card-box hidden">
             <h2 style="font-size: 1.2rem; text-align: center;">👑 Admin Panel</h2>
-            <form id="addUserForm" onsubmit="createNewUser(event)">
-                <h4>Yangi login/parol (Guruh/Tashkilot uchun) berish:</h4>
-                <div class="form-group"><input type="text" id="newLogin" placeholder="Yangi Login" required></div>
-                <div class="form-group"><input type="text" id="newPass" placeholder="Yangi Parol" required></div>
-                <div class="form-group"><input type="text" id="newSchool" placeholder="Maktab yoki Tashkilot nomi" required></div>
-                <button type="submit" class="btn" style="margin-top:5px;">Qo'shish</button>
-            </form>
-            <h4 style="margin-top:10px;">Mavjud Login/Parollar ro'yxati:</h4>
+            <h4 style="margin-top:5px;">Ro'yxatdan o'tgan foydalanuvchilar:</h4>
             <div style="overflow-x:auto;">
                 <table>
-                    <thead><tr><th>Login</th><th>Parol</th><th>Tashkilot</th></tr></thead>
+                    <thead><tr><th>Ism</th><th>Login</th><th>Parol</th><th>Muassasa</th></tr></thead>
                     <tbody id="adminUsersTable"></tbody>
                 </table>
             </div>
@@ -372,7 +245,7 @@
     </div>
 
     <script>
-        // GEOGRAFIYA FANI BO'YICHA TO'LIQ 70 TA SAVOLLAR BAZASI
+        // 70 TA TO'LIQ VA UNIKAL GEOGRAFIYA SAVOLLARI BAZASI
         const geographyQuestionsBase = [
             { q: "O'zbekiston relyefining qaysi qismida karst g'orlari ko'p uchraydi?", right: "Zarafshon va Hisor tizmalarida", wr: ["Qizilqum plato qismida", "Ustyurt platosida", "Farg'ona botig'ida"] },
             { q: "Quyosh radiatsiyasining yillik miqdori eng yuqori bo'lgan hudud:", right: "Termiz va Sherobod tekisliklari", wr: ["Toshkent shahri", "Nukus shahri", "Andijon viloyati"] },
@@ -381,72 +254,71 @@
             { q: "Afrika qit'asining eng baland nuqtasi qaysi?", right: "Kilimanjaro", wr: ["Keniya", "Elbrus", "Monblan"] },
             { q: "Dunyoning eng chuqur ko'li qaysi?", right: "Baykal", wr: ["Kaspiy", "Tanganika", "Yuqori ko'l"] },
             { q: "O'zbekistonda joylashgan eng yirik muzlik qaysi?", right: "Seversov muzligi", wr: ["Fedchenko muzligi", "Tyon-Shon muzligi", "Zarafshon muzligi"] },
-            { q: "Qaysi daryo O'zbekiston hududidan o'tmaydi?", right: "Dunay", wr: ["Sirdaryo", "Amudaryo", "Zarafshon"] },
             { q: "Dunyodagi eng katta orol qaysi?", right: "Grenlandiya", wr: ["Madagaskar", "Kalimantan", "Sumatra"] },
-            { q: "Yer shari necha vaqt mintaqasiga bo mezon qilingan?", right: "24 ta", wr: ["12 ta", "36 ta", "18 ta"] },
+            { q: "Yer shari necha vaqt mintaqasiga bo'lingan?", right: "24 ta", wr: ["12 ta", "36 ta", "18 ta"] },
             { q: "O'zbekiston Respublikasi maydoni qanchaga teng?", right: "448.9 ming kv.km", wr: ["500.5 ming kv.km", "410.2 ming kv.km", "380.0 ming kv.km"] },
             { q: "Dunyoning eng baland sharsharasi qaysi?", right: "Anxel", wr: ["Niagara", "Viktoriya", "Iguasu"] },
             { q: "Janubiy Amerikaning eng katta davlati qaysi?", right: "Braziliya", wr: ["Argentina", "Kolumbiya", "Peru"] },
-            { q: "Toshkent shahri qaysi daryo havzasida joylashgan?", right: "Chirchiq daryosi", wr: ["Zarafshon daryosi", "Naryn daryosi", "Surxondaryo"] },
             { q: "Dunyoning eng chuqur okean botiqligi qaysi?", right: "Mariana botiqligi", wr: ["Yava botiqligi", "Puerto-Riko", "Sond"] },
             { q: "Dunyoning eng katta yarimoroli qaysi?", right: "Arabiston yarimoroli", wr: ["Hindiston", "Skandinaviya", "Labrador"] },
-            { q: "Shimoliy Amerika va Osiyoni ajratib turuvchi bo'g'oz qaysi?", right: "Bering bo'g'ozi", wr: ["Gibraltar", "Magellan", "Suvets"] },
+            { q: "Shimoliy Amerika va Osiyoni ajratib turuvchi bo'g'oz qaysi?", right: "Bering bo'g'ozi", wr: ["Gibraltar", "Magellan", "Suvaysh"] },
             { q: "O'zbekistonning eng sharqiy nuqtasi qaysi viloyatda joylashgan?", right: "Andijon viloyati", wr: ["Farg'ona", "Namangan", "Toshkent"] },
             { q: "Evropa va Osiyo qit'alarini ajratib turuvchi tog' tizmasi:", right: "Ural tog'lari", wr: ["Kavkaz tog'lari", "Alp tog'lari", "Oltoy tog'lari"] },
             { q: "Tinch okeanini Atlantika okeani bilan bog'laydigan sun'iy kanal:", right: "Panama kanali", wr: ["Suvaysh kanali", "Kil kanali", "Koreya bo'g'ozi"] },
             { q: "O'zbekiston bilan eng uzun chegaraga ega bo'lgan qo'shni davlat:", right: "Qozog'iston", wr: ["Turkmaniston", "Tojikiston", "Qirg'iziston"] },
             { q: "Dunyoning eng katta cho'li qaysi?", right: "Sahroi Kabir", wr: ["Gobi", "Kalahari", "Qizilqum"] },
-            { q: "Gimalay tog'larining eng baland cho'qqisi —", right: "Everest (Jomolungma)", wr: ["K2", "Kanchenjanga", "Lxotse"] },
-            { q: "Yaponiya davlati joylashgan materik:", right: "Evroosiyo", wr: ["Afrika", "Avstraliya", "Shimoliy Amerika"] },
-            { q: "Dunyoning eng serhavza daryosi qaysi?", right: "Amazonka", wr: ["Nil", "Missisipi", "Yanszi"] },
-            { q: "O'zbekistonning eng baland cho'qqisi (Hazrati Sulton, 4643m) qaysi tog' tizmasida?", right: "Hisor tizmasida", wr: ["Chatqol tizmasida", "Pskem tizmasida", "Zarafshon tizmasida"] },
-            { q: "Avstraliyaning eng baland cho'qqisi qaysi?", right: "Koscyushko", wr: ["Cook", "Elbrus", "Kilmianjaro"] },
-            { q: "Qizil dengiz bilan O'rta dengizni bog'laydigan kanal:", right: "Suvaysh kanali", wr: ["Panama kanali", "Kipr bo'g'ozi", "Kichik bo'g'oz"] },
-            { q: "Aholisi soni bo'yicha dunyoda birinchi o'rinda turuvchi davlat:", right: "Hindiston", wr: ["Xitoy", "AQSH", "Indoneziya"] },
-            { q: "O'zbekistonda marmar konlari ko'p topilgan hudud:", right: "G'ozg'on va Nurota", wr: ["Chirchiq", "Buxoro", "Quvasoy"] },
-            { q: "Katta Suvayg'ich tog' tizmasi qaysi materikda joylashgan?", right: "Avstraliya", wr: ["Afrika", "Shimoliy Amerika", "Janubiy Amerika"] },
-            { q: "Dunyoning eng yirik ko'l-dengizi qaysi?", right: "Kaspiy dengizi", wr: ["Orol dengizi", "Viktoriya", "Michigan"] },
-            { q: "O'zbekiston Respublikasining ma'muriy-hududiy tuzilishi nechta viloyatdan iborat?", right: "12 ta viloyat, 1 ta respublika, 1 ta Toshkent shahri", wr: ["14 ta viloyat", "10 ta viloyat", "11 ta viloyat"] },
-            { q: "Antarktida materigini kimlar kashf etgan?", right: "F.Bellinsgauzen va M.Lazarev", wr: ["X.Kolumb", "J.Kuk", "F.Magellan"] },
-            { q: "Okeaniya hududidagi eng katta orol mamlakat:", right: "Yangi Zelandiya", wr: ["Fidji", "Samoa", "Tonga"] },
-            { q: "O'zbekistonning qaysi viloyati issiqxona gazlari va gaz zaxirasiga eng boy?", right: "Buxoro va Qashqadaryo", wr: ["Farg'ona", "Toshkent", "Xorazm"] },
-            { q: "Yer markazidagi qatlam nima deyiladi?", right: "Yadro", wr: ["Mantiya", "Litosfera", "Yer po'sti"] },
-            { q: "Mutlaq balandlik nimadan hisoblanadi?", right: "Dengiz sathidan", wr: ["Tog' etagidan", "Okean tubidan", "Tekislikdan"] },
-            { q: "Eng kichik materik qaysi?", right: "Avstraliya", wr: ["Antarktida", "Janubiy Amerika", "Evroosiyo"] },
-            { q: "Mavsumiy esuvchi shamollar nima deyiladi?", right: "Mussonlar", wr: ["Passatlar", "Brizlar", "Siklonlar"] },
-            { q: "O'zbekistonning suv omborlaridan eng kattasi qaysi?", right: "Chorvoq suv ombori", wr: ["Kattaqo'rg'on", "Toshko'prik", "Andijon"] },
-            { q: "Atmsofera havosi tarkibida eng ko'p bo'lgan gaz:", right: "Azot (78%)", wr: ["Kislorod", "Uglerod", "Argon"] },
-            { q: "Magellan dunyo bo'ylab birinchi sayohatini nechanchi yillarda amalga oshirgan?", right: "1519-1522-yillar", wr: ["1492-1495-yillar", "1600-1603-yillar", "1498-1501-yillar"] },
-            { q: "Vulkan otilishi natijasida hosil bo'ladigan suyuq tog' jinsi:", right: "Lava", wr: ["Magma", "Granit", "Bazalt"] },
-            { q: "Ekvalatorda sutka davomiyligi qancha?", right: "12 soat kun, 12 soat tun", wr: ["14 soat kun", "16 soat kun", "20 soat kun"] },
-            { q: "Italiya poytaxti Rim shahri qaysi yarimorolda joylashgan?", right: "Apennin yarimoroli", wr: ["Pireney", "Balkan", "Skandinaviya"] },
-            { q: "Grometr shaklidagi relyef xaritalarida balandliklar nima bilan ko'rsatiladi?", right: "Gorisontallar (izogipslar) bilan", wr: ["Izobarlar", "Izotermalar", "Izobatalar"] },
-            { q: "Buyuk ipak yo'li qaysi davlatlarni bog'lagan?", right: "Xitoy va O'rta dengiz bo'yi davlatlarini", wr: ["Hindiston va Avstraliyani", "Afrika va Amerikani", "Yaponiya va Rossiyani"] },
-            { q: "Nil daryosi qaysi dengizga borib quyiladi?", right: "O'rta dengizga", wr: ["Qizil dengizga", "Qora dengizga", "Arabiston dengiziga"] },
-            { q: "Shimoliy Muz okeanining eng yirik daryolaridan biri:", right: "Yenisey", wr: ["Volga", "Amur", "Xuanxe"] },
-            { q: "Dunyodagi eng katta ko'rfaz qaysi?", right: "Bengal ko mezon", wr: ["Fors ko'rfazi", "Meksika ko'rfazi", "Gudzon"] },
-            { q: "Issiq oqimni aniqlang:", right: "Golfstrim", wr: ["Peruan", "Kanar", "Bengala"] },
-            { q: "O'zbekistonda eng yirik ko'mir koni qayerda joylashgan?", right: "Angren koni", wr: ["Sharg'un", "Baysun", "Konimex"] },
-            { q: "Dunyoda eng ko'p choy yetishtiruvchi davlatlar:", right: "Xitoy va Hindiston", wr: ["Braziliya va Kolumbiya", "AQSH va Kanada", "Misr va Sudan"] },
-            { q: "Aysberglar nima?", right: "Okeanda suzib yuruvchi ulkan muz tog'lari", wr: ["Daryo muzlari", "Tog' cho'qqisidagi qor", "Muzlagan ko'l"] },
-            { q: "Madagaskar oroli qaysi okeanda joylashgan?", right: "Hind okeanida", wr: ["Tinch okeanida", "Atlantika okeanida", "Shimoliy Muz"] },
-            { q: "Dunyoning eng baland vulqoni Cotopaxi qaysi materikda?", right: "Janubiy Amerika", wr: ["Shimoliy Amerika", "Evroosiyo", "Afrika"] },
-            { q: "O'zbekistonning shimoli-g'arbida joylashgan yassi tekislik platosini toping:", right: "Ustyurt platosida", wr: ["Qizilqum", "Farg'ona", "Misrian"] },
-            { q: "Afrika materigidagi eng yirik ko'l:", right: "Viktoriya ko'li", wr: ["Tanganika", "Chad", "Nyasa"] },
-            { q: "Chilining poytaxti qaysi shahar?", right: "Santiyago", wr: ["Buenos-Ayres", "Lima", "Bogota"] },
-            { q: "Buyuk Britaniya orollari qaysi okeanda joylashgan?", right: "Atlantika okeanida", wr: ["Tinch okeanida", "Hind okeanida", "Shimoliy Muz"] },
-            { q: "Tabiatdagi eng qattiq mineral qaysi?", right: "Almos", wr: ["Kvars", "Gips", "Polevoy shpat"] },
-            { q: "Bering bo'g'ozi qaysi ikkita okeanni bog'laydi?", right: "Tinch va Shimoliy Muz okeanlarini", wr: ["Atlantika va Hind", "Hind va Tinch", "Atlantika va Tinch"] },
-            { q: "O'zbekiston iqlimi qanday iqlim tipiga kiradi?", right: "Keskin kontinental", wr: ["Ekvatorial", "Tropic", "Dengiz iqlimi"] },
-            { q: "Dunyodagi eng katta vulqonli orol davlat:", right: "Indoneziya", wr: ["Islandiya", "Yaponiya", "Filippin"] },
-            { q: "Suvning bug'lanishi natijasida hosil bo'ladigan namlik birligi:", right: "Nisbiy va absolut namlik", wr: ["Bosim", "Tug'ilish", "Haroat"] },
-            { q: "Qaysi qit'ada doimiy yashaydigan aholi va davlatlar yo'q?", right: "Antarktida", wr: ["Avstraliya", "Janubiy Amerika", "Glandiya"] },
-            { q: "Qozog'iston poytaxti qaysi shahar?", right: "Ostona", wr: ["Olmaota", "Chimkent", "Aktau"] },
-            { q: "Zarafshon daryosi manbasini qayerdan oladi?", right: "Zarafshon tog' tizmasi muzliklaridan", wr: ["Tyon-Shondan", "Pamirdan", "Hisordan"] },
-            { q: "Bosh meridian (0 darajali) qaysi rasadxona orqali o'tgan?", right: "Grinvich rasadxonasi (London)", wr: ["Parij", "Vashington", "Toshkent"] }
+            { q: "O'zbekistonning eng baland nuqtasi qaysi cho'qqi?", right: "Hazrati Sulton (4643 m)", wr: ["Chotqol", "Adelunga", "Beshtor"] },
+            { q: "Shimoliy Amerikaning eng baland tog' cho'qqisi qaysi?", right: "Mak-Kinli (Denali)", wr: ["Monblan", "Akonkagua", "Elbrus"] },
+            { q: "Amazonka daryosi qaysi okeanga quyiladi?", right: "Atlantika okeani", wr: ["Tinch okeani", "Hind okeani", "Shimoliy Muz okeani"] },
+            { q: "Qaysi materik birorta ham harakatdagi vulqonga ega emas?", right: "Avstraliya", wr: ["Afrika", "Antarktida", "Janubiy Amerika"] },
+            { q: "O'zbekistonda eng yirik ko'l qaysi?", right: "Orol dengizi (ko'li)", wr: ["Aydarko mezon", "Tuzkon", "Charvak"] },
+            { q: "Dunyoning eng uzun daryosi qaysi?", right: "Nil daryosi", wr: ["Amazonka", "Yanszi", "Missisipi"] },
+            { q: "Qaysi davlat hududi jihatdan dunyoda eng katta?", right: "Rossiya", wr: ["Kanada", "Xitoy", "AQSh"] },
+            { q: "Tinch okeanidagi eng yirik orollar guruhi (arxiv):", right: "Malay arxipelagi", wr: ["Gavayi", "Yapon orollari", "Fiji"] },
+            { q: "Gimalay tog'larining eng baland cho'qqisi:", right: "Everest (Jomolungma)", wr: ["K2", "Kangchenjunga", "Lxotse"] },
+            { q: "Yaponiyaning eng baland muqaddas tog'i:", right: "Fudziyama", wr: ["Krakatau", "Etna", "Vezuviy"] },
+            { q: "Dunyodagi eng ko mezon aholiga ega davlat qaysi?", right: "Hindiston", wr: ["Xitoy", "AQSh", "Indoneziya"] },
+            { q: "Aydarko mezon ko'li O'zbekistonning qaysi viloyatlari hududida joylashgan?", right: "Navoiy va Jizzax", wr: ["Buxoro va Samarqand", "Toshkent va Sirdaryo", "Xorazm va Surxondaryo"] },
+            { q: "Dunyodagi eng baland ko'l (kemalar suzadigan):", right: "Titikaka", wr: ["Tanganika", "Viktoriy", "Eri"] },
+            { q: "Afrika va Evropani ajratib turuvchi bo'g'oz:", right: "Gibraltar bo'g'ozi", wr: ["Bosfor", "Dardanell", "Bab-el-Mandeb"] },
+            { q: "Qaysi okean eng kichik va eng sovuq hisoblanadi?", right: "Shimoliy Muz okeani", wr: ["Hind okeani", "Atlantika okeani", "Tinch okeani"] },
+            { q: "Avstraliyaning eng yirik daryo tizimi:", right: "Murrey va Darling", wr: ["Kongo", "Zambezi", "Parana"] },
+            { q: "O'zbekistonda joylashgan "Qizilqum" qanday tabiat zonasiga kiradi?", right: "Cho'l zonasiga", wr: ["Chala cho'l", "Dasht", "Oazis"] },
+            { q: "Er ustidagi eng katta materik qaysi?", right: "Evroosiyo", wr: ["Afrika", "Shimoliy Amerika", "Antarktida"] },
+            { q: "Sayyoramizning eng sovuq nuqtasi qayerda qayd etilgan?", right: "Antarktida ('Vostok' stansiyasi)", wr: ["Grenlandiya", "Oymyakon", "Alyaska"] },
+            { q: "Amudaryo qaysi ikkita daryoning qo'shilishidan hosil bo'ladi?", right: "Pyanj va Vaxsh", wr: ["Naryn va Qoradaryo", "Surxondaryo va Kofarnihon", "Zarafshon va Chirchiq"] },
+            { q: "Sirdaryo qaysi daryolarning qo'shilishidan hosil bo mezon?", right: "Norin va Qoradaryo", wr: ["Pyanj va Vaxsh", "Chirchiq va Ohangaron", "Zarafshon va Sherobod"] },
+            { q: "Janubiy Amerika va Antarktidani ajratuvchi bo'g'oz:", right: "Dreyk bo'g'ozi", wr: ["Magellan", "Bering", "Koreya"] },
+            { q: "O'zbekistondagi eng ko'p aholi yashaydigan viloyat qaysi?", right: "Samarqand viloyati", wr: ["Farg'ona", "Toshkent", "Andijon"] },
+            { q: "O'zbekistonning maydoni bo'yicha eng katta viloyati:", right: "Navoiy viloyati", wr: ["Buxoro", "Qashqadaryo", "Surxondaryo"] },
+            { q: "Buyuk Barer rifi qaysi materik qirg'oqlarida joylashgan?", right: "Avstraliya", wr: ["Afrika", "Janubiy Amerika", "Osiyo"] },
+            { q: "Sharqiy Afrika yoriqlar zonasida joylashgan eng yirik ko'l:", right: "Viktoriya", wr: ["Chad", "Nyasa", "Tana"] },
+            { q: "Qaysi chiziq Yer sharini Shimoliy va Janubiy yarimsharlarga bo'ladi?", right: "Ekvator", wr: ["Grinvich", "Tropic", "Meridian"] },
+            { q: "Toshkent shahri qaysi daryo vodiysida joylashgan?", right: "Chirchiq daryosi", wr: ["Sirdaryo", "Zarafshon", "Amudaryo"] },
+            { q: "Madagaskar oroli qaysi okeanda joylashgan?", right: "Hind okeani", wr: ["Atlantika okeani", "Tinch okeani", "Shimoliy Muz okeani"] },
+            { q: "Qaysi davlat ham Evropada, ham Osiyoda joylashgan?", right: "Turkiya", wr: ["Misr", "Eron", "Ispaniya"] },
+            { q: "Qizil dengiz va O mezon dengizini bog'laydigan sun'iy kanal:", right: "Suvaysh kanali", wr: ["Panama kanali", "Kil kanali", "Koreya"] },
+            { q: "Atakama cho'li qaysi materikda joylashgan?", right: "Janubiy Amerika", wr: ["Afrika", "Avstraliya", "Shimoliy Amerika"] },
+            { q: "Vashington shahri qaysi davlatning poytaxti?", right: "AQSh", wr: ["Kanada", "Buyuk Britaniya", "Avstraliya"] },
+            { q: "O'zbekiston qaysi yilda BMTga a'zo bo'lgan?", right: "1992-yil", wr: ["1991-yil", "1993-yil", "1995-yil"] },
+            { q: "Dunyoning eng past joyi (quruqlikdagi) qayerda?", right: "O'lik dengiz botiqligi (-430 m)", wr: ["Mingbuloq", "Karagiye", "Assal ko'li"] },
+            { q: "Dunyo okeanida nechta okean bor?", right: "4 ta (yoki 5 ta)", wr: ["3 ta", "6 ta", "7 ta"] },
+            { q: "Osiyodagi eng yirik orollar mamlakati qaysi?", right: "Indoneziya", wr: ["Yaponiya", "Filippin", "Shri-Lanka"] },
+            { q: "Dunyoning eng baland harakatdagi vulqoni Kotopaxi qayerda?", right: "Ekvadorda", wr: ["Meksikada", "Yaponiyada", "Italiyada"] },
+            { q: "Kaspiy ko'liga quyiladigan eng yirik daryo:", right: "Volga", wr: ["Ural", "Dnestr", "Dneprd"] },
+            { q: "O'zbekistonda eng sovuq harorat qayerda kuzatilgan?", right: "Ustyurt platosida (-40°C gacha)", wr: ["Toshkentda", "Nukusda", "Ferganada"] },
+            { q: "Qaysi davlat yarimorolda joylashgan?", right: "Italiya", wr: ["Fransiya", "Germaniya", "Polsha"] },
+            { q: "Venesuela poytaxti qaysi shahar?", right: "Karakas", wr: ["Bogota", "Kito", "Lima"] },
+            { q: "O'zbekistonda nechta viloyat bor?", right: "12 ta viloyat", wr: ["10 ta", "14 ta", "11 ta"] },
+            { q: "Aholi zichligi eng yuqori bo'lgan O'zbekiston viloyati:", right: "Andijon viloyati", wr: ["Farg'ona", "Toshkent", "Namangan"] },
+            { q: "Italiyadagi mashhur so mezon vulqon Vezuviy qaysi shahar yaqinida?", right: "Neapol", wr: ["Rim", "Milan", "Florensiya"] },
+            { q: "Kordilyera tog'lari qaysi materikda joylashgan?", right: "Shimoliy Amerika", wr: ["Janubiy Amerika", "Evroosiyo", "Afrika"] },
+            { q: "Dunyodagi eng katta ko'rfaz qaysi?", right: "Bengal ko'rfazi", wr: ["Meksika ko'rfazi", "Fors ko'rfazi", "Gudzon ko'rfazi"] },
+            { q: "Parij shahri qaysi daryo bo'yida joylashgan?", right: "Sena daryosi", wr: ["Reyn", "Tebza", "Dunay"] },
+            { q: "Qaysi davlat 'Kunchiqar yurt' deb ataladi?", right: "Yaponiya", wr: ["Xitoy", "Koreya", "Vyetnam"] },
+            { q: "O'zbekiston respublikasining Davlat Bayrog'i qachon qabul qilingan?", right: "1991-yil 18-noyabr", wr: ["1992-yil 10-dekabr", "1991-yil 31-avgust", "1992-yil 8-dekabr"] }
         ];
 
-        // Massiv elementlarini aralashtirish funksiyasi
         function shuffleArray(arr) {
             let res = [...arr];
             for (let i = res.length - 1; i > 0; i--) {
@@ -456,35 +328,31 @@
             return res;
         }
 
-        // To'liq 70 ta savol shakllantirish (takrorlanmas va variatsiyali)
+        // 70 TA SAVOLNI SHAKLLANTIRISH
         function generate70Questions() {
             let pool = [];
-
-            for (let i = 1; i <= 70; i++) {
-                let tpl = geographyQuestionsBase[(i - 1) % geographyQuestionsBase.length];
-                
+            for (let i = 0; i < geographyQuestionsBase.length; i++) {
+                let tpl = geographyQuestionsBase[i];
                 let rawOptions = [
                     { text: tpl.right, isCorrect: true },
                     { text: tpl.wr[0], isCorrect: false },
                     { text: tpl.wr[1], isCorrect: false },
                     { text: tpl.wr[2], isCorrect: false }
                 ];
-
                 let shuffledOpts = shuffleArray(rawOptions);
-
                 pool.push({
-                    q: `${tpl.q} [Savol №${i}]`,
+                    q: tpl.q,
                     options: shuffledOpts.map(o => o.text),
                     correctIndex: shuffledOpts.findIndex(o => o.isCorrect)
                 });
             }
-            return shuffleArray(pool); // Random tartibda qaytarish
+            return shuffleArray(pool);
         }
 
-        // Tizim foydalanuvchi hisoblari
+        // FOYDALANUVCHILAR VA SEANSLARNI BOSHQARISH
         let localUsers = JSON.parse(localStorage.getItem('app_users') || '[]');
         if (localUsers.length === 0) {
-            localUsers.push({ login: "admin", pass: "12345", school: "Bosh Boshqarma", role: "admin" });
+            localUsers.push({ name: "Adminstrator", login: "admin", pass: "12345", school: "Markaz", role: "admin" });
             localStorage.setItem('app_users', JSON.stringify(localUsers));
         }
 
@@ -494,25 +362,59 @@
 
         window.onload = function() { if (currentUser) showMainMenu(); };
 
+        // LOGIN VA REGISTRATION TABLARI
+        function switchAuthTab(type) {
+            if(type === 'login') {
+                document.getElementById('tabLoginBtn').classList.add('active');
+                document.getElementById('tabRegBtn').classList.remove('active');
+                document.getElementById('loginForm').classList.remove('hidden');
+                document.getElementById('registerForm').classList.add('hidden');
+            } else {
+                document.getElementById('tabRegBtn').classList.add('active');
+                document.getElementById('tabLoginBtn').classList.remove('active');
+                document.getElementById('registerForm').classList.remove('hidden');
+                document.getElementById('loginForm').classList.add('hidden');
+            }
+        }
+
+        // RO'YXATDAN O'TISH
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('regNameInput').value.trim();
+            const school = document.getElementById('regSchoolInput').value.trim();
+            const login = document.getElementById('regLoginInput').value.trim();
+            const pass = document.getElementById('regPassInput').value.trim();
+
+            let users = JSON.parse(localStorage.getItem('app_users') || '[]');
+            if (users.some(u => u.login === login)) {
+                alert("❌ Bu login band! Iltimos, boshqa login o'ylab toping.");
+                return;
+            }
+
+            const newUser = { name, school, login, pass, role: "user" };
+            users.push(newUser);
+            localStorage.setItem('app_users', JSON.stringify(users));
+
+            currentUser = newUser;
+            localStorage.setItem('logged_user', JSON.stringify(currentUser));
+            alert("✅ Tizimdan muvaffaqiyatli ro'yxatdan o'tdingiz!");
+            showMainMenu();
+        }
+
+        // TIZIMGA KIRISH (LOGIN)
         function handleLogin(e) {
             e.preventDefault();
             const log = document.getElementById('loginInput').value.trim();
             const pas = document.getElementById('passwordInput').value.trim();
-            const realName = document.getElementById('userRealNameInput').value.trim();
 
             const users = JSON.parse(localStorage.getItem('app_users') || '[]');
             const found = users.find(u => u.login === log && u.pass === pas);
 
             if (found) {
-                currentUser = {
-                    login: found.login,
-                    name: realName,
-                    school: found.school,
-                    role: found.role
-                };
+                currentUser = found;
                 localStorage.setItem('logged_user', JSON.stringify(currentUser));
                 showMainMenu();
-            } else { alert("Login yoki parol noto'g'ri!"); }
+            } else { alert("❌ Login yoki parol noto'g'ri!"); }
         }
 
         function showMainMenu() {
@@ -530,12 +432,12 @@
         }
 
         function hideAllSections() {
-            ['loginSection', 'mainMenu', 'cabinetSection', 'modeSection', 'quizSection', 'resultSection', 'ratingSection', 'adminSection']
+            ['authSection', 'mainMenu', 'cabinetSection', 'modeSection', 'quizSection', 'resultSection', 'ratingSection', 'adminSection']
                 .forEach(s => document.getElementById(s).classList.add('hidden'));
             if (timerInterval) clearInterval(timerInterval);
         }
 
-        function chooseSubject(subj) {
+        function showModeSection() {
             hideAllSections();
             document.getElementById('modeSection').classList.remove('hidden');
         }
@@ -551,17 +453,13 @@
             document.getElementById('quizHead').innerText = `Geografiya (${mode})`;
             document.getElementById('qTotal').innerText = currentQuestions.length;
 
-            totalSeconds = 5400; // 1.5 Soat (90 minut)
+            totalSeconds = 5400;
             timeSpentSeconds = 0;
             updateTimerDisplay();
             timerInterval = setInterval(() => {
                 totalSeconds--; timeSpentSeconds++;
                 updateTimerDisplay();
-                if (totalSeconds <= 0) {
-                    clearInterval(timerInterval);
-                    alert("⚠️ Vaqt tugadi!");
-                    finishQuiz();
-                }
+                if (totalSeconds <= 0) { clearInterval(timerInterval); alert("⚠️ Vaqt tugadi!"); finishQuiz(); }
             }, 1000);
 
             loadQuestion();
@@ -571,8 +469,7 @@
             const hrs = Math.floor(totalSeconds / 3600);
             const mins = Math.floor((totalSeconds % 3600) / 60);
             const secs = totalSeconds % 60;
-            document.getElementById('timerDisplay').innerText = 
-                `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            document.getElementById('timerDisplay').innerText = `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
         }
 
         function loadQuestion() {
@@ -599,9 +496,9 @@
         }
 
         function prevQ() { if (currentQIndex > 0) { currentQIndex--; loadQuestion(); } }
-
         function confirmFinishQuiz() { if (confirm("Testni yakunlaysizmi?")) finishQuiz(); }
 
+        // TESTNI YAKUNLASH VA AI TAHLILINI CHIQARISH
         function finishQuiz() {
             if (timerInterval) clearInterval(timerInterval);
             let correctCount = 0;
@@ -614,6 +511,9 @@
             document.getElementById('resScoreText').innerText = `${correctCount}/70`;
             document.getElementById('resPercentText').innerText = `${percent}%`;
             document.getElementById('resTimeText').innerText = `${spentMins}m ${spentSecs}s`;
+
+            // SUN'IY INTELLEKT TAHLILI
+            generateAIFeedback(percent, correctCount);
 
             const reviewBox = document.getElementById('reviewBox');
             reviewBox.innerHTML = '';
@@ -645,6 +545,18 @@
 
             hideAllSections();
             document.getElementById('resultSection').classList.remove('hidden');
+        }
+
+        // AI SUN'IY INTELLEKT MATNLARI GENERATORI
+        function generateAIFeedback(percent, score) {
+            const aiBox = document.getElementById('aiFeedbackText');
+            if (percent >= 85) {
+                aiBox.innerHTML = `🔥 <strong>A'lo natija!</strong> Siz geografiya fanidan juda yuqori bilimga egasiz (${percent}%). Milliy Sertifikat yoki Attestatsiyadan o mezon darajali ball olasiz. Dunyo va O'zbekiston fizik geografiyasi bo'yicha bilimlaringiz juda mustahkam!`;
+            } else if (percent >= 60) {
+                aiBox.innerHTML = `👍 <strong>Yaxshi ko'rsatkich.</strong> Natijangiz (${percent}%). Ba'zi nazariy savollarda biroz xatolik bor. Tabiiy va iqtisodiy geografiyaga oid mavzularni hamda xaritalar ustida ishlashni takrorlashni tavsiya qilaman.`;
+            } else {
+                aiBox.innerHTML = `⚠️ <strong>Ko'proq tayyorgarlik talab etiladi.</strong> Natijangiz (${percent}%). Geografik terminlar, relyef va dunyo okeanlari bo'limlarini qaytadan chuqur o'rganib chiqishingiz kerak.`;
+            }
         }
 
         function showCabinet() {
@@ -689,29 +601,13 @@
             renderAdminUsers();
         }
 
-        function createNewUser(e) {
-            e.preventDefault();
-            const l = document.getElementById('newLogin').value.trim();
-            const p = document.getElementById('newPass').value.trim();
-            const s = document.getElementById('newSchool').value.trim();
-
-            let users = JSON.parse(localStorage.getItem('app_users') || '[]');
-            if (users.some(u => u.login === l)) { alert("Bunday login allaqachon mavjud!"); return; }
-
-            users.push({ login: l, pass: p, school: s, role: "user" });
-            localStorage.setItem('app_users', JSON.stringify(users));
-            alert("Yangi login/parol muvaffaqiyatli yaratildi!");
-            document.getElementById('addUserForm').reset();
-            renderAdminUsers();
-        }
-
         function renderAdminUsers() {
             const tbody = document.getElementById('adminUsersTable');
             tbody.innerHTML = '';
             let users = JSON.parse(localStorage.getItem('app_users') || '[]');
             users.forEach(u => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `<td><strong>${u.login}</strong></td><td>${u.pass}</td><td>${u.school}</td>`;
+                tr.innerHTML = `<td><strong>${u.name}</strong></td><td>${u.login}</td><td>${u.pass}</td><td>${u.school}</td>`;
                 tbody.appendChild(tr);
             });
         }
@@ -720,7 +616,7 @@
             localStorage.removeItem('logged_user');
             currentUser = null;
             hideAllSections();
-            document.getElementById('loginSection').classList.remove('hidden');
+            document.getElementById('authSection').classList.remove('hidden');
         }
     </script>
 </body>
