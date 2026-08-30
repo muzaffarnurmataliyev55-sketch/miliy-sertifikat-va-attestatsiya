@@ -9,286 +9,333 @@
 <style>
 
 *{
-box-sizing:border-box;
+    box-sizing:border-box;
 }
 
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#0d0f12;
-color:#fff;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#0d0f12;
+    color:#fff;
 }
 
 .container{
-width:100%;
-max-width:1100px;
-margin:auto;
-padding:20px;
+    width:100%;
+    max-width:1150px;
+    margin:auto;
+    padding:20px;
 }
 
 header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-margin-bottom:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:20px;
 }
 
 .logo{
-font-size:21px;
-font-weight:bold;
+    font-size:21px;
+    font-weight:bold;
 }
 
 .card{
-background:#181a1f;
-border:1px solid #30333a;
-border-radius:22px;
-padding:25px;
-margin-bottom:20px;
+    background:#181a1f;
+    border:1px solid #30333a;
+    border-radius:22px;
+    padding:25px;
+    margin-bottom:20px;
 }
 
 .hero{
-padding:40px;
-border-radius:28px;
-background:linear-gradient(145deg,#222630,#15161a);
+    padding:40px;
+    border-radius:28px;
+    background:linear-gradient(145deg,#222630,#15161a);
 }
 
 h1{
-font-size:42px;
-margin:15px 0;
+    font-size:42px;
+    margin:15px 0;
 }
 
 h2{
-margin-top:0;
+    margin-top:0;
 }
 
 p{
-color:#a8abb2;
-line-height:1.6;
+    color:#a8abb2;
+    line-height:1.6;
 }
 
 button{
-font-family:inherit;
-cursor:pointer;
+    font-family:inherit;
+    cursor:pointer;
 }
 
 .primary{
-padding:13px 20px;
-background:#fff;
-color:#111;
-border:0;
-border-radius:12px;
-font-weight:bold;
+    padding:13px 20px;
+    background:#fff;
+    color:#111;
+    border:0;
+    border-radius:12px;
+    font-weight:bold;
 }
 
 .secondary{
-padding:12px 18px;
-background:#282a31;
-color:#fff;
-border:1px solid #42454e;
-border-radius:12px;
-font-weight:bold;
+    padding:12px 18px;
+    background:#282a31;
+    color:#fff;
+    border:1px solid #42454e;
+    border-radius:12px;
+    font-weight:bold;
 }
 
 .danger{
-padding:12px 18px;
-background:#461f24;
-color:#ffb8be;
-border:1px solid #6d3339;
-border-radius:12px;
+    padding:12px 18px;
+    background:#461f24;
+    color:#ffb8be;
+    border:1px solid #6d3339;
+    border-radius:12px;
 }
 
 .grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:15px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
 }
 
 .field{
-margin-bottom:10px;
+    margin-bottom:10px;
 }
 
 label{
-display:block;
-color:#bbbfc7;
-font-size:14px;
-margin-bottom:6px;
+    display:block;
+    color:#bbbfc7;
+    font-size:14px;
+    margin-bottom:6px;
 }
 
 input,
 select{
-width:100%;
-padding:14px;
-background:#101216;
-color:#fff;
-border:1px solid #3b3e46;
-border-radius:11px;
-outline:none;
+    width:100%;
+    padding:14px;
+    background:#101216;
+    color:#fff;
+    border:1px solid #3b3e46;
+    border-radius:11px;
+    outline:none;
 }
 
 input:focus,
 select:focus{
-border-color:#fff;
+    border-color:#fff;
 }
 
 .stat{
-background:#101216;
-border:1px solid #30333a;
-border-radius:15px;
-padding:18px;
+    background:#101216;
+    border:1px solid #30333a;
+    border-radius:15px;
+    padding:18px;
 }
 
 .stat b{
-display:block;
-font-size:27px;
-margin-top:8px;
+    display:block;
+    font-size:27px;
+    margin-top:8px;
 }
 
 .tag{
-display:inline-block;
-background:#2a2c33;
-color:#ddd;
-padding:8px 12px;
-border-radius:50px;
-font-size:13px;
+    display:inline-block;
+    background:#2a2c33;
+    color:#ddd;
+    padding:8px 12px;
+    border-radius:50px;
+    font-size:13px;
 }
 
 .actions{
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-top:20px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:20px;
 }
 
 .notice{
-background:#23252b;
-color:#bfc1c7;
-border-radius:12px;
-padding:14px;
-margin:18px 0;
+    background:#23252b;
+    color:#bfc1c7;
+    border-radius:12px;
+    padding:14px;
+    margin:18px 0;
 }
 
 .success{
-background:#18351f;
-color:#b9f5c5;
-border:1px solid #2f7040;
+    background:#17351f;
+    border:1px solid #2e7040;
+    color:#baf5c7;
+    border-radius:12px;
+    padding:18px;
+    margin:18px 0;
 }
 
-.warning{
-background:#3a3018;
-color:#ffe9a8;
-border:1px solid #665522;
+.error{
+    background:#3a1b1f;
+    border:1px solid #693038;
+    color:#ffbdc3;
+    border-radius:12px;
+    padding:15px;
+    margin:15px 0;
 }
 
 .progress{
-width:100%;
-height:8px;
-background:#303239;
-border-radius:20px;
-overflow:hidden;
+    width:100%;
+    height:8px;
+    background:#303239;
+    border-radius:20px;
+    overflow:hidden;
 }
 
 .progressBar{
-width:0%;
-height:100%;
-background:#fff;
-transition:.3s;
+    width:0%;
+    height:100%;
+    background:#fff;
+    transition:.3s;
 }
 
 .questionNumber{
-color:#999ca4;
-margin-top:15px;
+    color:#999ca4;
+    margin-top:15px;
 }
 
 .option{
-display:block;
-width:100%;
-text-align:left;
-padding:15px;
-margin:10px 0;
-background:#101216;
-color:#fff;
-border:1px solid #3a3d45;
-border-radius:13px;
-font-size:15px;
+    display:block;
+    width:100%;
+    text-align:left;
+    padding:15px;
+    margin:10px 0;
+    background:#101216;
+    color:#fff;
+    border:1px solid #3a3d45;
+    border-radius:13px;
+    font-size:15px;
 }
 
 .option:hover{
-border-color:#fff;
+    border-color:#fff;
 }
 
 .option.selected{
-background:#30333b;
-border-color:#fff;
+    background:#30333b;
+    border-color:#fff;
 }
 
 .hide{
-display:none !important;
+    display:none !important;
 }
 
 .tableWrap{
-width:100%;
-overflow:auto;
+    width:100%;
+    overflow:auto;
 }
 
 table{
-width:100%;
-border-collapse:collapse;
-min-width:750px;
+    width:100%;
+    border-collapse:collapse;
+    min-width:850px;
 }
 
 th,
 td{
-padding:12px;
-border-bottom:1px solid #30333a;
-text-align:left;
+    padding:12px;
+    border-bottom:1px solid #30333a;
+    text-align:left;
 }
 
 th{
-color:#aeb1b8;
+    color:#aeb1b8;
 }
 
-.loginBox{
-max-width:500px;
-margin:40px auto;
+.rank1{
+    font-weight:bold;
 }
 
-.credentials{
-font-size:18px;
-background:#101216;
-border:1px solid #454952;
-border-radius:15px;
-padding:20px;
-margin:20px 0;
+.accountBox{
+    background:#101216;
+    border:1px solid #3b3e46;
+    border-radius:15px;
+    padding:20px;
+    margin-top:20px;
 }
 
-.credentials span{
-display:block;
-margin:10px 0;
+.accountUsername{
+    font-size:20px;
+    font-weight:bold;
+    margin:8px 0;
+}
+
+.accountPassword{
+    font-size:20px;
+    font-weight:bold;
+    color:#fff;
+    letter-spacing:1px;
+}
+
+.subjectCard{
+    background:#101216;
+    border:1px solid #30333a;
+    border-radius:15px;
+    padding:18px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.subjectCard:hover{
+    border-color:#fff;
+    transform:translateY(-2px);
+}
+
+.userBar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+    background:#101216;
+    padding:15px;
+    border-radius:13px;
+    margin-bottom:20px;
+}
+
+.timerWarning{
+    background:#5a2428 !important;
+    color:#fff !important;
+}
+
+.finishBtn{
+    background:#5b2025;
+    color:#fff;
+    border:1px solid #84343c;
+    padding:12px 18px;
+    border-radius:12px;
+    font-weight:bold;
 }
 
 @media(max-width:600px){
 
-.container{
-padding:12px;
-}
+    .container{
+        padding:12px;
+    }
 
-.hero{
-padding:25px;
-}
+    .hero{
+        padding:25px;
+    }
 
-h1{
-font-size:30px;
-}
+    h1{
+        font-size:30px;
+    }
 
-.card{
-padding:18px;
-}
-
-header{
-align-items:flex-start;
-flex-direction:column;
-}
+    .card{
+        padding:18px;
+    }
 
 }
 
@@ -300,16 +347,13 @@ flex-direction:column;
 
 <div class="container">
 
-
-<!-- HEADER -->
-
 <header>
 
 <div class="logo">
 📚 Milliy Sertifikat va Attestatsiya
 </div>
 
-<div class="actions" style="margin-top:0">
+<div class="actions" style="margin:0">
 
 <button
 class="secondary"
@@ -319,14 +363,15 @@ Bosh sahifa
 
 <button
 class="secondary"
-onclick="logoutUser()">
+id="logoutButton"
+onclick="logout()"
+style="display:none">
 Chiqish
 </button>
 
 </div>
 
 </header>
-
 
 
 <!-- =====================================================
@@ -338,56 +383,59 @@ HOME
 <div class="hero">
 
 <span class="tag">
-50 ta test varianti
+🎓 Yuqori darajadagi tayyorgarlik
 </span>
 
 <h1>
-Milliy Sertifikat va Attestatsiya
+50 ta test · Aralashtirilgan variant
 </h1>
 
 <p>
-Milliy sertifikat va attestatsiya imtihonlariga
-tayyorgarlik uchun test platformasi.
+Milliy sertifikat va attestatsiyaga tayyorgarlik
+uchun test platformasi.
 </p>
-
 
 <div class="grid">
 
 <div class="stat">
-Test variantlari
+Savol
 <b>50</b>
 </div>
 
 <div class="stat">
-Har bir variant
-<b>50 ta savol</b>
+Variant
+<b>50+</b>
 </div>
 
 <div class="stat">
-Jami
-<b>2500 savol</b>
+Javoblar
+<b>A–D aralash</b>
+</div>
+
+<div class="stat">
+Vaqt
+<b>30 daqiqa</b>
 </div>
 
 </div>
-
 
 <div class="actions">
 
 <button
 class="primary"
 onclick="showPage('register')">
-📝 Yangi ro‘yxatdan o‘tish
+📝 Yangi akkaunt
 </button>
 
 <button
 class="secondary"
 onclick="showPage('login')">
-🔑 Akkauntga kirish
+🔑 Kirish
 </button>
 
 <button
 class="secondary"
-onclick="showPage('ranking')">
+onclick="showPage('ranking');renderRanking()">
 🏆 Reyting
 </button>
 
@@ -408,20 +456,19 @@ onclick="showPage('admin')">
 
 <div class="grid">
 
-<div>📐 Matematika</div>
-<div>🌍 Geografiya</div>
-<div>🧬 Biologiya</div>
-<div>⚗️ Kimyo</div>
-<div>⚡ Fizika</div>
-<div>📜 Tarix</div>
-<div>📖 Ona tili va adabiyot</div>
+<div class="subjectCard">📐 Matematika</div>
+<div class="subjectCard">🌍 Geografiya</div>
+<div class="subjectCard">🧬 Biologiya</div>
+<div class="subjectCard">⚗️ Kimyo</div>
+<div class="subjectCard">⚡ Fizika</div>
+<div class="subjectCard">📜 Tarix</div>
+<div class="subjectCard">📖 Ona tili va adabiyot</div>
 
 </div>
 
 </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -435,13 +482,13 @@ REGISTER
 <h2>📝 Ro‘yxatdan o‘tish</h2>
 
 <p>
-Bir marta ro‘yxatdan o‘ting.
-Keyingi safar username va parol bilan kirasiz.
+Bir marta ro‘yxatdan o‘ting. Sizga avtomatik username va parol beriladi.
+Keyingi safar shu ma'lumotlar bilan kirishingiz mumkin.
 </p>
 
+<div id="registerMessage"></div>
 
 <div class="grid">
-
 
 <div class="field">
 
@@ -450,7 +497,8 @@ Keyingi safar username va parol bilan kirasiz.
 <input
 id="fullName"
 type="text"
-placeholder="Ism Familiya">
+placeholder="Ism Familiya"
+>
 
 </div>
 
@@ -492,7 +540,8 @@ Viloyatni tanlang
 <input
 id="district"
 type="text"
-placeholder="Masalan: Chilonzor tumani">
+placeholder="Masalan: Chilonzor tumani"
+>
 
 </div>
 
@@ -503,7 +552,8 @@ placeholder="Masalan: Chilonzor tumani">
 
 <input
 id="birthDate"
-type="date">
+type="date"
+>
 
 </div>
 
@@ -515,7 +565,8 @@ type="date">
 <input
 id="phone"
 type="tel"
-placeholder="+998 90 123 45 67">
+placeholder="+998 90 123 45 67"
+>
 
 </div>
 
@@ -561,7 +612,8 @@ Fanni tanlang
 
 <div class="notice">
 
-🔒 Bir telefon raqami bilan faqat bitta akkaunt ochiladi.
+🔒 Telefon va tug‘ilgan sana umumiy reytingda ko‘rsatilmaydi.
+Ular faqat admin panelda ko‘rinadi.
 
 </div>
 
@@ -577,57 +629,61 @@ onclick="registerUser()">
 </section>
 
 
-
 <!-- =====================================================
-CREDENTIALS
+ACCOUNT CREATED
 ===================================================== -->
 
-<section id="credentialsPage" class="hide">
+<section id="accountCreated" class="hide">
 
-<div class="card loginBox">
+<div class="card">
 
-<h2>🎉 Akkauntingiz yaratildi!</h2>
+<h2>🎉 Akkaunt muvaffaqiyatli yaratildi!</h2>
 
 <p>
 Quyidagi username va parolni saqlab qo‘ying.
-Keyingi safar shu ma'lumotlar bilan kirasiz.
+Keyingi safar qayta ro‘yxatdan o‘tishingiz shart emas.
 </p>
 
+<div class="accountBox">
 
-<div class="credentials">
+<div>
+Username:
+</div>
 
-<span>
-👤 Username:
-<b id="createdUsername"></b>
-</span>
+<div
+class="accountUsername"
+id="newUsername">
+</div>
 
-<span>
-🔐 Parol:
-<b id="createdPassword"></b>
-</span>
+<br>
+
+<div>
+Parol:
+</div>
+
+<div
+class="accountPassword"
+id="newPassword">
+</div>
 
 </div>
 
-
-<div class="notice warning">
-
-⚠️ Username va parolni yo‘qotmang.
-
+<div class="notice">
+⚠️ Username va parolni unutib qo‘ymang.
 </div>
-
 
 <div class="actions">
 
 <button
 class="primary"
-onclick="loginWithCreatedAccount()">
+onclick="continueAfterRegistration()">
 🚀 Testni boshlash
 </button>
 
 <button
 class="secondary"
-onclick="showPage('home')">
-Bosh sahifa
+onclick="showPage('login')">
+🔑 Kirish oynasi
 </button>
 
 </div>
@@ -635,7 +691,6 @@ Bosh sahifa
 </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -644,14 +699,11 @@ LOGIN
 
 <section id="login" class="hide">
 
-<div class="card loginBox">
+<div class="card">
 
-<h2>🔑 Akkauntga kirish</h2>
+<h2>🔑 Foydalanuvchi kirishi</h2>
 
-<p>
-Username va parolingizni kiriting.
-</p>
-
+<div id="loginMessage"></div>
 
 <div class="field">
 
@@ -660,10 +712,10 @@ Username va parolingizni kiriting.
 <input
 id="loginUsername"
 type="text"
-placeholder="Username">
+placeholder="Username"
+>
 
 </div>
-
 
 <div class="field">
 
@@ -672,24 +724,85 @@ placeholder="Username">
 <input
 id="loginPassword"
 type="password"
-placeholder="Parol">
+placeholder="Parol"
+>
 
 </div>
 
-
 <br>
-
 
 <button
 class="primary"
 onclick="loginUser()">
-🔓 Kirish
+🔐 Kirish
 </button>
 
 </div>
 
 </section>
 
+
+<!-- =====================================================
+USER DASHBOARD
+===================================================== -->
+
+<section id="dashboard" class="hide">
+
+<div class="card">
+
+<div class="userBar">
+
+<div>
+👤
+<b id="dashboardName"></b>
+</div>
+
+<div>
+Fan:
+<b id="dashboardSubject"></b>
+</div>
+
+</div>
+
+<h2>🚀 Testni boshlash</h2>
+
+<p>
+Sizning tanlangan faningiz bo‘yicha 50 ta savol beriladi.
+Savollar va javob variantlari tasodifiy aralashtiriladi.
+</p>
+
+<div class="grid">
+
+<div class="stat">
+Savollar
+<b>50</b>
+</div>
+
+<div class="stat">
+Vaqt
+<b>30:00</b>
+</div>
+
+<div class="stat">
+Har bir to‘g‘ri javob
+<b>2 ball</b>
+</div>
+
+</div>
+
+<div class="notice">
+⚠️ Test boshlanganidan keyin 30 daqiqa vaqt beriladi.
+</div>
+
+<button
+class="primary"
+onclick="startTestFromDashboard()">
+🚀 Testni boshlash
+</button>
+
+</div>
+
+</section>
 
 
 <!-- =====================================================
@@ -700,13 +813,7 @@ TEST
 
 <div class="card">
 
-
-<div style="
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-">
+<div class="userBar">
 
 <b id="testTitle">
 Test
@@ -720,10 +827,6 @@ id="timer">
 
 </div>
 
-
-<br>
-
-
 <div class="progress">
 
 <div
@@ -733,21 +836,17 @@ id="progressBar">
 
 </div>
 
-
 <div
 class="questionNumber"
 id="questionNumber">
 Savol 1 / 50
 </div>
 
-
 <h2 id="questionText">
 Savol
 </h2>
 
-
 <div id="answers"></div>
-
 
 <div class="actions">
 
@@ -757,11 +856,16 @@ onclick="previousQuestion()">
 ← Oldingi
 </button>
 
-
 <button
 class="primary"
 onclick="nextQuestion()">
 Keyingi →
+</button>
+
+<button
+class="finishBtn"
+onclick="finishTestConfirm()">
+🏁 Testni yakunlash
 </button>
 
 </div>
@@ -769,7 +873,6 @@ Keyingi →
 </div>
 
 </section>
-
 
 
 <!-- =====================================================
@@ -784,49 +887,67 @@ RESULT
 🎉 Test yakunlandi!
 </h2>
 
-
 <div class="grid">
 
 <div class="stat">
+
 To‘g‘ri
-<b id="correctResult">0</b>
+
+<b id="correctResult">
+0
+</b>
+
 </div>
 
 <div class="stat">
+
 Xato
-<b id="wrongResult">0</b>
+
+<b id="wrongResult">
+0
+</b>
+
 </div>
 
 <div class="stat">
+
 Natija
-<b id="percentResult">0%</b>
+
+<b id="percentResult">
+0%
+</b>
+
+</div>
+
+<div class="stat">
+
+Ball
+
+<b id="scoreResult">
+0
+</b>
+
 </div>
 
 </div>
 
-
-<div class="notice success">
-
-Natijangiz muvaffaqiyatli saqlandi.
-
+<div class="success">
+Natijangiz muvaffaqiyatli saqlandi va reytingga qo‘shildi.
 </div>
-
 
 <div class="actions">
 
 <button
 class="primary"
-onclick="prepareNextTest()">
-🔄 Keyingi test
+onclick="showPage('dashboard')">
+🔄 Yana test
 </button>
-
 
 <button
 class="secondary"
-onclick="showPage('ranking')">
+onclick="showPage('ranking');renderRanking()">
 🏆 Reyting
 </button>
-
 
 <button
 class="secondary"
@@ -841,7 +962,6 @@ Bosh sahifa
 </section>
 
 
-
 <!-- =====================================================
 RANKING
 ===================================================== -->
@@ -850,10 +970,7 @@ RANKING
 
 <div class="card">
 
-<h2>
-🏆 Umumiy reyting
-</h2>
-
+<h2>🏆 Umumiy reyting</h2>
 
 <div class="tableWrap">
 
@@ -862,7 +979,6 @@ RANKING
 <thead>
 
 <tr>
-
 <th>O‘rin</th>
 <th>F.I.Sh.</th>
 <th>Viloyat</th>
@@ -870,11 +986,9 @@ RANKING
 <th>Testlar</th>
 <th>Jami ball</th>
 <th>O‘rtacha</th>
-
 </tr>
 
 </thead>
-
 
 <tbody id="rankingBody"></tbody>
 
@@ -887,35 +1001,29 @@ RANKING
 </section>
 
 
-
 <!-- =====================================================
 ADMIN
 ===================================================== -->
 
 <section id="admin" class="hide">
 
-
 <div
 class="card"
 id="adminLogin">
 
-<h2>
-🔐 Admin panel
-</h2>
+<h2>🔐 Admin panel</h2>
 
 <p>
 Faqat sayt egasi uchun.
 </p>
 
-
 <input
 id="adminPassword"
 type="password"
-placeholder="Admin paroli">
-
+placeholder="Admin paroli"
+>
 
 <br><br>
-
 
 <button
 class="primary"
@@ -926,57 +1034,32 @@ Kirish
 </div>
 
 
-
 <div
 class="card hide"
 id="adminPanel">
 
-
-<h2>
-👑 Admin panel
-</h2>
-
+<h2>👑 Ega / Admin panel</h2>
 
 <div class="grid">
 
-
 <div class="stat">
-
-Foydalanuvchilar
-
-<b id="totalUsers">
-0
-</b>
-
+Ishtirokchilar
+<b id="totalUsers">0</b>
 </div>
 
-
 <div class="stat">
-
 Test topshirishlar
-
-<b id="totalTests">
-0
-</b>
-
+<b id="totalTests">0</b>
 </div>
-
 
 <div class="stat">
-
 O‘rtacha natija
-
-<b id="averageResult">
-0%
-</b>
-
+<b id="averageResult">0%</b>
 </div>
 
 </div>
-
 
 <br>
-
 
 <div class="tableWrap">
 
@@ -985,10 +1068,9 @@ O‘rtacha natija
 <thead>
 
 <tr>
-
 <th>#</th>
-<th>Username</th>
 <th>F.I.Sh.</th>
+<th>Username</th>
 <th>Viloyat</th>
 <th>Tuman</th>
 <th>Tug‘ilgan sana</th>
@@ -996,11 +1078,9 @@ O‘rtacha natija
 <th>Yo‘nalish</th>
 <th>Fan</th>
 <th>Natija</th>
-
 </tr>
 
 </thead>
-
 
 <tbody id="adminBody"></tbody>
 
@@ -1008,9 +1088,7 @@ O‘rtacha natija
 
 </div>
 
-
 <br>
-
 
 <button
 class="danger"
@@ -1022,2035 +1100,2222 @@ onclick="deleteAllData()">
 
 </section>
 
-
 </div>
-
 
 
 <script>
 
-
-/* =====================================================
+/* =========================================================
    SAVOLLAR BAZASI
-=====================================================
+   =========================================================
 
    MUHIM:
 
-   Har bir savolning ID raqami boshqa savollardan
-   farqli bo‘lishi kerak.
+   Har bir fan alohida massiv.
 
-   Masalan:
+   Geografiya savoli faqat Geografiya testida.
+   Matematika savoli faqat Matematika testida.
 
-   geo001
-   geo002
-   geo003
+   Quyidagi bazada HAR BIR FANDAN 50 TA UNIKAL SAVOL
+   mavjud.
 
-   va hokazo.
+   Keyinchalik shu massivlarga real savollarni qo‘shishingiz
+   mumkin.
 
-   50 ta savolli test uchun kamida 50 ta
-   NOYOB savol kerak.
-
-*/
+========================================================= */
 
 
-const questionBank={
-
-
-/* =====================================================
-   GEOGRAFIYA
-===================================================== */
+const questionBank = {
 
 "Geografiya":[
 
 {
-id:"geo001",
 q:"Yer yuzasining baland-pastlik shakllari majmui nima deyiladi?",
-a:[
-"Relief",
-"Iqlim",
-"Biosfera",
-"Gidrosfera"
-],
-c:0
+a:["Relief","Iqlim","Biosfera","Gidrosfera"],c:0
 },
 
 {
-id:"geo002",
-q:"Okean suvining sho‘rlanishiga qaysi omil kuchli ta'sir qiladi?",
-a:[
-"Bug‘lanish va yog‘in nisbati",
-"Yerning aylanishi",
-"Magnit maydoni",
-"Tog‘ jinslari rangi"
-],
-c:0
+q:"Atmosferaning Yerga eng yaqin qatlami qaysi?",
+a:["Troposfera","Stratosfera","Mezosfera","Termosfera"],c:0
 },
 
 {
-id:"geo003",
-q:"Atmosferaning eng quyi qatlami qaysi?",
-a:[
-"Troposfera",
-"Stratosfera",
-"Mezosfera",
-"Termosfera"
-],
-c:0
+q:"Yer sharini Shimoliy va Janubiy yarimsharga ajratuvchi chiziq nima?",
+a:["Ekvator","Bosh meridian","Tropik","Qutb doirasi"],c:0
 },
 
 {
-id:"geo004",
-q:"Dunyoning eng chuqur okean botig‘i qaysi?",
-a:[
-"Mariana",
-"Kuril",
-"Filippin",
-"Yava"
-],
-c:0
+q:"Dunyodagi eng chuqur okean botig‘i qaysi?",
+a:["Mariana","Yava","Kuril","Tonga"],c:0
 },
 
 {
-id:"geo005",
-q:"Ekvator Yer sharini qanday qismlarga ajratadi?",
-a:[
-"Shimoliy va Janubiy yarimsharga",
-"Sharqiy va G‘arbiy yarimsharga",
-"Materik va okeanga",
-"Tog‘ va tekislikka"
-],
-c:0
+q:"Eng katta okean qaysi?",
+a:["Tinch okeani","Atlantika okeani","Hind okeani","Shimoliy Muz okeani"],c:0
+},
+
+{
+q:"Dunyodagi eng katta materik qaysi?",
+a:["Yevrosiyo","Afrika","Shimoliy Amerika","Janubiy Amerika"],c:0
+},
+
+{
+q:"Sahroi Kabir qaysi materikda joylashgan?",
+a:["Afrika","Osiyo","Avstraliya","Janubiy Amerika"],c:0
+},
+
+{
+q:"Nil daryosi qaysi materikda joylashgan?",
+a:["Afrika","Osiyo","Yevropa","Avstraliya"],c:0
+},
+
+{
+q:"Amazonka daryosi qaysi materikda?",
+a:["Janubiy Amerika","Afrika","Osiyo","Shimoliy Amerika"],c:0
+},
+
+{
+q:"O‘zbekiston qaysi materikda joylashgan?",
+a:["Yevrosiyo","Afrika","Avstraliya","Amerika"],c:0
+},
+
+{
+q:"O‘zbekiston poytaxti qaysi shahar?",
+a:["Toshkent","Samarqand","Buxoro","Andijon"],c:0
+},
+
+{
+q:"O‘zbekiston qaysi dengiz bilan bog‘liq ekologik muammo bilan mashhur?",
+a:["Orol dengizi","Qora dengiz","Kaspiy dengizi","Boltiq dengizi"],c:0
+},
+
+{
+q:"Dengiz sathidan balandlikni o‘lchaydigan asbob nima?",
+a:["Altimetr","Barometr","Termometr","Gidrometr"],c:0
+},
+
+{
+q:"Atmosfera bosimini o‘lchash asbobi qaysi?",
+a:["Barometr","Termometr","Anemometr","Kompas"],c:0
+},
+
+{
+q:"Shamol tezligini o‘lchaydigan asbob nima?",
+a:["Anemometr","Barometr","Seysmograf","Termometr"],c:0
+},
+
+{
+q:"Yerning o‘z o‘qi atrofida aylanish davri qancha?",
+a:["24 soat","12 soat","30 kun","365 kun"],c:0
+},
+
+{
+q:"Yerning Quyosh atrofida aylanish davri taxminan qancha?",
+a:["365 kun","24 soat","30 kun","7 kun"],c:0
+},
+
+{
+q:"Tropiklar qaysi kengliklarda joylashgan?",
+a:["23,5°","45°","66,5°","90°"],c:0
+},
+
+{
+q:"Shimoliy qutb qaysi kenglikda?",
+a:["90° shimoliy kenglik","0°","23,5°","66,5°"],c:0
+},
+
+{
+q:"Bosh meridian qaysi shahardan o‘tadi?",
+a:["Grinvich","Parij","Rim","Berlin"],c:0
+},
+
+{
+q:"Geografik xaritada masofani aniqlashda nima ishlatiladi?",
+a:["Masshtab","Legenda","Kompas","Rang"],c:0
+},
+
+{
+q:"Yerning suv qobig‘i nima deyiladi?",
+a:["Gidrosfera","Atmosfera","Litosfera","Biosfera"],c:0
+},
+
+{
+q:"Yerning havo qobig‘i nima?",
+a:["Atmosfera","Gidrosfera","Biosfera","Litosfera"],c:0
+},
+
+{
+q:"Yerning qattiq qobig‘i nima?",
+a:["Litosfera","Atmosfera","Gidrosfera","Biosfera"],c:0
+},
+
+{
+q:"Tirik organizmlar tarqalgan qobiq nima?",
+a:["Biosfera","Atmosfera","Litosfera","Gidrosfera"],c:0
+},
+
+{
+q:"Vulqon otilishi qaysi jarayonga kiradi?",
+a:["Endogen jarayon","Ekzogen jarayon","Iqlim jarayoni","Biologik jarayon"],c:0
+},
+
+{
+q:"Daryo boshlanadigan joy nima deyiladi?",
+a:["Manba","Delta","Estuariy","Irmoq"],c:0
+},
+
+{
+q:"Daryoning dengiz yoki ko‘lga quyiladigan joyi nima?",
+a:["Quyilish joyi","Manba","Vodiy","Irmoq"],c:0
+},
+
+{
+q:"Daryoning kichikroq qo‘shiluvchi tarmog‘i nima?",
+a:["Irmoq","Delta","Manba","Orol"],c:0
+},
+
+{
+q:"Daryoning tarmoqlanib dengizga quyilishi nima deb ataladi?",
+a:["Delta","Vodiy","Irmoq","Manba"],c:0
+},
+
+{
+q:"Iqlim nima?",
+a:["Uzoq yillar davomida kuzatiladigan ob-havo holati","Bir kunlik ob-havo","Shamol tezligi","Yog‘in miqdori"],c:0
+},
+
+{
+q:"Ob-havo nima?",
+a:["Muayyan vaqtdagi atmosfera holati","Uzoq yillik iqlim","Yer tuzilishi","Okean oqimi"],c:0
+},
+
+{
+q:"Musson shamollari qanday shamollar?",
+a:["Mavsumiy yo‘nalishini o‘zgartiruvchi","Doimiy shamollar","Faqat tog‘larda esuvchi","Faqat cho‘lda esuvchi"],c:0
+},
+
+{
+q:"Passat shamollari qayerda kuzatiladi?",
+a:["Tropik kengliklarda","Qutblarda","Faqat ekvatorda","Faqat mo‘tadil mintaqada"],c:0
+},
+
+{
+q:"Eng issiq materik qaysi?",
+a:["Afrika","Yevropa","Antarktida","Avstraliya"],c:0
+},
+
+{
+q:"Eng sovuq materik qaysi?",
+a:["Antarktida","Afrika","Osiyo","Avstraliya"],c:0
+},
+
+{
+q:"Avstraliya qaysi okeanlar orasida joylashgan?",
+a:["Hind va Tinch","Atlantika va Hind","Shimoliy Muz va Tinch","Atlantika va Tinch"],c:0
+},
+
+{
+q:"Himolay tog‘lari qaysi qit'ada?",
+a:["Osiyo","Afrika","Yevropa","Avstraliya"],c:0
+},
+
+{
+q:"Everest qaysi tog‘ tizmasida?",
+a:["Himolay","And","Alp","Tyanshan"],c:0
+},
+
+{
+q:"And tog‘lari qaysi materikda?",
+a:["Janubiy Amerika","Shimoliy Amerika","Osiyo","Afrika"],c:0
+},
+
+{
+q:"Alp tog‘lari qaysi qit'ada?",
+a:["Yevropa","Osiyo","Afrika","Amerika"],c:0
+},
+
+{
+q:"Kaspiy dengizi geografik jihatdan nima?",
+a:["Dunyodagi eng katta yopiq suv havzasi","Okean","Daryo","Muzlik"],c:0
+},
+
+{
+q:"O‘zbekiston nechta davlat bilan chegaradosh?",
+a:["5 ta","3 ta","4 ta","6 ta"],c:0
+},
+
+{
+q:"O‘zbekistonning eng uzun daryolaridan biri qaysi?",
+a:["Amudaryo","Nil","Amazonka","Volga"],c:0
+},
+
+{
+q:"Farg‘ona vodiysi qaysi hududda joylashgan?",
+a:["Markaziy Osiyoda","G‘arbiy Yevropada","Shimoliy Afrikada","Janubiy Amerikada"],c:0
+},
+
+{
+q:"Cho‘l zonasida yog‘in miqdori qanday?",
+a:["Kam","Juda ko‘p","Doimiy qor","Yil bo‘yi yomg‘irli"],c:0
+},
+
+{
+q:"Tuproq unumdorligini oshiruvchi asosiy organik modda nima?",
+a:["Gumus","Tuz","Qum","Gil"],c:0
+},
+
+{
+q:"Zilzilalarni qayd qiluvchi asbob nima?",
+a:["Seysmograf","Barometr","Termometr","Anemometr"],c:0
+},
+
+{
+q:"Materiklar va okeanlarning joylashuvini qaysi fan o‘rganadi?",
+a:["Geografiya","Biologiya","Kimyo","Fizika"],c:0
+},
+
+{
+q:"Dunyoning eng katta oroli qaysi?",
+a:["Grenlandiya","Madagaskar","Yangi Gvineya","Borneo"],c:0
 }
 
 ],
 
 
-
 /* =====================================================
-   MATEMATIKA
+MATEMATIKA
 ===================================================== */
 
 "Matematika":[
 
-{
-id:"mat001",
-q:"f(x)=x²−4x+7 funksiyaning eng kichik qiymatini toping.",
-a:[
-"3",
-"4",
-"7",
-"-3"
-],
-c:0
-},
-
-{
-id:"mat002",
-q:"2^(x+1)=32 bo‘lsa, x nechaga teng?",
-a:[
-"3",
-"4",
-"5",
-"6"
-],
-c:1
-},
-
-{
-id:"mat003",
-q:"x²−5x+6=0 tenglama ildizlari yig‘indisi nechaga teng?",
-a:[
-"5",
-"6",
-"-5",
-"-6"
-],
-c:0
-},
-
-{
-id:"mat004",
-q:"Agar a=3 va b=4 bo‘lsa, a²+b² qiymatini toping.",
-a:[
-"7",
-"12",
-"25",
-"49"
-],
-c:2
-},
-
-{
-id:"mat005",
-q:"3x−7=11 tenglamani yeching.",
-a:[
-"4",
-"5",
-"6",
-"7"
-],
-c:1
-}
+{q:"2+3×4 ning qiymati nechaga teng?",a:["14","20","24","10"],c:0},
+{q:"15−7 ning qiymati nechaga teng?",a:["8","9","7","6"],c:0},
+{q:"12×5 nechaga teng?",a:["60","50","70","55"],c:0},
+{q:"81 ning kvadrat ildizi nechaga teng?",a:["9","8","7","6"],c:0},
+{q:"2⁵ nechaga teng?",a:["32","16","64","25"],c:0},
+{q:"x+7=15 bo‘lsa x nechaga teng?",a:["8","7","9","6"],c:0},
+{q:"3x=21 bo‘lsa x nechaga teng?",a:["7","6","8","9"],c:0},
+{q:"x²=49 tenglamaning musbat ildizi?",a:["7","−7","49","14"],c:0},
+{q:"20 ning 25 foizi nechaga teng?",a:["5","4","10","2"],c:0},
+{q:"1/2 + 1/2 nechaga teng?",a:["1","2","0","1/2"],c:0},
+{q:"3/4 ning o‘nli ko‘rinishi?",a:["0.75","0.34","0.25","0.8"],c:0},
+{q:"100 ning 10 foizi?",a:["10","20","1","5"],c:0},
+{q:"To‘g‘ri burchak necha gradus?",a:["90°","45°","180°","360°"],c:0},
+{q:"Uchburchak ichki burchaklari yig‘indisi?",a:["180°","90°","360°","270°"],c:0},
+{q:"Kvadratning barcha tomonlari qanday?",a:["Teng","Faqat ikkitasi teng","Har xil","Parallel emas"],c:0},
+{q:"Perimetri 20 sm bo‘lgan kvadrat tomoni?",a:["5 sm","4 sm","10 sm","20 sm"],c:0},
+{q:"5² nechaga teng?",a:["25","10","15","20"],c:0},
+{q:"10³ nechaga teng?",a:["1000","100","30","300"],c:0},
+{q:"−5+8 nechaga teng?",a:["3","13","−3","5"],c:0},
+{q:"7×8 nechaga teng?",a:["56","54","64","48"],c:0},
+{q:"144 ning kvadrat ildizi?",a:["12","14","10","16"],c:0},
+{q:"2x+4=10 bo‘lsa x?",a:["3","2","4","5"],c:0},
+{q:"5x−5=20 bo‘lsa x?",a:["5","4","6","3"],c:0},
+{q:"x/3=4 bo‘lsa x?",a:["12","7","9","15"],c:0},
+{q:"2/3 + 1/3 nechaga teng?",a:["1","2/3","3","1/3"],c:0},
+{q:"50% kasr ko‘rinishida?",a:["1/2","1/4","1/5","2/3"],c:0},
+{q:"1 kilometr necha metr?",a:["1000","100","10","10000"],c:0},
+{q:"1 metr necha santimetr?",a:["100","10","1000","50"],c:0},
+{q:"Aylananing markazidan chegarasigacha bo‘lgan kesma?",a:["Radius","Diametr","Vatar","Yoy"],c:0},
+{q:"Diametr radiusdan necha marta katta?",a:["2 marta","3 marta","4 marta","Yarim marta"],c:0},
+{q:"3,5+2,5 nechaga teng?",a:["6","5","7","4"],c:0},
+{q:"9×9 nechaga teng?",a:["81","72","90","99"],c:0},
+{q:"64/8 nechaga teng?",a:["8","6","7","9"],c:0},
+{q:"1000/10 nechaga teng?",a:["100","10","1000","1"],c:0},
+{q:"−3×4 nechaga teng?",a:["−12","12","−7","7"],c:0},
+{q:"−20/5 nechaga teng?",a:["−4","4","−5","5"],c:0},
+{q:"a=3,b=4 bo‘lsa a+b?",a:["7","12","1","−1"],c:0},
+{q:"a=5 bo‘lsa 2a+3?",a:["13","10","8","15"],c:0},
+{q:"10 ning kvadrati?",a:["100","20","50","1000"],c:0},
+{q:"To‘g‘ri to‘rtburchak yuzi qanday topiladi?",a:["Uzunlik×eni","2(a+b)","a+b","a−b"],c:0},
+{q:"Kvadrat yuzi 25 sm² bo‘lsa tomoni?",a:["5 sm","10 sm","25 sm","4 sm"],c:0},
+{q:"2x=18 bo‘lsa x?",a:["9","8","10","6"],c:0},
+{q:"x−9=1 bo‘lsa x?",a:["10","8","9","11"],c:0},
+{q:"4³ nechaga teng?",a:["64","16","12","81"],c:0},
+{q:"√100 nechaga teng?",a:["10","20","5","100"],c:0},
+{q:"7+8−5 nechaga teng?",a:["10","11","9","12"],c:0},
+{q:"30% 200 ning nechasi?",a:["60","30","40","70"],c:0},
+{q:"2:4 nisbat soddalashtirilsa?",a:["1:2","2:1","1:4","4:1"],c:0},
+{q:"Tenglama nima?",a:["Noma'lum qatnashgan tenglik","Faqat sonlar yig‘indisi","Geometrik shakl","Kasr"],c:0},
+{q:"Funksiya argumenti odatda qaysi harf bilan belgilanadi?",a:["x","z","a","n"],c:0},
+{q:"f(x)=2x bo‘lsa f(3)?",a:["6","5","3","9"],c:0}
 
 ],
-
 
 
 /* =====================================================
-   BIOLOGIYA
+BIOLOGIYA
 ===================================================== */
 
 "Biologiya":[
 
-{
-id:"bio001",
-q:"ATP sintezining asosiy qismi qaysi organoidda amalga oshadi?",
-a:[
-"Mitoxondriya",
-"Ribosoma",
-"Lizosoma",
-"Golji apparati"
-],
-c:0
-},
-
-{
-id:"bio002",
-q:"AaBb × AaBb chatishtirishda aabb genotipining ehtimoli qancha?",
-a:[
-"1/16",
-"1/8",
-"1/4",
-"3/16"
-],
-c:0
-},
-
-{
-id:"bio003",
-q:"Fotosintez jarayonida qaysi gaz yutiladi?",
-a:[
-"CO₂",
-"O₂",
-"N₂",
-"H₂"
-],
-c:0
-},
-
-{
-id:"bio004",
-q:"DNKning asosiy vazifasi nima?",
-a:[
-"Irsiy axborotni saqlash",
-"ATPni parchalash",
-"Oqsilni hazm qilish",
-"Yog‘ sintezlash"
-],
-c:0
-},
-
-{
-id:"bio005",
-q:"Odam yuragida nechta kamera mavjud?",
-a:[
-"2",
-"3",
-"4",
-"5"
-],
-c:2
-}
+{q:"Hujayraning irsiy axborotni saqlovchi qismi?",a:["Yadro","Ribosoma","Lizosoma","Vakuola"],c:0},
+{q:"Fotosintez qaysi organoidda amalga oshadi?",a:["Xloroplast","Mitoxondriya","Ribosoma","Yadro"],c:0},
+{q:"ATPning asosiy sintezi qaysi organoidda?",a:["Mitoxondriya","Ribosoma","Lizosoma","Golji apparati"],c:0},
+{q:"DNK nimani saqlaydi?",a:["Irsiy axborotni","Suvni","Yog‘ni","Minerallarni"],c:0},
+{q:"RNKning asosiy vazifalaridan biri?",a:["Oqsil sintezida qatnashish","Suv tashish","Yog‘ eritish","Kislorod saqlash"],c:0},
+{q:"Odam yuragida nechta kamera bor?",a:["4","2","3","5"],c:0},
+{q:"Odamda qon aylanish doirasi nechta?",a:["2","1","3","4"],c:0},
+{q:"Odamning normal tana harorati taxminan?",a:["36–37°C","20°C","40–42°C","30°C"],c:0},
+{q:"Odam nafas olganda asosan qaysi gazni qabul qiladi?",a:["Kislorod","Azot","Karbonat angidrid","Vodorod"],c:0},
+{q:"Fotosintezda qaysi gaz yutiladi?",a:["CO₂","O₂","N₂","H₂"],c:0},
+{q:"Fotosintez natijasida qaysi gaz ajraladi?",a:["O₂","CO₂","N₂","H₂"],c:0},
+{q:"Odam organizmida qonni haydaydigan organ?",a:["Yurak","O‘pka","Jigar","Buyrak"],c:0},
+{q:"Qonning qizil hujayralari nima deyiladi?",a:["Eritrotsitlar","Leykotsitlar","Trombotsitlar","Neyronlar"],c:0},
+{q:"Immunitetda asosiy rol o‘ynaydigan qon hujayralari?",a:["Leykotsitlar","Eritrotsitlar","Trombotsitlar","Osteotsitlar"],c:0},
+{q:"Qon ivishida qatnashuvchi hujayralar?",a:["Trombotsitlar","Eritrotsitlar","Leykotsitlar","Neyronlar"],c:0},
+{q:"Nerv sistemasining asosiy hujayrasi?",a:["Neyron","Eritrotsit","Osteotsit","Miozit"],c:0},
+{q:"Odamning eng katta organi?",a:["Teri","Yurak","Jigar","O‘pka"],c:0},
+{q:"Odam skeletida taxminan nechta suyak bor?",a:["206","100","300","500"],c:0},
+{q:"Odam organizmidagi eng katta ichki organ?",a:["Jigar","Yurak","Buyrak","O‘pka"],c:0},
+{q:"Buyrakning asosiy vazifasi?",a:["Qonni filtrlash","Qonni haydash","Nafas olish","Ovqatni maydalash"],c:0},
+{q:"O‘pkaning asosiy vazifasi?",a:["Gaz almashinuvi","Qonni filtrlash","Ovqat hazmi","Gormon ishlab chiqarish"],c:0},
+{q:"Oshqozon qaysi sistemaga kiradi?",a:["Hazm qilish sistemasi","Nafas olish","Nerv","Qon aylanish"],c:0},
+{q:"Oqsillar qaysi organik moddalarga kiradi?",a:["Biologik polimerlar","Mineral tuzlar","Suv","Gazlar"],c:0},
+{q:"Uglevodlarning asosiy vazifasi?",a:["Energiya berish","Irsiyatni saqlash","Immunitetni yo‘qotish","Suyakni eritish"],c:0},
+{q:"Vitaminlar organizm uchun nima?",a:["Biologik faol moddalar","Faqat energiya manbai","Faqat oqsil","Mineral tuz"],c:0},
+{q:"Gen nima?",a:["Irsiyat birligi","Hujayra organoidi","Qon hujayrasi","Gormon"],c:0},
+{q:"Genotip nima?",a:["Organizm genlari majmui","Tashqi ko‘rinish","Faqat bitta gen","Hujayra qobig‘i"],c:0},
+{q:"Fenotip nima?",a:["Organizmning kuzatiladigan belgilar majmui","Faqat DNK","Faqat genlar","Hujayra yadrosi"],c:0},
+{q:"Aa genotip qanday ataladi?",a:["Geterozigota","Gomozigota","Dominant","Resessiv"],c:0},
+{q:"AA genotip qanday?",a:["Gomozigota dominant","Geterozigota","Gomozigota resessiv","Aralash"],c:0},
+{q:"aa genotip qanday?",a:["Gomozigota resessiv","Dominant","Geterozigota","Poliploid"],c:0},
+{q:"Mendel qaysi fan bilan mashhur?",a:["Genetika","Geografiya","Astronomiya","Geologiya"],c:0},
+{q:"Hujayra bo‘linishining oddiy turi?",a:["Mitoz","Fotosintez","Transpiratsiya","Diffuziya"],c:0},
+{q:"Jinsiy hujayralar hosil bo‘lishida qaysi bo‘linish muhim?",a:["Meyoz","Mitoz","Binar bo‘linish","Endomitoz"],c:0},
+{q:"Odamda nechta xromosoma bor?",a:["46","23","44","48"],c:0},
+{q:"Odam jinsiy hujayrasida nechta xromosoma?",a:["23","46","22","24"],c:0},
+{q:"Ekologiya nimani o‘rganadi?",a:["Organizmlar va muhit munosabatini","Faqat hujayrani","Faqat genlarni","Faqat odam anatomiyasini"],c:0},
+{q:"Ekotizim tarkibiga nimalar kiradi?",a:["Tirik organizmlar va muhit","Faqat hayvonlar","Faqat o‘simliklar","Faqat suv"],c:0},
+{q:"Oziq zanjirining boshlang‘ich bo‘g‘ini ko‘pincha?",a:["Produtsentlar","Konsumentlar","Redutsentlar","Yirtqichlar"],c:0},
+{q:"O‘simliklar oziq zanjirida odatda?",a:["Produtsent","Konsument","Redutsent","Parazit"],c:0},
+{q:"Bakteriyalar qanday organizmlar?",a:["Prokariotlar","Eukariotlar","Faqat ko‘p hujayralilar","Viruslar"],c:0},
+{q:"Viruslar mustaqil ko‘payishi uchun nima kerak?",a:["Tirik hujayra","Faqat suv","Tuproq","Quyosh"],c:0},
+{q:"Zamburug‘lar qaysi guruhga kiradi?",a:["Alohida biologik podsholik","Hayvonlar","Viruslar","Bakteriyalar"],c:0},
+{q:"O‘simliklarda suvni tashuvchi to‘qima?",a:["Ksilema","Floema","Epidermis","Kambiy"],c:0},
+{q:"O‘simliklarda organik moddalarni tashuvchi to‘qima?",a:["Floema","Ksilema","Epidermis","Kambiy"],c:0},
+{q:"Ildizning asosiy vazifasi?",a:["Suv va mineral moddalarni shimish","Fotosintezning asosiy joyi","Urug‘ hosil qilish","Meva hosil qilish"],c:0},
+{q:"Bargning asosiy jarayonlaridan biri?",a:["Fotosintez","Qon aylanish","Nafas olish faqat","Ovqat hazmi"],c:0},
+{q:"Gul o‘simliklarning qaysi organi?",a:["Ko‘payish organi","Faqat oziqlanish organi","Faqat ildiz","Vegetativ ildiz"],c:0},
+{q:"Transpiratsiya nima?",a:["O‘simlikning suv bug‘latishi","Fotosintez","Urug‘lanish","Nafas olish"],c:0},
+{q:"Evolyutsiya nazariyasi bilan mashhur olim?",a:["Charlz Darvin","Nyuton","Mendeleyev","Paster"],c:0}
 
 ],
-
 
 
 /* =====================================================
-   KIMYO
+KIMYO
 ===================================================== */
 
 "Kimyo":[
 
-{
-id:"kim001",
-q:"0.5 mol H₂SO₄ tarkibida nechta molekula mavjud?",
-a:[
-"3.01×10²³",
-"6.02×10²³",
-"1.204×10²⁴",
-"3.01×10²²"
-],
-c:0
-},
-
-{
-id:"kim002",
-q:"Suvning kimyoviy formulasi qaysi?",
-a:[
-"H₂O",
-"CO₂",
-"O₂",
-"H₂"
-],
-c:0
-},
-
-{
-id:"kim003",
-q:"NaCl qanday bog‘lanishga ega?",
-a:[
-"Ion",
-"Metall",
-"Vodorod",
-"Qutbsiz kovalent"
-],
-c:0
-},
-
-{
-id:"kim004",
-q:"Kislorodning nisbiy atom massasi nechaga teng?",
-a:[
-"8",
-"16",
-"32",
-"64"
-],
-c:1
-},
-
-{
-id:"kim005",
-q:"pH=7 bo‘lgan eritma qanday muhitga ega?",
-a:[
-"Kislotali",
-"Ishqoriy",
-"Neytral",
-"Juda kislotali"
-],
-c:2
-}
+{q:"Suvning formulasi?",a:["H₂O","CO₂","O₂","H₂"],c:0},
+{q:"Kislorodning kimyoviy belgisi?",a:["O","C","N","H"],c:0},
+{q:"Vodorodning belgisi?",a:["H","O","He","C"],c:0},
+{q:"Uglerodning belgisi?",a:["C","Ca","Cl","Co"],c:0},
+{q:"NaCl qanday modda?",a:["Natriy xlorid","Natriy oksid","Kalsiy xlorid","Vodorod xlorid"],c:0},
+{q:"Kislorodning nisbiy atom massasi?",a:["16","8","32","12"],c:0},
+{q:"Uglerodning nisbiy atom massasi?",a:["12","14","16","10"],c:0},
+{q:"Vodorodning nisbiy atom massasi?",a:["1","2","4","16"],c:0},
+{q:"Suvning nisbiy molekulyar massasi?",a:["18","16","20","10"],c:0},
+{q:"CO₂ ning nisbiy molekulyar massasi?",a:["44","40","32","28"],c:0},
+{q:"pH=7 qanday muhit?",a:["Neytral","Kislotali","Ishqoriy","Juda kislotali"],c:0},
+{q:"Kislotalar eritmada qaysi ionni beradi?",a:["H⁺","OH⁻","Na⁺","Cl⁻"],c:0},
+{q:"Ishqorlar eritmada qaysi ionni beradi?",a:["OH⁻","H⁺","Cl⁻","Na⁺"],c:0},
+{q:"NaOH qanday modda?",a:["Ishqor","Kislota","Tuz","Oksid"],c:0},
+{q:"HCl qanday modda?",a:["Kislota","Ishqor","Tuz","Metall"],c:0},
+{q:"H₂SO₄ qanday kislota?",a:["Oltingugurt kislotasi","Nitrat kislota","Xlorid kislota","Karbonat kislota"],c:0},
+{q:"HNO₃ qanday kislota?",a:["Nitrat kislota","Sulfat kislota","Xlorid kislota","Fosfat kislota"],c:0},
+{q:"CaCO₃ tarkibida qaysi elementlar bor?",a:["Ca,C,O","Na,Cl","H,O","K,N"],c:0},
+{q:"Oksid nima?",a:["Ikki elementdan biri kislorod bo‘lgan birikma","Faqat metall","Faqat kislota","Faqat tuz"],c:0},
+{q:"Yonish jarayonida odatda qaysi gaz muhim?",a:["Kislorod","Azot","Geliy","Vodorod"],c:0},
+{q:"Avogadro doimiysi taxminan?",a:["6.02×10²³","3×10⁸","9.8","1.6×10⁻¹⁹"],c:0},
+{q:"1 mol modda tarkibidagi zarrachalar soni?",a:["6.02×10²³","10²","10³","3×10⁸"],c:0},
+{q:"Metallarning umumiy xususiyati?",a:["Elektr tokini yaxshi o‘tkazishi","Doim gaz bo‘lishi","Elektrni o‘tkazmasligi","Faqat suyuq bo‘lishi"],c:0},
+{q:"Temirning belgisi?",a:["Fe","F","Ir","Fr"],c:0},
+{q:"Oltinning belgisi?",a:["Au","Ag","O","Gd"],c:0},
+{q:"Kumushning belgisi?",a:["Ag","Au","Al","S"],c:0},
+{q:"Misning belgisi?",a:["Cu","Co","C","Ca"],c:0},
+{q:"Kalsiyning belgisi?",a:["Ca","C","Cl","K"],c:0},
+{q:"Natriyning belgisi?",a:["Na","N","Ni","Ne"],c:0},
+{q:"Kaliyning belgisi?",a:["K","Ca","Kr","Cl"],c:0},
+{q:"Xlorning belgisi?",a:["Cl","C","Cr","Co"],c:0},
+{q:"Azotning belgisi?",a:["N","Na","Ne","Ni"],c:0},
+{q:"Davriy jadvalni kim yaratgan?",a:["D.I. Mendeleyev","Nyuton","Darvin","Faradey"],c:0},
+{q:"Atom yadrosida qaysi zarrachalar bor?",a:["Proton va neytron","Elektron va proton","Faqat elektron","Faqat neytron"],c:0},
+{q:"Elektronning zaryadi qanday?",a:["Manfiy","Musbat","Neytral","Ikki xil"],c:0},
+{q:"Protonning zaryadi?",a:["Musbat","Manfiy","Neytral","Zaryadsiz"],c:0},
+{q:"Neytronning zaryadi?",a:["Neytral","Musbat","Manfiy","Ikki xil"],c:0},
+{q:"Atomning kimyoviy xususiyatini asosan nima belgilaydi?",a:["Elektron tuzilishi","Faqat massasi","Faqat yadrosi","Faqat rangi"],c:0},
+{q:"Kovalent bog‘lanish qanday hosil bo‘ladi?",a:["Umumiy elektron jufti orqali","Faqat ionlar orqali","Faqat metall orqali","Protonlar orqali"],c:0},
+{q:"NaCl dagi bog‘lanish turi?",a:["Ion","Metall","Vodorod","Qutbsiz kovalent"],c:0},
+{q:"H₂ molekulasidagi bog‘lanish?",a:["Qutbsiz kovalent","Ion","Metall","Vodorod"],c:0},
+{q:"Kimyoviy reaksiya belgilaridan biri?",a:["Yangi modda hosil bo‘lishi","Faqat shakl o‘zgarishi","Faqat hajm o‘zgarishi","Faqat rang o‘zgarishi"],c:0},
+{q:"Katalizator nima qiladi?",a:["Reaksiya tezligini o‘zgartiradi","Doim sarflanadi","Yangi elementga aylanadi","Faqat rang beradi"],c:0},
+{q:"Eritmada eruvchi modda nima deyiladi?",a:["Eritiluvchi","Erituvchi","Cho‘kma","Katalizator"],c:0},
+{q:"Eritmada modda eritadigan komponent?",a:["Erituvchi","Eritiluvchi","Cho‘kma","Indikator"],c:0},
+{q:"Lakmus kislotali muhitda qanday rangga yaqin?",a:["Qizil","Ko‘k","Yashil","Sariq"],c:0},
+{q:"Fenolftalein ishqoriy muhitda qanday rangga kiradi?",a:["Pushti","Rangsiz","Sariq","Ko‘k"],c:0},
+{q:"Kimyoviy formula nimani ifodalaydi?",a:["Moddaning tarkibini","Faqat rangini","Faqat massasini","Faqat haroratini"],c:0},
+{q:"Mol miqdorini ifodalovchi birlik?",a:["mol","gramm","metr","litr"],c:0},
+{q:"Kimyoviy tenglama nimani ko‘rsatadi?",a:["Reaksiyada qatnashuvchi moddalarni","Faqat temperaturani","Faqat bosimni","Faqat hajmni"],c:0}
 
 ],
-
 
 
 /* =====================================================
-   FIZIKA
+FIZIKA
 ===================================================== */
 
 "Fizika":[
 
-{
-id:"fiz001",
-q:"Jism tezligi 2 marta oshsa, kinetik energiyasi qanday o‘zgaradi?",
-a:[
-"2 marta oshadi",
-"4 marta oshadi",
-"2 marta kamayadi",
-"O‘zgarmaydi"
-],
-c:1
-},
-
-{
-id:"fiz002",
-q:"Qarshilik 2 marta oshib, kuchlanish o‘zgarmasa tok qanday o‘zgaradi?",
-a:[
-"2 marta kamayadi",
-"2 marta oshadi",
-"4 marta oshadi",
-"O‘zgarmaydi"
-],
-c:0
-},
-
-{
-id:"fiz003",
-q:"Kuchning SI dagi birligi qaysi?",
-a:[
-"Joul",
-"Vatt",
-"Nyuton",
-"Paskal"
-],
-c:2
-},
-
-{
-id:"fiz004",
-q:"Yorug‘lik vakuumda taxminan qanday tezlikda tarqaladi?",
-a:[
-"3×10⁸ m/s",
-"3×10⁶ m/s",
-"3×10⁵ m/s",
-"3×10³ m/s"
-],
-c:0
-},
-
-{
-id:"fiz005",
-q:"Elektr quvvatining SI dagi birligi nima?",
-a:[
-"Volt",
-"Amper",
-"Vatt",
-"Om"
-],
-c:2
-}
+{q:"Kuchning SI birligi?",a:["Nyuton","Joul","Vatt","Paskal"],c:0},
+{q:"Ishning SI birligi?",a:["Joul","Nyuton","Vatt","Om"],c:0},
+{q:"Quvvatning SI birligi?",a:["Vatt","Joul","Nyuton","Volt"],c:0},
+{q:"Elektr kuchlanishining birligi?",a:["Volt","Amper","Om","Vatt"],c:0},
+{q:"Tok kuchining birligi?",a:["Amper","Volt","Om","Vatt"],c:0},
+{q:"Elektr qarshilik birligi?",a:["Om","Volt","Amper","Joul"],c:0},
+{q:"Yorug‘lik vakuumda taxminan qanday tezlikda tarqaladi?",a:["3×10⁸ m/s","3×10⁶ m/s","3×10⁵ m/s","3×10³ m/s"],c:0},
+{q:"Erkin tushish tezlanishi taxminan?",a:["9.8 m/s²","3 m/s²","20 m/s²","1 m/s²"],c:0},
+{q:"Tezlik formulasi?",a:["v=s/t","v=s×t","v=t/s","v=m/s²"],c:0},
+{q:"Zichlik formulasi?",a:["ρ=m/V","ρ=V/m","ρ=mV","ρ=F/S"],c:0},
+{q:"Bosim formulasi?",a:["p=F/S","p=F×S","p=S/F","p=m/V"],c:0},
+{q:"Mexanik ish formulasi?",a:["A=Fs","A=F/s","A=s/F","A=mv"],c:0},
+{q:"Kinetik energiya nimaga bog‘liq?",a:["Massa va tezlikka","Faqat massaga","Faqat vaqtga","Faqat balandlikka"],c:0},
+{q:"Potensial energiya nimaga bog‘liq?",a:["Massa va balandlikka","Faqat tezlikka","Faqat vaqtga","Faqat tokka"],c:0},
+{q:"Nyutonning ikkinchi qonuni?",a:["F=ma","F=mv","F=m/a","F=a/m"],c:0},
+{q:"Ohm qonuni?",a:["I=U/R","I=UR","I=R/U","U=IR²"],c:0},
+{q:"Elektr quvvati formulalaridan biri?",a:["P=UI","P=U/I","P=I/U","P=R/U"],c:0},
+{q:"Ketma-ket ulangan qarshiliklar qanday qo‘shiladi?",a:["R=R₁+R₂","R=R₁R₂","R=R₁/R₂","R=R₁−R₂"],c:0},
+{q:"Parallel ulanishda kuchlanish qanday?",a:["Bir xil","Doim nol","Ikki marta katta","Har doim turlicha"],c:0},
+{q:"Magnit maydonni hosil qiluvchi omillardan biri?",a:["Elektr toki","Faqat suv","Faqat yorug‘lik","Faqat bosim"],c:0},
+{q:"Issiqlik miqdori formulasi?",a:["Q=cmΔT","Q=mc/T","Q=c/m","Q=m/T"],c:0},
+{q:"Temperatura SI shkalasi?",a:["Kelvin","Selsiy","Farengeyt","Reomyur"],c:0},
+{q:"Suvning qaynash temperaturasi normal bosimda?",a:["100°C","0°C","50°C","212°C"],c:0},
+{q:"Suvning muzlash temperaturasi?",a:["0°C","100°C","−100°C","50°C"],c:0},
+{q:"Tovush vakuumda tarqaladimi?",a:["Yo‘q","Ha","Faqat yuqori chastotada","Faqat past bosimda"],c:0},
+{q:"Tovush tarqalishi uchun nima kerak?",a:["Muhit","Faqat vakuum","Faqat yorug‘lik","Faqat magnit"],c:0},
+{q:"Yorug‘likning qaytishi nima?",a:["Refleksiya","Refraksiya","Diffuziya","Konveksiya"],c:0},
+{q:"Yorug‘likning sinishi nima?",a:["Refraksiya","Refleksiya","Interferensiya","Diffuziya"],c:0},
+{q:"Linzaning asosiy vazifasi?",a:["Yorug‘likni sindirish","Tovush chiqarish","Elektr tokini oshirish","Issiqlik hosil qilish"],c:0},
+{q:"Fokus masofasi nima bilan bog‘liq?",a:["Linza optik xususiyati bilan","Faqat massa bilan","Faqat tok bilan","Faqat bosim bilan"],c:0},
+{q:"Impuls formulasi?",a:["p=mv","p=ma","p=m/v","p=v/m"],c:0},
+{q:"Kuch impulsi nimaga teng?",a:["FΔt","F/t","F+t","m/V"],c:0},
+{q:"Og‘irlik kuchi formulasi?",a:["P=mg","P=m/g","P=g/m","P=mv"],c:0},
+{q:"Massa SI birligi?",a:["Kilogramm","Nyuton","Joul","Gramm"],c:0},
+{q:"Uzunlik SI birligi?",a:["Metr","Kilometr","Santimetr","Millimetr"],c:0},
+{q:"Vaqt SI birligi?",a:["Sekund","Minut","Soat","Kun"],c:0},
+{q:"Elektr zaryadining SI birligi?",a:["Kulon","Amper","Volt","Om"],c:0},
+{q:"Elektr maydon kuchlanganligi birligi?",a:["N/C","J","W","Ω"],c:0},
+{q:"Atom yadrosida qaysi zarrachalar joylashadi?",a:["Proton va neytron","Elektron va proton","Faqat elektron","Faqat foton"],c:0},
+{q:"Elektron zaryadi?",a:["Manfiy","Musbat","Neytral","O‘zgaruvchan"],c:0},
+{q:"Proton zaryadi?",a:["Musbat","Manfiy","Neytral","Zaryadsiz"],c:0},
+{q:"Neytron zaryadi?",a:["Neytral","Musbat","Manfiy","Ikki xil"],c:0},
+{q:"Radioaktivlikni kim kashf etgan?",a:["Anri Bekkerel","Nyuton","Faradey","Ohm"],c:0},
+{q:"Yerning tortishish kuchi qanday kuch?",a:["Gravitatsion","Elektr","Magnit","Elastik"],c:0},
+{q:"Ishqalanish kuchi odatda harakatga qanday ta'sir qiladi?",a:["Harakatga qarshilik qiladi","Harakatni doim tezlashtiradi","Yo‘nalishni o‘zgartirmaydi","Har doim nol"],c:0},
+{q:"Arximed kuchi qayerda yuzaga keladi?",a:["Suyuqlik yoki gazda","Faqat vakuumda","Faqat metall ichida","Faqat kosmosda"],c:0},
+{q:"Bosim chuqurlik oshishi bilan suyuqlikda qanday o‘zgaradi?",a:["Ortadi","Kamayadi","O‘zgarmaydi","Yo‘qoladi"],c:0},
+{q:"Energiya saqlanish qonuniga ko‘ra?",a:["Energiya yo‘qolmaydi, bir turdan boshqasiga o‘tadi","Energiya doim yo‘qoladi","Energiya faqat ortadi","Energiya faqat kamayadi"],c:0},
+{q:"Quvvat nimani ifodalaydi?",a:["Ish bajarilish tezligini","Massa miqdorini","Bosimni","Zichlikni"],c:0},
+{q:"Mexanik harakat nima?",a:["Jismning boshqa jismlarga nisbatan holati o‘zgarishi","Faqat aylanish","Faqat tebranish","Faqat tushish"],c:0}
 
 ],
-
 
 
 /* =====================================================
-   TARIX
+TARIX
 ===================================================== */
 
 "Tarix":[
 
-{
-id:"tar001",
-q:"Amir Temur davlatida markazlashuvni kuchaytirgan asosiy omil qaysi?",
-a:[
-"Markazlashgan boshqaruv",
-"Qabilalar mustaqilligi",
-"Soliqlarni bekor qilish",
-"Shaharlarning mustaqilligi"
-],
-c:0
-},
-
-{
-id:"tar002",
-q:"O‘zbekiston Respublikasi mustaqilligi qachon e'lon qilingan?",
-a:[
-"1990-yil",
-"1991-yil",
-"1992-yil",
-"1993-yil"
-],
-c:1
-},
-
-{
-id:"tar003",
-q:"Buyuk Ipak yo‘li asosan nimani bog‘lagan?",
-a:[
-"Sharq va G‘arbni",
-"Shimol va Janubni",
-"Faqat Yevropani",
-"Faqat Afrikani"
-],
-c:0
-},
-
-{
-id:"tar004",
-q:"Mirzo Ulug‘bek qaysi sohada mashhur olim bo‘lgan?",
-a:[
-"Astronomiya",
-"Kimyo",
-"Biologiya",
-"Geologiya"
-],
-c:0
-},
-
-{
-id:"tar005",
-q:"Amir Temur davlatining markazi qaysi shahar bo‘lgan?",
-a:[
-"Samarqand",
-"Buxoro",
-"Xiva",
-"Toshkent"
-],
-c:0
-}
+{q:"O‘zbekiston Respublikasi mustaqilligi qachon e’lon qilingan?",a:["1991-yil","1990-yil","1992-yil","1993-yil"],c:0},
+{q:"O‘zbekiston mustaqillik kuni qaysi sana?",a:["1-sentabr","8-dekabr","21-mart","9-may"],c:0},
+{q:"O‘zbekiston Respublikasi Konstitutsiyasi qachon qabul qilingan?",a:["1992-yil 8-dekabr","1991-yil 1-sentabr","1990-yil 20-iyun","1993-yil 8-dekabr"],c:0},
+{q:"Amir Temur qaysi shaharda o‘z davlatining markazini rivojlantirgan?",a:["Samarqand","Buxoro","Xiva","Toshkent"],c:0},
+{q:"Amir Temur qachon tug‘ilgan?",a:["1336-yil","1405-yil","1300-yil","1370-yil"],c:0},
+{q:"Amir Temur qachon vafot etgan?",a:["1405-yil","1399-yil","1410-yil","1420-yil"],c:0},
+{q:"Mirzo Ulug‘bek qaysi sohada mashhur?",a:["Astronomiya","Kimyo","Biologiya","Tibbiyot"],c:0},
+{q:"Ulug‘bek rasadxonasi qaysi shaharda?",a:["Samarqand","Buxoro","Xiva","Toshkent"],c:0},
+{q:"Alisher Navoiy qaysi asar muallifi?",a:["Xamsa","Boburnoma","Qutadg‘u bilig","Devonu lug‘otit turk"],c:0},
+{q:"Zahiriddin Muhammad Bobur qaysi asarni yozgan?",a:["Boburnoma","Xamsa","Temur tuzuklari","Hamsa"],c:0},
+{q:"Buyuk Ipak yo‘li nimani bog‘lagan?",a:["Sharq va G‘arbni","Shimol va Janubni","Faqat Osiyoni","Faqat Yevropani"],c:0},
+{q:"Qadimgi Misr qaysi daryo bo‘yida rivojlangan?",a:["Nil","Amudaryo","Volga","Gang"],c:0},
+{q:"Qadimgi Mesopotamiya qaysi daryolar oralig‘ida?",a:["Dajla va Frot","Nil va Kongo","Amu va Sirdaryo","Gang va Hind"],c:0},
+{q:"Qadimgi Yunoniston qaysi dengizlar hududida rivojlangan?",a:["Egey va O‘rta yer dengizi","Kaspiy","Orol","Boltiq"],c:0},
+{q:"Rim imperiyasining markazi qaysi shahar?",a:["Rim","Afina","Sparta","Parij"],c:0},
+{q:"Buyuk Ipak yo‘lining asosiy ahamiyati?",a:["Savdo va madaniy almashinuv","Faqat urush","Faqat dehqonchilik","Faqat dengiz savdosi"],c:0},
+{q:"Temur tuzuklari kim bilan bog‘liq?",a:["Amir Temur","Bobur","Ulug‘bek","Navoiy"],c:0},
+{q:"Buxoro tarixda qanday markaz bo‘lgan?",a:["Ilm va madaniyat markazi","Faqat harbiy baza","Faqat port","Faqat kon markazi"],c:0},
+{q:"Xiva qaysi tarixiy hudud bilan bog‘liq?",a:["Xorazm","Farg‘ona","Movarounnahrning sharqi","Qashqadaryo"],c:0},
+{q:"Samarqand qadimda qaysi savdo yo‘lining muhim shahri bo‘lgan?",a:["Buyuk Ipak yo‘li","Atlantika yo‘li","Shimoliy dengiz yo‘li","Transatlantik yo‘l"],c:0},
+{q:"Movarounnahr atamasi qaysi hududga tegishli?",a:["Amudaryo va Sirdaryo oralig‘i","Nil vodiysi","Hind vodiysi","Volga bo‘yi"],c:0},
+{q:"Jaloliddin Manguberdi kim bo‘lgan?",a:["Xorazmshohlar hukmdori","Rim imperatori","Yunon olimi","Misr fir'avni"],c:0},
+{q:"Chingizxonning yurishlari qaysi asrda kuchaydi?",a:["XIII asr","X asr","XV asr","XVIII asr"],c:0},
+{q:"Qadimgi Turon hududida qaysi davlatlar mavjud bo‘lgan?",a:["Ko‘plab qadimgi davlatlar","Faqat Rim","Faqat Misr","Faqat Yunoniston"],c:0},
+{q:"Kushonlar davlati qaysi hududda muhim davlat bo‘lgan?",a:["Markaziy Osiyo va Shimoliy Hindiston","G‘arbiy Yevropa","Amerika","Avstraliya"],c:0},
+{q:"Qadimgi Baqtriya qayerda joylashgan?",a:["Markaziy Osiyoda","G‘arbiy Afrikada","Shimoliy Amerikada","Janubiy Yevropada"],c:0},
+{q:"So‘g‘diyona qaysi hudud bilan bog‘liq?",a:["Markaziy Osiyo","G‘arbiy Yevropa","Janubiy Afrika","Amerika"],c:0},
+{q:"Arab xalifaligi Movarounnahrga qaysi asrda kirib kelgan?",a:["VIII asr","V asr","X asr","XIV asr"],c:0},
+{q:"Somoniylar davlatining markazi?",a:["Buxoro","Samarqand","Xiva","Toshkent"],c:0},
+{q:"Qoraxoniylar davlati qaysi hududda mavjud bo‘lgan?",a:["Markaziy Osiyo","G‘arbiy Yevropa","Amerika","Afrika"],c:0},
+{q:"Mahmud Qoshg‘ariyning mashhur asari?",a:["Devonu lug‘otit turk","Xamsa","Boburnoma","Temur tuzuklari"],c:0},
+{q:"Yusuf Xos Hojibning mashhur asari?",a:["Qutadg‘u bilig","Xamsa","Boburnoma","Devonu hikmat"],c:0},
+{q:"Ahmad Yassaviy qaysi asar bilan mashhur?",a:["Devoni hikmat","Xamsa","Boburnoma","Zafarnoma"],c:0},
+{q:"Alisher Navoiy qaysi davr adabiyotining yirik vakili?",a:["Temuriylar davri","Somoniylar davri","Qadimgi Misr","Rim davri"],c:0},
+{q:"Mirzo Ulug‘bek Samarqandda nima qurdirdi?",a:["Rasadxona","Port","Qal'a","Zavod"],c:0},
+{q:"Amir Temur davrida Samarqand qanday shahar bo‘lgan?",a:["Yirik siyosiy va madaniy markaz","Faqat qishloq","Port shahar","Faqat kon shahri"],c:0},
+{q:"O‘zbekiston davlat bayrog‘i qachon qabul qilingan?",a:["1991-yil 18-noyabr","1992-yil 8-dekabr","1991-yil 1-sentabr","1992-yil 2-iyul"],c:0},
+{q:"O‘zbekiston davlat gerbi qachon qabul qilingan?",a:["1992-yil 2-iyul","1991-yil 18-noyabr","1992-yil 8-dekabr","1991-yil 1-sentabr"],c:0},
+{q:"O‘zbekiston davlat madhiyasi qachon tasdiqlangan?",a:["1992-yil 10-dekabr","1991-yil 1-sentabr","1992-yil 8-dekabr","1993-yil"],c:0},
+{q:"O‘zbekistonning birinchi Prezidenti kim bo‘lgan?",a:["Islom Karimov","Shavkat Mirziyoyev","Amir Temur","Abdulla Qodiriy"],c:0},
+{q:"O‘zbekiston BMTga qachon a'zo bo‘lgan?",a:["1992-yil","1991-yil","1993-yil","1995-yil"],c:0},
+{q:"Ikkinchi jahon urushi qachon tugagan?",a:["1945-yil","1944-yil","1946-yil","1939-yil"],c:0},
+{q:"Birinchi jahon urushi qaysi yillarda bo‘lgan?",a:["1914–1918","1939–1945","1900–1905","1920–1925"],c:0},
+{q:"Fransuz inqilobi qaysi yilda boshlangan?",a:["1789-yil","1776-yil","1800-yil","1812-yil"],c:0},
+{q:"AQSh mustaqillik deklaratsiyasi qachon qabul qilingan?",a:["1776-yil","1789-yil","1800-yil","1750-yil"],c:0},
+{q:"Sanoat inqilobi dastlab qaysi davlatda kuchli rivojlangan?",a:["Angliya","Fransiya","Ispaniya","Rossiya"],c:0},
+{q:"Renessans dastlab qaysi hududda rivojlangan?",a:["Italiya","Angliya","Rossiya","Misr"],c:0},
+{q:"Qadimgi Olimpiya o‘yinlari qayerda paydo bo‘lgan?",a:["Yunoniston","Rim","Misr","Xitoy"],c:0},
+{q:"Tarix fani nimani o‘rganadi?",a:["Insoniyatning o‘tmishini","Faqat tabiatni","Faqat kimyoni","Faqat geografiyani"],c:0}
 
 ],
-
 
 
 /* =====================================================
-   ONA TILI
+ONA TILI VA ADABIYOT
 ===================================================== */
 
 "Ona tili va adabiyot":[
 
-{
-id:"ona001",
-q:"Qaysi birikmada so‘z ko‘chma ma'noda qo‘llangan?",
-a:[
-"Oltin kuz",
-"Temir qoshiq",
-"Yangi kitob",
-"Yashil daftar"
-],
-c:0
-},
-
-{
-id:"ona002",
-q:"Ot so‘z turkumi nimani bildiradi?",
-a:[
-"Shaxs va predmet nomini",
-"Harakatni",
-"Belgini",
-"Miqdorni"
-],
-c:0
-},
-
-{
-id:"ona003",
-q:"Fe'l qanday ma'noni bildiradi?",
-a:[
-"Harakat yoki holatni",
-"Predmetni",
-"Belgini",
-"Sonni"
-],
-c:0
-},
-
-{
-id:"ona004",
-q:"Sinonim so‘zlar qanday so‘zlardir?",
-a:[
-"Ma'nodosh so‘zlar",
-"Qarama-qarshi so‘zlar",
-"Shakldosh so‘zlar",
-"Bir xil yoziladigan so‘zlar"
-],
-c:0
-},
-
-{
-id:"ona005",
-q:"Alisher Navoiy qaysi asarning muallifi?",
-a:[
-"Xamsa",
-"Boburnoma",
-"Qutadg‘u bilig",
-"Devonu lug‘otit turk"
-],
-c:0
-}
+{q:"Ot so‘z turkumi nimani bildiradi?",a:["Shaxs va predmet nomini","Harakatni","Belgini","Miqdorni"],c:0},
+{q:"Fe’l nimani bildiradi?",a:["Harakat yoki holatni","Predmetni","Belgini","Sonni"],c:0},
+{q:"Sifat nimani bildiradi?",a:["Predmetning belgisini","Harakatni","Predmet nomini","Miqdorni"],c:0},
+{q:"Son so‘z turkumi nimani bildiradi?",a:["Miqdor va tartibni","Harakatni","Belgini","Predmetni"],c:0},
+{q:"Olmosh nima o‘rnida qo‘llanadi?",a:["Ot va boshqa so‘zlar o‘rnida","Faqat fe'l o‘rnida","Faqat son o‘rnida","Faqat sifat o‘rnida"],c:0},
+{q:"Sinonim so‘zlar qanday so‘zlar?",a:["Ma'nodosh","Qarama-qarshi","Shakldosh","Bir xil talaffuzli"],c:0},
+{q:"Antonim so‘zlar qanday?",a:["Qarama-qarshi ma'noli","Ma'nodosh","Shakldosh","Bir xil ma'noli"],c:0},
+{q:"Omonim so‘zlar qanday?",a:["Shakli bir xil, ma'nosi har xil","Faqat ma'nodosh","Faqat antonim","Faqat qo‘shma"],c:0},
+{q:"Gapning bosh bo‘laklari?",a:["Ega va kesim","Aniqlovchi va hol","To‘ldiruvchi va hol","Undalma va kirish"],c:0},
+{q:"Ega nimani bildiradi?",a:["Harakat egasini","Belgini","Miqdorni","Joyni"],c:0},
+{q:"Kesim nimani bildiradi?",a:["Ega haqida xabarni","Faqat joyni","Faqat sonni","Faqat belgini"],c:0},
+{q:"Aniqlovchi qaysi bo‘lakni aniqlaydi?",a:["Otni","Fe'lni","Ravishni","Sonni"],c:0},
+{q:"To‘ldiruvchi odatda nimani bildiradi?",a:["Harakatning obyektini","Harakat belgisini","Joyni","Vaqtni"],c:0},
+{q:"Hol nimani bildiradi?",a:["Harakatning holatini","Predmetni","Shaxsni","Sonni"],c:0},
+{q:"Alisher Navoiy qaysi asar muallifi?",a:["Xamsa","Boburnoma","O‘tkan kunlar","Mehrobdan chayon"],c:0},
+{q:"Boburnoma muallifi kim?",a:["Zahiriddin Muhammad Bobur","Alisher Navoiy","Abdulla Qodiriy","Oybek"],c:0},
+{q:"O‘tkan kunlar romanini kim yozgan?",a:["Abdulla Qodiriy","Cho‘lpon","Oybek","Navoiy"],c:0},
+{q:"Mehrobdan chayon asari muallifi?",a:["Abdulla Qodiriy","Bobur","Navoiy","Oybek"],c:0},
+{q:"Cho‘lponning mashhur asarlaridan biri?",a:["Kecha va kunduz","Xamsa","Boburnoma","Qutadg‘u bilig"],c:0},
+{q:"Oybekning mashhur tarixiy romani?",a:["Navoiy","Boburnoma","Xamsa","Kecha va kunduz"],c:0},
+{q:"Erkin Vohidov qaysi janrda ham ijod qilgan?",a:["She'riyat","Faqat tarix","Faqat geografiya","Faqat kimyo"],c:0},
+{q:"Abdulla Oripov O‘zbekistonning qaysi madhiyasi so‘zlari muallifi?",a:["Davlat madhiyasi","Davlat gerbi","Davlat bayrog‘i","Konstitutsiya"],c:0},
+{q:"Maqol nima?",a:["Xalq donishmandligini ifodalovchi qisqa hikmat","Uzun roman","Ilmiy maqola","Faqat she'r"],c:0},
+{q:"Tashbeh nima?",a:["O‘xshatish san'ati","Qarama-qarshilik","Takror","Savol"],c:0},
+{q:"Istiora nima?",a:["Ko‘chma ma'nodagi obrazli ifoda","Oddiy gap","Sinonim","Antonim"],c:0},
+{q:"Mubolag‘a nima?",a:["Bo‘rttirish san'ati","O‘xshatish","Qarama-qarshilik","Takror"],c:0},
+{q:"Tazod nima?",a:["Qarama-qarshi tushunchalarni qo‘yish","O‘xshatish","Bo‘rttirish","Takror"],c:0},
+{q:"She'rning asosiy belgilaridan biri?",a:["Vazn va qofiya","Faqat nasr","Faqat dialog","Faqat xabar"],c:0},
+{q:"Qofiya nima?",a:["Misralar oxiridagi ohangdosh tovushlar","Gap boshidagi so‘z","Faqat sarlavha","Asar qahramoni"],c:0},
+{q:"Roman qanday janr?",a:["Yirik epik janr","Kichik she'r","Faqat maqol","Faqat drama"],c:0},
+{q:"Hikoya qanday janr?",a:["Kichik epik janr","Yirik roman","Faqat she'r","Faqat drama"],c:0},
+{q:"Drama qanday adabiy tur?",a:["Sahna uchun yaratiladigan asarlar turi","Faqat she'riy janr","Faqat ilmiy matn","Faqat maqol"],c:0},
+{q:"Lirika nimaga ko‘proq asoslanadi?",a:["His-tuyg‘u va kechinmalarga","Faqat voqealarga","Faqat tarixga","Faqat dialogga"],c:0},
+{q:"Epika nimani ifodalaydi?",a:["Voqea-hodisalarni","Faqat hisni","Faqat sahnani","Faqat qofiyani"],c:0},
+{q:"Sintaksis nimani o‘rganadi?",a:["So‘z birikmasi va gapni","Tovushlarni","So‘z ma'nosini","Faqat harflarni"],c:0},
+{q:"Fonetikada nima o‘rganiladi?",a:["Nutq tovushlari","Gaplar","Matnlar","Asarlar"],c:0},
+{q:"Leksikologiya nimani o‘rganadi?",a:["So‘z va uning ma'nolarini","Faqat tovushni","Faqat gapni","Faqat qofiyani"],c:0},
+{q:"Morfologiya nimani o‘rganadi?",a:["So‘z turkumlari va grammatik shakllarni","Faqat gapni","Faqat tovushni","Faqat matnni"],c:0},
+{q:"Adabiyotning asosiy vazifalaridan biri?",a:["Inson va hayotni badiiy aks ettirish","Faqat ma'lumot berish","Faqat hisoblash","Faqat xarita chizish"],c:0},
+{q:"Alisher Navoiy qaysi asrda yashagan?",a:["XV asr","XIII asr","XVIII asr","XX asr"],c:0},
+{q:"Bobur qaysi sulolaga asos solgan?",a:["Boburiylar","Temuriylar","Somoniylar","Qoraxoniylar"],c:0},
+{q:"Qutadg‘u bilig muallifi kim?",a:["Yusuf Xos Hojib","Navoiy","Bobur","Qodiriy"],c:0},
+{q:"Devonu lug‘otit turk muallifi?",a:["Mahmud Qoshg‘ariy","Yusuf Xos Hojib","Navoiy","Bobur"],c:0},
+{q:"O‘zbek tilining davlat tili sifatidagi maqomi qachon belgilangan?",a:["1989-yil","1991-yil","1992-yil","1995-yil"],c:0},
+{q:"Adabiy til nima?",a:["Me'yorlashtirilgan umumxalq tili","Faqat sheva","Faqat jargon","Faqat og‘zaki nutq"],c:0},
+{q:"Dialekt nima?",a:["Mahalliy til ko‘rinishi","Adabiy asar","Sinonim","Qofiya"],c:0},
+{q:"Matn nima?",a:["Mazmunan bog‘langan gaplar majmui","Bitta harf","Faqat so‘z","Faqat tovush"],c:0},
+{q:"Sarlavha nimani bildiradi?",a:["Matn yoki asarning nomini","Qahramonning yoshini","Muallifning manzilini","Faqat sanani"],c:0},
+{q:"Abzats nima?",a:["Mazmuniy jihatdan ajratilgan matn qismi","Bitta harf","Faqat sarlavha","Qofiya turi"],c:0},
+{q:"Publitsistik uslub qayerda ko‘proq qo‘llanadi?",a:["Ommaviy axborot vositalarida","Faqat ilmiy formulalarda","Faqat she'rda","Faqat hujjatda"],c:0},
+{q:"Ilmiy uslubning asosiy xususiyati?",a:["Aniqlik va mantiqiylik","Obrazlilikning ustunligi","Faqat hazil","Faqat dialog"],c:0}
 
 ]
 
 };
 
 
+/* =========================================================
+   TEKSHIRISH
+========================================================= */
 
-/* =====================================================
-   O'ZGARUVCHILAR
-===================================================== */
+Object.keys(questionBank).forEach(function(subject){
 
-let currentQuestion=0;
+    if(questionBank[subject].length < 50){
 
-let selectedAnswers=[];
+        console.warn(
+            subject+
+            " fanida 50 tadan kam savol bor!"
+        );
 
-let currentUser=null;
+    }
 
-let currentQuestions=[];
-
-let timerSeconds=30*60;
-
-let timerInterval=null;
+});
 
 
+/* =========================================================
+   GLOBAL O'ZGARUVCHILAR
+========================================================= */
 
-/* =====================================================
-   STORAGE
-===================================================== */
+let currentUser = null;
+
+let currentQuestions = [];
+
+let currentQuestion = 0;
+
+let selectedAnswers = [];
+
+let timerSeconds = 30 * 60;
+
+let timerInterval = null;
+
+let generatedAccount = null;
+
+
+/* =========================================================
+   LOCAL STORAGE YORDAMCHI
+========================================================= */
 
 function getUsers(){
 
-return JSON.parse(
-localStorage.getItem("users") || "[]"
-);
+    return JSON.parse(
+        localStorage.getItem("users") || "[]"
+    );
 
 }
-
 
 function saveUsers(users){
 
-localStorage.setItem(
-"users",
-JSON.stringify(users)
-);
+    localStorage.setItem(
+        "users",
+        JSON.stringify(users)
+    );
+
+}
+
+function getResults(){
+
+    return JSON.parse(
+        localStorage.getItem("participants") || "[]"
+    );
+
+}
+
+function saveResults(data){
+
+    localStorage.setItem(
+        "participants",
+        JSON.stringify(data)
+    );
 
 }
 
 
-function getParticipants(){
-
-return JSON.parse(
-localStorage.getItem("participants") || "[]"
-);
-
-}
-
-
-function saveParticipants(data){
-
-localStorage.setItem(
-"participants",
-JSON.stringify(data)
-);
-
-}
-
-
-
-/* =====================================================
-   PAGE
-===================================================== */
+/* =========================================================
+   SAHIFA
+========================================================= */
 
 function showPage(page){
 
-document
-.querySelectorAll("section")
-.forEach(section=>{
-section.classList.add("hide");
-});
+    document
+    .querySelectorAll("section")
+    .forEach(function(section){
+
+        section.classList.add("hide");
+
+    });
 
 
-document
-.getElementById(page)
-.classList.remove("hide");
+    const target =
+    document.getElementById(page);
 
 
-if(page==="ranking"){
+    if(target){
 
-renderRanking();
+        target.classList.remove("hide");
 
-}
-
-}
+    }
 
 
+    if(page==="ranking"){
 
-/* =====================================================
-   RANDOM SHUFFLE
-===================================================== */
+        renderRanking();
 
-function shuffle(array){
-
-const arr=[...array];
+    }
 
 
-for(
-let i=arr.length-1;
-i>0;
-i--
-){
+    if(page==="dashboard"){
 
-const j=
-Math.floor(
-Math.random()*(i+1)
-);
+        if(!currentUser){
 
+            showPage("login");
 
-[
-arr[i],
-arr[j]
-]=
-[
-arr[j],
-arr[i]
-];
+            return;
+
+        }
+
+        renderDashboard();
+
+    }
 
 }
 
 
-return arr;
-
-}
-
-
-
-/* =====================================================
-   USERNAME
-===================================================== */
+/* =========================================================
+   USERNAME YARATISH
+========================================================= */
 
 function generateUsername(fullName){
 
-let base=
-fullName
-.toLowerCase()
-.replace(/[^a-zA-Z0-9]/g,"")
-.slice(0,8);
+    let base =
+    fullName
+    .toLowerCase()
+    .replace(/['‘’`"]/g,"")
+    .replace(/\s+/g,"")
+    .replace(/[^a-z0-9]/g,"");
 
 
-if(!base){
+    if(!base){
 
-base="user";
+        base="user";
+
+    }
+
+
+    let username=base;
+
+    let number=1;
+
+    const users=getUsers();
+
+
+    while(
+        users.some(
+            user=>user.username===username
+        )
+    ){
+
+        username=
+        base+
+        number;
+
+        number++;
+
+    }
+
+
+    return username;
 
 }
 
 
-let username=base;
-
-let number=1;
-
-const users=getUsers();
-
-
-while(
-users.some(
-u=>u.username===username
-)
-){
-
-username=
-base+
-number;
-
-number++;
-
-}
-
-
-return username;
-
-}
-
-
-
-/* =====================================================
-   PASSWORD
-===================================================== */
+/* =========================================================
+   PAROL YARATISH
+========================================================= */
 
 function generatePassword(){
 
-const chars=
-"ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
+    const chars=
+    "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
 
 
-let password="";
+    let password="";
 
 
-for(let i=0;i<8;i++){
+    for(let i=0;i<8;i++){
 
-password+=
-chars.charAt(
-Math.floor(
-Math.random()*chars.length
-)
-);
+        password +=
+        chars[
+            Math.floor(
+                Math.random()*chars.length
+            )
+        ];
+
+    }
+
+
+    return password;
 
 }
 
 
-return password;
-
-}
-
-
-
-/* =====================================================
-   REGISTER
-===================================================== */
+/* =========================================================
+   RO'YXATDAN O'TISH
+========================================================= */
 
 function registerUser(){
 
-const fullName=
-document.getElementById("fullName")
-.value.trim();
+    const fullName=
+    document.getElementById("fullName")
+    .value.trim();
+
+    const region=
+    document.getElementById("region")
+    .value;
+
+    const district=
+    document.getElementById("district")
+    .value.trim();
+
+    const birthDate=
+    document.getElementById("birthDate")
+    .value;
+
+    const phone=
+    document.getElementById("phone")
+    .value.trim();
+
+    const examType=
+    document.getElementById("examType")
+    .value;
+
+    const subject=
+    document.getElementById("subject")
+    .value;
 
 
-const region=
-document.getElementById("region")
-.value;
+    if(
+        !fullName ||
+        !region ||
+        !district ||
+        !birthDate ||
+        !phone ||
+        !subject
+    ){
+
+        document.getElementById("registerMessage")
+        .innerHTML=
+        `<div class="error">
+        Iltimos, barcha maydonlarni to‘ldiring!
+        </div>`;
+
+        return;
+
+    }
 
 
-const district=
-document.getElementById("district")
-.value.trim();
+    const users=getUsers();
 
 
-const birthDate=
-document.getElementById("birthDate")
-.value;
+    /*
+       BIR F.I.SH. UCHUN BIRTA AKKAUNT
+    */
+
+    const exists=
+    users.some(
+        user=>
+        user.fullName.toLowerCase()
+        ===
+        fullName.toLowerCase()
+    );
 
 
-const phone=
-document.getElementById("phone")
-.value.trim();
+    if(exists){
+
+        document.getElementById("registerMessage")
+        .innerHTML=
+        `<div class="error">
+        Bu F.I.Sh. bilan akkaunt allaqachon mavjud.
+        Iltimos, Username va parolingiz orqali kiring.
+        </div>`;
+
+        setTimeout(function(){
+
+            showPage("login");
+
+        },1200);
+
+        return;
+
+    }
 
 
-const examType=
-document.getElementById("examType")
-.value;
+    const username=
+    generateUsername(fullName);
 
 
-const subject=
-document.getElementById("subject")
-.value;
+    const password=
+    generatePassword();
 
 
-if(
-!fullName ||
-!region ||
-!district ||
-!birthDate ||
-!phone ||
-!subject
-){
+    const user={
 
-alert(
-"Iltimos, barcha maydonlarni to‘ldiring!"
-);
+        id:
+        Date.now()
+        +
+        Math.floor(
+            Math.random()*10000
+        ),
 
-return;
+        fullName:fullName,
+
+        username:username,
+
+        password:password,
+
+        region:region,
+
+        district:district,
+
+        birthDate:birthDate,
+
+        phone:phone,
+
+        examType:examType,
+
+        subject:subject,
+
+        createdAt:
+        new Date().toLocaleString("uz-UZ")
+
+    };
+
+
+    users.push(user);
+
+    saveUsers(users);
+
+
+    currentUser=user;
+
+    generatedAccount=user;
+
+
+    document.getElementById("newUsername")
+    .innerText=
+    username;
+
+
+    document.getElementById("newPassword")
+    .innerText=
+    password;
+
+
+    document.getElementById("registerMessage")
+    .innerHTML="";
+
+
+    showPage("accountCreated");
+
+    updateHeader();
 
 }
 
 
-const users=getUsers();
+/* =========================================================
+   RO'YXATDAN KEYIN TEST
+========================================================= */
 
+function continueAfterRegistration(){
 
-const existing=
-users.find(
-u=>u.phone===phone
-);
+    if(!currentUser){
 
+        showPage("login");
 
-if(existing){
+        return;
 
-alert(
-"Bu telefon raqami bilan akkaunt allaqachon mavjud.\n\n"+
-"Username: "+
-existing.username+
-"\n\nIltimos, akkauntga kiring."
-);
+    }
 
-showPage("login");
-
-return;
+    showPage("dashboard");
 
 }
 
 
-const username=
-generateUsername(fullName);
-
-
-const password=
-generatePassword();
-
-
-const user={
-
-id:
-Date.now().toString(),
-
-username:username,
-
-password:password,
-
-fullName:fullName,
-
-region:region,
-
-district:district,
-
-birthDate:birthDate,
-
-phone:phone,
-
-examType:examType,
-
-subject:subject,
-
-usedTests:[]
-
-};
-
-
-users.push(user);
-
-saveUsers(users);
-
-
-currentUser=user;
-
-
-document.getElementById("createdUsername")
-.innerText=username;
-
-
-document.getElementById("createdPassword")
-.innerText=password;
-
-
-showPage("credentialsPage");
-
-}
-
-
-
-/* =====================================================
-   CREATED ACCOUNT
-===================================================== */
-
-function loginWithCreatedAccount(){
-
-startUserTest(currentUser);
-
-}
-
-
-
-/* =====================================================
+/* =========================================================
    LOGIN
-===================================================== */
+========================================================= */
 
 function loginUser(){
 
-const username=
-document.getElementById("loginUsername")
-.value.trim();
+    const username=
+    document.getElementById("loginUsername")
+    .value.trim();
+
+    const password=
+    document.getElementById("loginPassword")
+    .value;
 
 
-const password=
-document.getElementById("loginPassword")
-.value;
+    const users=getUsers();
 
 
-const users=getUsers();
+    const user=
+    users.find(
+        item=>
+        item.username===username &&
+        item.password===password
+    );
 
 
-const user=
-users.find(
-u=>
-u.username===username &&
-u.password===password
-);
+    if(!user){
+
+        document.getElementById("loginMessage")
+        .innerHTML=
+        `<div class="error">
+        Username yoki parol noto‘g‘ri!
+        </div>`;
+
+        return;
+
+    }
 
 
-if(!user){
-
-alert(
-"Username yoki parol noto‘g‘ri!"
-);
-
-return;
-
-}
+    currentUser=user;
 
 
-currentUser=user;
+    localStorage.setItem(
+        "currentUserId",
+        user.id
+    );
 
 
-startUserTest(user);
+    updateHeader();
 
-}
-
-
-
-/* =====================================================
-   NEXT TEST NUMBER
-===================================================== */
-
-function getNextTestNumber(user){
-
-const used=
-user.usedTests || [];
-
-
-for(let i=1;i<=50;i++){
-
-if(!used.includes(i)){
-
-return i;
-
-}
+    showPage("dashboard");
 
 }
 
 
-return null;
+/* =========================================================
+   AVTOMATIK LOGIN
+========================================================= */
+
+function loadCurrentUser(){
+
+    const id=
+    localStorage.getItem("currentUserId");
+
+
+    if(!id){
+
+        return;
+
+    }
+
+
+    const users=getUsers();
+
+
+    const user=
+    users.find(
+        item=>
+        String(item.id)===String(id)
+    );
+
+
+    if(user){
+
+        currentUser=user;
+
+        updateHeader();
+
+    }
 
 }
 
 
+/* =========================================================
+   CHIQISH
+========================================================= */
 
-/* =====================================================
+function logout(){
+
+    clearInterval(timerInterval);
+
+    currentUser=null;
+
+    localStorage.removeItem(
+        "currentUserId"
+    );
+
+    updateHeader();
+
+    showPage("home");
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+function updateHeader(){
+
+    const button=
+    document.getElementById("logoutButton");
+
+
+    if(currentUser){
+
+        button.style.display="inline-block";
+
+    }else{
+
+        button.style.display="none";
+
+    }
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function renderDashboard(){
+
+    if(!currentUser){
+
+        showPage("login");
+
+        return;
+
+    }
+
+
+    document.getElementById("dashboardName")
+    .innerText=
+    currentUser.fullName;
+
+
+    document.getElementById("dashboardSubject")
+    .innerText=
+    currentUser.subject;
+
+}
+
+
+/* =========================================================
+   ARRAY ARALASHTIRISH
+========================================================= */
+
+function shuffleArray(array){
+
+    const result=
+    [...array];
+
+
+    for(
+        let i=result.length-1;
+        i>0;
+        i--
+    ){
+
+        const j=
+        Math.floor(
+            Math.random()*(i+1)
+        );
+
+
+        [
+            result[i],
+            result[j]
+        ]=
+        [
+            result[j],
+            result[i]
+        ];
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
    JAVOBLARNI ARALASHTIRISH
-===================================================== */
+
+   Eng muhim qism:
+
+   To‘g‘ri javob endi doim A bo‘lmaydi.
+========================================================= */
 
 function shuffleQuestion(question){
 
-/*
-   Har bir javobni to‘g‘ri/noto‘g‘ri
-   belgisi bilan birga olib yuramiz.
-*/
+    const answers=
+    question.a.map(
+        function(text,index){
 
-const answers=
-question.a.map(
-(text,index)=>{
+            return {
 
-return{
+                text:text,
 
-text:text,
+                originalIndex:index
 
-correct:
-index===question.c
+            };
 
-};
-
-}
-);
+        }
+    );
 
 
-/*
-   A/B/C/D ni aralashtiramiz
-*/
-
-const shuffled=
-shuffle(answers);
+    const shuffled=
+    shuffleArray(answers);
 
 
-/*
-   To‘g‘ri javobning yangi indeksini topamiz
-*/
+    return {
 
-const newCorrectIndex=
-shuffled.findIndex(
-answer=>answer.correct
-);
+        question:question.q,
 
+        answers:
+        shuffled.map(
+            item=>item.text
+        ),
 
-return{
+        correct:
+        shuffled.findIndex(
+            item=>
+            item.originalIndex===question.c
+        )
 
-id:question.id,
-
-q:question.q,
-
-a:
-shuffled.map(
-answer=>answer.text
-),
-
-c:newCorrectIndex
-
-};
+    };
 
 }
 
 
+/* =========================================================
+   TESTNI BOSHLASH
+========================================================= */
 
-/* =====================================================
-   50 TA SAVOL YARATISH
-===================================================== */
+function startTestFromDashboard(){
 
-function createTestQuestions(subject){
+    if(!currentUser){
 
-const bank=
-questionBank[subject];
+        showPage("login");
 
+        return;
 
-if(!bank){
-
-alert(
-"Tanlangan fan uchun savollar mavjud emas."
-);
-
-return null;
-
-}
+    }
 
 
-/*
-   ID bo‘yicha takrorlangan savollarni
-   olib tashlaymiz.
-*/
-
-const unique=[];
-
-const ids=new Set();
+    const bank=
+    questionBank[
+        currentUser.subject
+    ];
 
 
-bank.forEach(question=>{
+    if(!bank || bank.length<50){
 
-if(
-question.id &&
-!ids.has(question.id)
-){
+        alert(
+            "Bu fan uchun 50 ta savol bazasi yetarli emas."
+        );
 
-ids.add(question.id);
+        return;
 
-unique.push(question);
-
-}
-
-});
+    }
 
 
-/*
-   50 ta noyob savol bo‘lmasa
-   testni boshlamaymiz.
+    /*
+       MUHIM:
 
-   ESKI KODDAGI KABI SAVOLNI
-   200 MARTA TAKRORLAMAYMIZ.
-*/
+       Bankdan 50 ta savol olinadi.
+       Bir test ichida takrorlanmaydi.
+    */
 
-if(unique.length<50){
-
-alert(
-
-subject+
-" fanida hozircha "+
-unique.length+
-" ta noyob savol mavjud.\n\n"+
-"50 ta savolli test uchun kamida 50 ta "+
-"noyob savol kerak.\n\n"+
-"Savollar bazasini ko‘paytiring."
-
-);
-
-return null;
-
-}
+    const selected=
+    shuffleArray(bank)
+    .slice(0,50);
 
 
-/*
-   Savollarni aralashtirish
-*/
+    /*
+       Har bir savolning A B C D
+       javoblari ham alohida aralashtiriladi.
+    */
 
-const shuffled=
-shuffle(unique);
-
-
-/*
-   Birinchi 50 ta noyob savol
-*/
-
-const selected=
-shuffled.slice(0,50);
+    currentQuestions=
+    selected.map(
+        question=>
+        shuffleQuestion(question)
+    );
 
 
-/*
-   Har bir savolning javoblarini
-   ham alohida aralashtiramiz.
-*/
+    currentQuestion=0;
 
-return selected.map(
-question=>
-shuffleQuestion(question)
-);
+    selectedAnswers=
+    new Array(50).fill(null);
+
+
+    timerSeconds=
+    30*60;
+
+
+    document.getElementById("testTitle")
+    .innerText=
+    currentUser.examType+
+    " — "+
+    currentUser.subject;
+
+
+    showPage("test");
+
+    renderQuestion();
+
+    startTimer();
 
 }
 
 
-
-/* =====================================================
-   TEST START
-===================================================== */
-
-function startUserTest(user){
-
-const subject=
-user.subject;
-
-
-/*
-   Faqat shu fan.
-*/
-
-const testQuestions=
-createTestQuestions(subject);
-
-
-if(!testQuestions){
-
-return;
-
-}
-
-
-/*
-   Qaysi variant ekanini aniqlaymiz.
-*/
-
-const testNumber=
-getNextTestNumber(user);
-
-
-if(testNumber===null){
-
-alert(
-"Siz ushbu fan bo‘yicha barcha 50 ta test variantini ishlab bo‘lgansiz."
-);
-
-return;
-
-}
-
-
-currentQuestions=
-testQuestions;
-
-
-currentQuestion=0;
-
-selectedAnswers=[];
-
-timerSeconds=30*60;
-
-
-currentUser.currentTestNumber=
-testNumber;
-
-
-document.getElementById("testTitle")
-.innerText=
-user.examType+
-" — "+
-user.subject+
-" — Variant "+
-testNumber;
-
-
-showPage("test");
-
-
-renderQuestion();
-
-
-startTimer();
-
-}
-
-
-
-/* =====================================================
-   SAVOLNI KO‘RSATISH
-===================================================== */
+/* =========================================================
+   SAVOLNI CHIQARISH
+========================================================= */
 
 function renderQuestion(){
 
-const q=
-currentQuestions[currentQuestion];
+    const q=
+    currentQuestions[
+        currentQuestion
+    ];
 
 
-if(!q){
+    if(!q){
 
-return;
+        return;
+
+    }
+
+
+    document.getElementById("questionNumber")
+    .innerText=
+    "Savol "+
+    (currentQuestion+1)+
+    " / 50";
+
+
+    document.getElementById("questionText")
+    .innerText=
+    q.question;
+
+
+    document.getElementById("progressBar")
+    .style.width=
+    (
+        (currentQuestion+1)
+        /
+        50
+        *
+        100
+    )
+    +"%";
+
+
+    const answers=
+    document.getElementById("answers");
+
+
+    answers.innerHTML="";
+
+
+    q.answers.forEach(
+        function(answer,index){
+
+            const button=
+            document.createElement("button");
+
+
+            button.className=
+            "option";
+
+
+            if(
+                selectedAnswers[
+                    currentQuestion
+                ]===
+                index
+            ){
+
+                button.classList.add(
+                    "selected"
+                );
+
+            }
+
+
+            button.innerText=
+            String.fromCharCode(
+                65+index
+            )
+            +
+            ") "
+            +
+            answer;
+
+
+            button.onclick=
+            function(){
+
+                selectedAnswers[
+                    currentQuestion
+                ]=
+                index;
+
+
+                renderQuestion();
+
+            };
+
+
+            answers.appendChild(
+                button
+            );
+
+        }
+    );
 
 }
 
 
-document.getElementById("questionNumber")
-.innerText=
-"Savol "+
-(currentQuestion+1)+
-" / 50";
-
-
-document.getElementById("questionText")
-.innerText=
-q.q;
-
-
-document.getElementById("progressBar")
-.style.width=
-(
-(currentQuestion+1)/50*100
-)+
-"%";
-
-
-const answers=
-document.getElementById("answers");
-
-
-answers.innerHTML="";
-
-
-q.a.forEach(
-(answer,index)=>{
-
-
-const button=
-document.createElement("button");
-
-
-button.className="option";
-
-
-if(
-selectedAnswers[currentQuestion]===
-index
-){
-
-button.classList.add("selected");
-
-}
-
-
-button.innerText=
-String.fromCharCode(65+index)+
-") "+
-answer;
-
-
-button.onclick=function(){
-
-selectedAnswers[currentQuestion]=
-index;
-
-
-renderQuestion();
-
-};
-
-
-answers.appendChild(button);
-
-});
-
-}
-
-
-
-/* =====================================================
-   NEXT
-===================================================== */
+/* =========================================================
+   KEYINGI
+========================================================= */
 
 function nextQuestion(){
 
-if(
-selectedAnswers[currentQuestion]===undefined
-){
+    if(currentQuestion<49){
 
-alert(
-"Iltimos, javobni tanlang!"
-);
+        currentQuestion++;
 
-return;
+        renderQuestion();
 
-}
+    }else{
 
+        finishTestConfirm();
 
-if(currentQuestion<49){
-
-currentQuestion++;
-
-renderQuestion();
-
-}
-
-else{
-
-finishTest();
-
-}
+    }
 
 }
 
 
-
-/* =====================================================
-   PREVIOUS
-===================================================== */
+/* =========================================================
+   OLDINGI
+========================================================= */
 
 function previousQuestion(){
 
-if(currentQuestion>0){
+    if(currentQuestion>0){
 
-currentQuestion--;
+        currentQuestion--;
 
-renderQuestion();
+        renderQuestion();
+
+    }
 
 }
 
-}
 
-
-
-/* =====================================================
+/* =========================================================
    TIMER
-===================================================== */
+========================================================= */
 
 function startTimer(){
 
-clearInterval(timerInterval);
+    clearInterval(
+        timerInterval
+    );
 
 
-document.getElementById("timer")
-.innerText="30:00";
+    updateTimer();
 
 
-timerInterval=
-setInterval(function(){
+    timerInterval=
+    setInterval(
+        function(){
 
-timerSeconds--;
+            timerSeconds--;
 
-
-const minutes=
-Math.floor(
-timerSeconds/60
-);
+            updateTimer();
 
 
-const seconds=
-timerSeconds%60;
+            if(timerSeconds<=0){
 
+                clearInterval(
+                    timerInterval
+                );
 
-document.getElementById("timer")
-.innerText=
-String(minutes).padStart(2,"0")+
-":"+
-String(seconds).padStart(2,"0");
+                alert(
+                    "Vaqt tugadi! Test avtomatik yakunlandi."
+                );
 
+                finishTest();
 
-if(timerSeconds<=0){
+            }
 
-clearInterval(timerInterval);
-
-finishTest();
-
-}
-
-},1000);
+        },
+        1000
+    );
 
 }
 
 
+/* =========================================================
+   TIMER KO'RSATISH
+========================================================= */
 
-/* =====================================================
+function updateTimer(){
+
+    const minutes=
+    Math.floor(
+        timerSeconds/60
+    );
+
+
+    const seconds=
+    timerSeconds%60;
+
+
+    const timer=
+    document.getElementById("timer");
+
+
+    timer.innerText=
+    String(minutes).padStart(2,"0")
+    +
+    ":"
+    +
+    String(seconds).padStart(2,"0");
+
+
+    if(timerSeconds<=300){
+
+        timer.classList.add(
+            "timerWarning"
+        );
+
+    }else{
+
+        timer.classList.remove(
+            "timerWarning"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   TESTNI YAKUNLASH TASDIQI
+========================================================= */
+
+function finishTestConfirm(){
+
+    const answered=
+    selectedAnswers.filter(
+        answer=>
+        answer!==null
+    ).length;
+
+
+    const ok=
+    confirm(
+        "Testni yakunlashni xohlaysizmi?\n\n"+
+        "Javob berilgan: "+
+        answered+
+        "/50"
+    );
+
+
+    if(!ok){
+
+        return;
+
+    }
+
+
+    finishTest();
+
+}
+
+
+/* =========================================================
    TESTNI YAKUNLASH
-===================================================== */
+========================================================= */
 
 function finishTest(){
 
-clearInterval(timerInterval);
+    clearInterval(
+        timerInterval
+    );
 
 
-if(!currentUser){
-
-return;
-
-}
+    let correct=0;
 
 
-let correct=0;
+    for(
+        let i=0;
+        i<50;
+        i++
+    ){
+
+        if(
+            selectedAnswers[i]===
+            currentQuestions[i].correct
+        ){
+
+            correct++;
+
+        }
+
+    }
 
 
-/*
-   Javoblarni tekshirish.
-
-   MUHIM:
-   q.c endi javoblar aralashgandan keyingi
-   yangi to‘g‘ri javob indeksidir.
-*/
-
-for(let i=0;i<50;i++){
-
-const q=
-currentQuestions[i];
+    const wrong=
+    50-correct;
 
 
-if(
-selectedAnswers[i]===
-q.c
-){
-
-correct++;
-
-}
-
-}
+    const percent=
+    correct*2;
 
 
-const wrong=
-50-correct;
+    const score=
+    correct*2;
 
 
-const percent=
-correct*2;
+    document.getElementById("correctResult")
+    .innerText=
+    correct;
 
 
-document.getElementById("correctResult")
-.innerText=
-correct;
+    document.getElementById("wrongResult")
+    .innerText=
+    wrong;
 
 
-document.getElementById("wrongResult")
-.innerText=
-wrong;
+    document.getElementById("percentResult")
+    .innerText=
+    percent+"%";
 
 
-document.getElementById("percentResult")
-.innerText=
-percent+
-"%";
+    document.getElementById("scoreResult")
+    .innerText=
+    score;
 
 
-/*
-   Natijani saqlash
-*/
-
-const participants=
-getParticipants();
+    const results=
+    getResults();
 
 
-participants.push({
+    results.push({
 
-username:
-currentUser.username,
+        id:
+        Date.now()
+        +
+        Math.floor(
+            Math.random()*10000
+        ),
 
-fullName:
-currentUser.fullName,
+        userId:
+        currentUser.id,
 
-region:
-currentUser.region,
+        fullName:
+        currentUser.fullName,
 
-district:
-currentUser.district,
+        username:
+        currentUser.username,
 
-birthDate:
-currentUser.birthDate,
+        region:
+        currentUser.region,
 
-phone:
-currentUser.phone,
+        district:
+        currentUser.district,
 
-examType:
-currentUser.examType,
+        birthDate:
+        currentUser.birthDate,
 
-subject:
-currentUser.subject,
+        phone:
+        currentUser.phone,
 
-testNumber:
-currentUser.currentTestNumber,
+        examType:
+        currentUser.examType,
 
-correct:
-correct,
+        subject:
+        currentUser.subject,
 
-wrong:
-wrong,
+        correct:
+        correct,
 
-percent:
-percent,
+        wrong:
+        wrong,
 
-date:
-new Date().toLocaleString("uz-UZ")
+        percent:
+        percent,
 
-});
+        score:
+        score,
 
+        date:
+        new Date().toLocaleString(
+            "uz-UZ"
+        )
 
-saveParticipants(participants);
-
-
-/*
-   Variant ishlangan deb belgilanadi.
-*/
-
-const users=
-getUsers();
-
-
-const index=
-users.findIndex(
-u=>
-u.username===
-currentUser.username
-);
+    });
 
 
-if(index!==-1){
+    saveResults(results);
 
-if(!users[index].usedTests){
 
-users[index].usedTests=[];
+    showPage("result");
 
 }
 
 
-if(
-!users[index].usedTests.includes(
-currentUser.currentTestNumber
-)
-){
-
-users[index].usedTests.push(
-currentUser.currentTestNumber
-);
-
-}
-
-
-saveUsers(users);
-
-
-currentUser=
-users[index];
-
-}
-
-
-showPage("result");
-
-}
-
-
-
-/* =====================================================
-   KEYINGI TEST
-===================================================== */
-
-function prepareNextTest(){
-
-if(!currentUser){
-
-showPage("login");
-
-return;
-
-}
-
-
-startUserTest(currentUser);
-
-}
-
-
-
-/* =====================================================
-   RANKING
-===================================================== */
+/* =========================================================
+   REYTING
+========================================================= */
 
 function renderRanking(){
 
-const data=
-getParticipants();
+    const data=
+    getResults();
 
 
-const users={};
+    const users={};
 
 
-data.forEach(item=>{
+    data.forEach(
+        function(item){
 
-const key=
-item.username;
+            const key=
+            item.username;
 
 
-if(!users[key]){
+            if(!users[key]){
 
-users[key]={
+                users[key]={
 
-fullName:
-item.fullName,
+                    fullName:
+                    item.fullName,
 
-region:
-item.region,
+                    region:
+                    item.region,
 
-subject:
-item.subject,
+                    subject:
+                    item.subject,
 
-tests:0,
+                    tests:0,
 
-total:0
+                    total:0
 
-};
+                };
+
+            }
+
+
+            users[key].tests++;
+
+            users[key].total +=
+            Number(item.score);
+
+        }
+    );
+
+
+    const ranking=
+    Object.values(users)
+    .sort(
+        (a,b)=>
+        b.total-a.total
+    );
+
+
+    const body=
+    document.getElementById(
+        "rankingBody"
+    );
+
+
+    body.innerHTML="";
+
+
+    ranking.forEach(
+        function(user,index){
+
+            const row=
+            document.createElement("tr");
+
+
+            if(index<3){
+
+                row.classList.add(
+                    "rank1"
+                );
+
+            }
+
+
+            const place=
+            index===0
+            ?"🥇"
+            :
+            index===1
+            ?"🥈"
+            :
+            index===2
+            ?"🥉"
+            :
+            index+1;
+
+
+            row.innerHTML=`
+
+                <td>${place}</td>
+
+                <td>
+                    ${escapeHTML(user.fullName)}
+                </td>
+
+                <td>
+                    ${escapeHTML(user.region)}
+                </td>
+
+                <td>
+                    ${escapeHTML(user.subject)}
+                </td>
+
+                <td>
+                    ${user.tests}
+                </td>
+
+                <td>
+                    ${user.total}
+                </td>
+
+                <td>
+                    ${(user.total/user.tests).toFixed(1)}%
+                </td>
+
+            `;
+
+
+            body.appendChild(row);
+
+        }
+    );
+
+
+    if(ranking.length===0){
+
+        body.innerHTML=`
+
+        <tr>
+            <td colspan="7">
+                Hali reyting mavjud emas.
+            </td>
+        </tr>
+
+        `;
+
+    }
 
 }
 
 
-users[key].tests++;
-
-users[key].total+=
-item.percent;
-
-});
-
-
-const ranking=
-Object.values(users)
-.sort(
-(a,b)=>
-b.total-a.total
-);
-
-
-const body=
-document.getElementById("rankingBody");
-
-
-body.innerHTML="";
-
-
-ranking.forEach(
-(user,index)=>{
-
-const row=
-document.createElement("tr");
-
-
-row.innerHTML=`
-
-<td>
-${
-index===0
-?"🥇"
-:
-index===1
-?"🥈"
-:
-index===2
-?"🥉"
-:
-index+1
-}
-</td>
-
-<td>
-${escapeHTML(user.fullName)}
-</td>
-
-<td>
-${escapeHTML(user.region)}
-</td>
-
-<td>
-${escapeHTML(user.subject)}
-</td>
-
-<td>
-${user.tests}
-</td>
-
-<td>
-${user.total}
-</td>
-
-<td>
-${(user.total/user.tests).toFixed(1)}%
-</td>
-
-`;
-
-
-body.appendChild(row);
-
-});
-
-
-if(ranking.length===0){
-
-body.innerHTML=`
-
-<tr>
-
-<td colspan="7">
-Hali reyting mavjud emas.
-</td>
-
-</tr>
-
-`;
-
-}
-
-}
-
-
-
-/* =====================================================
+/* =========================================================
    ADMIN LOGIN
-===================================================== */
+========================================================= */
 
 function loginAdmin(){
 
-const password=
-document.getElementById("adminPassword")
-.value;
+    const password=
+    document.getElementById(
+        "adminPassword"
+    ).value;
 
 
-/*
-   ADMIN PAROLI:
-   Muzaffar2026!
-*/
+    /*
+       ADMIN PAROLI
+    */
 
-if(
-password!=="Muzaffar2026!"
-){
+    if(
+        password!=="Muzaffar2026!"
+    ){
 
-alert(
-"Admin paroli noto‘g‘ri!"
-);
+        alert(
+            "Admin paroli noto‘g‘ri!"
+        );
 
-return;
+        return;
+
+    }
+
+
+    document
+    .getElementById("adminLogin")
+    .classList.add("hide");
+
+
+    document
+    .getElementById("adminPanel")
+    .classList.remove("hide");
+
+
+    renderAdmin();
 
 }
 
 
-document
-.getElementById("adminLogin")
-.classList.add("hide");
-
-
-document
-.getElementById("adminPanel")
-.classList.remove("hide");
-
-
-renderAdmin();
-
-}
-
-
-
-/* =====================================================
-   ADMIN
-===================================================== */
+/* =========================================================
+   ADMIN PANEL
+========================================================= */
 
 function renderAdmin(){
 
-const users=
-getUsers();
+    const users=
+    getUsers();
 
 
-const data=
-getParticipants();
+    const data=
+    getResults();
 
 
-document.getElementById("totalUsers")
-.innerText=
-users.length;
+    document.getElementById("totalUsers")
+    .innerText=
+    users.length;
 
 
-document.getElementById("totalTests")
-.innerText=
-data.length;
+    document.getElementById("totalTests")
+    .innerText=
+    data.length;
 
 
-let average=0;
+    let average=0;
 
 
-if(data.length){
+    if(data.length){
 
-average=
-data.reduce(
-(sum,x)=>
-sum+x.percent,
-0
-)/
-data.length;
+        average=
+        data.reduce(
+            (sum,item)=>
+            sum+Number(item.percent),
+            0
+        )
+        /
+        data.length;
+
+    }
+
+
+    document.getElementById(
+        "averageResult"
+    ).innerText=
+    average.toFixed(1)
+    +
+    "%";
+
+
+    const body=
+    document.getElementById(
+        "adminBody"
+    );
+
+
+    body.innerHTML="";
+
+
+    users.forEach(
+        function(user,index){
+
+            const userResults=
+            data.filter(
+                item=>
+                String(item.userId)
+                ===
+                String(user.id)
+            );
+
+
+            let resultText=
+            "Test topshirmagan";
+
+
+            if(userResults.length){
+
+                const last=
+                userResults[
+                    userResults.length-1
+                ];
+
+
+                resultText=
+                last.correct+
+                "/50<br>"+
+                last.percent+
+                "%";
+
+            }
+
+
+            const row=
+            document.createElement("tr");
+
+
+            row.innerHTML=`
+
+            <td>${index+1}</td>
+
+            <td>
+                ${escapeHTML(user.fullName)}
+            </td>
+
+            <td>
+                ${escapeHTML(user.username)}
+            </td>
+
+            <td>
+                ${escapeHTML(user.region)}
+            </td>
+
+            <td>
+                ${escapeHTML(user.district)}
+            </td>
+
+            <td>
+                ${escapeHTML(user.birthDate)}
+            </td>
+
+            <td>
+                ${escapeHTML(user.phone)}
+            </td>
+
+            <td>
+                ${escapeHTML(user.examType)}
+            </td>
+
+            <td>
+                ${escapeHTML(user.subject)}
+            </td>
+
+            <td>
+                ${resultText}
+            </td>
+
+            `;
+
+
+            body.appendChild(row);
+
+        }
+    );
+
+
+    if(users.length===0){
+
+        body.innerHTML=`
+
+        <tr>
+            <td colspan="10">
+                Hali ishtirokchi yo‘q.
+            </td>
+        </tr>
+
+        `;
+
+    }
 
 }
 
 
-document.getElementById("averageResult")
-.innerText=
-average.toFixed(1)+
-"%";
-
-
-const body=
-document.getElementById("adminBody");
-
-
-body.innerHTML="";
-
-
-users.forEach(
-(user,index)=>{
-
-
-const userTests=
-data.filter(
-x=>
-x.username===
-user.username
-);
-
-
-let lastResult="—";
-
-
-if(userTests.length){
-
-const last=
-userTests[userTests.length-1];
-
-
-lastResult=
-last.correct+
-"/50 ("+
-last.percent+
-"%)";
-
-}
-
-
-const row=
-document.createElement("tr");
-
-
-row.innerHTML=`
-
-<td>
-${index+1}
-</td>
-
-<td>
-${escapeHTML(user.username)}
-</td>
-
-<td>
-${escapeHTML(user.fullName)}
-</td>
-
-<td>
-${escapeHTML(user.region)}
-</td>
-
-<td>
-${escapeHTML(user.district)}
-</td>
-
-<td>
-${escapeHTML(user.birthDate)}
-</td>
-
-<td>
-${escapeHTML(user.phone)}
-</td>
-
-<td>
-${escapeHTML(user.examType)}
-</td>
-
-<td>
-${escapeHTML(user.subject)}
-</td>
-
-<td>
-${lastResult}
-</td>
-
-`;
-
-
-body.appendChild(row);
-
-});
-
-
-if(users.length===0){
-
-body.innerHTML=`
-
-<tr>
-
-<td colspan="10">
-Hali foydalanuvchi yo‘q.
-</td>
-
-</tr>
-
-`;
-
-}
-
-}
-
-
-
-/* =====================================================
-   BARCHA MA'LUMOTLARNI O‘CHIRISH
-===================================================== */
+/* =========================================================
+   HAMMA MA'LUMOTNI O'CHIRISH
+========================================================= */
 
 function deleteAllData(){
 
-const ok=
-confirm(
-"Barcha foydalanuvchilar va test natijalari o‘chiriladi. Davom etasizmi?"
-);
+    const ok=
+    confirm(
+        "DIQQAT!\n\n"+
+        "Barcha foydalanuvchilar, "+
+        "akkauntlar va natijalar o‘chiriladi.\n\n"+
+        "Davom etasizmi?"
+    );
 
 
-if(!ok){
+    if(!ok){
 
-return;
+        return;
 
-}
-
-
-localStorage.removeItem("users");
-
-localStorage.removeItem("participants");
+    }
 
 
-renderAdmin();
+    localStorage.removeItem(
+        "users"
+    );
 
-renderRanking();
+    localStorage.removeItem(
+        "participants"
+    );
 
-
-alert(
-"Barcha ma'lumotlar o‘chirildi."
-);
-
-}
-
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-function logoutUser(){
-
-currentUser=null;
-
-currentQuestions=[];
-
-selectedAnswers=[];
-
-clearInterval(timerInterval);
-
-showPage("home");
-
-}
+    localStorage.removeItem(
+        "currentUserId"
+    );
 
 
+    currentUser=null;
 
-/* =====================================================
-   XAVFSIZ HTML
-===================================================== */
 
-function escapeHTML(value){
+    renderAdmin();
 
-return String(value)
+    renderRanking();
 
-.replace(/&/g,"&amp;")
+    updateHeader();
 
-.replace(/</g,"&lt;")
 
-.replace(/>/g,"&gt;")
+    alert(
+        "Barcha ma'lumotlar o‘chirildi."
+    );
 
-.replace(/"/g,"&quot;")
 
-.replace(/'/g,"&#039;");
+    showPage("home");
 
 }
 
 
+/* =========================================================
+   XAVFSIZ MATN
+========================================================= */
 
-/* =====================================================
-   BOSHLANG‘ICH SAHIFA
-===================================================== */
+function escapeHTML(text){
 
-showPage("home");
+    if(text===undefined ||
+       text===null){
+
+        return "";
+
+    }
+
+
+    return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   SAYT ISHGA TUSHGANDA
+========================================================= */
+
+loadCurrentUser();
+
+updateHeader();
+
+
+/*
+   Agar foydalanuvchi oldin kirgan bo‘lsa,
+   avtomatik akkauntini saqlab qoladi.
+*/
 
 </script>
 
