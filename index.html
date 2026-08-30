@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milliy Sertifikat va Attestatsiya Platformasi</title>
+    <title>Milliy Sertifikat va Attestatsiya</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f0f2f5; color: #333; min-height: 100vh; display: flex; flex-direction: column; }
@@ -40,11 +40,10 @@
 
     <header>
         <h1>Milliy Sertifikat va Attestatsiya</h1>
-        <p>Chuqurlashtirilgan 50 talik testlar va reyting tizimi</p>
+        <p>A'lo darajadagi tayyorgarlik va reyting tizimi</p>
     </header>
 
     <div class="container">
-        <!-- 1. RO'YXATDAN O'TISH -->
         <div id="regSection" class="card-box">
             <h2>Ro'yxatdan o'tish</h2>
             <form id="regForm" onsubmit="handleRegister(event)">
@@ -84,7 +83,6 @@
             </form>
         </div>
 
-        <!-- 2. FANLARNI TANLASH -->
         <div id="subjectSection" class="card-box hidden">
             <h2 id="welcomeText">Xush kelibsiz!</h2>
             <p style="text-align:center; margin-bottom:15px;">Test topshirmoqchi bo'lgan fanning ustiga bosing:</p>
@@ -102,7 +100,6 @@
             <button class="btn btn-sec" onclick="showRating()">Umumiy Reytingni Ko'rish</button>
         </div>
 
-        <!-- 3. TEST TURI -->
         <div id="modeSection" class="card-box hidden">
             <h2 id="selectedSubTitle">Tanlangan fan</h2>
             <p style="text-align:center; margin-bottom:15px;">Yo'nalish va test darajasini tanlang:</p>
@@ -120,7 +117,6 @@
             <button class="btn btn-sec" onclick="goHome()">Orqaga qaytish</button>
         </div>
 
-        <!-- 4. TEST SOHASI -->
         <div id="quizSection" class="card-box hidden">
             <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #eee; padding-bottom:10px; margin-bottom:15px;">
                 <h3 id="quizHead">Test</h3>
@@ -133,7 +129,6 @@
             </div>
         </div>
 
-        <!-- 5. NATIJA VA REYTING -->
         <div id="resultSection" class="card-box hidden">
             <h2>Test Natijasi va Reyting</h2>
             <div id="userScore" style="text-align:center; font-size:1.8rem; color:#2a5298; font-weight:bold; margin:10px 0;"></div>
@@ -165,31 +160,32 @@
     </footer>
 
     <script>
-        // Murakkablashtirilgan savollar namunalari
         const sampleQuestions = {
             "Geografiya": [
-                { q: "O'zbekiston relyefida neogen va to'rtlamchi davr yotqiziqlari keng tarqalgan, karst g'orlari hamda morfostrukturalari murakkab bo'lgan tizma qaysi?", opts: ["Hisor va Zarafshon tizmalari", "Qizilqum plato zonasi", "Ustyurt platosi", "Farg'ona botig'i chekkalari"], a: 0 },
-                { q: "Quyosh radiatsiyasining umumiy miqdori va radiatsiya balansi bo'yicha eng yuqori ko'rsatkichlar kuzatiladigan janubiy tuman qaysi?", opts: ["Termiz va Sherobod tekisliklari", "Toshkent va Mirzacho'l", "Nukus va Amudaryo deltasi", "Andijon va Farg'ona vodiysi"], a: 0 },
-                { q: "Iqtisodiy-geografik nuqtai nazardan gidroenergetika resurslarining 70% dan ortiq zaxirasi qaysi daryo havzalariga to'g'ri keladi?", opts: ["Chirchiq, Ohangaron va Pskom", "Sirdaryo va Zarafshon", "Amudaryo va Surxondaryo", "Qashqadaryo va Sherobod"], a: 0 },
-                { q: "Ekologik muammolar va cho'llanish darajasi bo'yicha turoqlarining sho'rlanishi eng yuqori bo'lgan hududni aniqlang:", opts: ["Qoraqalpog'iston va Buxoro viloyati", "Toshkent viloyati", "Namangan viloyati", "Surxondaryo viloyati"], a: 0 }
+                { q: "O'zbekiston relyefining qaysi qismida karst g'orlari va morfostrukturalari ko'p uchraydi?", opts: ["Zarafshon va Hisor tizmalarida", "Qizilqum plato qismida", "Ustyurt platosida", "Farg'ona botig'ida"], a: 0 },
+                { q: "Quyosh radiatsiyasining yillik miqdori va balans ko'rsatkichlari eng yuqori bo'lgan hudud:", opts: ["Termiz va Sherobod tekisliklari", "Toshkent shahri", "Nukus shahri", "Andijon viloyati"], a: 0 },
+                { q: "O'zbekistonning qaysi daryo havzasida gidroenergetika salohiyati va zaxirasi eng yuqori?", opts: ["Chirchiq, Ohangaron va Pskom", "Sirdaryo va Zarafshon", "Amudaryo va Surxondaryo", "Qashqadaryo va Sherobod"], a: 0 },
+                { q: "Aholi zichligi va tabiiy resurslar ta'minoti bo'yicha sug'oriladigan yerlar ulushi eng yuqori voha:", opts: ["Farg'ona vohasi", "Zarafshon vohasi", "Surxon-Sherobod vohasi", "Amudaryo quyi botiqlari"], a: 0 },
+                { q: "Ekologik muammolar sababli sho'rlanish darajasi eng yuqori bo'lgan tuproq zonasi:", opts: ["Orolbo'yi va Qashqadaryo quyi qismi", "Toshkent va Sirdaryo", "Namangan va Andijon", "Samarqand va Navoiy"], a: 0 }
             ],
             "Matematika": [
                 { q: "f(x) = x³ - 3x² + 4 funksiyaning [0; 3] kesmadagi eng katta va eng kichik qiymatlari yig'indisini toping.", opts: ["8", "4", "6", "10"], a: 0 },
-                { q: "log₂ (x² - 3x) = 2 tenglamaning ildizlari ko'paytmasini toping.", opts: ["-4", "4", "3", "-3"], a: 0 }
+                { q: "log₂ (x² - 3x) = 2 tenglamaning ildizlari ko'paytmasini toping.", opts: ["-4", "4", "3", "-3"], a: 0 },
+                { q: "x² - 5x + 6 = 0 tenglamaning ildizlari yig'indisini toping.", opts: ["5", "6", "-5", "-6"], a: 0 }
             ],
             "Ona tili": [
-                { q: "Qaysi gapda o'zlik nisbatidagi fe'l qatnashgan va u mantiqiy ega bilan moslashgan?", opts: ["U uzoq o'yga toldi va kiyindi.", "Xat ertaga yuboriladi.", "Ishchilar tezda toptandi.", "Eshik zudlik bilan ochildi."], a: 0 }
+                { q: "Qaysi gapda o'zlik nisbatidagi fe'l qatnashgan?", opts: ["U uzoq o'yga toldi va kiyindi.", "Xat ertaga yuboriladi.", "Ishchilar tezda toptandi.", "Eshik zudlik bilan ochildi."], a: 0 }
             ]
         };
 
-        // 50 ta savolni avtomatik shakllantirish funksiyasi
+        // 50 ta savolni shakllantirish (Savol: 1/50 qilib)
         function generate50Questions(subject, mode) {
             const base = sampleQuestions[subject] || sampleQuestions["Geografiya"];
             let qList = [];
             for (let i = 1; i <= 50; i++) {
                 let baseQ = base[(i - 1) % base.length];
                 qList.push({
-                    q: `${i}-savol (${mode} darajasi): ${baseQ.q}`,
+                    q: `${baseQ.q} (${mode} — Variant #${i})`,
                     opts: baseQ.opts,
                     a: baseQ.a
                 });
