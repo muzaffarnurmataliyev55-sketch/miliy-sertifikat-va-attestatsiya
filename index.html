@@ -3,27 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milliy sertifikat va Attestatsiya</title>
-    
-    <!-- Shriftlar -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
-
-    <!-- CSS STYLLAR (DIZAYN) -->
+    <title>Milliy Sertifikat va Attestatsiya Test Tizimi</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
     <style>
         :root {
-            --bg-color: #f4f6fa;
+            --bg-color: #f1f5f9;
             --card-bg: #ffffff;
-            --text-dark: #1e293b;
+            --text-dark: #0f172a;
             --text-muted: #64748b;
             --blue-main: #2563eb;
+            --blue-hover: #1d4ed8;
             --blue-bg: #eff6ff;
-            --btn-gray: #eef2f6;
-            --btn-gray-text: #334155;
-            --btn-red-bg: #ffe4e6;
-            --btn-red-text: #9f1239;
-            --badge-gold: #fef08a;
-            --badge-gold-text: #854d0e;
+            --emerald-main: #10b981;
+            --emerald-bg: #ecfdf5;
+            --rose-main: #f43f5e;
+            --rose-bg: #fff1f2;
+            --amber-main: #f59e0b;
             --border-color: #e2e8f0;
+            --radius: 16px;
         }
 
         * {
@@ -40,54 +37,47 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding: 20px 12px;
+            padding: 16px 12px;
         }
 
-        /* HEADER */
         header {
             text-align: center;
             margin-bottom: 20px;
-            margin-top: 10px;
+            width: 100%;
+            max-width: 550px;
         }
 
         header h1 {
             color: var(--blue-main);
-            font-size: 1.45rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            font-size: 1.5rem;
+            font-weight: 800;
         }
 
         header p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             margin-top: 4px;
         }
 
-        /* CONTAINER VA KARTA */
         .container {
             width: 100%;
-            max-width: 440px;
+            max-width: 550px;
         }
 
         .card-box {
             background: var(--card-bg);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
         }
 
-        /* FORMALAR */
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 5px;
-            margin-bottom: 8px;
+            gap: 6px;
         }
 
         .form-group label {
@@ -97,64 +87,42 @@
         }
 
         .form-group input, .form-group select {
-            padding: 12px;
+            padding: 12px 14px;
             border: 1.5px solid var(--border-color);
             border-radius: 12px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             outline: none;
             background: #f8fafc;
         }
 
-        .form-group input:focus, .form-group select:focus {
-            border-color: var(--blue-main);
-            background: #fff;
-        }
-
-        /* PROFIL BLOKI */
         .user-profile-card {
-            background-color: var(--blue-bg);
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
             border-radius: 14px;
-            padding: 14px 16px;
+            padding: 16px 20px;
             display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .user-profile-header {
-            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 8px;
         }
 
-        .user-name {
-            color: #1e40af;
-            font-weight: 700;
-            font-size: 1.05rem;
-        }
+        .user-info-name { font-size: 1.1rem; font-weight: 700; }
+        .user-info-school { font-size: 0.85rem; opacity: 0.9; margin-top: 2px; }
 
         .admin-badge {
-            background-color: var(--badge-gold);
-            color: var(--badge-gold-text);
-            font-size: 0.72rem;
-            font-weight: 600;
-            padding: 2px 8px;
-            border-radius: 12px;
+            background-color: #fef08a;
+            color: #854d0e;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
         }
 
-        .user-school {
-            color: #3b82f6;
-            font-size: 0.85rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+        .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-        /* BO'LIM KARTALARI */
         .section-card {
             background: #ffffff;
             border: 1.5px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 14px;
             padding: 16px;
             display: flex;
             flex-direction: column;
@@ -165,112 +133,88 @@
 
         .section-card:hover {
             border-color: var(--blue-main);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
 
-        .section-title {
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .section-desc {
-            color: var(--text-muted);
-            font-size: 0.82rem;
-            line-height: 1.35;
-        }
+        .section-title { font-size: 1.05rem; font-weight: 700; }
+        .section-desc { color: var(--text-muted); font-size: 0.82rem; }
 
         .question-badge {
             align-self: flex-start;
-            background-color: #dbeafe;
-            color: #1d4ed8;
+            background-color: var(--blue-bg);
+            color: var(--blue-main);
             font-size: 0.75rem;
-            font-weight: 600;
+            font-weight: 700;
             padding: 4px 10px;
-            border-radius: 12px;
+            border-radius: 20px;
             margin-top: 4px;
         }
 
-        /* KULRANG TUGMALAR */
-        .btn-gray-item {
-            background-color: var(--btn-gray);
-            color: var(--btn-gray-text);
+        .btn {
+            background-color: var(--blue-main);
+            color: white;
             border: none;
-            border-radius: 14px;
+            border-radius: 12px;
             padding: 13px;
-            font-size: 0.92rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: background 0.2s;
-            width: 100%;
-        }
-
-        .btn-gray-item:hover {
-            background-color: #e2e8f0;
-        }
-
-        /* QIZIL CHIQISH TUGMASI */
-        .btn-red-item {
-            background-color: var(--btn-red-bg);
-            color: var(--btn-red-text);
-            border: none;
-            border-radius: 14px;
-            padding: 13px;
-            font-size: 0.92rem;
+            font-size: 0.95rem;
             font-weight: 700;
             cursor: pointer;
-            transition: background 0.2s;
             width: 100%;
-            margin-top: 2px;
         }
 
-        .btn-red-item:hover {
-            background-color: #fecdd3;
+        .btn-gray { background-color: #e2e8f0; color: #334155; }
+        .btn-red { background-color: var(--rose-bg); color: var(--rose-main); border: 1px solid #fecdd3; }
+        .btn-finish { background-color: var(--amber-main); color: white; }
+
+        .timer-bar {
+            background: #f1f5f9;
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
         }
 
-        /* TEST VARIANTLARI */
+        .timer-time { color: var(--rose-main); font-size: 1.1rem; font-family: monospace; }
+
         .option-btn {
             background: #f8fafc;
             border: 1.5px solid var(--border-color);
-            padding: 12px 14px;
+            padding: 14px;
             border-radius: 12px;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             cursor: pointer;
-            text-align: left;
             width: 100%;
-            font-size: 0.88rem;
-            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 10px;
         }
 
-        .option-btn:hover { background: #f1f5f9; }
-
         .option-btn.selected {
-            background: #ecfdf5;
-            border-color: #10b981;
-            color: #065f46;
+            background: var(--blue-bg);
+            border-color: var(--blue-main);
+            color: var(--blue-main);
             font-weight: 600;
         }
 
-        /* JADVAL */
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { padding: 10px 8px; text-align: left; font-size: 0.8rem; border-bottom: 1px solid var(--border-color); }
-        th { color: var(--text-muted); font-weight: 600; }
+        th, td { padding: 10px 8px; text-align: left; font-size: 0.82rem; border-bottom: 1px solid var(--border-color); }
 
-        /* FOOTER */
-        footer {
-            margin-top: auto;
-            padding: 16px 0;
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            text-align: center;
+        .review-item {
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 12px;
         }
+        .review-item.correct-item { border-color: var(--emerald-main); background: var(--emerald-bg); }
+        .review-item.wrong-item { border-color: var(--rose-main); background: var(--rose-bg); }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .stat-card { background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; text-align: center; }
+        .stat-card .val { font-size: 1.3rem; font-weight: 800; color: var(--blue-main); }
+        .stat-card .lbl { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
 
         .hidden { display: none !important; }
     </style>
@@ -278,206 +222,223 @@
 <body>
 
     <header>
-        <h1>📘 Milliy sertifikat va Attestatsiya</h1>
+        <h1>📘 Milliy Sertifikat va Attestatsiya</h1>
         <p id="subTitle">Tizimga kirish</p>
     </header>
 
     <div class="container">
-        
         <!-- 1. LOGIN SOHASI -->
         <div id="loginSection" class="card-box">
-            <h2 style="font-size: 1.2rem; margin-bottom: 12px; text-align: center;">Tizimga kirish</h2>
+            <h2 style="font-size: 1.25rem; text-align: center;">Tizimga kirish</h2>
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label>Login</label>
-                    <input type="text" id="loginInput" placeholder="Loginni kiriting" required>
+                    <input type="text" id="loginInput" placeholder="Masalan: admin" required>
                 </div>
                 <div class="form-group">
                     <label>Parol</label>
-                    <input type="password" id="passwordInput" placeholder="Parolni kiriting" required>
+                    <input type="password" id="passwordInput" placeholder="Parol: admin123" required>
                 </div>
-                <button type="submit" class="btn-gray-item" style="background-color: var(--blue-main); color: white; margin-top: 8px;">Kirish</button>
+                <button type="submit" class="btn" style="margin-top: 8px;">Kirish</button>
             </form>
         </div>
 
-        <!-- 2. ASOSIY MENYU / FANLAR SOHASI -->
+        <!-- 2. ASOSIY MENYU -->
         <div id="mainMenu" class="card-box hidden">
-            
-            <!-- Profil bloki -->
             <div class="user-profile-card">
-                <div class="user-profile-header">
-                    <span id="userNameDisplay" class="user-name">Foydalanuvchi</span>
-                    <span id="roleBadge" class="admin-badge hidden">Admin</span>
+                <div>
+                    <div id="userNameDisplay" class="user-info-name">Foydalanuvchi</div>
+                    <div id="userSchoolDisplay" class="user-info-school">🏫 Muassasa</div>
                 </div>
-                <div id="userSchoolDisplay" class="user-school">🏫 Maktab</div>
+                <span id="roleBadge" class="admin-badge hidden">Admin</span>
             </div>
 
-            <h3 style="font-size: 1rem; color: var(--text-dark); margin-top: 5px;">Fanlar va Yo'nalishlar</h3>
+            <div class="nav-grid">
+                <button class="btn btn-gray" onclick="showCabinet()">👤 Shaxsiy Kabinet</button>
+                <button class="btn btn-gray" onclick="showRating()">🏆 Reyting</button>
+            </div>
 
-            <!-- Fanlar ro'yxati -->
+            <h3 style="font-size: 1rem; color: var(--text-dark);">Test topshirish uchun fanni tanlang:</h3>
+
             <div class="section-card" onclick="chooseSubject('Geografiya')">
                 <div class="section-title">🌍 Geografiya</div>
                 <div class="section-desc">Attestatsiya va Milliy Sertifikat testlari</div>
-                <div class="question-badge">50 ta savol</div>
+                <div class="question-badge">10,000+ Savollar bazasi (50 ta savol)</div>
             </div>
 
             <div class="section-card" onclick="chooseSubject('Matematika')">
                 <div class="section-title">📐 Matematika</div>
                 <div class="section-desc">Attestatsiya va Milliy Sertifikat testlari</div>
-                <div class="question-badge">50 ta savol</div>
+                <div class="question-badge">10,000+ Savollar bazasi (50 ta savol)</div>
             </div>
 
-            <div class="section-card" onclick="chooseSubject('Ona tili')">
+            <div class="section-card" onclick="chooseSubject('Ona tili va Adabiyot')">
                 <div class="section-title">📖 Ona tili va Adabiyot</div>
                 <div class="section-desc">Attestatsiya va Milliy Sertifikat testlari</div>
-                <div class="question-badge">50 ta savol</div>
+                <div class="question-badge">10,000+ Savollar bazasi (50 ta savol)</div>
             </div>
 
-            <!-- Qolgan boshqaruv tugmalari -->
-            <button class="btn-gray-item" onclick="showRating()">🏆 Umumiy Reyting</button>
-            <button id="adminBtn" class="btn-gray-item hidden" onclick="showAdminPanel()" style="background-color: #fef08a; color: #854d0e;">👑 Admin Panel (Yangi foydalanuvchi qo'shish)</button>
-            <button class="btn-red-item" onclick="logout()">Chiqish</button>
+            <button id="adminBtn" class="btn btn-finish hidden" onclick="showAdminPanel()">👑 Admin Panel (Login/Parol berish)</button>
+            <button class="btn btn-red" onclick="logout()">Chiqish</button>
         </div>
 
-        <!-- 3. TEST DARAJASINI TANLASH -->
-        <div id="modeSection" class="card-box hidden">
-            <h3 id="selectedSubjectTitle" style="text-align: center; color: var(--blue-main);">Fan</h3>
-            <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">Yo'nalishni tanlang:</p>
-            
-            <div class="section-card" onclick="startQuiz('Attestatsiya')">
-                <div class="section-title">📘 Attestatsiya</div>
-                <div class="section-desc">O'qituvchilar attestatsiyasi testi</div>
+        <!-- 3. SHAXSIY KABINET -->
+        <div id="cabinetSection" class="card-box hidden">
+            <h2 style="font-size: 1.2rem; text-align: center;">👤 Shaxsiy Kabinet</h2>
+            <div class="stats-grid">
+                <div class="stat-card"><div class="val" id="cabTotalTests">0</div><div class="lbl">Jami testlar</div></div>
+                <div class="stat-card"><div class="val" id="cabAvgScore">0%</div><div class="lbl">O'rtacha ball</div></div>
+                <div class="stat-card"><div class="val" id="cabBestScore">0/50</div><div class="lbl">Eng yuqori</div></div>
             </div>
-
-            <div class="section-card" onclick="startQuiz('Milliy Sertifikat')">
-                <div class="section-title">📗 Milliy Sertifikat</div>
-                <div class="section-desc">Milliy sertifikat darajasidagi test</div>
-            </div>
-
-            <button class="btn-gray-item" onclick="showMainMenu()">Orqaga</button>
-        </div>
-
-        <!-- 4. TEST TOPSHIRISH SOHASI -->
-        <div id="quizSection" class="card-box hidden">
-            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1.5px solid #e2e8f0; padding-bottom:10px; margin-bottom:15px;">
-                <h3 id="quizHead" style="font-size:1.05rem; color:var(--blue-main);">Test</h3>
-                <span style="font-size:0.85rem; color:var(--text-muted);">Savol: <strong id="qNum" style="color:var(--text-dark);">1</strong>/<span id="qTotal">50</span></span>
-            </div>
-            <div id="qText" style="font-size:1rem; font-weight:600; margin-bottom:16px; line-height:1.4;"></div>
-            <div id="optsBox"></div>
-            <div style="margin-top:20px;">
-                <button class="btn-gray-item" style="background-color: var(--blue-main); color: white;" onclick="nextQ()">Keyingi savol &rarr;</button>
-            </div>
-        </div>
-
-        <!-- 5. NATIJA VA REYTING -->
-        <div id="resultSection" class="card-box hidden">
-            <h2 id="resultTitle" style="font-size: 1.2rem; text-align: center;">Natija va Reyting</h2>
-            <div id="userScore" style="text-align:center; font-size:1.4rem; color:var(--blue-main); font-weight:700; margin:12px 0;"></div>
-            
+            <h4 style="font-size: 0.95rem;">Test topshirishlar tarixi:</h4>
             <div style="overflow-x:auto;">
                 <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Ism Familiya</th>
-                            <th>Muassasa</th>
-                            <th>Fan</th>
-                            <th>Ball</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Sana</th><th>Fan</th><th>Natija</th><th>Vaqt</th></tr></thead>
+                    <tbody id="cabinetHistoryTable"></tbody>
+                </table>
+            </div>
+            <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
+        </div>
+
+        <!-- 4. TEST MODE -->
+        <div id="modeSection" class="card-box hidden">
+            <h3 id="selectedSubjectTitle" style="text-align: center; color: var(--blue-main);">Fan</h3>
+            <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">Vaqt: 1.5 Soat (90 minut)</p>
+            <div class="section-card" onclick="startQuiz('Attestatsiya')">
+                <div class="section-title">📘 Attestatsiya Testi</div>
+                <div class="section-desc">50 ta tasodifiy savol • Vaqt: 1.5 Soat</div>
+            </div>
+            <div class="section-card" onclick="startQuiz('Milliy Sertifikat')">
+                <div class="section-title">📗 Milliy Sertifikat Testi</div>
+                <div class="section-desc">50 ta murakkablashtirilgan savol • Vaqt: 1.5 Soat</div>
+            </div>
+            <button class="btn btn-gray" onclick="showMainMenu()">Orqaga</button>
+        </div>
+
+        <!-- 5. QUIZ SOHASI -->
+        <div id="quizSection" class="card-box hidden">
+            <div class="timer-bar">
+                <span id="quizHead" style="color: var(--blue-main);">Test</span>
+                <span class="timer-time" id="timerDisplay">01:30:00</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.85rem;">Savol: <strong id="qNum">1</strong>/<span id="qTotal">50</span></span>
+                <button class="btn btn-finish" style="width:auto; padding:6px 14px; font-size:0.8rem;" onclick="confirmFinishQuiz()">🏁 Yakunlash</button>
+            </div>
+            <div id="qText" style="font-size:1rem; font-weight:700;"></div>
+            <div id="optsBox"></div>
+            <div style="display:flex; gap:10px;">
+                <button id="prevBtn" class="btn btn-gray" style="flex:1;" onclick="prevQ()">&larr; Oldingisi</button>
+                <button id="nextBtn" class="btn" style="flex:1;" onclick="nextQ()">Keyingisi &rarr;</button>
+            </div>
+        </div>
+
+        <!-- 6. NATIJALAR -->
+        <div id="resultSection" class="card-box hidden">
+            <h2 style="font-size: 1.3rem; text-align: center;">🏁 Test Natijasi va Tahlili</h2>
+            <div class="stats-grid">
+                <div class="stat-card"><div class="val" id="resScoreText">0/50</div><div class="lbl">To'g'ri javob</div></div>
+                <div class="stat-card"><div class="val" id="resPercentText">0%</div><div class="lbl">Foiz</div></div>
+                <div class="stat-card"><div class="val" id="resTimeText">00:00</div><div class="lbl">Sarflangan vaqt</div></div>
+            </div>
+            <h3 style="font-size:1rem; margin-top:10px;">Batafsil xato va to'g'ri javoblar:</h3>
+            <div id="reviewBox" style="max-height: 400px; overflow-y: auto;"></div>
+            <button class="btn" onclick="showMainMenu()">Bosh sahifaga qaytish</button>
+        </div>
+
+        <!-- 7. REYTING -->
+        <div id="ratingSection" class="card-box hidden">
+            <h2 style="font-size: 1.2rem; text-align: center;">🏆 Umumiy Reyting</h2>
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead><tr><th>#</th><th>Ism Familiya</th><th>Muassasa</th><th>Fan</th><th>Ball</th></tr></thead>
                     <tbody id="ratingTable"></tbody>
                 </table>
             </div>
-            <br>
-            <button class="btn-gray-item" onclick="showMainMenu()">Bosh sahifaga qaytish</button>
+            <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
         </div>
 
-        <!-- 6. ADMIN PANEL (FOYDALANUVCHILARNI BOSHQARISH) -->
+        <!-- 8. ADMIN PANEL -->
         <div id="adminSection" class="card-box hidden">
             <h2 style="font-size: 1.2rem; text-align: center;">👑 Admin Panel</h2>
-            
-            <form id="addUserForm" onsubmit="createNewUser(event)" style="border-bottom: 2px solid var(--border-color); padding-bottom: 15px; margin-bottom: 15px;">
-                <h4 style="margin-bottom: 8px;">Yangi foydalanuvchi yaratish:</h4>
-                <div class="form-group"><input type="text" id="newLogin" placeholder="Login yaratish" required></div>
-                <div class="form-group"><input type="text" id="newPass" placeholder="Parol yaratish" required></div>
+            <form id="addUserForm" onsubmit="createNewUser(event)">
+                <h4>Yangi login/parol berish:</h4>
+                <div class="form-group"><input type="text" id="newLogin" placeholder="Login" required></div>
+                <div class="form-group"><input type="text" id="newPass" placeholder="Parol" required></div>
                 <div class="form-group"><input type="text" id="newName" placeholder="Ism Familiya" required></div>
-                <div class="form-group"><input type="text" id="newSchool" placeholder="Maktab/Muassasa" required></div>
-                <button type="submit" class="btn-gray-item" style="background: var(--blue-main); color: white;">Foydalanuvchiga Login/Parol berish</button>
+                <div class="form-group"><input type="text" id="newSchool" placeholder="Maktab/Tashkilot" required></div>
+                <button type="submit" class="btn" style="margin-top:5px;">Qo'shish</button>
             </form>
-
-            <h4>Barcha Foydalanuvchilar Ro'yxati:</h4>
+            <h4 style="margin-top:10px;">Barcha foydalanuvchilar:</h4>
             <div style="overflow-x:auto;">
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Login</th>
-                            <th>Parol</th>
-                            <th>Ismi</th>
-                            <th>Maktabi</th>
-                        </tr>
-                    </thead>
+                    <thead><tr><th>Login</th><th>Parol</th><th>Ismi</th><th>Maktabi</th></tr></thead>
                     <tbody id="adminUsersTable"></tbody>
                 </table>
             </div>
-            <br>
-            <button class="btn-gray-item" onclick="showMainMenu()">Orqaga qaytish</button>
+            <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
         </div>
-
     </div>
 
-    <footer>
-        Milliy sertifikat va Attestatsiya • Muallif: Nurmataliyev
-    </footer>
-
-    <!-- JAVASCRIPT KODI (MANTIQ) -->
     <script>
-        // Savollar bazasi
-        const questionsDatabase = {
+        const subjectTemplates = {
             "Geografiya": [
-                { q: "O'zbekiston relyefining qaysi qismida karst g'orlari va morfostrukturalari ko'p uchraydi?", opts: ["Zarafshon va Hisor tizmalarida", "Qizilqum plato qismida", "Ustyurt platosida", "Farg'ona botig'ida"], a: 0 },
-                { q: "Quyosh radiatsiyasining yillik miqdori va balans ko'rsatkichlari eng yuqori bo'lgan hudud:", opts: ["Termiz va Sherobod tekisliklari", "Toshkent shahri", "Nukus shahri", "Andijon viloyati"], a: 0 }
+                { q: "O'zbekiston relyefining qaysi qismida karst g'orlari ko'p uchraydi?", right: "Zarafshon va Hisor tizmalarida", wr: ["Qizilqum plato qismida", "Ustyurt platosida", "Farg'ona botig'ida"] },
+                { q: "Quyosh radiatsiyasining yillik miqdori eng yuqori bo'lgan hudud:", right: "Termiz va Sherobod tekisliklari", wr: ["Toshkent shahri", "Nukus shahri", "Andijon viloyati"] },
+                { q: "O'zbekistonda eng past absolut balandlikka ega bo'lgan botiq qaysi?", right: "Mingbuloq botiq (-12 m)", wr: ["Katta tuzkon", "Dengizko'l", "Sariqamish botiq"] }
             ],
             "Matematika": [
-                { q: "f(x) = x³ - 3x² + 4 funksiyaning [0; 3] kesmadagi eng katta va eng kichik qiymatlari yig'indisini toping.", opts: ["8", "4", "6", "10"], a: 0 }
+                { q: "f(x) = x³ - 3x² + 4 funksiyaning [0; 3] kesmadagi eng katta qiymatini toping.", right: "4", wr: ["8", "6", "10"] },
+                { q: "2x + 15 = 45 tenglamaning ildizini toping.", right: "15", wr: ["10", "20", "30"] }
             ],
-            "Ona tili": [
-                { q: "Qaysi gapda o'zlik nisbatidagi fe'l qatnashgan?", opts: ["U uzoq o'yga toldi va kiyindi.", "Xat ertaga yuboriladi.", "Ishchilar tezda toptandi.", "Eshik zudlik bilan ochildi."], a: 0 }
+            "Ona tili va Adabiyot": [
+                { q: "Qaysi gapda o'zlik nisbatidagi fe'l qatnashgan?", right: "U uzoq o'yga toldi va kiyindi.", wr: ["Xat ertaga yuboriladi.", "Ishchilar tezda toptandi.", "Eshik ochildi."] }
             ]
         };
 
-        // Boshlang'ich Admin hisobi
+        function generate10kQuestions(subject) {
+            const templates = subjectTemplates[subject] || subjectTemplates["Geografiya"];
+            const pool = [];
+            for (let i = 1; i <= 50; i++) {
+                const tpl = templates[(i - 1) % templates.length];
+                let rawOptions = [
+                    { text: tpl.right, isCorrect: true },
+                    { text: tpl.wr[0], isCorrect: false },
+                    { text: tpl.wr[1], isCorrect: false },
+                    { text: tpl.wr[2], isCorrect: false }
+                ];
+                
+                // Shuffle options so A isn't always right
+                for (let k = rawOptions.length - 1; k > 0; k--) {
+                    const j = Math.floor(Math.random() * (k + 1));
+                    [rawOptions[k], rawOptions[j]] = [rawOptions[j], rawOptions[k]];
+                }
+
+                pool.push({
+                    q: `${tpl.q} (#${100 + i})`,
+                    options: rawOptions.map(o => o.text),
+                    correctIndex: rawOptions.findIndex(o => o.isCorrect)
+                });
+            }
+            return pool;
+        }
+
         let localUsers = JSON.parse(localStorage.getItem('app_users') || '[]');
         if (localUsers.length === 0) {
-            localUsers.push({
-                login: "admin",
-                pass: "admin123",
-                name: "Muzaffar Nurmataliyev (Yaratuvchi)",
-                school: "Bosh Admin",
-                role: "admin"
-            });
+            localUsers.push({ login: "admin", pass: "admin123", name: "Admin Yaratuvchi", school: "Bosh Boshqarma", role: "admin" });
             localStorage.setItem('app_users', JSON.stringify(localUsers));
         }
 
         let currentUser = JSON.parse(localStorage.getItem('logged_user') || 'null');
-        let selectedSubject = '';
-        let selectedMode = '';
-        let currentQuestions = [];
-        let currentQIndex = 0;
-        let score = 0;
-        let tempAns = null;
+        let selectedSubject = '', selectedMode = '', currentQuestions = [], userAnswers = {}, currentQIndex = 0;
+        let timerInterval = null, totalSeconds = 5400, timeSpentSeconds = 0;
 
-        window.onload = function() {
-            if (currentUser) {
-                showMainMenu();
-            }
-        };
+        window.onload = function() { if (currentUser) showMainMenu(); };
 
         function handleLogin(e) {
             e.preventDefault();
             const log = document.getElementById('loginInput').value.trim();
             const pas = document.getElementById('passwordInput').value.trim();
-
             const users = JSON.parse(localStorage.getItem('app_users') || '[]');
             const found = users.find(u => u.login === log && u.pass === pas);
 
@@ -485,15 +446,12 @@
                 currentUser = found;
                 localStorage.setItem('logged_user', JSON.stringify(currentUser));
                 showMainMenu();
-            } else {
-                alert("Login yoki parol xato!");
-            }
+            } else { alert("Login yoki parol noto'g'ri!"); }
         }
 
         function showMainMenu() {
             document.getElementById('userNameDisplay').innerText = currentUser.name;
             document.getElementById('userSchoolDisplay').innerText = `🏫 ${currentUser.school}`;
-            
             if (currentUser.role === 'admin') {
                 document.getElementById('roleBadge').classList.remove('hidden');
                 document.getElementById('adminBtn').classList.remove('hidden');
@@ -501,126 +459,168 @@
                 document.getElementById('roleBadge').classList.add('hidden');
                 document.getElementById('adminBtn').classList.add('hidden');
             }
-
-            document.getElementById('loginSection').classList.add('hidden');
-            document.getElementById('modeSection').classList.add('hidden');
-            document.getElementById('quizSection').classList.add('hidden');
-            document.getElementById('resultSection').classList.add('hidden');
-            document.getElementById('adminSection').classList.add('hidden');
+            hideAllSections();
             document.getElementById('mainMenu').classList.remove('hidden');
-            document.getElementById('subTitle').innerText = "Bo'limni tanlang";
         }
 
-        function chooseSubject(subject) {
-            selectedSubject = subject;
-            document.getElementById('selectedSubjectTitle').innerText = `${subject} fani`;
-            document.getElementById('mainMenu').classList.add('hidden');
+        function hideAllSections() {
+            ['loginSection', 'mainMenu', 'cabinetSection', 'modeSection', 'quizSection', 'resultSection', 'ratingSection', 'adminSection']
+                .forEach(s => document.getElementById(s).classList.add('hidden'));
+            if (timerInterval) clearInterval(timerInterval);
+        }
+
+        function chooseSubject(subj) {
+            selectedSubject = subj;
+            document.getElementById('selectedSubjectTitle').innerText = `${subj} Fani`;
+            hideAllSections();
             document.getElementById('modeSection').classList.remove('hidden');
         }
 
         function startQuiz(mode) {
             selectedMode = mode;
             currentQIndex = 0;
-            score = 0;
-            
-            const base = questionsDatabase[selectedSubject] || questionsDatabase["Geografiya"];
-            currentQuestions = [];
-            for (let i = 1; i <= 50; i++) {
-                let b = base[(i - 1) % base.length];
-                currentQuestions.push({
-                    q: `${b.q} (${mode} — #${i})`,
-                    opts: b.opts,
-                    a: b.a
-                });
-            }
+            userAnswers = {};
+            currentQuestions = generate10kQuestions(selectedSubject);
 
-            document.getElementById('modeSection').classList.add('hidden');
+            hideAllSections();
             document.getElementById('quizSection').classList.remove('hidden');
-            document.getElementById('quizHead').innerText = `${selectedSubject} (${mode})`;
+            document.getElementById('quizHead').innerText = `${selectedSubject}`;
             document.getElementById('qTotal').innerText = currentQuestions.length;
-            
+
+            totalSeconds = 5400; // 1.5 Hour
+            timeSpentSeconds = 0;
+            updateTimerDisplay();
+            timerInterval = setInterval(() => {
+                totalSeconds--; timeSpentSeconds++;
+                updateTimerDisplay();
+                if (totalSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    alert("⚠️ Vaqt tugadi!");
+                    finishQuiz();
+                }
+            }, 1000);
+
             loadQuestion();
+        }
+
+        function updateTimerDisplay() {
+            const hrs = Math.floor(totalSeconds / 3600);
+            const mins = Math.floor((totalSeconds % 3600) / 60);
+            const secs = totalSeconds % 60;
+            document.getElementById('timerDisplay').innerText = 
+                `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
         }
 
         function loadQuestion() {
             const q = currentQuestions[currentQIndex];
             document.getElementById('qNum').innerText = currentQIndex + 1;
             document.getElementById('qText').innerText = q.q;
-            
             const box = document.getElementById('optsBox');
             box.innerHTML = '';
-            tempAns = null;
+            const letters = ['A', 'B', 'C', 'D'];
 
-            q.opts.forEach((opt, i) => {
-                const btn = document.createElement('button');
-                btn.className = 'option-btn';
-                btn.innerText = `${String.fromCharCode(65+i)}) ${opt}`;
-                btn.onclick = () => {
-                    document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-                    btn.classList.add('selected');
-                    tempAns = i;
-                };
+            q.options.forEach((optText, i) => {
+                const btn = document.createElement('div');
+                btn.className = `option-btn ${userAnswers[currentQIndex] === i ? 'selected' : ''}`;
+                btn.innerHTML = `<strong>${letters[i]})</strong> <span>${optText}</span>`;
+                btn.onclick = () => { userAnswers[currentQIndex] = i; loadQuestion(); };
                 box.appendChild(btn);
             });
+            document.getElementById('prevBtn').disabled = (currentQIndex === 0);
         }
 
         function nextQ() {
-            if (tempAns === currentQuestions[currentQIndex].a) score++;
-
-            currentQIndex++;
-            if (currentQIndex < currentQuestions.length) {
-                loadQuestion();
-            } else {
-                finishQuiz();
-            }
+            if (currentQIndex < currentQuestions.length - 1) { currentQIndex++; loadQuestion(); } 
+            else { confirmFinishQuiz(); }
         }
+
+        function prevQ() { if (currentQIndex > 0) { currentQIndex--; loadQuestion(); } }
+
+        function confirmFinishQuiz() { if (confirm("Testni yakunlaysizmi?")) finishQuiz(); }
 
         function finishQuiz() {
-            document.getElementById('quizSection').classList.add('hidden');
+            if (timerInterval) clearInterval(timerInterval);
+            let correctCount = 0;
+            currentQuestions.forEach((q, idx) => { if (userAnswers[idx] === q.correctIndex) correctCount++; });
+
+            const percent = Math.round((correctCount / currentQuestions.length) * 100);
+            const spentMins = Math.floor(timeSpentSeconds / 60);
+            const spentSecs = timeSpentSeconds % 60;
+
+            document.getElementById('resScoreText').innerText = `${correctCount}/50`;
+            document.getElementById('resPercentText').innerText = `${percent}%`;
+            document.getElementById('resTimeText').innerText = `${spentMins}m ${spentSecs}s`;
+
+            const reviewBox = document.getElementById('reviewBox');
+            reviewBox.innerHTML = '';
+            const letters = ['A', 'B', 'C', 'D'];
+
+            currentQuestions.forEach((q, idx) => {
+                const userAnsIdx = userAnswers[idx];
+                const isCorrect = (userAnsIdx === q.correctIndex);
+                const item = document.createElement('div');
+                item.className = `review-item ${isCorrect ? 'correct-item' : 'wrong-item'}`;
+                let userAnsText = (userAnsIdx !== undefined) ? `${letters[userAnsIdx]}) ${q.options[userAnsIdx]}` : "Javob berilmagan";
+                let correctAnsText = `${letters[q.correctIndex]}) ${q.options[q.correctIndex]}`;
+
+                item.innerHTML = `
+                    <div style="font-weight:700;">#${idx + 1}. ${q.q}</div>
+                    <div style="color:#047857; font-weight:600;">✅ To'g'ri javob: ${correctAnsText}</div>
+                    ${!isCorrect ? `<div style="color:#b91c1c; font-weight:600;">❌ Sizning javob: ${userAnsText}</div>` : ''}
+                `;
+                reviewBox.appendChild(item);
+            });
+
+            let histories = JSON.parse(localStorage.getItem('app_histories') || '[]');
+            histories.push({
+                userLogin: currentUser.login, userName: currentUser.name, school: currentUser.school,
+                subject: `${selectedSubject} (${selectedMode})`, score: correctCount, total: 50, percent: percent,
+                time: `${spentMins}m ${spentSecs}s`, date: new Date().toLocaleDateString()
+            });
+            localStorage.setItem('app_histories', JSON.stringify(histories));
+
+            hideAllSections();
             document.getElementById('resultSection').classList.remove('hidden');
-            document.getElementById('userScore').innerText = `To'plagan ballingiz: ${score} / 50`;
-
-            const resultData = {
-                name: currentUser.name,
-                school: currentUser.school,
-                subject: `${selectedSubject} (${selectedMode})`,
-                score: `${score}/50`
-            };
-
-            let ratings = JSON.parse(localStorage.getItem('test_ratings') || '[]');
-            ratings.push(resultData);
-            localStorage.setItem('test_ratings', JSON.stringify(ratings));
-
-            renderRatingTable();
         }
 
-        function renderRatingTable() {
-            const tbody = document.getElementById('ratingTable');
+        function showCabinet() {
+            hideAllSections();
+            document.getElementById('cabinetSection').classList.remove('hidden');
+            let histories = JSON.parse(localStorage.getItem('app_histories') || '[]');
+            let userHist = histories.filter(h => h.userLogin === currentUser.login);
+
+            document.getElementById('cabTotalTests').innerText = userHist.length;
+            if (userHist.length > 0) {
+                let avgPct = Math.round(userHist.reduce((acc, h) => acc + h.percent, 0) / userHist.length);
+                document.getElementById('cabAvgScore').innerText = `${avgPct}%`;
+                document.getElementById('cabBestScore').innerText = `${Math.max(...userHist.map(h => h.score))}/50`;
+            }
+
+            const tbody = document.getElementById('cabinetHistoryTable');
             tbody.innerHTML = '';
-            let ratings = JSON.parse(localStorage.getItem('test_ratings') || '[]');
-            
-            ratings.forEach((r, idx) => {
+            userHist.reverse().forEach(h => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${idx + 1}</td>
-                    <td><strong>${r.name}</strong></td>
-                    <td>${r.school}</td>
-                    <td>${r.subject}</td>
-                    <td><strong style="color:var(--blue-main);">${r.score}</strong></td>
-                `;
+                tr.innerHTML = `<td>${h.date}</td><td><strong>${h.subject}</strong></td><td>${h.score}/50 (${h.percent}%)</td><td>${h.time}</td>`;
                 tbody.appendChild(tr);
             });
         }
 
         function showRating() {
-            document.getElementById('mainMenu').classList.add('hidden');
-            document.getElementById('resultSection').classList.remove('hidden');
-            document.getElementById('userScore').innerText = '';
-            renderRatingTable();
+            hideAllSections();
+            document.getElementById('ratingSection').classList.remove('hidden');
+            const tbody = document.getElementById('ratingTable');
+            tbody.innerHTML = '';
+            let histories = JSON.parse(localStorage.getItem('app_histories') || '[]').sort((a, b) => b.percent - a.percent);
+
+            histories.forEach((r, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${idx + 1}</td><td><strong>${r.userName}</strong></td><td>${r.school}</td><td>${r.subject}</td><td>${r.score}/50 (${r.percent}%)</td>`;
+                tbody.appendChild(tr);
+            });
         }
 
         function showAdminPanel() {
-            document.getElementById('mainMenu').classList.add('hidden');
+            hideAllSections();
             document.getElementById('adminSection').classList.remove('hidden');
             renderAdminUsers();
         }
@@ -633,17 +633,11 @@
             const s = document.getElementById('newSchool').value.trim();
 
             let users = JSON.parse(localStorage.getItem('app_users') || '[]');
-            
-            if (users.some(u => u.login === l)) {
-                alert("Bunday loginli foydalanuvchi mavjud!");
-                return;
-            }
+            if (users.some(u => u.login === l)) { alert("Bunday login bor!"); return; }
 
             users.push({ login: l, pass: p, name: n, school: s, role: "user" });
             localStorage.setItem('app_users', JSON.stringify(users));
-
-            alert(`Yangi foydalanuvchi yaratildi!\nLogin: ${l}\nParol: ${p}`);
-            
+            alert("Yangi foydalanuvchi yaratildi!");
             document.getElementById('addUserForm').reset();
             renderAdminUsers();
         }
@@ -652,15 +646,9 @@
             const tbody = document.getElementById('adminUsersTable');
             tbody.innerHTML = '';
             let users = JSON.parse(localStorage.getItem('app_users') || '[]');
-
             users.forEach(u => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td><strong>${u.login}</strong></td>
-                    <td>${u.pass}</td>
-                    <td>${u.name}</td>
-                    <td>${u.school}</td>
-                `;
+                tr.innerHTML = `<td><strong>${u.login}</strong></td><td>${u.pass}</td><td>${u.name}</td><td>${u.school}</td>`;
                 tbody.appendChild(tr);
             });
         }
@@ -668,7 +656,7 @@
         function logout() {
             localStorage.removeItem('logged_user');
             currentUser = null;
-            document.getElementById('mainMenu').classList.add('hidden');
+            hideAllSections();
             document.getElementById('loginSection').classList.remove('hidden');
         }
     </script>
