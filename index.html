@@ -3,1008 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="t-title">Geografiya AI — Professional Attestatsiya va Sertifikat Tizimi</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    <title>Geografiya AI — Professional Tizim</title>
     <style>
-        :root {
-            --bg-color: #090d16;
-            --card-bg: #131c31;
-            --text-light: #f8fafc;
-            --text-muted: #94a3b8;
-            --blue-main: #3b82f6;
-            --blue-hover: #2563eb;
-            --emerald-main: #10b981;
-            --rose-main: #f43f5e;
-            --amber-main: #f59e0b;
-            --purple-main: #8b5cf6;
-            --border-color: #1e293b;
-            --radius: 18px;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-light); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px 12px; }
-        
-        header { text-align: center; margin-bottom: 24px; width: 100%; max-width: 650px; position: relative; }
-        header h1 { color: var(--blue-main); font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; }
-        header p { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
-        
-        .lang-selector { display: flex; justify-content: center; gap: 6px; margin-bottom: 15px; }
-        .lang-btn { background: #131c31; border: 1.5px solid var(--border-color); color: var(--text-muted); padding: 5px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
-        .lang-btn.active { background: var(--blue-main); color: white; border-color: var(--blue-main); }
-
-        .container { width: 100%; max-width: 650px; flex: 1; }
-        .card-box { background: var(--card-bg); border-radius: var(--radius); padding: 24px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); margin-bottom: 20px; }
-        
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
-        .form-group input, .form-group textarea, .form-group select { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem; outline: none; background: #090d16; color: white; transition: border-color 0.2s; }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--blue-main); }
-        
-        .user-profile-card { background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; border-radius: 14px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .user-avatar-container { display: flex; align-items: center; gap: 12px; }
-        .admin-badge { background-color: #fef08a; color: #854d0e; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
-        
-        .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .section-card { background: #090d16; border: 1.5px solid var(--border-color); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; transition: all 0.2s ease; text-decoration: none; }
-        .section-card:hover { border-color: var(--blue-main); transform: translateY(-2px); }
-        .section-title { font-size: 1.05rem; font-weight: 700; color: var(--text-light); }
-        .section-desc { color: var(--text-muted); font-size: 0.82rem; }
-        
-        .btn { background-color: var(--blue-main); color: white; border: none; border-radius: 12px; padding: 13px; font-size: 0.95rem; font-weight: 700; cursor: pointer; width: 100%; transition: background 0.2s; text-align: center; text-decoration: none; display: inline-block; }
-        .btn:hover { background-color: var(--blue-hover); }
-        .btn-gray { background-color: #1e293b; color: var(--text-light); }
-        .btn-gray:hover { background-color: #334155; }
-        .btn-red { background-color: rgba(244, 63, 94, 0.15); color: var(--rose-main); border: 1px solid rgba(244, 63, 94, 0.3); }
-        .btn-amber { background-color: var(--amber-main); color: #090d16; font-weight: 800; }
-        .btn-purple { background-color: var(--purple-main); color: white; }
-        .btn-emerald { background-color: var(--emerald-main); color: white; }
-        
-        .timer-bar { background: #090d16; border: 1.5px solid var(--border-color); border-radius: 12px; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
-        .timer-time { color: var(--rose-main); font-size: 1.1rem; font-family: monospace; }
-        
-        .option-btn { background: #090d16; border: 1.5px solid var(--border-color); padding: 14px; border-radius: 12px; margin-bottom: 10px; cursor: pointer; width: 100%; font-size: 0.9rem; display: flex; gap: 10px; color: var(--text-light); text-align: left; transition: all 0.2s; }
-        .option-btn.selected { background: rgba(59, 130, 246, 0.15); border-color: var(--blue-main); color: #60a5fa; font-weight: 600; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { padding: 10px 8px; text-align: left; font-size: 0.82rem; border-bottom: 1px solid var(--border-color); }
-        th { color: var(--text-muted); font-weight: 600; }
-        
-        .review-item { border: 1.5px solid var(--border-color); border-radius: 12px; padding: 14px; margin-bottom: 12px; background: #090d16; }
-        .review-item.correct-item { border-color: var(--emerald-main); }
-        .review-item.wrong-item { border-color: var(--rose-main); }
-        
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .stat-card { background: #090d16; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; text-align: center; }
-        .stat-card .val { font-size: 1.3rem; font-weight: 800; color: var(--blue-main); }
-        .stat-card .lbl { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
-        
-        .ai-box { background: rgba(139, 92, 246, 0.1); border: 1.5px solid var(--purple-main); border-radius: 14px; padding: 16px; color: #ddd6fe; margin-top: 10px; }
-        .ai-box h4 { font-size: 0.95rem; display: flex; align-items: center; gap: 6px; margin-bottom: 6px; color: #c4b5fd; }
-        
-        footer { margin-top: 30px; text-align: center; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 15px; width: 100%; max-width: 650px; }
-        footer span { color: var(--blue-main); font-weight: 700; }
-
-        .hidden { display: none !important; }
-        .tab-btn-group { display: flex; gap: 8px; margin-bottom: 10px; }
-        .tab-btn { flex: 1; padding: 10px; border: 1px solid var(--border-color); background: #090d16; color: var(--text-muted); border-radius: 10px; font-weight: 600; cursor: pointer; text-align: center; }
-        .tab-btn.active { background: var(--blue-main); color: white; border-color: var(--blue-main); }
+        body {
+            background-color: #0b0f19;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .profile-card {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .profile-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .badge {
+            background-color: #fbbf24;
+            color: #000;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        .profile-info {
+            font-size: 13px;
+            color: #e2e8f0;
+            margin-bottom: 4px;
+        }
+        .menu-card {
+            background-color: #1e293b;
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-decoration: none;
+            color: white;
+        }
+        .menu-card:hover {
+            background-color: #273548;
+            transform: translateY(-2px);
+        }
+        .card-icon {
+            font-size: 24px;
+        }
+        .card-content h3 {
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+        .card-content p {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        .btn-warning {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #fff;
+            border: none;
+            font-weight: bold;
+        }
+        .btn-danger {
+            background-color: #451a03;
+            border: 1px solid #78350f;
+            color: #f87171;
+            justify-content: center;
+            text-align: center;
+        }
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #64748b;
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="lang-selector">
-            <button id="langUz" class="lang-btn active" onclick="setLanguage('uz')">O'zbekcha</button>
-            <button id="langRu" class="lang-btn" onclick="setLanguage('ru')">Русский</button>
-            <button id="langEn" class="lang-btn" onclick="setLanguage('en')">English</button>
-        </div>
-        <h1 id="t-mainTitle">🌍 Geografiya AI — Professional Tizim</h1>
-        <p id="t-mainDesc">Attestatsiya va Milliy Sertifikat uchun aqlli imtihon muhiti</p>
-    </header>
-
     <div class="container">
-        <!-- 1. AUTHENTICATION -->
-        <div id="authSection" class="card-box">
-            <div class="tab-btn-group">
-                <button type="button" id="tabLoginBtn" class="tab-btn active" onclick="switchAuthTab('login')"><span id="t-loginTab">Kirish</span></button>
-                <button type="button" id="tabRegBtn" class="tab-btn" onclick="switchAuthTab('register')"><span id="t-regTab">Ro'yxatdan o'tish</span></button>
+        <!-- Profil Bloki -->
+        <div class="profile-card">
+            <div class="profile-header">
+                <span class="profile-name">Nurmataliyev Muzaffar</span>
+                <span class="badge">YARATUVCHI</span>
             </div>
-
-            <form id="loginForm">
-                <div class="form-group">
-                    <label id="t-jshshrLbl">JSHSHR (14 xonali shaxsiy raqam)</label>
-                    <input type="text" id="loginInput" placeholder="14 ta raqamni kiriting" maxlength="14" required>
-                </div>
-                <div class="form-group">
-                    <label id="t-passLbl">Parol</label>
-                    <input type="password" id="passwordInput" placeholder="Parolingizni kiriting" required>
-                </div>
-                <button type="button" class="btn" style="margin-top: 10px;" onclick="handleLogin()" id="t-loginBtnText">Tizimga kirish</button>
-            </form>
-
-            <form id="registerForm" class="hidden">
-                <div class="ai-box" style="margin-top: 0; margin-bottom: 10px; padding: 12px; border-color: var(--rose-main); background: rgba(244, 63, 94, 0.08);">
-                    <h4 id="t-secTitle" style="font-size:0.88rem; color: var(--rose-main);">🛡️ Xavfsizlik Nazorati:</h4>
-                    <p style="font-size: 0.8rem; color: #fecdd3; margin-top: 4px;" id="aiCaptchaText">Xavfsizlik sharti yuklanmoqda...</p>
-                </div>
-                <div class="form-group">
-                    <label id="t-nameLbl">Ism va Familiya</label>
-                    <input type="text" id="regNameInput" placeholder="Masalan: Aziz Rahimov" required>
-                </div>
-                <div class="form-group">
-                    <label id="t-regJshshrLbl">JSHSHR (14 xonali shaxsiy raqam)</label>
-                    <input type="text" id="regJshshrInput" placeholder="Masalan: 30101905000014" maxlength="14" required>
-                </div>
-                <div class="form-group">
-                    <label id="t-phoneLbl">Telefon Raqami (+998 bilan)</label>
-                    <input type="tel" id="regPhoneInput" placeholder="+998901234567" value="+998" required>
-                </div>
-                <div class="form-group">
-                    <label id="t-newPassLbl">Yangi Parol (Min 6 ta belgi)</label>
-                    <input type="password" id="regPassInput" placeholder="Parol kiriting" required>
-                </div>
-                <div class="form-group">
-                    <label id="t-captchaLbl">Xavfsizlik Sharti Javobi</label>
-                    <input type="text" id="regCaptchaInput" placeholder="Javobni yozing" required>
-                </div>
-                <button type="button" class="btn" style="margin-top: 10px; background-color: var(--emerald-main);" onclick="handleRegister()" id="t-regSubmitText">Ro'yxatdan o'tishni yakunlash</button>
-            </form>
+            <div class="profile-info">JSHSHR: 30000000000000</div>
+            <div class="profile-info">📞 +998900000000</div>
         </div>
 
-        <!-- 2. MAIN MENU -->
-        <div id="mainMenu" class="card-box hidden">
-            <div class="user-profile-card">
-                <div class="user-avatar-container">
-                    <div>
-                        <div id="userNameDisplay" style="font-size:1.1rem; font-weight:700;">Foydalanuvchi</div>
-                        <div id="userJshshrDisplay" style="font-size:0.82rem; opacity:0.9; font-family:monospace;">JSHSHR: --------------</div>
-                        <div id="userPhoneDisplay" style="font-size:0.82rem; opacity:0.8;">📱 +998 -- --- -- --</div>
-                    </div>
-                </div>
-                <span id="roleBadge" class="admin-badge hidden">Yaratuvchi</span>
-            </div>
-
-            <div class="nav-grid">
-                <button class="btn btn-gray" onclick="showCabinet()" id="t-cabinetBtn">👤 Shaxsiy Kabinet</button>
-                <button class="btn btn-gray" onclick="showRating()" id="t-ratingBtn">🏆 Umumiy Reyting</button>
-            </div>
-
-            <div class="section-card" onclick="showModeSection()">
-                <div class="section-title" id="t-geoSectionTitle">🌍 Geografiya Fani Sinovlari</div>
-                <div class="section-desc" id="t-geoSectionDesc">Attestatsiya, Milliy Sertifikat & Afrika Maxsus Testlari</div>
-            </div>
-
-            <div class="section-card" onclick="showSupportSection()" style="border-color: var(--amber-main);">
-                <div class="section-title" style="color: var(--amber-main);" id="t-supportTitle">💬 Qo'llab-quvvatlash Markazi va Javoblar</div>
-                <div class="section-desc" id="t-supportDesc">Yaratuvchi Nurmataliyev Muzaffardan kelgan javoblar va xabarlar</div>
-            </div>
-
-            <div class="section-card" onclick="showAiCreatorSection()" style="border-color: var(--purple-main);">
-                <div class="section-title" style="color: #c4b5fd;" id="t-aiTitle">🤖 AI Orqali Test Tuzish</div>
-                <div class="section-desc" id="t-aiDesc">Sun'iy intellekt yordamida istalgan mavzuda test savollarini yarating</div>
-            </div>
-
-            <button id="adminBtn" class="btn btn-amber hidden" onclick="showAdminPanel()" id="t-adminBtn">⚡ Yaratuvchi Boshqaruvi va Nazorati</button>
-            <button class="btn btn-red" onclick="logout()" id="t-logoutBtn">Tizimdan Chiqish</button>
-        </div>
-
-        <!-- 3. MODE SELECTION -->
-        <div id="modeSection" class="card-box hidden">
-            <h3 style="text-align: center; color: var(--blue-main);" id="t-selectModeTitle">Imtihon Turini Tanlang</h3>
-            <div class="section-card" onclick="startQuiz('Attestatsiya', 50)">
-                <div class="section-title" id="t-attestTitle">📘 Attestatsiya Bo'limi</div>
-                <div class="section-desc" id="t-attestDesc">50 ta so'nggi attestatsiya savollari • Vaqt: 60 Daqiqa</div>
-            </div>
-            <div class="section-card" onclick="startQuiz('Milliy Sertifikat', 100)">
-                <div class="section-title" id="t-sertTitle">📗 Milliy Sertifikat Bo'limi (100 ta)</div>
-                <div class="section-desc" id="t-sertDesc">100 ta o'ta murakkab savol va geografik masalalar • Vaqt: 120 Daqiqa</div>
-            </div>
-            
-        <!-- 3.1. SUPPORT SECTION -->
-        <div id="supportSection" class="card-box hidden">
-            <h3 style="text-align: center; color: var(--amber-main);" id="t-supportHeader">💬 Qo'llab-quvvatlash va Murojaatlar</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;" id="t-supportSub">Yaratuvchi **Nurmataliyev Muzaffar**ga savol yuboring yoki javoblarini ko'ring.</p>
-            <div class="form-group">
-                <label id="t-subjLbl">Murojaat mavzusi:</label>
-                <input type="text" id="supportSubject" placeholder="Masalan: Test savolida xatolik bor...">
-            </div>
-            <div class="form-group">
-                <label id="t-msgLbl">Xabaringiz matni:</label>
-                <textarea id="supportMessage" rows="3" placeholder="Muammo yoki taklifingizni yozing..."></textarea>
-            </div>
-            <button class="btn btn-amber" onclick="sendSupportMessage()" id="t-sendMsgBtn">Xabarni yaratuvchiga yuborish</button>
-            <h4 style="font-size: 0.95rem; margin-top: 10px; color: var(--amber-main);" id="t-myMsgsTitle">Sizning murojaatlaringiz:</h4>
-            <div id="userMessagesHistoryBox" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
-            <button class="btn btn-gray" onclick="showMainMenu()" id="t-backBtn3">Orqaga</button>
-        </div>
-
-        <!-- 3.2. AI TEST CREATOR -->
-        <div id="aiCreatorSection" class="card-box hidden">
-            <h3 style="text-align: center; color: var(--purple-main);" id="t-aiHeader">🤖 Sun'iy Intellekt Test Tuzuvchisi</h3>
-            <div class="form-group">
-                <label id="t-aiTopicLbl">Test mavzusi yoki sharti:</label>
-                <textarea id="aiTopicInput" rows="3" placeholder="Masalan: O'zbekistonning iqtisodiy geografiyasi..."></textarea>
-            </div>
-            <div class="form-group">
-                <label id="t-aiCountLbl">Savollar soni:</label>
-                <input type="number" id="aiCountInput" value="5" min="1" max="20">
-            </div>
-            <button class="btn btn-purple" onclick="generateAiTestByPrompt()" id="t-aiGenBtn">AI yordamida test tuzish</button>
-            <button class="btn btn-gray" onclick="showMainMenu()" id="t-backBtn4">Orqaga</button>
-        </div>
-
-        <!-- 4. QUIZ INTERFACE -->
-        <div id="quizSection" class="card-box hidden">
-            <div class="timer-bar">
-                <span id="quizHead" style="color: var(--blue-main);">Geografiya</span>
-                <span class="timer-time" id="timerDisplay">00:00:00</span>
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:0.85rem;"><span id="t-qNumLabel">Savol:</span> <strong id="qNum">1</strong>/<span id="qTotal">50</span></span>
-                <button class="btn btn-amber" style="width:auto; padding:6px 14px; font-size:0.8rem;" onclick="confirmFinishQuiz()" id="t-finishQuizBtn">🏁 Yakunlash</button>
-            </div>
-            
-            <div id="qText" style="font-size:1rem; font-weight:700; line-height:1.4; margin-top: 10px;"></div>
-            <div id="optsBox"></div>
-            <div style="display:flex; gap:10px;">
-                <button id="prevBtn" class="btn btn-gray" style="flex:1;" onclick="prevQ()">&larr; <span id="t-prevBtnText">Oldingisi</span></button>
-                <button id="nextBtn" class="btn" style="flex:1;" onclick="nextQ()"><span id="t-nextBtnText">Keyingisi</span> &rarr;</button>
+        <!-- Asosiy menyular -->
+        <div class="menu-card">
+            <div class="card-icon">👤</div>
+            <div class="card-content">
+                <h3>Shaxsiy Kabinet</h3>
             </div>
         </div>
 
-        <!-- 5. RESULT & AI ANALYSIS -->
-        <div id="resultSection" class="card-box hidden">
-            <h2 style="font-size: 1.3rem; text-align: center;" id="t-resultHeader">🏁 Test Natijasi va AI Tahlili</h2>
-            <div class="stats-grid">
-                <div class="stat-card"><div class="val" id="resScoreText">0/0</div><div class="lbl" id="t-resCorrectLbl">To'g'ri javob</div></div>
-                <div class="stat-card"><div class="val" id="resPercentText">0%</div><div class="lbl" id="t-resPercentLbl">Foiz</div></div>
-                <div class="stat-card"><div class="val" id="resTimeText">00:00</div><div class="lbl" id="t-resTimeLbl">Vaqt</div></div>
+        <div class="menu-card">
+            <div class="card-icon">🏆</div>
+            <div class="card-content">
+                <h3>Umumiy Reyting</h3>
             </div>
-            <div class="ai-box">
-                <h4 id="t-aiSummaryHeader">🤖 Sun'iy Intellekt (AI) Xulosasi:</h4>
-                <div id="aiFeedbackText" style="font-size: 0.88rem; line-height: 1.5;">Tahlil qilinmoqda...</div>
-            </div>
-            <h3 style="font-size:1rem; margin-top:10px;" id="t-errorReviewTitle">Xatolar tahlili:</h3>
-            <div id="reviewBox" style="max-height: 280px; overflow-y: auto;"></div>
-            <button class="btn" onclick="showMainMenu()" id="t-backHomeBtn">Bosh Sahifaga Qaytish</button>
         </div>
 
-        <!-- 6. CABINET -->
-        <div id="cabinetSection" class="card-box hidden">
-            <h2 style="font-size: 1.2rem; text-align: center;" id="t-cabHeader">👤 Shaxsiy Kabinet</h2>
-            <div class="stats-grid" style="margin-top: 10px;">
-                <div class="stat-card"><div class="val" id="cabTotalTests">0</div><div class="lbl" id="t-cabTotalTestsLbl">Jami testlar</div></div>
-                <div class="stat-card"><div class="val" id="cabAvgScore">0%</div><div class="lbl" id="t-cabAvgLbl">O'rtacha</div></div>
-                <div class="stat-card"><div class="val" id="cabBestScore">0</div><div class="lbl" id="t-cabBestLbl">Eng yuqori</div></div>
+        <div class="menu-card">
+            <div class="card-icon">🌍</div>
+            <div class="card-content">
+                <h3>Geografiya Fani Sinovlari</h3>
+                <p>Attestatsiya, Milliy Sertifikat & Maxsus Testlar</p>
             </div>
-            <h4 style="font-size: 0.95rem; margin-top: 10px;" id="t-cabHistoryTitle">Topshirilgan testlar tarixi:</h4>
-            <div style="overflow-x:auto;">
-                <table>
-                    <thead><tr><th id="th-date">Sana</th><th id="th-mode">Bo'lim</th><th id="th-res">Natija</th><th id="th-time">Vaqt</th></tr></thead>
-                    <tbody id="cabinetHistoryTable"></tbody>
-                </table>
-            </div>
-            <button class="btn btn-gray" onclick="showMainMenu()" style="margin-top:10px;" id="t-backBtn5">Orqaga</button>
         </div>
 
-        <!-- 7. RATING -->
-        <div id="ratingSection" class="card-box hidden">
-            <h2 style="font-size: 1.2rem; text-align: center;" id="t-ratingHeader">🏆 Umumiy Reyting</h2>
-            <div style="overflow-x:auto;">
-                <table>
-                    <thead><tr><th>#</th><th id="th-name">Ism Familiya</th><th>JSHSHR</th><th id="th-score">Natija</th></tr></thead>
-                    <tbody id="ratingTable"></tbody>
-                </table>
+        <div class="menu-card">
+            <div class="card-icon">💬</div>
+            <div class="card-content">
+                <h3>Qo'llab-quvvatlash Markazi va Javoblar</h3>
+                <p>Yaratuvchi Nurmataliyev Muzaffardan kelgan javoblar va xabarlar</p>
             </div>
-            <button class="btn btn-gray" onclick="showMainMenu()" id="t-backBtn6">Orqaga</button>
         </div>
 
-        <!-- 8. ADMIN PANEL -->
-        <div id="adminSection" class="card-box hidden">
-            <h2 style="font-size: 1.2rem; text-align: center; color: var(--amber-main);" id="t-adminHeader">⚡ Yaratuvchi Boshqaruvi</h2>
-            <h4 style="margin-top:10px; color: var(--emerald-main);" id="t-adminUploadHeader">📤 Yangi PDF Darslik yuklash:</h4>
-            <div class="form-group" style="margin-top:6px;">
-                <label id="t-adminBookTitleLbl">Fayl nomi:</label>
-                <input type="text" id="adminBookTitle" placeholder="Masalan: Milliy Sertifikat Geografiya">
+        <div class="menu-card">
+            <div class="card-icon">🤖</div>
+            <div class="card-content">
+                <h3>AI Orqali Test Tuzish</h3>
+                <p>Sun'iy intellekt yordamida istalgan mavzuda test savollarini yarating</p>
             </div>
-            <div class="form-group">
-                <label id="t-adminBookDescLbl">Tavsif:</label>
-                <input type="text" id="adminBookDesc" placeholder="Qisqacha mazmuni">
+        </div>
+
+        <div class="menu-card btn-warning">
+            <div class="card-icon">⚡</div>
+            <div class="card-content">
+                <h3>Yaratuvchi Boshqaruvi va Nazorati</h3>
             </div>
-            <div class="form-group">
-                <label id="t-adminBookFileLbl">PDF Fayl (.pdf):</label>
-                <input type="file" id="adminBookFile" accept="application/pdf" style="background:#090d16; padding:8px;">
+        </div>
+
+        <div class="menu-card btn-danger">
+            <div class="card-content" style="width: 100%; text-align: center;">
+                <h3 style="color: #f87171; margin: 0;">Tizimdan Chiqish</h3>
             </div>
-            <button class="btn btn-emerald" onclick="uploadAdminBook()" id="t-adminUploadBtn">PDF Faylni yuklash</button>
-            <h4 style="margin-top:15px; color: var(--amber-main);" id="t-adminMsgsHeader">📥 Murojaatlar va javob berish:</h4>
-            <div style="overflow-x:auto; max-height:220px; overflow-y:auto; margin-bottom:10px;">
-                <table>
-                    <thead><tr><th id="th-from">Kimdan</th><th id="th-msg">Xabar</th><th id="th-action">Javob yozish</th></tr></thead>
-                    <tbody id="adminSupportMessagesTable"></tbody>
-                </table>
-            </div>
-            <h4 style="margin-top:10px;" id="t-adminUsersHeader">Foydalanuvchilar:</h4>
-            <div style="overflow-x:auto; max-height:150px; overflow-y:auto;">
-                <table>
-                    <thead><tr><th id="th-uName">Ism</th><th>JSHSHR</th><th id="th-uTel">Tel</th><th id="th-uPass">Parol</th><th id="th-uAct">Amal</th></tr></thead>
-                    <tbody id="adminUsersTable"></tbody>
-                </table>
-            </div>
-            <button class="btn btn-gray" onclick="showMainMenu()" style="margin-top:10px;" id="t-backBtn7">Orqaga</button>
+        </div>
+
+        <div class="footer">
+            Platforma Yaratuvchisi: Nurmataliyev Muzaffar
         </div>
     </div>
 
-    <footer>
-        <span id="t-footerText">Platforma Yaratuvchisi:</span> <span>Nurmataliyev Muzaffar</span>
-    </footer>
-
-    <script>
-        const translations = {
-            uz: {
-                title: "Geografiya AI — Professional Attestatsiya va Sertifikat Tizimi",
-                mainTitle: "🌍 Geografiya AI — Professional Tizim",
-                mainDesc: "Attestatsiya va Milliy Sertifikat uchun aqlli imtihon muhiti",
-                loginTab: "Kirish",
-                regTab: "Ro'yxatdan o'tish",
-                jshshrLbl: "JSHSHR (14 xonali shaxsiy raqam)",
-                passLbl: "Parol",
-                loginBtnText: "Tizimga kirish",
-                secTitle: "🛡️ Xavfsizlik Nazorati:",
-                nameLbl: "Ism va Familiya",
-                regJshshrLbl: "JSHSHR (14 xonali shaxsiy raqam)",
-                phoneLbl: "Telefon Raqami (+998 bilan)",
-                newPassLbl: "Yangi Parol (Min 6 ta belgi)",
-                captchaLbl: "Xavfsizlik Sharti Javobi",
-                regSubmitText: "Ro'yxatdan o'tishni yakunlash",
-                cabinetBtn: "👤 Shaxsiy Kabinet",
-                ratingBtn: "🏆 Umumiy Reyting",
-                geoSectionTitle: "🌍 Geografiya Fani Sinovlari",
-                geoSectionDesc: "Attestatsiya, Milliy Sertifikat & Afrika Maxsus Testlari",
-                booksTitle: "📚 Yaratuvchi PDF Fayllari va Darsliklar",
-                booksDesc: "Faqat yaratuvchi fayl yuklagandagina ko'rinadi",
-                supportTitle: "💬 Qo'llab-quvvatlash Markazi va Javoblar",
-                supportDesc: "Yaratuvchi Nurmataliyev Muzaffardan kelgan javoblar va xabarlar",
-                aiTitle: "🤖 AI Orqali Test Tuzish",
-                aiDesc: "Sun'iy intellekt yordamida istalgan mavzuda test savollarini yarating",
-                adminBtn: "⚡ Yaratuvchi Boshqaruvi va Nazorati",
-                logoutBtn: "Tizimdan Chiqish",
-                selectModeTitle: "Imtihon Turini Tanlang",
-                attestTitle: "📘 Attestatsiya Bo'limi",
-                attestDesc: "50 ta so'nggi attestatsiya savollari • Vaqt: 60 Daqiqa",
-                sertTitle: "📗 Milliy Sertifikat Bo'limi (100 ta)",
-                sertDesc: "100 ta o'ta murakkab savol va geografik masalalar • Vaqt: 120 Daqiqa",
-                africaTitle: "🖼️ Afrika Materigi Testlari (40 ta)",
-                africaDesc: "Afrika materigiga oid 40 ta professional test savoli",
-                backBtn: "Orqaga qaytish",
-                booksHeader: "📚 Yaratuvchi PDF Fayllari va Darsliklar",
-                supportHeader: "💬 Qo'llab-quvvatlash va Murojaatlar",
-                supportSub: "Yaratuvchi **Nurmataliyev Muzaffar**ga savol yuboring yoki javoblarini ko'ring.",
-                subjLbl: "Murojaat mavzusi:",
-                msgLbl: "Xabaringiz matni:",
-                sendMsgBtn: "Xabarni yaratuvchiga yuborish",
-                myMsgsTitle: "Sizning murojaatlaringiz:",
-                aiHeader: "🤖 Sun'iy Intellekt Test Tuzuvchisi",
-                aiTopicLbl: "Test mavzusi yoki sharti:",
-                aiCountLbl: "Savollar soni:",
-                aiGenBtn: "AI yordamida test tuzish",
-                qNumLabel: "Savol:",
-                finishQuizBtn: "🏁 Yakunlash",
-                prevBtnText: "Oldingisi",
-                nextBtnText: "Keyingisi",
-                resultHeader: "🏁 Test Natijasi va AI Tahlili",
-                resCorrectLbl: "To'g'ri javob",
-                resPercentLbl: "Foiz",
-                resTimeLbl: "Vaqt",
-                aiSummaryHeader: "🤖 Sun'iy Intellekt (AI) Xulosasi:",
-                errorReviewTitle: "Xatolar tahlili:",
-                backHomeBtn: "Bosh Sahifaga Qaytish",
-                cabHeader: "👤 Shaxsiy Kabinet",
-                cabTotalTestsLbl: "Jami testlar",
-                cabAvgLbl: "O'rtacha",
-                cabBestLbl: "Eng yuqori",
-                cabHistoryTitle: "Topshirilgan testlar tarixi:",
-                ratingHeader: "🏆 Umumiy Reyting",
-                adminHeader: "⚡ Yaratuvchi Boshqaruvi",
-                adminUploadHeader: "📤 Yangi PDF Darslik yuklash:",
-                adminBookTitleLbl: "Fayl nomi:",
-                adminBookDescLbl: "Tavsif:",
-                adminBookFileLbl: "PDF Fayl (.pdf):",
-                adminUploadBtn: "PDF Faylni yuklash",
-                adminMsgsHeader: "📥 Murojaatlar va javob berish:",
-                adminUsersHeader: "Foydalanuvchilar:",
-                footerText: "Platforma Yaratuvchisi:"
-            },
-            ru: {
-                title: "География AI — Профессиональная Аттестация и Сертификация",
-                mainTitle: "🌍 География AI — Профессиональная Система",
-                mainDesc: "Умная среда тестирования для аттестации и национального сертификата",
-                loginTab: "Вход",
-                regTab: "Регистрация",
-                jshshrLbl: "ПИНФЛ (14-значный личный номер)",
-                passLbl: "Пароль",
-                loginBtnText: "Войти в систему",
-                secTitle: "🛡️ Проверка безопасности:",
-                nameLbl: "Имя и Фамилия",
-                regJshshrLbl: "ПИНФЛ (14-значный личный номер)",
-                phoneLbl: "Номер телефона (с +998)",
-                newPassLbl: "Новый пароль (мин. 6 символов)",
-                captchaLbl: "Ответ на вопрос безопасности",
-                regSubmitText: "Завершить регистрацию",
-                cabinetBtn: "👤 Личный кабинет",
-                ratingBtn: "🏆 Общий рейтинг",
-                geoSectionTitle: "🌍 Тесты по географии",
-                geoSectionDesc: "Аттестация, Национальный сертификат и тесты по Африке",
-                booksTitle: "📚 PDF-файлы и учебники создателя",
-                booksDesc: "Отображается только при загрузке файлов создателем",
-                supportTitle: "💬 Центр поддержки и ответы",
-                supportDesc: "Ответы и сообщения от создателя Нурматалиева Музаффара",
-                aiTitle: "🤖 Генерация тестов через ИИ",
-                aiDesc: "Создавайте тестовые вопросы по любой теме с помощью искусственного интеллекта",
-                adminBtn: "⚡ Управление и контроль создателя",
-                logoutBtn: "Выйти из системы",
-                selectModeTitle: "Выберите тип экзамена",
-                attestTitle: "📘 Раздел аттестации",
-                attestDesc: "50 последних вопросов • Время: 60 минут",
-                sertTitle: "📗 Национальный сертификат (100 вопр.)",
-                sertDesc: "100 сложных вопросов и географических задач • Время: 120 минут",
-                africaTitle: "🖼️ Тесты по материку Африка (40 вопр.)",
-                africaDesc: "40 профессиональных тестовых вопросов об Африке",
-                backBtn: "Назад",
-                booksHeader: "📚 PDF-файлы и учебники создателя",
-                supportHeader: "💬 Поддержка и обращения",
-                supportSub: "Отправьте вопрос создателю **Нурматалиеву Музаффару** или просмотрите ответы.",
-                subjLbl: "Тема обращения:",
-                msgLbl: "Текст вашего сообщения:",
-                sendMsgBtn: "Отправить сообщение создателю",
-                myMsgsTitle: "Ваши обращения:",
-                aiHeader: "🤖 Генератор тестов ИИ",
-                aiTopicLbl: "Тема или условие теста:",
-                aiCountLbl: "Количество вопросов:",
-                aiGenBtn: "Создать тест с помощью ИИ",
-                qNumLabel: "Вопрос:",
-                finishQuizBtn: "🏁 Завершить",
-                prevBtnText: "Назад",
-                nextBtnText: "Далее",
-                resultHeader: "🏁 Результат теста и анализ ИИ",
-                resCorrectLbl: "Правильных",
-                resPercentLbl: "Процент",
-                resTimeLbl: "Время",
-                aiSummaryHeader: "🤖 Заключение ИИ:",
-                errorReviewTitle: "Анализ ошибок:",
-                backHomeBtn: "На главную",
-                cabHeader: "👤 Личный кабинет",
-                cabTotalTestsLbl: "Всего тестов",
-                cabAvgLbl: "Средний балл",
-                cabBestLbl: "Лучший результат",
-                cabHistoryTitle: "История пройденных тестов:",
-                ratingHeader: "🏆 Общий рейтинг",
-                adminHeader: "⚡ Управление создателя",
-                adminUploadHeader: "📤 Загрузить новый PDF учебник:",
-                adminBookTitleLbl: "Название файла:",
-                adminBookDescLbl: "Описание:",
-                adminBookFileLbl: "PDF файл (.pdf):",
-                adminUploadBtn: "Загрузить PDF файл",
-                adminMsgsHeader: "📥 Обращения и ответы:",
-                adminUsersHeader: "Пользователи:",
-                footerText: "Создатель платформы:"
-            },
-            en: {
-                title: "Geography AI — Professional Certification & Assessment System",
-                mainTitle: "🌍 Geography AI — Professional System",
-                mainDesc: "Smart testing environment for certification and national tests",
-                loginTab: "Login",
-                regTab: "Register",
-                jshshrLbl: "JSHSHR (14-digit personal ID)",
-                passLbl: "Password",
-                loginBtnText: "Sign In",
-                secTitle: "🛡️ Security Check:",
-                nameLbl: "Full Name",
-                regJshshrLbl: "JSHSHR (14-digit personal ID)",
-                phoneLbl: "Phone Number (with +998)",
-                newPassLbl: "New Password (min 6 chars)",
-                captchaLbl: "Security Question Answer",
-                regSubmitText: "Complete Registration",
-                cabinetBtn: "👤 Personal Cabinet",
-                ratingBtn: "🏆 General Rating",
-                geoSectionTitle: "🌍 Geography Tests",
-                geoSectionDesc: "Certification, National Certificate & Africa Special Tests",
-                booksTitle: "📚 Creator's PDF Files & Textbooks",
-                booksDesc: "Visible only when uploaded by the creator",
-                supportTitle: "💬 Support Center & Replies",
-                supportDesc: "Replies and messages from creator Nurmataliyev Muzaffar",
-                aiTitle: "🤖 AI Test Generator",
-                aiDesc: "Create custom test questions on any topic using Artificial Intelligence",
-                adminBtn: "⚡ Creator Dashboard & Control",
-                logoutBtn: "Log Out",
-                selectModeTitle: "Select Exam Type",
-                attestTitle: "📘 Certification Section",
-                attestDesc: "50 latest certification questions • Time: 60 Minutes",
-                sertTitle: "📗 National Certificate Section (100 Q)",
-                sertDesc: "100 complex questions and geographic problems • Time: 120 Minutes",
-                africaTitle: "🖼️ Africa Continent Tests (40 Q)",
-                africaDesc: "40 professional test questions about the African continent",
-                backBtn: "Go Back",
-                booksHeader: "📚 Creator's PDF Files & Textbooks",
-                supportHeader: "💬 Support & Inquiries",
-                supportSub: "Send a question to creator **Nurmataliyev Muzaffar** or check replies.",
-                subjLbl: "Subject:",
-                msgLbl: "Your Message:",
-                sendMsgBtn: "Send Message to Creator",
-                myMsgsTitle: "Your Inquiries:",
-                aiHeader: "🤖 AI Test Creator",
-                aiTopicLbl: "Test topic or requirement:",
-                aiCountLbl: "Number of questions:",
-                aiGenBtn: "Generate Test with AI",
-                qNumLabel: "Question:",
-                finishQuizBtn: "🏁 Finish",
-                prevBtnText: "Previous",
-                nextBtnText: "Next",
-                resultHeader: "🏁 Test Result & AI Analysis",
-                resCorrectLbl: "Correct Answers",
-                resPercentLbl: "Percent",
-                resTimeLbl: "Time",
-                aiSummaryHeader: "🤖 Artificial Intelligence (AI) Summary:",
-                errorReviewTitle: "Error Analysis:",
-                backHomeBtn: "Back to Home",
-                cabHeader: "👤 Personal Cabinet",
-                cabTotalTestsLbl: "Total Tests",
-                cabAvgLbl: "Average",
-                cabBestLbl: "Highest",
-                cabHistoryTitle: "Test History:",
-                ratingHeader: "🏆 General Rating",
-                adminHeader: "⚡ Creator Dashboard",
-                adminUploadHeader: "📤 Upload New PDF Textbook:",
-                adminBookTitleLbl: "File Title:",
-                adminBookDescLbl: "Description:",
-                adminBookFileLbl: "PDF File (.pdf):",
-                adminUploadBtn: "Upload PDF File",
-                adminMsgsHeader: "📥 Inquiries & Replies:",
-                adminUsersHeader: "Users:",
-                footerText: "Platform Creator:"
-            }
-        };
-
-        let currentLang = 'uz';
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            ['uz', 'ru', 'en'].forEach(l => {
-                document.getElementById(`lang${l.charAt(0).toUpperCase() + l.slice(1)}`).className = `lang-btn ${l === lang ? 'active' : ''}`;
-            });
-            
-            const t = translations[lang];
-            document.getElementById('t-title').innerText = t.title;
-            document.getElementById('t-mainTitle').innerText = t.mainTitle;
-            document.getElementById('t-mainDesc').innerText = t.mainDesc;
-            document.getElementById('t-loginTab').innerText = t.loginTab;
-            document.getElementById('t-regTab').innerText = t.regTab;
-            document.getElementById('t-jshshrLbl').innerText = t.jshshrLbl;
-            document.getElementById('t-passLbl').innerText = t.passLbl;
-            document.getElementById('t-loginBtnText').innerText = t.loginBtnText;
-            document.getElementById('t-secTitle').innerText = t.secTitle;
-            document.getElementById('t-nameLbl').innerText = t.nameLbl;
-            document.getElementById('t-regJshshrLbl').innerText = t.regJshshrLbl;
-            document.getElementById('t-phoneLbl').innerText = t.phoneLbl;
-            document.getElementById('t-newPassLbl').innerText = t.newPassLbl;
-            document.getElementById('t-captchaLbl').innerText = t.captchaLbl;
-            document.getElementById('t-regSubmitText').innerText = t.regSubmitText;
-            document.getElementById('t-cabinetBtn').innerText = t.cabinetBtn;
-            document.getElementById('t-ratingBtn').innerText = t.ratingBtn;
-            document.getElementById('t-geoSectionTitle').innerText = t.geoSectionTitle;
-            document.getElementById('t-geoSectionDesc').innerText = t.geoSectionDesc;
-            document.getElementById('t-booksTitle').innerText = t.booksTitle;
-            document.getElementById('t-booksDesc').innerText = t.booksDesc;
-            document.getElementById('t-supportTitle').innerText = t.supportTitle;
-            document.getElementById('t-supportDesc').innerText = t.supportDesc;
-            document.getElementById('t-aiTitle').innerText = t.aiTitle;
-            document.getElementById('t-aiDesc').innerText = t.aiDesc;
-            if(document.getElementById('adminBtn')) document.getElementById('adminBtn').innerText = t.adminBtn;
-            document.getElementById('t-logoutBtn').innerText = t.logoutBtn;
-            document.getElementById('t-selectModeTitle').innerText = t.selectModeTitle;
-            document.getElementById('t-attestTitle').innerText = t.attestTitle;
-            document.getElementById('t-attestDesc').innerText = t.attestDesc;
-            document.getElementById('t-sertTitle').innerText = t.sertTitle;
-            document.getElementById('t-sertDesc').innerText = t.sertDesc;
-            document.getElementById('t-africaTitle').innerText = t.africaTitle;
-            document.getElementById('t-africaDesc').innerText = t.africaDesc;
-            document.getElementById('t-backBtn1').innerText = t.backBtn;
-            document.getElementById('t-booksHeader').innerText = t.booksHeader;
-            document.getElementById('t-backBtn2').innerText = t.backBtn;
-            document.getElementById('t-supportHeader').innerText = t.supportHeader;
-            document.getElementById('t-supportSub').innerText = t.supportSub;
-            document.getElementById('t-subjLbl').innerText = t.subjLbl;
-            document.getElementById('t-msgLbl').innerText = t.msgLbl;
-            document.getElementById('t-sendMsgBtn').innerText = t.sendMsgBtn;
-            document.getElementById('t-myMsgsTitle').innerText = t.myMsgsTitle;
-            document.getElementById('t-backBtn3').innerText = t.backBtn;
-            document.getElementById('t-aiHeader').innerText = t.aiHeader;
-            document.getElementById('t-aiTopicLbl').innerText = t.aiTopicLbl;
-            document.getElementById('t-aiCountLbl').innerText = t.aiCountLbl;
-            document.getElementById('t-aiGenBtn').innerText = t.aiGenBtn;
-            document.getElementById('t-backBtn4').innerText = t.backBtn;
-            document.getElementById('t-qNumLabel').innerText = t.qNumLabel;
-            document.getElementById('t-finishQuizBtn').innerText = t.finishQuizBtn;
-            document.getElementById('t-prevBtnText').innerText = t.prevBtnText;
-            document.getElementById('t-nextBtnText').innerText = t.nextBtnText;
-            document.getElementById('t-resultHeader').innerText = t.resultHeader;
-            document.getElementById('t-resCorrectLbl').innerText = t.resCorrectLbl;
-            document.getElementById('t-resPercentLbl').innerText = t.resPercentLbl;
-            document.getElementById('t-resTimeLbl').innerText = t.resTimeLbl;
-            document.getElementById('t-aiSummaryHeader').innerText = t.aiSummaryHeader;
-            document.getElementById('t-errorReviewTitle').innerText = t.errorReviewTitle;
-            document.getElementById('t-backHomeBtn').innerText = t.backHomeBtn;
-            document.getElementById('t-cabHeader').innerText = t.cabHeader;
-            document.getElementById('t-cabTotalTestsLbl').innerText = t.cabTotalTestsLbl;
-            document.getElementById('t-cabAvgLbl').innerText = t.cabAvgLbl;
-            document.getElementById('t-cabBestLbl').innerText = t.cabBestLbl;
-            document.getElementById('t-cabHistoryTitle').innerText = t.cabHistoryTitle;
-            document.getElementById('t-backBtn5').innerText = t.backBtn;
-            document.getElementById('t-ratingHeader').innerText = t.ratingHeader;
-            document.getElementById('t-backBtn6').innerText = t.backBtn;
-            document.getElementById('t-adminHeader').innerText = t.adminHeader;
-            document.getElementById('t-adminUploadHeader').innerText = t.adminUploadHeader;
-            document.getElementById('t-adminBookTitleLbl').innerText = t.adminBookTitleLbl;
-            document.getElementById('t-adminBookDescLbl').innerText = t.adminBookDescLbl;
-            document.getElementById('t-adminBookFileLbl').innerText = t.adminBookFileLbl;
-            document.getElementById('t-adminUploadBtn').innerText = t.adminUploadBtn;
-            document.getElementById('t-adminMsgsHeader').innerText = t.adminMsgsHeader;
-            document.getElementById('t-adminUsersHeader').innerText = t.adminUsersHeader;
-            document.getElementById('t-backBtn7').innerText = t.backBtn;
-            document.getElementById('t-footerText').innerText = t.footerText;
-        }
-
-        const baseQuestions = [
-            { q: "1. O'zbekiston relyefining qaysi qismida karst g'orlari eng ko'p tarqalgan?", right: "Zarafshon va Hisor tizmalarining ohaktoshli qismlarida", wr: ["Qizilqum cho'l tekisliklarida", "Ustyurt platosining markaziy qismida", "Farg'ona vodiysi botig'ida"] },
-            { q: "2. Toshkent shahri (70° sharqiy uzunlik) da vaqt 14:00 bo'lganda, 30° g'arbiy uzunlikdagi joyda mahalliy vaqt qanday bo'ladi?", right: "06:00 (8 soat ortda)", wr: ["22:00", "10:00", "04:00"] },
-            { q: "3. Quyosh radiatsiyasining yillik umumiy miqdori eng yuqori bo'lgan ma'muriy hudud:", right: "Surxondaryo viloyati (Termiz, Sherobod)", wr: ["Toshkent shahri va viloyati", "Qoraqalpog'iston Respublikasi (Nukus)", "Andijon viloyati"] },
-            { q: "4. Agar dengiz sathida havo harorati +24°C bo'lsa, 3000 metr balandlikdagi tog' cho'qqisida harorat qanday bo'ladi?", right: "+6°C", wr: ["0°C", "+12°C", "-3°C"] },
-            { q: "5. O'zbekistondagi eng past absolut balandlikka ega bo'lgan botiq va uning ko'rsatkichi:", right: "Mingbuloq botiq (-12 metr)", wr: ["Dengizko'l botig'i (-25 metr)", "Sariqamish ko'li (-5 metr)", "Aydarko'l botig'i (+247 metr)"] }
-        ];
-
-        function generateCustomQuiz(count) {
-            let list = [];
-            while(list.length < count) {
-                let base = baseQuestions[list.length % baseQuestions.length];
-                let shuffledOpts = shuffleArray([
-                    { text: base.right, correct: true },
-                    { text: base.wr[0], correct: false },
-                    { text: base.wr[1], correct: false },
-                    { text: base.wr[2], correct: false }
-                ]);
-                let qNumber = list.length + 1;
-                let questionTitle = base.q.replace(/^\d+\.\s*/, '');
-                list.push({
-                    q: `${qNumber}-savol. ${questionTitle}`,
-                    options: shuffledOpts.map(o => o.text),
-                    correctIndex: shuffledOpts.findIndex(o => o.correct)
-                });
-            }
-            return list;
-        }
-
-        function shuffleArray(arr) {
-            let res = [...arr];
-            for (let i = res.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [res[i], res[j]] = [res[j], res[i]];
-            }
-            return res;
-        }
-
-        let currentCaptchaAnswer = "";
-        function generateAiCaptcha() {
-            const securityTasks = [
-                { q: "O'zbekistonda nechta viloyat bor?", ans: "12" },
-                { q: "Everest cho'qqisi joylashgan qit'ani yozing", ans: "osiyo" },
-                { q: "18 + 22 yig'indisi nechiga teng?", ans: "40" },
-                { q: "Toshkent shahridan oqib o'tuvchi daryo nomi", ans: "chirchiq" }
-            ];
-            let rand = securityTasks[Math.floor(Math.random() * securityTasks.length)];
-            currentCaptchaAnswer = rand.ans.toLowerCase();
-            document.getElementById('aiCaptchaText').innerText = `Xavfsizlik sharti: ${rand.q}`;
-        }
-
-        let appUsers = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
-        if (!appUsers.some(u => u.jshshr === '30000000000000')) {
-            appUsers.push({ name: "Nurmataliyev Muzaffar", jshshr: "30000000000000", phone: "+998885822824", pass: "admin123", role: "admin" });
-            localStorage.setItem('geo_sys_users', JSON.stringify(appUsers));
-        }
-
-        let currentUser = JSON.parse(localStorage.getItem('geo_sys_logged') || 'null');
-        let currentQuizQuestions = [], userAnswers = {}, currentQIndex = 0;
-        let timerInterval = null, totalSeconds = 0, spentSeconds = 0, activeModeName = '';
-
-        window.onload = function() {
-            generateAiCaptcha();
-            if (currentUser) showMainMenu();
-            else switchAuthTab('login');
-        };
-
-        function switchAuthTab(tab) {
-            document.getElementById('tabLoginBtn').className = `tab-btn ${tab === 'login' ? 'active' : ''}`;
-            document.getElementById('tabRegBtn').className = `tab-btn ${tab === 'register' ? 'active' : ''}`;
-            document.getElementById('loginForm').classList.toggle('hidden', tab !== 'login');
-            document.getElementById('registerForm').classList.toggle('hidden', tab !== 'register');
-            if(tab === 'register') generateAiCaptcha();
-        }
-
-        function handleRegister() {
-            const name = document.getElementById('regNameInput').value.trim();
-            const jshshr = document.getElementById('regJshshrInput').value.trim();
-            const phone = document.getElementById('regPhoneInput').value.trim();
-            const pass = document.getElementById('regPassInput').value.trim();
-            const captchaInput = document.getElementById('regCaptchaInput').value.trim().toLowerCase();
-
-            if (!name || !jshshr || !phone || !pass || !captchaInput) {
-                alert("Barcha maydonlarni to'ldirishingiz shart!");
-                return;
-            }
-            if (!/^\d{14}$/.test(jshshr)) {
-                alert("JSHSHR faqat 14 ta raqamdan iborat bo'lishi shart!");
-                return;
-            }
-            if (captchaInput !== currentCaptchaAnswer) {
-                alert("Xavfsizlik sharti javobi xato!");
-                generateAiCaptcha();
-                return;
-            }
-
-            let users = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
-            if (users.some(u => u.jshshr === jshshr)) {
-                alert("Bu JSHSHR allaqachon ro'yxatdan o'tgan!");
-                return;
-            }
-
-            const newUser = { name, jshshr, phone, pass, role: "user" };
-            users.push(newUser);
-            localStorage.setItem('geo_sys_users', JSON.stringify(users));
-            currentUser = newUser;
-            localStorage.setItem('geo_sys_logged', JSON.stringify(currentUser));
-            showMainMenu();
-        }
-
-        function handleLogin() {
-            const jshshr = document.getElementById('loginInput').value.trim();
-            const pas = document.getElementById('passwordInput').value.trim();
-            let users = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
-            let found = users.find(u => u.jshshr === jshshr && u.pass === pas);
-            if (found) {
-                currentUser = found;
-                localStorage.setItem('geo_sys_logged', JSON.stringify(currentUser));
-                showMainMenu();
-            } else {
-                alert("JSHSHR yoki parol xato!");
-            }
-        }
-
-        function showMainMenu() {
-            hideAll();
-            document.getElementById('mainMenu').classList.remove('hidden');
-            document.getElementById('userNameDisplay').innerText = currentUser.name;
-            document.getElementById('userJshshrDisplay').innerText = `JSHSHR: ${currentUser.jshshr}`;
-            document.getElementById('userPhoneDisplay').innerText = `📱 ${currentUser.phone}`;
-
-            if (currentUser.role === 'admin') {
-                document.getElementById('roleBadge').classList.remove('hidden');
-                document.getElementById('adminBtn').classList.remove('hidden');
-            } else {
-                document.getElementById('roleBadge').classList.add('hidden');
-                document.getElementById('adminBtn').classList.add('hidden');
-            }
-        }
-
-        function hideAll() {
-            ['authSection', 'mainMenu', 'modeSection', 'booksSection', 'supportSection', 'aiCreatorSection', 'quizSection', 'resultSection', 'cabinetSection', 'ratingSection', 'adminSection']
-                .forEach(id => document.getElementById(id).classList.add('hidden'));
-            if (timerInterval) clearInterval(timerInterval);
-        }
-
-        function showModeSection() { hideAll(); document.getElementById('modeSection').classList.remove('hidden'); }
-        function showBooksSection() { hideAll(); document.getElementById('booksSection').classList.remove('hidden'); renderBooks(); }
-        function showSupportSection() { hideAll(); document.getElementById('supportSection').classList.remove('hidden'); renderUserMessages(); }
-        function showAiCreatorSection() { hideAll(); document.getElementById('aiCreatorSection').classList.remove('hidden'); }
-
-        function renderBooks() {
-            let books = JSON.parse(localStorage.getItem('geo_sys_books') || '[]');
-            let container = document.getElementById('dynamicBooksContainer');
-            container.innerHTML = books.length === 0 ? '<div style="text-align:center; color:var(--text-muted); padding:20px;">Hozircha PDF fayllar yo\'k.</div>' : '';
-            books.forEach(b => {
-                container.innerHTML += `<a href="${b.url}" target="_blank" class="section-card"><div class="section-title">📄 ${b.title}</div><div class="section-desc">${b.desc}</div></a>`;
-            });
-        }
-
-        function uploadAdminBook() {
-            let title = document.getElementById('adminBookTitle').value.trim();
-            let desc = document.getElementById('adminBookDesc').value.trim();
-            let fileInput = document.getElementById('adminBookFile');
-            if (!title || !fileInput.files[0]) { alert("Fayl nomi va PDF tanlang!"); return; }
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                let books = JSON.parse(localStorage.getItem('geo_sys_books') || '[]');
-                books.push({ title, desc, url: e.target.result });
-                localStorage.setItem('geo_sys_books', JSON.stringify(books));
-                alert("Yuklandi!");
-                showAdminPanel();
-            };
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-
-        function sendSupportMessage() {
-            let subj = document.getElementById('supportSubject').value.trim();
-            let msg = document.getElementById('supportMessage').value.trim();
-            if (!subj || !msg) return;
-            let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]');
-            messages.push({ name: currentUser.name, jshshr: currentUser.jshshr, subject: subj, message: msg, reply: "", date: new Date().toLocaleDateString() });
-            localStorage.setItem('geo_sys_messages', JSON.stringify(messages));
-            alert("Yuborildi!");
-            renderUserMessages();
-        }
-
-        function renderUserMessages() {
-            let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]').filter(m => m.jshshr === currentUser.jshshr);
-            let box = document.getElementById('userMessagesHistoryBox');
-            box.innerHTML = messages.length === 0 ? '<div style="font-size:0.8rem; color:var(--text-muted); text-align:center;">Xabarlar yo\'q</div>' : '';
-            messages.forEach(m => {
-                box.innerHTML += `<div style="background:#090d16; border:1px solid var(--border-color); padding:10px; border-radius:10px;"><div style="font-size:0.8rem; color:var(--text-muted);">${m.subject}</div><div>Siz: ${m.message}</div>${m.reply ? `<div style="color:#fde047; margin-top:4px;">Yaratuvchi javobi: ${m.reply}</div>` : ''}</div>`;
-            });
-        }
-
-        function generateAiTestByPrompt() {
-            let topic = document.getElementById('aiTopicInput').value.trim();
-            let count = parseInt(document.getElementById('aiCountInput').value) || 5;
-            if (!topic) return;
-            activeModeName = `AI Test: ${topic}`;
-            currentQuizQuestions = [];
-            for(let i=0; i<count; i++) {
-                currentQuizQuestions.push({
-                    q: `${i+1}-savol (${topic}):`,
-                    options: [`To'g'ri javob ${i+1}`, "Xato variant 1", "Xato variant 2", "Xato variant 3"],
-                    correctIndex: 0
-                });
-            }
-            startQuizEngine(count, 60);
-        }
-
-        function startQuiz(modeName, count) {
-            activeModeName = modeName;
-            currentQuizQuestions = generateCustomQuiz(count);
-            startQuizEngine(count, count === 50 ? 3600 : 7200);
-        }
-
-        function startAfricaVisualQuiz() {
-            activeModeName = "Afrika Materigi Testlari";
-            currentQuizQuestions = africaVisualQuestions.map(item => {
-                let opts = shuffleArray([{ text: item.right, correct: true }, { text: item.wr[0], correct: false }, { text: item.wr[1], correct: false }, { text: item.wr[2], correct: false }]);
-                return {
-                    q: item.q,
-                    options: opts.map(o => o.text),
-                    correctIndex: opts.findIndex(o => o.correct)
-                };
-            });
-            startQuizEngine(currentQuizQuestions.length, currentQuizQuestions.length * 60);
-        }
-
-        function startQuizEngine(count, timeSec) {
-            userAnswers = {};
-            currentQIndex = 0;
-            spentSeconds = 0;
-            totalSeconds = timeSec;
-            hideAll();
-            document.getElementById('quizSection').classList.remove('hidden');
-            document.getElementById('quizHead').innerText = activeModeName;
-            document.getElementById('qTotal').innerText = count;
-            runTimer();
-            loadQuestion();
-        }
-
-        function runTimer() {
-            updateTimerText();
-            timerInterval = setInterval(() => {
-                totalSeconds--;
-                spentSeconds++;
-                updateTimerText();
-                if (totalSeconds <= 0) { clearInterval(timerInterval); finishQuiz(); }
-            }, 1000);
-        }
-
-        function updateTimerText() {
-            let h = Math.floor(totalSeconds / 3600), m = Math.floor((totalSeconds % 3600) / 60), s = totalSeconds % 60;
-            document.getElementById('timerDisplay').innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-        }
-
-        function loadQuestion() {
-            let q = currentQuizQuestions[currentQIndex];
-            document.getElementById('qNum').innerText = currentQIndex + 1;
-            document.getElementById('qText').innerText = q.q;
-
-            let box = document.getElementById('optsBox');
-            box.innerHTML = '';
-            q.options.forEach((opt, idx) => {
-                box.innerHTML += `<div class="option-btn ${userAnswers[currentQIndex] === idx ? 'selected' : ''}" onclick="userAnswers[currentQIndex]=${idx};loadQuestion()"><strong>${['A','B','C','D'][idx]})</strong> <span>${opt}</span></div>`;
-            });
-            document.getElementById('prevBtn').disabled = (currentQIndex === 0);
-        }
-
-        function nextQ() {
-            if (currentQIndex < currentQuizQuestions.length - 1) { currentQIndex++; loadQuestion(); } else { confirmFinishQuiz(); }
-        }
-        function prevQ() { if (currentQIndex > 0) { currentQIndex--; loadQuestion(); } }
-        function confirmFinishQuiz() { if (confirm("Yakunlaysizmi?")) finishQuiz(); }
-
-        function finishQuiz() {
-            if (timerInterval) clearInterval(timerInterval);
-            let correct = 0;
-            currentQuizQuestions.forEach((q, i) => { if (userAnswers[i] === q.correctIndex) correct++; });
-            let total = currentQuizQuestions.length;
-            let percent = Math.round((correct / total) * 100);
-
-            document.getElementById('resScoreText').innerText = `${correct}/${total}`;
-            document.getElementById('resPercentText').innerText = `${percent}%`;
-            document.getElementById('resTimeText').innerText = `${Math.floor(spentSeconds/60)}m`;
-            document.getElementById('aiFeedbackText').innerText = percent >= 80 ? "Ajoyib natija!" : "Yaxshi, biroq yana tayyorgarlik ko'rish kerak.";
-
-            let rBox = document.getElementById('reviewBox');
-            rBox.innerHTML = '';
-            currentQuizQuestions.forEach((q, i) => {
-                let isRight = userAnswers[i] === q.correctIndex;
-                rBox.innerHTML += `<div class="review-item ${isRight ? 'correct-item' : 'wrong-item'}"><div>${q.q}</div><div style="color:var(--emerald-main);">To'g'ri: ${q.options[q.correctIndex]}</div></div>`;
-            });
-
-            let histories = JSON.parse(localStorage.getItem('geo_sys_histories') || '[]');
-            histories.push({ name: currentUser.name, jshshr: currentUser.jshshr, mode: activeModeName, score: correct, total, percent, time: `${Math.floor(spentSeconds/60)}m`, date: new Date().toLocaleDateString() });
-            localStorage.setItem('geo_sys_histories', JSON.stringify(histories));
-
-            hideAll();
-            document.getElementById('resultSection').classList.remove('hidden');
-        }
-
-        function showCabinet() {
-            hideAll();
-            document.getElementById('cabinetSection').classList.remove('hidden');
-            let h = JSON.parse(localStorage.getItem('geo_sys_histories') || '[]').filter(x => x.jshshr === currentUser.jshshr);
-            document.getElementById('cabTotalTests').innerText = h.length;
-            document.getElementById('cabAvgScore').innerText = h.length ? Math.round(h.reduce((a,b)=>a+b.percent,0)/h.length) + '%' : '0%';
-            document.getElementById('cabBestScore').innerText = h.length ? Math.max(...h.map(x=>x.score)) : 0;
-            let tbody = document.getElementById('cabinetHistoryTable');
-            tbody.innerHTML = '';
-            h.forEach(x => { tbody.innerHTML += `<tr><td>${x.date}</td><td>${x.mode}</td><td>${x.score}/${x.total} (${x.percent}%)</td><td>${x.time}</td></tr>`; });
-        }
-
-        function showRating() {
-            hideAll();
-            document.getElementById('ratingSection').classList.remove('hidden');
-            let h = JSON.parse(localStorage.getItem('geo_sys_histories') || '[]').sort((a,b)=>b.percent-a.percent);
-            let tbody = document.getElementById('ratingTable');
-            tbody.innerHTML = '';
-            h.forEach((x, i) => { tbody.innerHTML += `<tr><td>${i+1}</td><td>${x.name}</td><td>${x.jshshr}</td><td>${x.score}/${x.total} (${x.percent}%)</td></tr>`; });
-        }
-
-        function showAdminPanel() {
-            hideAll();
-            document.getElementById('adminSection').classList.remove('hidden');
-            let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]');
-            let msgTbody = document.getElementById('adminSupportMessagesTable');
-            msgTbody.innerHTML = '';
-            messages.forEach((m, idx) => {
-                msgTbody.innerHTML += `<tr><td>${m.name}</td><td>${m.message}<br><input type="text" id="rep_${idx}" placeholder="Javob"><button onclick="replyMsg(${idx})">Yuborish</button></td></tr>`;
-            });
-        }
-
-        function replyMsg(idx) {
-            let txt = document.getElementById(`rep_${idx}`).value;
-            let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]');
-            messages[idx].reply = txt;
-            localStorage.setItem('geo_sys_messages', JSON.stringify(messages));
-            alert("Yuborildi!");
-            showAdminPanel();
-        }
-
-        function logout() {
-            localStorage.removeItem('geo_sys_logged');
-            currentUser = null;
-            hideAll();
-            document.getElementById('authSection').classList.remove('hidden');
-        }
-    </script>
 </body>
 </html>
