@@ -33,8 +33,8 @@
         
         .form-group { display: flex; flex-direction: column; gap: 6px; }
         .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
-        .form-group input, .form-group textarea { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem; outline: none; background: #090d16; color: white; transition: border-color 0.2s; }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--blue-main); }
+        .form-group input, .form-group textarea, .form-group select { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem; outline: none; background: #090d16; color: white; transition: border-color 0.2s; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--blue-main); }
         
         .user-profile-card { background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; border-radius: 14px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
         .user-avatar-container { display: flex; align-items: center; gap: 12px; }
@@ -42,18 +42,19 @@
         .admin-badge { background-color: #fef08a; color: #854d0e; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
         
         .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .section-card { background: #090d16; border: 1.5px solid var(--border-color); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; transition: all 0.2s ease; }
+        .section-card { background: #090d16; border: 1.5px solid var(--border-color); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; transition: all 0.2s ease; text-decoration: none; }
         .section-card:hover { border-color: var(--blue-main); transform: translateY(-2px); }
         .section-title { font-size: 1.05rem; font-weight: 700; color: var(--text-light); }
         .section-desc { color: var(--text-muted); font-size: 0.82rem; }
         
-        .btn { background-color: var(--blue-main); color: white; border: none; border-radius: 12px; padding: 13px; font-size: 0.95rem; font-weight: 700; cursor: pointer; width: 100%; transition: background 0.2s; }
+        .btn { background-color: var(--blue-main); color: white; border: none; border-radius: 12px; padding: 13px; font-size: 0.95rem; font-weight: 700; cursor: pointer; width: 100%; transition: background 0.2s; text-align: center; text-decoration: none; display: inline-block; }
         .btn:hover { background-color: var(--blue-hover); }
         .btn-gray { background-color: #1e293b; color: var(--text-light); }
         .btn-gray:hover { background-color: #334155; }
         .btn-red { background-color: rgba(244, 63, 94, 0.15); color: var(--rose-main); border: 1px solid rgba(244, 63, 94, 0.3); }
         .btn-amber { background-color: var(--amber-main); color: #090d16; font-weight: 800; }
         .btn-purple { background-color: var(--purple-main); color: white; }
+        .btn-emerald { background-color: var(--emerald-main); color: white; }
         
         .timer-bar { background: #090d16; border: 1.5px solid var(--border-color); border-radius: 12px; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
         .timer-time { color: var(--rose-main); font-size: 1.1rem; font-family: monospace; }
@@ -158,8 +159,13 @@
             </div>
 
             <div class="section-card" onclick="showBooksSection()" style="border-color: var(--emerald-main);">
-                <div class="section-title" style="color: var(--emerald-main);">📚 Geografiya Darsliklari va Qo'llanmalar</div>
-                <div class="section-desc">Maktab darsliklari, xaritalar va o'quv qo'llanmalar to'plami</div>
+                <div class="section-title" style="color: var(--emerald-main);">📚 PDF Geografiya Darsliklari va Qo'llanmalar</div>
+                <div class="section-desc">6-s, 7-s, 8-s, 9-s, 10-s, 11-sinf darsliklari va elektron PDF materiallar</div>
+            </div>
+
+            <div class="section-card" onclick="showSupportSection()" style="border-color: var(--amber-main);">
+                <div class="section-title" style="color: var(--amber-main);">💬 Qo'llab-quvvatlash Markazi</div>
+                <div class="section-desc">Yaratuvchi Nurmataliyev Muzaffarga bevosita murojaat va xabar yuborish</div>
             </div>
 
             <div class="section-card" onclick="showAiCreatorSection()" style="border-color: var(--purple-main);">
@@ -185,29 +191,56 @@
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
         </div>
 
-        <!-- 3.0. BOOKS SECTION -->
+        <!-- 3.0. BOOKS SECTION (PDF) -->
         <div id="booksSection" class="card-box hidden">
-            <h3 style="text-align: center; color: var(--emerald-main);">📚 Geografiya Darsliklari Kutubxonasi</h3>
-            <div class="section-card">
-                <div class="section-title">6-sinf Tabiiy Geografiya</div>
-                <div class="section-desc">Litosfera, gidrosfera, atmosfera va biosfera asoslari.</div>
-            </div>
-            <div class="section-card">
-                <div class="section-title">7-sinf Materiklar va Okeanlar Geografiyasi</div>
-                <div class="section-desc">Afrika, Avstraliya, Antarktida, Janubiy va Shimoliy Amerika, Yevroosiyo.</div>
-            </div>
-            <div class="section-card">
-                <div class="section-title">8-sinf O'zbekiston Respublikasi Geografiyasi</div>
-                <div class="section-desc">Tabiiy sharoit, relyef, iqlim va ichki suvlari.</div>
-            </div>
-            <div class="section-card">
-                <div class="section-title">9-sinf O'zbekiston Iqtisodiy va Sotsial Geografiyasi</div>
-                <div class="section-desc">Aholi, sanoat markazlari, qishloq xo'jaligi va transport.</div>
+            <h3 style="text-align: center; color: var(--emerald-main);">📚 PDF Geografiya Darsliklari Kutubxonasi</h3>
+            <div style="display: flex; flex-direction: column; gap: 10px; max-height: 350px; overflow-y: auto;">
+                <a href="https://library.ziyonet.uz/uz/book/download/95311" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
+                    <div class="section-title">📄 6-sinf Tabiiy Geografiya (PDF)</div>
+                    <div class="section-desc">Yuklab olish yoki onlayn o'qish uchun Ziyonet arxivi</div>
+                </a>
+                <a href="https://library.ziyonet.uz/uz/book/download/95312" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
+                    <div class="section-title">📄 7-sinf Materiklar va Okeanlar Geografiyasi (PDF)</div>
+                    <div class="section-desc">Jahon qit'alari va okeanlar atlasi darsligi</div>
+                </a>
+                <a href="https://library.ziyonet.uz/uz/book/download/95313" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
+                    <div class="section-title">📄 8-sinf O'zbekiston Respublikasi Geografiyasi (PDF)</div>
+                    <div class="section-desc">Tabiiy geografiya, relyef va iqlim sharoitlari</div>
+                </a>
+                <a href="https://library.ziyonet.uz/uz/book/download/95314" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
+                    <div class="section-title">📄 9-sinf O'zbekiston Iqtisodiy Geografiyasi (PDF)</div>
+                    <div class="section-desc">Sanoat markazlari, aholi va xo'jalik tarmoqlari</div>
+                </a>
+                <a href="https://library.ziyonet.uz/uz/book/download/95315" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
+                    <div class="section-title">📄 10-sinf Ijtimoiy-Iqtisodiy Geografiya (PDF)</div>
+                    <div class="section-desc">Jahon xo'jaligi va xalqaro munosabatlar</div>
+                </a>
+                <a href="https://library.ziyonet.uz/uz/book/download/95316" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
+                    <div class="section-title">📄 11-sinf Jahon Siyosiy Geografiyasi (PDF)</div>
+                    <div class="section-desc">Hozirgi zamon dunyosining siyosiy manzarasi</div>
+                </a>
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
         </div>
 
-        <!-- 3.1. AI TEST CREATOR -->
+        <!-- 3.1. SUPPORT SECTION -->
+        <div id="supportSection" class="card-box hidden">
+            <h3 style="text-align: center; color: var(--amber-main);">💬 Qo'llab-quvvatlash va Aloqa Markazi</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">Savollaringiz yoki takliflaringiz bo'lsa, yaratuvchi **Nurmataliyev Muzaffar**ga to'g'ridan-to'g'ri xabar yuboring.</p>
+            
+            <div class="form-group">
+                <label>Murojaat mavzusi:</label>
+                <input type="text" id="supportSubject" placeholder="Masalan: Test savolida xatolik bor...">
+            </div>
+            <div class="form-group">
+                <label>Xabaringiz matni:</label>
+                <textarea id="supportMessage" rows="4" placeholder="Muammo yoki taklifingizni batafsil yozing..."></textarea>
+            </div>
+            <button class="btn btn-amber" onclick="sendSupportMessage()">Xabarni yaratuvchiga yuborish</button>
+            <button class="btn btn-gray" onclick="showMainMenu()">Orqaga</button>
+        </div>
+
+        <!-- 3.2. AI TEST CREATOR -->
         <div id="aiCreatorSection" class="card-box hidden">
             <h3 style="text-align: center; color: var(--purple-main);">🤖 Sun'iy Intellekt Test Tuzuvchisi</h3>
             <div class="form-group">
@@ -266,11 +299,8 @@
             <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 10px;">
                 <img id="cabUserAvatar" class="user-avatar" style="width: 80px; height: 80px;" src="" alt="Avatar" onerror="this.src='https://via.placeholder.com/80/3b82f6/ffffff?text=USER'">
                 <div class="form-group" style="width: 100%;">
-                    <label>Profil rasmini o'zgartirish (Rasm havolasini kiriting):</label>
-                    <div style="display: flex; gap: 8px;">
-                        <input type="text" id="avatarUrlInput" placeholder="https://example.com/photo.jpg" style="flex: 1;">
-                        <button class="btn" style="width: auto; padding: 0 16px;" onclick="updateUserAvatar()">Saqlash</button>
-                    </div>
+                    <label>Galereyadan rasm yuklash / tanlash:</label>
+                    <input type="file" id="galleryFileInput" accept="image/*" style="padding: 8px; background: #090d16;" onchange="handleGalleryUpload(event)">
                 </div>
             </div>
 
@@ -304,10 +334,18 @@
         <!-- 8. ADMIN (YARATUVCHI) PANEL -->
         <div id="adminSection" class="card-box hidden">
             <h2 style="font-size: 1.2rem; text-align: center; color: var(--amber-main);">⚡ Yaratuvchi Boshqaruvi va Nazorati</h2>
-            <p style="font-size: 0.8rem; color: var(--text-muted); text-align:center;">Foydalanuvchilar harakati, parollari va tizimdagi barcha natijalardan to'liq xabardor bo'lish paneli.</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); text-align:center;">Foydalanuvchilar kelib tushgan murojaatlari va tizimdagi barcha natijalardan xabardor bo'lish paneli.</p>
             
+            <h4 style="margin-top:10px; color: var(--amber-main);">📥 Kelib tushgan foydalanuvchi xabarlari:</h4>
+            <div style="overflow-x:auto; max-height:180px; overflow-y:auto; margin-bottom:10px;">
+                <table>
+                    <thead><tr><th>Kimdan</th><th>Mavzu</th><th>Xabar</th><th>Sana</th></tr></thead>
+                    <tbody id="adminSupportMessagesTable"></tbody>
+                </table>
+            </div>
+
             <h4 style="margin-top:10px;">Ro'yxatdan o'tgan foydalanuvchilar:</h4>
-            <div style="overflow-x:auto;">
+            <div style="overflow-x:auto; max-height:150px; overflow-y:auto;">
                 <table>
                     <thead><tr><th>Ism</th><th>Tel</th><th>Login</th><th>Parol</th><th>Amal</th></tr></thead>
                     <tbody id="adminUsersTable"></tbody>
@@ -315,7 +353,7 @@
             </div>
 
             <h4 style="margin-top:15px;">Barcha foydalanuvchilarning imtihon tarixi:</h4>
-            <div style="overflow-x:auto; max-height:200px; overflow-y:auto;">
+            <div style="overflow-x:auto; max-height:150px; overflow-y:auto;">
                 <table>
                     <thead><tr><th>Foydalanuvchi</th><th>Bo'lim</th><th>Natija</th><th>Sana</th></tr></thead>
                     <tbody id="adminAllHistoriesTable"></tbody>
@@ -455,7 +493,7 @@
         }
 
         function hideAll() {
-            ['authSection', 'mainMenu', 'modeSection', 'booksSection', 'aiCreatorSection', 'quizSection', 'resultSection', 'cabinetSection', 'ratingSection', 'adminSection']
+            ['authSection', 'mainMenu', 'modeSection', 'booksSection', 'supportSection', 'aiCreatorSection', 'quizSection', 'resultSection', 'cabinetSection', 'ratingSection', 'adminSection']
                 .forEach(id => document.getElementById(id).classList.add('hidden'));
             if (timerInterval) clearInterval(timerInterval);
         }
@@ -468,6 +506,34 @@
         function showBooksSection() {
             hideAll();
             document.getElementById('booksSection').classList.remove('hidden');
+        }
+
+        function showSupportSection() {
+            hideAll();
+            document.getElementById('supportSection').classList.remove('hidden');
+        }
+
+        function sendSupportMessage() {
+            let subj = document.getElementById('supportSubject').value.trim();
+            let msg = document.getElementById('supportMessage').value.trim();
+            if (!subj || !msg) {
+                alert("Iltimos, mavzu va xabar matnini to'liq kiriting!");
+                return;
+            }
+
+            let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]');
+            messages.push({
+                name: currentUser.name,
+                phone: currentUser.phone,
+                subject: subj,
+                message: msg,
+                date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString()
+            });
+            localStorage.setItem('geo_sys_messages', JSON.stringify(messages));
+            alert("✅ Xabaringiz muvaffaqiyatli ravishda yaratuvchi Nurmataliyev Muzaffarga yuborildi!");
+            document.getElementById('supportSubject').value = '';
+            document.getElementById('supportMessage').value = '';
+            showMainMenu();
         }
 
         function showAiCreatorSection() {
@@ -650,7 +716,6 @@
             
             let avatarImg = currentUser.avatar || 'https://via.placeholder.com/80/3b82f6/ffffff?text=USER';
             document.getElementById('cabUserAvatar').src = avatarImg;
-            document.getElementById('avatarUrlInput').value = currentUser.avatar || '';
 
             let h = JSON.parse(localStorage.getItem('geo_sys_histories') || '[]').filter(x => x.phone === currentUser.phone);
 
@@ -672,19 +737,26 @@
             });
         }
 
-        function updateUserAvatar() {
-            let url = document.getElementById('avatarUrlInput').value.trim();
-            currentUser.avatar = url;
-            
-            let users = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
-            let idx = users.findIndex(u => u.login === currentUser.login);
-            if (idx !== -1) {
-                users[idx].avatar = url;
-                localStorage.setItem('geo_sys_users', JSON.stringify(users));
+        function handleGalleryUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    let base64Image = e.target.result;
+                    currentUser.avatar = base64Image;
+                    
+                    let users = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
+                    let idx = users.findIndex(u => u.login === currentUser.login);
+                    if (idx !== -1) {
+                        users[idx].avatar = base64Image;
+                        localStorage.setItem('geo_sys_users', JSON.stringify(users));
+                    }
+                    localStorage.setItem('geo_sys_logged', JSON.stringify(currentUser));
+                    document.getElementById('cabUserAvatar').src = base64Image;
+                    alert("✅ Galereyadan rasm muvaffaqiyatli yuklandi!");
+                }
+                reader.readAsDataURL(file);
             }
-            localStorage.setItem('geo_sys_logged', JSON.stringify(currentUser));
-            document.getElementById('cabUserAvatar').src = url || 'https://via.placeholder.com/80/3b82f6/ffffff?text=USER';
-            alert("✅ Profil rasmi muvaffaqiyatli yangilandi!");
         }
 
         function showRating() {
@@ -701,6 +773,18 @@
         function showAdminPanel() {
             hideAll();
             document.getElementById('adminSection').classList.remove('hidden');
+            
+            let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]');
+            let msgTbody = document.getElementById('adminSupportMessagesTable');
+            msgTbody.innerHTML = '';
+            if(messages.length === 0) {
+                msgTbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">Hozircha xabarlar yo'q</td></tr>`;
+            } else {
+                messages.reverse().forEach(m => {
+                    msgTbody.innerHTML += `<tr><td><strong>${m.name}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${m.phone}</span></td><td>${m.subject}</td><td>${m.message}</td><td>${m.date}</td></tr>`;
+                });
+            }
+
             let users = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
             let tbody = document.getElementById('adminUsersTable');
             tbody.innerHTML = '';
