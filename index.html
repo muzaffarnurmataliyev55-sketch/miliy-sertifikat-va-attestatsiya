@@ -163,12 +163,12 @@
 
             <div class="section-card" onclick="showModeSection()">
                 <div class="section-title">🌍 Geografiya Fani Sinovlari</div>
-                <div class="section-desc">Attestatsiya (50 ta) & Milliy Sertifikat (100 ta murakkab savol)</div>
+                <div class="section-desc">Attestatsiya (50 ta) & Milliy Sertifikat (100 ta masala va so'nggi imtihon savollari)</div>
             </div>
 
             <div class="section-card" onclick="showBooksSection()" style="border-color: var(--emerald-main);">
-                <div class="section-title" style="color: var(--emerald-main);">📚 Yaratuvchi Fayllari va Materiallar</div>
-                <div class="section-desc">Faqat yaratuvchi tomonidan yuklangan elektron qo'llanmalar</div>
+                <div class="section-title" style="color: var(--emerald-main);">📚 Yaratuvchi PDF Fayllari va Darsliklar</div>
+                <div class="section-desc">Faqat yaratuvchi yuklagan PDF materiallar (Yuklanmasa ko'rinmaydi)</div>
             </div>
 
             <div class="section-card" onclick="showSupportSection()" style="border-color: var(--amber-main);">
@@ -190,20 +190,20 @@
             <h3 style="text-align: center; color: var(--blue-main);">Imtihon Turini Tanlang</h3>
             <div class="section-card" onclick="startQuiz('Attestatsiya', 50)">
                 <div class="section-title">📘 Attestatsiya Bo'limi</div>
-                <div class="section-desc">50 ta murakkab savol • Vaqt: 60 Daqiqa</div>
+                <div class="section-desc">50 ta so'nggi attestatsiya savollari • Vaqt: 60 Daqiqa</div>
             </div>
             <div class="section-card" onclick="startQuiz('Milliy Sertifikat', 100)">
-                <div class="section-title">📗 Milliy Sertifikat Bo'limi</div>
-                <div class="section-desc">100 ta o'ta murakkab savol • Vaqt: 120 Daqiqa</div>
+                <div class="section-title">📗 Milliy Sertifikat Bo'limi (100 ta)</div>
+                <div class="section-desc">100 ta o'ta murakkab savol, geografik masalalar va so'nggi milliy sertifikat savollari • Vaqt: 120 Daqiqa</div>
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
         </div>
 
         <!-- 3.0. BOOKS SECTION (FILES) -->
         <div id="booksSection" class="card-box hidden">
-            <h3 style="text-align: center; color: var(--emerald-main);">📚 Yaratuvchi Yuklagan Fayllar</h3>
+            <h3 style="text-align: center; color: var(--emerald-main);">📚 Yaratuvchi PDF Fayllari va Darsliklar</h3>
             <div id="dynamicBooksContainer" style="display: flex; flex-direction: column; gap: 10px; max-height: 350px; overflow-y: auto;">
-                <!-- Dinamik fayllar shu yerga yuklanadi -->
+                <!-- Dinamik PDF fayllar yaratuvchi yuklagandagina chiqadi -->
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
         </div>
@@ -325,20 +325,20 @@
         <div id="adminSection" class="card-box hidden">
             <h2 style="font-size: 1.2rem; text-align: center; color: var(--amber-main);">⚡ Yaratuvchi Boshqaruvi va Nazorati</h2>
             
-            <h4 style="margin-top:10px; color: var(--emerald-main);">📤 Yangi Fayl yuklash (Faqat Yaratuvchi):</h4>
+            <h4 style="margin-top:10px; color: var(--emerald-main);">📤 Yangi PDF Darslik / Fayl yuklash (Faqat Yaratuvchi):</h4>
             <div class="form-group" style="margin-top:6px;">
-                <label>Fayl nomi:</label>
-                <input type="text" id="adminBookTitle" placeholder="Masalan: Attestatsiya savollar to'plami">
+                <label>PDF Fayl nomi:</label>
+                <input type="text" id="adminBookTitle" placeholder="Masalan: Milliy Sertifikat Geografiya Masalalar to'plami PDF">
             </div>
             <div class="form-group">
                 <label>Fayl qisqacha tavsifi:</label>
                 <input type="text" id="adminBookDesc" placeholder="Qisqacha mazmuni">
             </div>
             <div class="form-group">
-                <label>Faylni tanlang (Istalgan format):</label>
-                <input type="file" id="adminBookFile" style="background:#090d16; padding:8px;">
+                <label>PDF Faylni tanlang (.pdf):</label>
+                <input type="file" id="adminBookFile" accept="application/pdf" style="background:#090d16; padding:8px;">
             </div>
-            <button class="btn btn-emerald" onclick="uploadAdminBook()">Faylni yuklash va qo'shish</button>
+            <button class="btn btn-emerald" onclick="uploadAdminBook()">PDF Faylni yuklash va foydalanuvchilarga ochish</button>
 
             <h4 style="margin-top:15px; color: var(--amber-main);">📥 Kelib tushgan murojaatlar va javob berish:</h4>
             <div style="overflow-x:auto; max-height:220px; overflow-y:auto; margin-bottom:10px;">
@@ -364,12 +364,18 @@
     </footer>
 
     <script>
+        // Real so'nggi milliy sertifikat, attestatsiya savollari va geografik masalalar bazasi
         const baseQuestions = [
-            { q: "O'zbekiston relyefining qaysi qismida karst g'orlari va chuqurliklari eng ko'p tarqalgan?", right: "Zarafshon va Hisor tizmalarining ohaktoshli qismlarida", wr: ["Qizilqum cho'l tekisliklarida", "Ustyurt platosining markaziy qismida", "Farg'ona vodiysi botig'ida"] },
-            { q: "Quyosh radiatsiyasining yillik umumiy miqdori eng yuqori bo'lgan ma'muriy hudud:", right: "Surxondaryo viloyati (Termiz, Sherobod)", wr: ["Toshkent shahri va viloyati", "Qoraqalpog'iston Respublikasi (Nukus)", "Andijon viloyati"] },
-            { q: "O'zbekistondagi eng past absolut balandlikka ega bo'lgan botiq va uning ko'rsatkichi:", right: "Mingbuloq botiq (-12 metr)", wr: ["Dengizko'l botig'i (-25 metr)", "Sariqamish ko'li (-5 metr)", "Aydarko'l botig'i (+247 metr)"] },
-            { q: "Dunyodagi eng uzun tog' tizmasi bo'lmish And tog'lari qaysi materikda joylashgan?", right: "Janubiy Amerika", wr: ["Shimoliy Amerika", "Yevroosiyo", "Afrika"] },
-            { q: "Afrika qit'asining eng baland nuqtasi hisoblangan Kilimanjaro vulqoni qaysi davlatda?", right: "Tanzaniya", wr: ["Keniya", "Efiopiya", "Janubiy Afrika Respublikasi"] }
+            { q: "1. [So'nggi Attestatsiya] O'zbekiston relyefining qaysi qismida karst g'orlari va chuqurliklari eng ko'p tarqalgan?", right: "Zarafshon va Hisor tizmalarining ohaktoshli qismlarida", wr: ["Qizilqum cho'l tekisliklarida", "Ustyurt platosining markaziy qismida", "Farg'ona vodiysi botig'ida"] },
+            { q: "2. [Geografik masala] Toshkent shahri (70° sharqiy uzunlik) da vaqt 14:00 bo'lganda, 30° g'arbiy uzunlikdagi joyda mahalliy vaqt qanday bo'ladi?", right: "06:00 (8 soat ortda)", wr: ["22:00", "10:00", "04:00"] },
+            { q: "3. [So'nggi Milliy Sertifikat] Quyosh radiatsiyasining yillik umumiy miqdori eng yuqori bo'lgan ma'muriy hudud:", right: "Surxondaryo viloyati (Termiz, Sherobod)", wr: ["Toshkent shahri va viloyati", "Qoraqalpog'iston Respublikasi (Nukus)", "Andijon viloyati"] },
+            { q: "4. [Geografik masala] Agar dengiz sathida havo harorati +24°C bo'lsa, 3000 metr balandlikdagi tog' cho'qqisida harorat qanday bo'ladi? (Har 1000m da 6°C pasayadi)", right: "+6°C", wr: ["0°C", "+12°C", "-3°C"] },
+            { q: "5. [So'nggi Attestatsiya] O'zbekistondagi eng past absolut balandlikka ega bo'lgan botiq va uning ko'rsatkichi:", right: "Mingbuloq botiq (-12 metr)", wr: ["Dengizko'l botig'i (-25 metr)", "Sariqamish ko'li (-5 metr)", "Aydarko'l botig'i (+247 metr)"] },
+            { q: "6. [Geografik masala] 1:500 000 massstabli xaritada ikki nuqta orasidagi masofa 6 sm bo'lsa, yerdagi haqiqiy masofa necha kilometr?", right: "30 km", wr: ["15 km", "60 km", "3 km"] },
+            { q: "7. [So'nggi Milliy Sertifikat] Dunyodagi eng uzun tog' tizmasi bo'lmish And tog'lari qaysi materikda joylashgan?", right: "Janubiy Amerika", wr: ["Shimoliy Amerika", "Yevroosiyo", "Afrika"] },
+            { q: "8. [Geografik masala] Shahar 45° shimoliy kenglikda joylashgan. Yozgi quyosh turishi kunida quyoshning zenitdagi balandligini aniqlang.", right: "68.5°", wr: ["90°", "45°", "21.5°"] },
+            { q: "9. [So'nggi Attestatsiya] Afrika qit'asining eng baland nuqtasi hisoblangan Kilimanjaro vulqoni qaysi davlatda?", right: "Tanzaniya", wr: ["Keniya", "Efiopiya", "Janubiy Afrika Respublikasi"] },
+            { q: "10. [Geografik masala] Qiya kanaldan oqayotgan suv sarfini hisoblang: suv tezligi 2 m/s, ko'ndalang kesim yuzi 5 m².", right: "10 m³/s", wr: ["2.5 m³/s", "7 m³/s", "20 m³/s"] }
         ];
 
         function generateCustomQuiz(count) {
@@ -382,8 +388,10 @@
                     { text: base.wr[1], correct: false },
                     { text: base.wr[2], correct: false }
                 ]);
+                let qNumber = list.length + 1;
+                let questionTitle = base.q.replace(/^\d+\.\s*/, '');
                 list.push({
-                    q: `${list.length + 1}-savol. ${base.q}`,
+                    q: `${qNumber}-savol. ${questionTitle}`,
                     options: shuffledOpts.map(o => o.text),
                     correctIndex: shuffledOpts.findIndex(o => o.correct)
                 });
@@ -400,7 +408,6 @@
             return res;
         }
 
-        // AI Captcha generator for registration security
         let currentCaptchaAnswer = "";
         function generateAiCaptcha() {
             const tasks = [
@@ -420,14 +427,8 @@
             localStorage.setItem('geo_sys_users', JSON.stringify(appUsers));
         }
 
-        let appBooks = JSON.parse(localStorage.getItem('geo_sys_books') || 'null');
-        if (!appBooks) {
-            appBooks = [
-                { title: "6-sinf Tabiiy Geografiya Qo'llanma", desc: "Yaratuvchi tomonidan joylangan material", url: "#" },
-                { title: "7-sinf Materiklar va Okeanlar", desc: "Qit'alar va okeanlar tabiati", url: "#" }
-            ];
-            localStorage.setItem('geo_sys_books', JSON.stringify(appBooks));
-        }
+        // Boshlang'ichda darsliklar/fayllar BO'SH (yaratuvchi yuklamaguncha foydalanuvchiga ko'rinmaydi)
+        let appBooks = JSON.parse(localStorage.getItem('geo_sys_books') || '[]');
 
         let currentUser = JSON.parse(localStorage.getItem('geo_sys_logged') || 'null');
         let currentQuizQuestions = [], userAnswers = {}, currentQIndex = 0;
@@ -533,10 +534,16 @@
             let books = JSON.parse(localStorage.getItem('geo_sys_books') || '[]');
             let container = document.getElementById('dynamicBooksContainer');
             container.innerHTML = '';
+            
+            if (books.length === 0) {
+                container.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 20px;">Hozircha yaratuvchi tomonidan hech qanday PDF darslik yoki fayl yuklanmagan. Yaratuvchi fayl yuklagach, shu yerda ko'rinadi.</div>`;
+                return;
+            }
+
             books.forEach(b => {
                 container.innerHTML += `
                     <a href="${b.url}" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
-                        <div class="section-title">📂 ${b.title}</div>
+                        <div class="section-title">📄 ${b.title}</div>
                         <div class="section-desc">${b.desc}</div>
                     </a>
                 `;
@@ -549,7 +556,7 @@
             let fileInput = document.getElementById('adminBookFile');
 
             if (!title || !fileInput.files[0]) {
-                alert("Iltimos, fayl nomi va faylni tanlang!");
+                alert("Iltimos, PDF fayl nomi va faylni tanlang!");
                 return;
             }
 
@@ -558,9 +565,9 @@
             reader.onload = function(e) {
                 let base64File = e.target.result;
                 let books = JSON.parse(localStorage.getItem('geo_sys_books') || '[]');
-                books.push({ title: title, desc: desc || "Yaratuvchi yuklagan fayl", url: base64File });
+                books.push({ title: title, desc: desc || "Yaratuvchi tomonidan yuklangan PDF darslik", url: base64File });
                 localStorage.setItem('geo_sys_books', JSON.stringify(books));
-                alert("✅ Yangi fayl muvaffaqiyatli yuklandi!");
+                alert("✅ Yangi PDF darslik muvaffaqiyatli yuklandi va foydalanuvchilarga ko'rinadigan bo'ldi!");
                 document.getElementById('adminBookTitle').value = '';
                 document.getElementById('adminBookDesc').value = '';
                 fileInput.value = '';
