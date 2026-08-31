@@ -1,1071 +1,496 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="uz" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="t-title">Geografiya AI — Professional Attestatsiya va Sertifikat Tizimi</title>
+    <title>Geografiya AI Ultra — Professional Ta'lim Tizimi</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root {
+        :root[data-theme="dark"] {
             --bg-color: #090d16;
             --card-bg: #131c31;
             --text-light: #f8fafc;
             --text-muted: #94a3b8;
+            --border-color: #1e293b;
+        }
+        :root[data-theme="light"] {
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-light: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+        }
+        :root {
             --blue-main: #3b82f6;
             --blue-hover: #2563eb;
             --emerald-main: #10b981;
             --rose-main: #f43f5e;
             --amber-main: #f59e0b;
             --purple-main: #8b5cf6;
-            --border-color: #1e293b;
             --radius: 18px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.3s, color 0.3s; }
         body { background-color: var(--bg-color); color: var(--text-light); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px 12px; }
         
-        header { text-align: center; margin-bottom: 24px; width: 100%; max-width: 650px; position: relative; }
+        header { text-align: center; margin-bottom: 24px; width: 100%; max-width: 700px; position: relative; }
         header h1 { color: var(--blue-main); font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; }
         header p { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
         
-        .lang-selector { display: flex; justify-content: center; gap: 6px; margin-bottom: 15px; }
-        .lang-btn { background: #131c31; border: 1.5px solid var(--border-color); color: var(--text-muted); padding: 5px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
-        .lang-btn.active { background: var(--blue-main); color: white; border-color: var(--blue-main); }
+        .top-controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        .ctrl-btn { background: var(--card-bg); border: 1.5px solid var(--border-color); color: var(--text-muted); padding: 5px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+        .ctrl-btn.active, .ctrl-btn:hover { background: var(--blue-main); color: white; border-color: var(--blue-main); }
 
-        .container { width: 100%; max-width: 650px; flex: 1; }
-        .card-box { background: var(--card-bg); border-radius: var(--radius); padding: 24px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); margin-bottom: 20px; }
+        .container { width: 100%; max-width: 700px; flex: 1; }
+        .card-box { background: var(--card-bg); border-radius: var(--radius); padding: 24px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); margin-bottom: 20px; }
         
         .form-group { display: flex; flex-direction: column; gap: 6px; }
         .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
-        .form-group input, .form-group textarea, .form-group select { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem; outline: none; background: #090d16; color: white; transition: border-color 0.2s; }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--blue-main); }
+        .form-group input, .form-group textarea, .form-group select { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem; outline: none; background: var(--bg-color); color: var(--text-light); }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--blue-main); }
         
         .user-profile-card { background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; border-radius: 14px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .user-avatar-container { display: flex; align-items: center; gap: 12px; }
         .admin-badge { background-color: #fef08a; color: #854d0e; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
         
         .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .section-card { background: #090d16; border: 1.5px solid var(--border-color); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; transition: all 0.2s ease; text-decoration: none; }
+        .section-card { background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; text-decoration: none; }
         .section-card:hover { border-color: var(--blue-main); transform: translateY(-2px); }
         .section-title { font-size: 1.05rem; font-weight: 700; color: var(--text-light); }
         .section-desc { color: var(--text-muted); font-size: 0.82rem; }
         
-        .btn { background-color: var(--blue-main); color: white; border: none; border-radius: 12px; padding: 13px; font-size: 0.95rem; font-weight: 700; cursor: pointer; width: 100%; transition: background 0.2s; text-align: center; text-decoration: none; display: inline-block; }
+        .btn { background-color: var(--blue-main); color: white; border: none; border-radius: 12px; padding: 13px; font-size: 0.95rem; font-weight: 700; cursor: pointer; width: 100%; text-align: center; text-decoration: none; display: inline-block; }
         .btn:hover { background-color: var(--blue-hover); }
-        .btn-gray { background-color: #1e293b; color: var(--text-light); }
-        .btn-gray:hover { background-color: #334155; }
+        .btn-gray { background-color: var(--border-color); color: var(--text-light); }
         .btn-red { background-color: rgba(244, 63, 94, 0.15); color: var(--rose-main); border: 1px solid rgba(244, 63, 94, 0.3); }
         .btn-amber { background-color: var(--amber-main); color: #090d16; font-weight: 800; }
         .btn-purple { background-color: var(--purple-main); color: white; }
         .btn-emerald { background-color: var(--emerald-main); color: white; }
         
-        .timer-bar { background: #090d16; border: 1.5px solid var(--border-color); border-radius: 12px; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
+        .timer-bar { background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: 12px; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
         .timer-time { color: var(--rose-main); font-size: 1.1rem; font-family: monospace; }
         
-        .option-btn { background: #090d16; border: 1.5px solid var(--border-color); padding: 14px; border-radius: 12px; margin-bottom: 10px; cursor: pointer; width: 100%; font-size: 0.9rem; display: flex; gap: 10px; color: var(--text-light); text-align: left; transition: all 0.2s; }
-        .option-btn.selected { background: rgba(59, 130, 246, 0.15); border-color: var(--blue-main); color: #60a5fa; font-weight: 600; }
+        .option-btn { background: var(--bg-color); border: 1.5px solid var(--border-color); padding: 14px; border-radius: 12px; margin-bottom: 10px; cursor: pointer; width: 100%; font-size: 0.9rem; display: flex; gap: 10px; color: var(--text-light); text-align: left; }
+        .option-btn.selected { background: rgba(59, 130, 246, 0.15); border-color: var(--blue-main); color: var(--blue-main); font-weight: 600; }
         
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 10px 8px; text-align: left; font-size: 0.82rem; border-bottom: 1px solid var(--border-color); }
         th { color: var(--text-muted); font-weight: 600; }
         
-        .review-item { border: 1.5px solid var(--border-color); border-radius: 12px; padding: 14px; margin-bottom: 12px; background: #090d16; }
-        .review-item.correct-item { border-color: var(--emerald-main); }
-        .review-item.wrong-item { border-color: var(--rose-main); }
-        
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .stat-card { background: #090d16; border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; text-align: center; }
-        .stat-card .val { font-size: 1.3rem; font-weight: 800; color: var(--blue-main); }
-        .stat-card .lbl { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
-        
-        .ai-box { background: rgba(139, 92, 246, 0.1); border: 1.5px solid var(--purple-main); border-radius: 14px; padding: 16px; color: #ddd6fe; margin-top: 10px; }
-        .ai-box h4 { font-size: 0.95rem; display: flex; align-items: center; gap: 6px; margin-bottom: 6px; color: #c4b5fd; }
-        
-        footer { margin-top: 30px; text-align: center; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 15px; width: 100%; max-width: 650px; }
-        footer span { color: var(--blue-main); font-weight: 700; }
+        .badge-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+        .badge-item { background: rgba(245, 158, 11, 0.15); border: 1px solid var(--amber-main); color: var(--amber-main); padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; }
 
+        .ai-box { background: rgba(139, 92, 246, 0.1); border: 1.5px solid var(--purple-main); border-radius: 14px; padding: 16px; color: var(--text-light); margin-top: 10px; }
+        .ai-box h4 { font-size: 0.95rem; display: flex; align-items: center; gap: 6px; margin-bottom: 6px; color: var(--purple-main); }
+        
+        footer { margin-top: 30px; text-align: center; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 15px; width: 100%; max-width: 700px; }
         .hidden { display: none !important; }
         .tab-btn-group { display: flex; gap: 8px; margin-bottom: 10px; }
-        .tab-btn { flex: 1; padding: 10px; border: 1px solid var(--border-color); background: #090d16; color: var(--text-muted); border-radius: 10px; font-weight: 600; cursor: pointer; text-align: center; }
+        .tab-btn { flex: 1; padding: 10px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-muted); border-radius: 10px; font-weight: 600; cursor: pointer; text-align: center; }
         .tab-btn.active { background: var(--blue-main); color: white; border-color: var(--blue-main); }
 
-        .certificate-card { background: #fff; color: #1e293b; border-radius: 16px; padding: 30px 20px; text-align: center; border: 8px double var(--amber-main); position: relative; margin-top: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .certificate-card { background: #ffffff; color: #0f172a; border-radius: 16px; padding: 30px 20px; text-align: center; border: 8px double var(--amber-main); margin-top: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         .certificate-card h2 { color: #1e40af; font-size: 1.4rem; font-weight: 800; margin-bottom: 5px; text-transform: uppercase; }
         .certificate-card h3 { color: #d97706; font-size: 1rem; margin-bottom: 15px; }
         .certificate-card .cert-name { font-size: 1.3rem; font-weight: 800; color: #0f172a; margin: 10px 0; border-bottom: 2px solid #cbd5e1; display: inline-block; padding-bottom: 4px; }
-        .certificate-card p { font-size: 0.85rem; color: #475569; line-height: 1.5; }
-        .cert-footer { display: flex; justify-content: space-between; margin-top: 25px; font-size: 0.75rem; font-weight: 700; color: #334155; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="lang-selector">
-            <button id="langUz" class="lang-btn active" onclick="setLanguage('uz')">O'zbekcha</button>
-            <button id="langRu" class="lang-btn" onclick="setLanguage('ru')">Русский</button>
-            <button id="langEn" class="lang-btn" onclick="setLanguage('en')">English</button>
+        <div class="top-controls">
+            <button class="ctrl-btn active" onclick="setLang('uz')">O'zbekcha</button>
+            <button class="ctrl-btn" onclick="setLang('ru')">Русский</button>
+            <button class="ctrl-btn" onclick="setLang('en')">English</button>
+            <button class="ctrl-btn" onclick="toggleTheme()" id="themeBtn">🌙 Tungi rejim</button>
         </div>
-        <h1 id="t-mainTitle">🌍 Geografiya AI — Professional Tizim</h1>
-        <p id="t-mainDesc">7-10 sinflar testlari va sertifikatlash muhiti</p>
+        <h1 id="t-mainTitle">🌍 Geografiya AI Ultra</h1>
+        <p id="t-mainDesc">Sun'iy intellekt va proktorring himoyasiga ega ta'lim muhiti</p>
     </header>
 
     <div class="container">
-        <!-- 1. AUTHENTICATION -->
+        <!-- AUTH -->
         <div id="authSection" class="card-box">
             <div class="tab-btn-group">
-                <button type="button" id="tabLoginBtn" class="tab-btn active" onclick="switchAuthTab('login')"><span id="t-loginTab">Kirish</span></button>
-                <button type="button" id="tabRegBtn" class="tab-btn" onclick="switchAuthTab('register')"><span id="t-regTab">Ro'yxatdan o'tish</span></button>
+                <button class="tab-btn active" onclick="switchAuth('login')" id="t-lTab">Kirish</button>
+                <button class="tab-btn" onclick="switchAuth('reg')" id="t-rTab">Ro'yxatdan o'tish</button>
             </div>
-
             <form id="loginForm">
-                <div class="form-group">
-                    <label id="t-jshshrLbl">JSHSHR (14 xonali shaxsiy raqam)</label>
-                    <input type="text" id="loginInput" placeholder="14 ta raqamni kiriting" maxlength="14" required>
-                </div>
-                <div class="form-group">
-                    <label id="t-passLbl">Parol</label>
-                    <input type="password" id="passwordInput" placeholder="Parolingizni kiriting" required>
-                </div>
-                <button type="button" class="btn" style="margin-top: 10px;" onclick="handleLogin()" id="t-loginBtnText">Tizimga kirish</button>
+                <div class="form-group"><label id="t-jshLbl">JSHSHR (14 xonali raqam)</label><input type="text" id="lJsh" maxlength="14" placeholder="14 ta raqam"></div>
+                <div class="form-group"><label id="t-pLbl">Parol</label><input type="password" id="lPass" placeholder="Parol"></div>
+                <button type="button" class="btn" style="margin-top:10px;" onclick="login()" id="t-lBtn">Kirish</button>
             </form>
-
-            <form id="registerForm" class="hidden">
-                <div class="ai-box" style="margin-top: 0; margin-bottom: 10px; padding: 12px; border-color: var(--rose-main); background: rgba(244, 63, 94, 0.08);">
-                    <h4 id="t-secTitle" style="font-size:0.88rem; color: var(--rose-main);">🛡️ Xavfsizlik Nazorati:</h4>
-                    <p style="font-size: 0.8rem; color: #fecdd3; margin-top: 4px;" id="aiCaptchaText">Xavfsizlik sharti yuklanmoqda...</p>
-                </div>
-                <div class="form-group">
-                    <label id="t-nameLbl">Ism va Familiya</label>
-                    <input type="text" id="regNameInput" placeholder="Masalan: Aziz Rahimov" required>
-                </div>
-                <div class="form-group">
-                    <label id="t-regJshshrLbl">JSHSHR (14 xonali shaxsiy raqam)</label>
-                    <input type="text" id="regJshshrInput" placeholder="Masalan: 30101905000014" maxlength="14" required>
-                </div>
-                <div class="form-group">
-                    <label id="t-phoneLbl">Telefon Raqami (+998 bilan)</label>
-                    <input type="tel" id="regPhoneInput" placeholder="+998901234567" value="+998" required>
-                </div>
-                <div class="form-group">
-                    <label id="t-newPassLbl">Yangi Parol (Min 6 ta belgi)</label>
-                    <input type="password" id="regPassInput" placeholder="Parol kiriting" required>
-                </div>
-                <div class="form-group">
-                    <label id="t-captchaLbl">Xavfsizlik Sharti Javobi</label>
-                    <input type="text" id="regCaptchaInput" placeholder="Javobni yozing" required>
-                </div>
-                <button type="button" class="btn" style="margin-top: 10px; background-color: var(--emerald-main);" onclick="handleRegister()" id="t-regSubmitText">Ro'yxatdan o'tishni yakunlash</button>
+            <form id="regForm" class="hidden">
+                <div class="ai-box" style="padding:10px; margin-bottom:8px;"><p style="font-size:0.8rem;" id="captchaText">Kapcha yuklanmoqda...</p></div>
+                <div class="form-group"><label id="t-fnLbl">Ism Familiya</label><input type="text" id="rName" placeholder="Aziz Rahimov"></div>
+                <div class="form-group"><label id="t-rjshLbl">JSHSHR (14 xonali)</label><input type="text" id="rJsh" maxlength="14" placeholder="30101905000014"></div>
+                <div class="form-group"><label id="t-phLbl">Telefon</label><input type="text" id="rPhone" value="+998"></div>
+                <div class="form-group"><label id="t-rpLbl">Parol</label><input type="password" id="rPass" placeholder="Min 6 ta belgi"></div>
+                <div class="form-group"><label id="t-cpLbl">Kapcha javobi</label><input type="text" id="rCap" placeholder="Javobni yozing"></div>
+                <button type="button" class="btn btn-emerald" style="margin-top:10px;" onclick="register()" id="t-rBtn">Tasdiqlash</button>
             </form>
         </div>
 
-        <!-- 2. MAIN MENU -->
+        <!-- MAIN MENU -->
         <div id="mainMenu" class="card-box hidden">
             <div class="user-profile-card">
-                <div class="user-avatar-container">
-                    <div>
-                        <div id="userNameDisplay" style="font-size:1.1rem; font-weight:700;">Foydalanuvchi</div>
-                        <div id="userJshshrDisplay" style="font-size:0.82rem; opacity:0.9; font-family:monospace;">JSHSHR: --------------</div>
-                        <div id="userPhoneDisplay" style="font-size:0.82rem; opacity:0.8;">📱 +998 -- --- -- --</div>
-                    </div>
+                <div>
+                    <div id="uNameDisplay" style="font-size:1.1rem; font-weight:700;">Foydalanuvchi</div>
+                    <div id="uJshDisplay" style="font-size:0.82rem; opacity:0.9; font-family:monospace;">JSHSHR</div>
+                    <div class="badge-list" id="userBadges"></div>
                 </div>
-                <span id="roleBadge" class="admin-badge hidden">Yaratuvchi</span>
+                <span id="roleBadge" class="admin-badge hidden">Admin</span>
             </div>
-
             <div class="nav-grid">
-                <button class="btn btn-gray" onclick="showCabinet()" id="t-cabinetBtn">👤 Shaxsiy Kabinet</button>
-                <button class="btn btn-gray" onclick="showRating()" id="t-ratingBtn">🏆 Umumiy Reyting</button>
+                <button class="btn btn-gray" onclick="showCabinet()" id="t-cabBtn">👤 Kabinet va Statistikalar</button>
+                <button class="btn btn-gray" onclick="showRating()" id="t-ratBtn">🏆 Global Reyting</button>
             </div>
-
-            <div class="section-card" onclick="showModeSection()">
-                <div class="section-title" id="t-geoSectionTitle">🌍 Geografiya Fani Sinovlari</div>
-                <div class="section-desc" id="t-geoSectionDesc">7-10 sinflar testi</div>
+            <div class="section-card" onclick="showModes()">
+                <div class="section-title" id="t-stTitle">🌍 Geografiya Fan Sinovlari</div>
+                <div class="section-desc" id="t-stDesc">7-10 sinflar attestatsiya va sertifikat bazalari</div>
             </div>
-
-            <div class="section-card" onclick="showSupportSection()" style="border-color: var(--amber-main);">
-                <div class="section-title" style="color: var(--amber-main);" id="t-supportTitle">💬 Qo'llab-quvvatlash Markazi va Javoblar</div>
-                <div class="section-desc" id="t-supportDesc">Yaratuvchi Nurmataliyev Muzaffardan kelgan javoblar va xabarlar</div>
+            <div class="section-card" onclick="showAiGen()" style="border-color: var(--purple-main);">
+                <div class="section-title" style="color:var(--purple-main);" id="t-aiMenuTitle">🤖 AI Orqali Maxsus Test Tuzish</div>
+                <div class="section-desc" id="t-aiMenuDesc">Sun'iy intellekt yordamida istalgan mavzuda savollar yaratish</div>
             </div>
-
-            <div class="section-card" onclick="showAiCreatorSection()" style="border-color: var(--purple-main);">
-                <div class="section-title" style="color: #c4b5fd;" id="t-aiTitle">🤖 AI Orqali Test Tuzish</div>
-                <div class="section-desc" id="t-aiDesc">Sun'iy intellekt yordamida istalgan mavzuda test savollarini yarating</div>
-            </div>
-
-            <button id="adminBtn" class="btn btn-amber hidden" onclick="showAdminPanel()" id="t-adminBtn">⚡ Yaratuvchi Boshqaruvi va Nazorati</button>
-            <button class="btn btn-red" onclick="logout()" id="t-logoutBtn">Tizimdan Chiqish</button>
+            <button class="btn btn-amber hidden" id="adminBtn" onclick="showAdmin()">⚡ Boshqaruv Paneli</button>
+            <button class="btn btn-red" onclick="logout()" id="t-outBtn">Chiqish</button>
         </div>
 
-        <!-- 3. MODE SELECTION -->
+        <!-- MODES -->
         <div id="modeSection" class="card-box hidden">
-            <h3 style="text-align: center; color: var(--blue-main);" id="t-selectModeTitle">Imtihon Turini Tanlang</h3>
-            <div class="section-card" onclick="startQuiz('7-10 sinflar testi (I-bob)', 30)">
-                <div class="section-title" id="t-attestTitle">📘 7-10 sinflar testi (I-bob)</div>
-                <div class="section-desc" id="t-attestDesc">7-sinf I-bob to'liq test bazasi (30 ta savol) • Vaqt: 1 Soat</div>
+            <h3 style="text-align:center; color:var(--blue-main);" id="t-modTitle">Imtihon Turini Tanlang</h3>
+            <div class="section-card" onclick="startQuiz('7-10 sinflar (I-bob)', 30)">
+                <div class="section-title">📘 7-10 sinflar (I-bob bazasi)</div>
+                <div class="section-desc">30 ta savol • Vaqt: 60 daqiqa (Anti-cheat himoyasi bilan)</div>
             </div>
-            <div class="section-card" onclick="startQuiz('7-10 sinflar testi (II-bob)', 116)">
-                <div class="section-title" id="t-sertTitle">📗 7-10 sinflar testi (II-bob)</div>
-                <div class="section-desc" id="t-sertDesc">Yer - Quyosh sistemasidagi sayyora to'liq bazasi (116 ta savol) • Vaqt: 1 Soat</div>
+            <div class="section-card" onclick="startQuiz('7-10 sinflar (II-bob)', 50)">
+                <div class="section-title">📗 7-10 sinflar (II-bob bazasi)</div>
+                <div class="section-desc">50 ta tanlangan savol • Vaqt: 60 daqiqa</div>
             </div>
-            <button class="btn btn-gray" onclick="showMainMenu()" id="t-backBtn1">Orqaga qaytish</button>
+            <button class="btn btn-gray" onclick="showMain()">Orqaga</button>
         </div>
 
-        <!-- 3.1. SUPPORT SECTION -->
-        <div id="supportSection" class="card-box hidden">
-            <h3 style="text-align: center; color: var(--amber-main);" id="t-supportHeader">💬 Qo'llab-quvvatlash va Murojaatlar</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;" id="t-supportSub">Yaratuvchi **Nurmataliyev Muzaffar**ga savol yuboring yoki javoblarini ko'ring.</p>
-            <div class="form-group">
-                <label id="t-subjLbl">Murojaat mavzusi:</label>
-                <input type="text" id="supportSubject" placeholder="Masalan: Test savolida xatolik bor...">
-            </div>
-            <div class="form-group">
-                <label id="t-msgLbl">Xabaringiz matni:</label>
-                <textarea id="supportMessage" rows="3" placeholder="Muammo yoki taklifingizni yozing..."></textarea>
-            </div>
-            <button class="btn btn-amber" onclick="sendSupportMessage()" id="t-sendMsgBtn">Xabarni yaratuvchiga yuborish</button>
-            <h4 style="font-size: 0.95rem; margin-top: 10px; color: var(--amber-main);" id="t-myMsgsTitle">Sizning murojaatlaringiz:</h4>
-            <div id="userMessagesHistoryBox" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;"></div>
-            <button class="btn btn-gray" onclick="showMainMenu()" id="t-backBtn3">Orqaga</button>
+        <!-- AI GENERATOR -->
+        <div id="aiGenSection" class="card-box hidden">
+            <h3 style="text-align:center; color:var(--purple-main);" id="t-aiGenTitle">🤖 Sun'iy Intellekt Test Generator</h3>
+            <div class="form-group"><label>Mavzu yoki shart:</label><textarea id="aiPrompt" rows="3" placeholder="Masalan: Osiyo daryolari va iqlimi..."></textarea></div>
+            <div class="form-group"><label>Savollar soni:</label><input type="number" id="aiCount" value="5" min="1" max="15"></div>
+            <button class="btn btn-purple" onclick="generateAiQuiz()">Testni yaratish va boshlash</button>
+            <button class="btn btn-gray" onclick="showMain()" style="margin-top:5px;">Orqaga</button>
         </div>
 
-        <!-- 3.2. AI TEST CREATOR -->
-        <div id="aiCreatorSection" class="card-box hidden">
-            <h3 style="text-align: center; color: var(--purple-main);" id="t-aiHeader">🤖 Sun'iy Intellekt Test Tuzuvchisi</h3>
-            <div class="form-group">
-                <label id="t-aiTopicLbl">Test mavzusi yoki sharti:</label>
-                <textarea id="aiTopicInput" rows="3" placeholder="Masalan: 7-10 sinflar geografiyasi..."></textarea>
-            </div>
-            <div class="form-group">
-                <label id="t-aiCountLbl">Savollar soni:</label>
-                <input type="number" id="aiCountInput" value="5" min="1" max="20">
-            </div>
-            <button class="btn btn-purple" onclick="generateAiTestByPrompt()" id="t-aiGenBtn">AI yordamida test tuzish</button>
-            <button class="btn btn-gray" onclick="showMainMenu()" id="t-backBtn4">Orqaga</button>
-        </div>
-
-        <!-- 4. QUIZ INTERFACE -->
+        <!-- QUIZ -->
         <div id="quizSection" class="card-box hidden">
             <div class="timer-bar">
-                <span id="quizHead" style="color: var(--blue-main);">Geografiya</span>
-                <span class="timer-time" id="timerDisplay">01:00:00</span>
+                <span id="quizHead" style="color:var(--blue-main);">Test</span>
+                <span class="timer-time" id="timerDisp">01:00:00</span>
             </div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:0.85rem;"><span id="t-qNumLabel">Savol:</span> <strong id="qNum">1</strong>/<span id="qTotal">30</span></span>
-                <button class="btn btn-amber" style="width:auto; padding:6px 14px; font-size:0.8rem;" onclick="confirmFinishQuiz()" id="t-finishQuizBtn">🏁 Yakunlash</button>
+                <span style="font-size:0.85rem;">Savol: <strong id="qNum">1</strong>/<span id="qTot">30</span></span>
+                <button class="btn btn-amber" style="width:auto; padding:6px 14px; font-size:0.8rem;" onclick="finishQuiz()">Yakunlash</button>
             </div>
-            
-            <div id="qText" style="font-size:1rem; font-weight:700; line-height:1.4; margin-top: 10px;"></div>
+            <div id="qText" style="font-size:1rem; font-weight:700; line-height:1.4;"></div>
             <div id="optsBox"></div>
             <div style="display:flex; gap:10px;">
-                <button id="prevBtn" class="btn btn-gray" style="flex:1;" onclick="prevQ()">&larr; <span id="t-prevBtnText">Oldingisi</span></button>
-                <button id="nextBtn" class="btn" style="flex:1;" onclick="nextQ()"><span id="t-nextBtnText">Keyingisi</span> &rarr;</button>
+                <button class="btn btn-gray" style="flex:1;" onclick="prevQ()">&larr; Oldingisi</button>
+                <button class="btn" style="flex:1;" onclick="nextQ()">Keyingisi &rarr;</button>
             </div>
         </div>
 
-        <!-- 5. RESULT & AI ANALYSIS -->
+        <!-- RESULT -->
         <div id="resultSection" class="card-box hidden">
-            <h2 style="font-size: 1.3rem; text-align: center;" id="t-resultHeader">🏁 Test Natijasi va AI Tahlili</h2>
-            <div class="stats-grid">
-                <div class="stat-card"><div class="val" id="resScoreText">0/0</div><div class="lbl" id="t-resCorrectLbl">To'g'ri javob</div></div>
-                <div class="stat-card"><div class="val" id="resPercentText">0%</div><div class="lbl" id="t-resPercentLbl">Foiz</div></div>
-                <div class="stat-card"><div class="val" id="resTimeText">00:00</div><div class="lbl" id="t-resTimeLbl">Vaqt</div></div>
+            <h2 style="text-align:center;" id="t-resHeader">🏁 Natija va AI Tahlili</h2>
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; text-align:center;">
+                <div style="background:var(--bg-color); padding:10px; border-radius:10px;"><div id="resScore" style="font-size:1.2rem; font-weight:800; color:var(--blue-main);">0/0</div><div style="font-size:0.7rem; color:var(--text-muted);">To'g'ri</div></div>
+                <div style="background:var(--bg-color); padding:10px; border-radius:10px;"><div id="resPercent" style="font-size:1.2rem; font-weight:800; color:var(--emerald-main);">0%</div><div style="font-size:0.7rem; color:var(--text-muted);">Foiz</div></div>
+                <div style="background:var(--bg-color); padding:10px; border-radius:10px;"><div id="resTime" style="font-size:1.2rem; font-weight:800; color:var(--amber-main);">0m</div><div style="font-size:0.7rem; color:var(--text-muted);">Vaqt</div></div>
             </div>
-
-            <!-- SERTIFIKAT QISMI -->
-            <div id="certificateContainer" class="hidden">
+            <div id="certContainer" class="hidden">
                 <div class="certificate-card">
                     <h2>Sertifikat</h2>
                     <h3>Geografiya Fani Bilimlar Sifatini Baholash Tizimi</h3>
-                    <p>Ushbu sertifikat quyidagi shaxsga beriladi:</p>
-                    <div class="cert-name" id="certUserName">Foydalanuvchi Ismi</div>
-                    <p><strong>7-10 sinflar testi</strong> sinovlarida muvaffaqiyatli qatnashib, yuqori natija ko'rsatgani va bilim darajasini tasdiqlagani uchun taqdim etiladi.</p>
-                    <div class="cert-footer">
-                        <span>Natija: <strong id="certResultScore">0%</strong></span>
-                        <span>Sana: <strong id="certDate">01.01.2026</strong></span>
-                        <span>Yaratuvchi: <strong>Nurmataliyev M.</strong></span>
-                    </div>
+                    <p>Ushbu sertifikat taqdim etiladi:</p>
+                    <div class="cert-name" id="certName">Ism</div>
+                    <p>Yuqori natija ko'rsatib, bilim darajasini tasdiqlagani uchun berildi.</p>
                 </div>
-                <button class="btn btn-emerald" style="margin-top: 12px;" onclick="window.print()">🖨️ Sertifikatni yuklab olish / Chop etish</button>
+                <button class="btn btn-emerald" style="margin-top:10px;" onclick="window.print()">🖨️ Sertifikatni chop etish</button>
             </div>
-
             <div class="ai-box">
-                <h4 id="t-aiSummaryHeader">🤖 Sun'iy Intellekt (AI) Xulosasi:</h4>
-                <div id="aiFeedbackText" style="font-size: 0.88rem; line-height: 1.5;">Tahlil qilinmoqda...</div>
+                <h4>🤖 AI Ovozli Tahlil <button onclick="speakAi()" style="background:none; border:none; color:var(--purple-main); cursor:pointer; font-size:1rem;">🔊 O'qish</button></h4>
+                <div id="aiTextResult" style="font-size:0.88rem; line-height:1.4;">Tahlil qilinmoqda...</div>
             </div>
-            <h3 style="font-size:1rem; margin-top:10px;" id="t-errorReviewTitle">Xatolar tahlili:</h3>
-            <div id="reviewBox" style="max-height: 280px; overflow-y: auto;"></div>
-            <button class="btn" onclick="showMainMenu()" id="t-backHomeBtn">Bosh Sahifaga Qaytish</button>
+            <button class="btn" onclick="showMain()" style="margin-top:10px;">Bosh sahifaga qaytish</button>
         </div>
 
-        <!-- 6. CABINET -->
+        <!-- CABINET -->
         <div id="cabinetSection" class="card-box hidden">
-            <h2 style="font-size: 1.2rem; text-align: center;" id="t-cabHeader">👤 Shaxsiy Kabinet</h2>
-            <div class="stats-grid" style="margin-top: 10px;">
-                <div class="stat-card"><div class="val" id="cabTotalTests">0</div><div class="lbl" id="t-cabTotalTestsLbl">Jami testlar</div></div>
-                <div class="stat-card"><div class="val" id="cabAvgScore">0%</div><div class="lbl" id="t-cabAvgLbl">O'rtacha</div></div>
-                <div class="stat-card"><div class="val" id="cabBestScore">0</div><div class="lbl" id="t-cabBestLbl">Eng yuqori</div></div>
+            <h2 style="text-align:center;">👤 Shaxsiy Kabinet & Statistika</h2>
+            <div style="width:100%; max-width:320px; margin:0 auto;"><canvas id="statsChart"></canvas></div>
+            <h4 style="margin-top:10px;">Urinishlar tarixi:</h4>
+            <div style="max-height:150px; overflow-y:auto;">
+                <table><thead><tr><th>Sana</th><th>Bo'lim</th><th>Natija</th></tr></thead><tbody id="cabHist"></tbody></table>
             </div>
-            <h4 style="font-size: 0.95rem; margin-top: 10px;" id="t-cabHistoryTitle">Topshirilgan testlar tarixi:</h4>
-            <div style="overflow-x:auto;">
-                <table>
-                    <thead><tr><th id="th-date">Sana</th><th id="th-mode">Bo'lim</th><th id="th-res">Natija</th><th id="th-time">Vaqt</th></tr></thead>
-                    <tbody id="cabinetHistoryTable"></tbody>
-                </table>
-            </div>
-            <button class="btn btn-gray" onclick="showMainMenu()" style="margin-top:10px;" id="t-backBtn5">Orqaga</button>
+            <button class="btn btn-gray" onclick="showMain()" style="margin-top:10px;">Orqaga</button>
         </div>
 
-        <!-- 7. RATING -->
+        <!-- RATING -->
         <div id="ratingSection" class="card-box hidden">
-            <h2 style="font-size: 1.2rem; text-align: center;" id="t-ratingHeader">🏆 Umumiy Reyting</h2>
-            <div style="overflow-x:auto;">
-                <table>
-                    <thead><tr><th>#</th><th id="th-name">Ism Familiya</th><th>JSHSHR</th><th id="th-score">Natija</th></tr></thead>
-                    <tbody id="ratingTable"></tbody>
-                </table>
+            <h2 style="text-align:center;">🏆 Global Reyting</h2>
+            <div style="max-height:250px; overflow-y:auto;">
+                <table><thead><tr><th>#</th><th>Ism</th><th>JSHSHR</th><th>Natija</th></tr></thead><tbody id="ratBody"></tbody></table>
             </div>
-            <button class="btn btn-gray" onclick="showMainMenu()" id="t-backBtn6">Orqaga</button>
+            <button class="btn btn-gray" onclick="showMain()" style="margin-top:10px;">Orqaga</button>
         </div>
 
-        <!-- 8. ADMIN PANEL -->
+        <!-- ADMIN -->
         <div id="adminSection" class="card-box hidden">
-            <h2 style="font-size: 1.2rem; text-align: center; color: var(--amber-main);" id="t-adminHeader">⚡ Yaratuvchi Boshqaruvi</h2>
-            <h4 style="margin-top:15px; color: var(--amber-main);" id="t-adminMsgsHeader">📥 Murojaatlar va javob berish:</h4>
-            <div style="overflow-x:auto; max-height:220px; overflow-y:auto; margin-bottom:10px;">
-                <table>
-                    <thead><tr><th id="th-from">Kimdan</th><th id="th-msg">Xabar</th><th id="th-action">Javob yozish</th></tr></thead>
-                    <tbody id="adminSupportMessagesTable"></tbody>
-                </table>
+            <h2 style="text-align:center; color:var(--amber-main);">⚡ Boshqaruv Paneli</h2>
+            <h4>Foydalanuvchilar bazasi:</h4>
+            <div style="max-height:200px; overflow-y:auto;">
+                <table><thead><tr><th>Ism</th><th>JSHSHR</th><th>Parol</th></tr></thead><tbody id="adminUsersBody"></tbody></table>
             </div>
-            <h4 style="margin-top:10px;" id="t-adminUsersHeader">Foydalanuvchilar:</h4>
-            <div style="overflow-x:auto; max-height:150px; overflow-y:auto;">
-                <table>
-                    <thead><tr><th id="th-uName">Ism</th><th>JSHSHR</th><th id="th-uTel">Tel</th><th id="th-uPass">Parol</th><th id="th-uAct">Amal</th></tr></thead>
-                    <tbody id="adminUsersTable"></tbody>
-                </table>
-            </div>
-            <button class="btn btn-gray" onclick="showMainMenu()" style="margin-top:10px;" id="t-backBtn7">Orqaga</button>
+            <button class="btn btn-gray" onclick="showMain()" style="margin-top:10px;">Orqaga</button>
         </div>
     </div>
 
-    <footer>
-        <span id="t-footerText">Platforma Yaratuvchisi:</span> <span>Nurmataliyev Muzaffar</span>
-    </footer>
+    <footer><span>Platforma Yaratuvchisi:</span> <strong>Nurmataliyev Muzaffar</strong></footer>
 
     <script>
         const translations = {
-            uz: {
-                title: "Geografiya AI — Professional Attestatsiya va Sertifikat Tizimi",
-                mainTitle: "🌍 Geografiya AI — Professional Tizim",
-                mainDesc: "7-10 sinflar testlari va sertifikatlash muhiti",
-                loginTab: "Kirish",
-                regTab: "Ro'yxatdan o'tish",
-                jshshrLbl: "JSHSHR (14 xonali shaxsiy raqam)",
-                passLbl: "Parol",
-                loginBtnText: "Tizimga kirish",
-                secTitle: "🛡️ Xavfsizlik Nazorati:",
-                nameLbl: "Ism va Familiya",
-                regJshshrLbl: "JSHSHR (14 xonali shaxsiy raqam)",
-                phoneLbl: "Telefon Raqami (+998 bilan)",
-                newPassLbl: "Yangi Parol (Min 6 ta belgi)",
-                captchaLbl: "Xavfsizlik Sharti Javobi",
-                regSubmitText: "Ro'yxatdan o'tishni yakunlash",
-                cabinetBtn: "👤 Shaxsiy Kabinet",
-                ratingBtn: "🏆 Umumiy Reyting",
-                geoSectionTitle: "🌍 Geografiya Fani Sinovlari",
-                geoSectionDesc: "7-10 sinflar testi",
-                supportTitle: "💬 Qo'llab-quvvatlash Markazi va Javoblar",
-                supportDesc: "Yaratuvchi Nurmataliyev Muzaffardan kelgan javoblar va xabarlar",
-                aiTitle: "🤖 AI Orqali Test Tuzish",
-                aiDesc: "Sun'iy intellekt yordamida istalgan mavzuda test savollarini yarating",
-                adminBtn: "⚡ Yaratuvchi Boshqaruvi va Nazorati",
-                logoutBtn: "Tizimdan Chiqish",
-                selectModeTitle: "Imtihon Turini Tanlang",
-                attestTitle: "📘 7-10 sinflar testi (I-bob)",
-                attestDesc: "7-sinf I-bob to'liq test bazasi (30 ta savol) • Vaqt: 1 Soat",
-                sertTitle: "📗 7-10 sinflar testi (II-bob)",
-                sertDesc: "Yer - Quyosh sistemasidagi sayyora to'liq bazasi (116 ta savol) • Vaqt: 1 Soat",
-                backBtn: "Orqaga qaytish",
-                supportHeader: "💬 Qo'llab-quvvatlash va Murojaatlar",
-                supportSub: "Yaratuvchi **Nurmataliyev Muzaffar**ga savol yuboring yoki javoblarini ko'ring.",
-                subjLbl: "Murojaat mavzusi:",
-                msgLbl: "Xabaringiz matni:",
-                sendMsgBtn: "Xabarni yaratuvchiga yuborish",
-                myMsgsTitle: "Sizning murojaatlaringiz:",
-                aiHeader: "🤖 Sun'iy Intellekt Test Tuzuvchisi",
-                aiTopicLbl: "Test mavzusi yoki sharti:",
-                aiCountLbl: "Savollar soni:",
-                aiGenBtn: "AI yordamida test tuzish",
-                qNumLabel: "Savol:",
-                finishQuizBtn: "🏁 Yakunlash",
-                prevBtnText: "Oldingisi",
-                nextBtnText: "Keyingisi",
-                resultHeader: "🏁 Test Natijasi va AI Tahlili",
-                resCorrectLbl: "To'g'ri javob",
-                resPercentLbl: "Foiz",
-                resTimeLbl: "Vaqt",
-                aiSummaryHeader: "🤖 Sun'iy Intellekt (AI) Xulosasi:",
-                errorReviewTitle: "Xatolar tahlili:",
-                backHomeBtn: "Bosh Sahifaga Qaytish",
-                cabHeader: "👤 Shaxsiy Kabinet",
-                cabTotalTestsLbl: "Jami testlar",
-                cabAvgLbl: "O'rtacha",
-                cabBestLbl: "Eng yuqori",
-                cabHistoryTitle: "Topshirilgan testlar tarixi:",
-                ratingHeader: "🏆 Umumiy Reyting",
-                adminHeader: "⚡ Yaratuvchi Boshqaruvi",
-                adminMsgsHeader: "📥 Murojaatlar va javob berish:",
-                adminUsersHeader: "Foydalanuvchilar:",
-                footerText: "Platforma Yaratuvchisi:"
-            },
-            ru: {
-                title: "География AI — Система тестирования 7-10 классов",
-                mainTitle: "🌍 География AI — Система",
-                mainDesc: "Тесты 7-10 классов и среда сертификации",
-                loginTab: "Вход",
-                regTab: "Регистрация",
-                jshshrLbl: "ПИНФЛ (14-значный личный номер)",
-                passLbl: "Пароль",
-                loginBtnText: "Войти в систему",
-                secTitle: "🛡️ Проверка безопасности:",
-                nameLbl: "Имя и Фамилия",
-                regJshshrLbl: "ПИНФЛ (14-значный личный номер)",
-                phoneLbl: "Номер телефона (с +998)",
-                newPassLbl: "Новый пароль (мин. 6 символов)",
-                captchaLbl: "Ответ на вопрос безопасности",
-                regSubmitText: "Завершить регистрацию",
-                cabinetBtn: "👤 Личный кабинет",
-                ratingBtn: "🏆 Общий рейтинг",
-                geoSectionTitle: "🌍 Тесты по географии",
-                geoSectionDesc: "Тесты 7-10 классов",
-                supportTitle: "💬 Центр поддержки и ответы",
-                supportDesc: "Ответы и сообщения от создателя Нурматалиева Музаффара",
-                aiTitle: "🤖 Генерация тестов через ИИ",
-                aiDesc: "Создавайте тестовые вопросы по любой теме с помощью искусственного интеллекта",
-                adminBtn: "⚡ Управление и контроль создателя",
-                logoutBtn: "Выйти из системы",
-                selectModeTitle: "Выберите тип экзамена",
-                attestTitle: "📘 Тест 7-10 классов (Глава I)",
-                attestDesc: "Полная база тестов I-главы 7 класса (30 вопросов) • Время: 1 час",
-                sertTitle: "📗 Тест 7-10 классов (Глава II)",
-                sertDesc: "База Земля - Планета Солнечной системы (116 вопросов) • Время: 1 час",
-                backBtn: "Назад",
-                supportHeader: "💬 Поддержка и обращения",
-                supportSub: "Отправьте вопрос создателю **Нурматалиеву Музаффару** или просмотрите ответы.",
-                subjLbl: "Тема обращения:",
-                msgLbl: "Текст вашего сообщения:",
-                sendMsgBtn: "Отправить сообщение создателю",
-                myMsgsTitle: "Ваши обращения:",
-                aiHeader: "🤖 Генератор тестов ИИ",
-                aiTopicLbl: "Тема или условие теста:",
-                aiCountLbl: "Количество вопросов:",
-                aiGenBtn: "Создать тест с помощью ИИ",
-                qNumLabel: "Вопрос:",
-                finishQuizBtn: "🏁 Завершить",
-                prevBtnText: "Назад",
-                nextBtnText: "Далее",
-                resultHeader: "🏁 Результат теста и анализ ИИ",
-                resCorrectLbl: "Правильных",
-                resPercentLbl: "Процент",
-                resTimeLbl: "Время",
-                aiSummaryHeader: "🤖 Заключение ИИ:",
-                errorReviewTitle: "Анализ ошибок:",
-                backHomeBtn: "На главную",
-                cabHeader: "👤 Личный кабинет",
-                cabTotalTestsLbl: "Всего тестов",
-                cabAvgLbl: "Средний балл",
-                cabBestLbl: "Лучший результат",
-                cabHistoryTitle: "История пройденных тестов:",
-                ratingHeader: "🏆 Общий рейтинг",
-                adminHeader: "⚡ Управление создателя",
-                adminMsgsHeader: "📥 Обращения и ответы:",
-                adminUsersHeader: "Пользователи:",
-                footerText: "Создатель платформы:"
-            },
-            en: {
-                title: "Geography AI — 7-10 Grades Testing System",
-                mainTitle: "🌍 Geography AI — System",
-                mainDesc: "7-10 grades tests and certification environment",
-                loginTab: "Login",
-                regTab: "Register",
-                jshshrLbl: "JSHSHR (14-digit personal ID)",
-                passLbl: "Password",
-                loginBtnText: "Sign In",
-                secTitle: "🛡️ Security Check:",
-                nameLbl: "Full Name",
-                regJshshrLbl: "JSHSHR (14-digit personal ID)",
-                phoneLbl: "Phone Number (with +998)",
-                newPassLbl: "New Password (min 6 chars)",
-                captchaLbl: "Security Question Answer",
-                regSubmitText: "Complete Registration",
-                cabinetBtn: "👤 Personal Cabinet",
-                ratingBtn: "🏆 General Rating",
-                geoSectionTitle: "🌍 Geography Tests",
-                geoSectionDesc: "7-10 Grades Tests",
-                supportTitle: "💬 Support Center & Replies",
-                supportDesc: "Replies and messages from creator Nurmataliyev Muzaffar",
-                aiTitle: "🤖 AI Test Generator",
-                aiDesc: "Create custom test questions on any topic using Artificial Intelligence",
-                adminBtn: "⚡ Creator Dashboard & Control",
-                logoutBtn: "Log Out",
-                selectModeTitle: "Select Exam Type",
-                attestTitle: "📘 7-10 Grades Test (Chapter I)",
-                attestDesc: "Full 7th grade Chapter I test base (30 questions) • Time: 1 Hour",
-                sertTitle: "📗 7-10 Grades Test (Chapter II)",
-                sertDesc: "Earth as a Planet of Solar System base (116 questions) • Time: 1 Hour",
-                backBtn: "Go Back",
-                supportHeader: "💬 Support & Inquiries",
-                supportSub: "Send a question to creator **Nurmataliyev Muzaffar** or check replies.",
-                subjLbl: "Subject:",
-                msgLbl: "Your Message:",
-                sendMsgBtn: "Send Message to Creator",
-                myMsgsTitle: "Your Inquiries:",
-                aiHeader: "🤖 AI Test Creator",
-                aiTopicLbl: "Test topic or requirement:",
-                aiCountLbl: "Number of questions:",
-                aiGenBtn: "Generate Test with AI",
-                qNumLabel: "Question:",
-                finishQuizBtn: "🏁 Finish",
-                prevBtnText: "Previous",
-                nextBtnText: "Next",
-                resultHeader: "🏁 Test Result & AI Analysis",
-                resCorrectLbl: "Correct Answers",
-                resPercentLbl: "Percent",
-                resTimeLbl: "Time",
-                aiSummaryHeader: "🤖 Artificial Intelligence (AI) Summary:",
-                errorReviewTitle: "Error Analysis:",
-                backHomeBtn: "Back to Home",
-                cabHeader: "👤 Personal Cabinet",
-                cabTotalTestsLbl: "Total Tests",
-                cabAvgLbl: "Average",
-                cabBestLbl: "Highest",
-                cabHistoryTitle: "Test History:",
-                ratingHeader: "🏆 General Rating",
-                adminHeader: "⚡ Creator Dashboard",
-                adminMsgsHeader: "📥 Inquiries & Replies:",
-                adminUsersHeader: "Users:",
-                footerText: "Platform Creator:"
-            }
+            uz: { mTitle: "🌍 Geografiya AI Ultra", mDesc: "Sun'iy intellekt va proktorring himoyasiga ega ta'lim muhiti", lTab: "Kirish", rTab: "Ro'yxatdan o'tish", jLbl: "JSHSHR (14 xonali raqam)", pLbl: "Parol", lBtn: "Kirish", fnLbl: "Ism Familiya", rjLbl: "JSHSHR (14 xonali)", phLbl: "Telefon", rpLbl: "Parol", cpLbl: "Kapcha javobi", rBtn: "Tasdiqlash", cabBtn: "👤 Kabinet va Statistikalar", ratBtn: "🏆 Global Reyting", stTitle: "🌍 Geografiya Fan Sinovlari", stDesc: "7-10 sinflar attestatsiya va sertifikat bazalari", aiMenuTitle: "🤖 AI Orqali Maxsus Test Tuzish", aiMenuDesc: "Sun'iy intellekt yordamida istalgan mavzuda savollar yaratish", outBtn: "Chiqish" },
+            ru: { mTitle: "🌍 География AI Ultra", mDesc: "Образовательная среда с ИИ и прокторингом", lTab: "Вход", rTab: "Регистрация", jLbl: "ПИНФЛ (14 знаков)", pLbl: "Пароль", lBtn: "Войти", fnLbl: "Имя Фамилия", rjLbl: "ПИНФЛ", phLbl: "Телефон", rpLbl: "Пароль", cpLbl: "Ответ капчи", rBtn: "Подтвердить", cabBtn: "👤 Кабинет и Статистика", ratBtn: "🏆 Общий рейтинг", stTitle: "🌍 Тесты по географии", stDesc: "Базы 7-10 классов", aiMenuTitle: "🤖 Генерация тестов ИИ", aiMenuDesc: "Создание вопросов по теме", outBtn: "Выйти" },
+            en: { mTitle: "🌍 Geography AI Ultra", mDesc: "AI-powered learning platform with anti-cheat", lTab: "Login", rTab: "Register", jLbl: "JSHSHR (14 digits)", pLbl: "Password", lBtn: "Sign In", fnLbl: "Full Name", rjLbl: "JSHSHR", phLbl: "Phone", rpLbl: "Password", cpLbl: "Captcha Answer", rBtn: "Confirm", cabBtn: "👤 Cabinet & Stats", ratBtn: "🏆 Global Rating", stTitle: "🌍 Geography Tests", stDesc: "7-10 grades test bases", aiMenuTitle: "🤖 AI Test Generator", aiMenuDesc: "Generate custom test questions", outBtn: "Log Out" }
         };
 
-        let currentLang = 'uz';
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            ['uz', 'ru', 'en'].forEach(l => {
-                document.getElementById(`lang${l.charAt(0).toUpperCase() + l.slice(1)}`).className = `lang-btn ${l === lang ? 'active' : ''}`;
-            });
-            
+        function setLang(lang) {
             const t = translations[lang];
-            document.getElementById('t-title').innerText = t.title;
-            document.getElementById('t-mainTitle').innerText = t.mainTitle;
-            document.getElementById('t-mainDesc').innerText = t.mainDesc;
-            document.getElementById('t-loginTab').innerText = t.loginTab;
-            document.getElementById('t-regTab').innerText = t.regTab;
-            document.getElementById('t-jshshrLbl').innerText = t.jshshrLbl;
-            document.getElementById('t-passLbl').innerText = t.passLbl;
-            document.getElementById('t-loginBtnText').innerText = t.loginBtnText;
-            document.getElementById('t-secTitle').innerText = t.secTitle;
-            document.getElementById('t-nameLbl').innerText = t.nameLbl;
-            document.getElementById('t-regJshshrLbl').innerText = t.regJshshrLbl;
-            document.getElementById('t-phoneLbl').innerText = t.phoneLbl;
-            document.getElementById('t-newPassLbl').innerText = t.newPassLbl;
-            document.getElementById('t-captchaLbl').innerText = t.captchaLbl;
-            document.getElementById('t-regSubmitText').innerText = t.regSubmitText;
-            document.getElementById('t-cabinetBtn').innerText = t.cabinetBtn;
-            document.getElementById('t-ratingBtn').innerText = t.ratingBtn;
-            document.getElementById('t-geoSectionTitle').innerText = t.geoSectionTitle;
-            document.getElementById('t-geoSectionDesc').innerText = t.geoSectionDesc;
-            document.getElementById('t-supportTitle').innerText = t.supportTitle;
-            document.getElementById('t-supportDesc').innerText = t.supportDesc;
-            document.getElementById('t-aiTitle').innerText = t.aiTitle;
-            document.getElementById('t-aiDesc').innerText = t.aiDesc;
-            if(document.getElementById('adminBtn')) document.getElementById('adminBtn').innerText = t.adminBtn;
-            document.getElementById('t-logoutBtn').innerText = t.logoutBtn;
-            document.getElementById('t-selectModeTitle').innerText = t.selectModeTitle;
-            document.getElementById('t-attestTitle').innerText = t.attestTitle;
-            document.getElementById('t-attestDesc').innerText = t.attestDesc;
-            document.getElementById('t-sertTitle').innerText = t.sertTitle;
-            document.getElementById('t-sertDesc').innerText = t.sertDesc;
-            document.getElementById('t-backBtn1').innerText = t.backBtn;
-            document.getElementById('t-supportHeader').innerText = t.supportHeader;
-            document.getElementById('t-supportSub').innerText = t.supportSub;
-            document.getElementById('t-subjLbl').innerText = t.subjLbl;
-            document.getElementById('t-msgLbl').innerText = t.msgLbl;
-            document.getElementById('t-sendMsgBtn').innerText = t.sendMsgBtn;
-            document.getElementById('t-myMsgsTitle').innerText = t.myMsgsTitle;
-            document.getElementById('t-backBtn3').innerText = t.backBtn;
-            document.getElementById('t-aiHeader').innerText = t.aiHeader;
-            document.getElementById('t-aiTopicLbl').innerText = t.aiTopicLbl;
-            document.getElementById('t-aiCountLbl').innerText = t.aiCountLbl;
-            document.getElementById('t-aiGenBtn').innerText = t.aiGenBtn;
-            document.getElementById('t-backBtn4').innerText = t.backBtn;
-            document.getElementById('t-qNumLabel').innerText = t.qNumLabel;
-            document.getElementById('t-finishQuizBtn').innerText = t.finishQuizBtn;
-            document.getElementById('t-prevBtnText').innerText = t.prevBtnText;
-            document.getElementById('t-nextBtnText').innerText = t.nextBtnText;
-            document.getElementById('t-resultHeader').innerText = t.resultHeader;
-            document.getElementById('t-resCorrectLbl').innerText = t.resCorrectLbl;
-            document.getElementById('t-resPercentLbl').innerText = t.resPercentLbl;
-            document.getElementById('t-resTimeLbl').innerText = t.resTimeLbl;
-            document.getElementById('t-aiSummaryHeader').innerText = t.aiSummaryHeader;
-            document.getElementById('t-errorReviewTitle').innerText = t.errorReviewTitle;
-            document.getElementById('t-backHomeBtn').innerText = t.backHomeBtn;
-            document.getElementById('t-cabHeader').innerText = t.cabHeader;
-            document.getElementById('t-cabTotalTestsLbl').innerText = t.cabTotalTestsLbl;
-            document.getElementById('t-cabAvgLbl').innerText = t.cabAvgLbl;
-            document.getElementById('t-cabBestLbl').innerText = t.cabBestLbl;
-            document.getElementById('t-cabHistoryTitle').innerText = t.cabHistoryTitle;
-            document.getElementById('t-backBtn5').innerText = t.backBtn;
-            document.getElementById('t-ratingHeader').innerText = t.ratingHeader;
-            document.getElementById('t-backBtn6').innerText = t.backBtn;
-            document.getElementById('t-adminHeader').innerText = t.adminHeader;
-            document.getElementById('t-adminMsgsHeader').innerText = t.adminMsgsHeader;
-            document.getElementById('t-adminUsersHeader').innerText = t.adminUsersHeader;
-            document.getElementById('t-backBtn7').innerText = t.backBtn;
-            document.getElementById('t-footerText').innerText = t.footerText;
+            document.getElementById('t-mainTitle').innerText = t.mTitle;
+            document.getElementById('t-mainDesc').innerText = t.mDesc;
+            document.getElementById('t-lTab').innerText = t.lTab;
+            document.getElementById('t-rTab').innerText = t.rTab;
+            document.getElementById('t-jshLbl').innerText = t.jLbl;
+            document.getElementById('t-pLbl').innerText = t.pLbl;
+            document.getElementById('t-lBtn').innerText = t.lBtn;
+            document.getElementById('t-fnLbl').innerText = t.fnLbl;
+            document.getElementById('t-rjshLbl').innerText = t.rjLbl;
+            document.getElementById('t-phLbl').innerText = t.phLbl;
+            document.getElementById('t-rpLbl').innerText = t.rpLbl;
+            document.getElementById('t-cpLbl').innerText = t.cpLbl;
+            document.getElementById('t-rBtn').innerText = t.rBtn;
+            document.getElementById('t-cabBtn').innerText = t.cabBtn;
+            document.getElementById('t-ratBtn').innerText = t.ratBtn;
+            document.getElementById('t-stTitle').innerText = t.stTitle;
+            document.getElementById('t-stDesc').innerText = t.stDesc;
+            document.getElementById('t-aiMenuTitle').innerText = t.aiMenuTitle;
+            document.getElementById('t-aiMenuDesc').innerText = t.aiMenuDesc;
+            document.getElementById('t-outBtn').innerText = t.outBtn;
         }
 
-        const chapter1Questions = [
-            { q: "1. «Geografiya» atamasi qaysi tilidan olingan va uning lug'aviy ma'nosi to'g'ri ko'rsatilgan qatorni toping?", options: ["yunoncha «ge» - Yer, «grafo» - yozaman", "lotincha «geo» - Yer, «grafo» - yozaman", "lotincha «ge» - Yer, «grafo» - tasvirlayman", "yunoncha «geo» - Yer, «grafo» - tasvirlayman"], correctIndex: 3 },
-            { q: "2. 1492-yilda X. Kolumb boshchiligidagi ekspeditsiya, qayerga dengiz orqali yo'l topish maqsadida sayohatga chiqadi?", options: ["Xitoyga", "Amerikaga", "Hindistonga", "Afrikaga"], correctIndex: 2 },
-            { q: "3. Geografiya fani rivojlanib borgan sari unda nechta asosiy yo'nalish vujudga keldi?", options: ["uchta", "ikkita", "to'rtta", "beshta"], correctIndex: 1 },
-            { q: "4. Kimlarning xaritasida \"Xorazm eli\" (I) va \"Xazaron\" (II) aks etgan?", options: ["I - Beruniy, II - Xorazmiy", "I - N. Xisrav, II - Xorazmiy", "I - Beruniy, II - N. Xisrav", "I - Xorazmiy, II - Beruniy"], correctIndex: 3 },
-            { q: "5. Tabiatning nima sababdan xilma-xil ekanligi sabablarini tushuntirish bilan shug'ullanuvchi fan nomini belgilang?", options: ["Iqlimshunoslik", "Geomorfologiya", "Tabiiy geografiya", "Geologiya"], correctIndex: 2 },
-            { q: "6. F. Magellan boshchiligidagi ispan ekspeditsiyasi nechanchi yillarda, dunyoni g'arbdan sharqqa tomon aylanib chiqdi?", options: ["1499-1504-yillar", "1519-1522-yillar", "1519-1521-yillar", "1512-1515-yillar"], correctIndex: 2 },
-            { q: "7. Eratosfen tuzgan dunyo xaritasida tasvirlangan hududni toping.", options: ["Xitoy", "Ariana", "Andalus", "Efiopiya"], correctIndex: 1 },
-            { q: "8. N. Xisrav sayohatlari aks etgan xaritadagi shaharlarni aniqlang.", options: ["Bobil, Molton, Loxur", "Siyena, Asvon, Mag'rib", "Xoʻjand, Qavzin, Quddus", "Quddus, Nishopur, Bayrut"], correctIndex: 3 },
-            { q: "9. Ptolemey tuzgan xaritada daraja to'ri nechanchi graduslargacha tasvirlangan?", options: ["50° shimoliy kenglikdan 20° shimoliy kenglikkacha va to'liq sharqiy yarimshar", "60° shimoliy kenglikdan 20° janubiy kenglikkacha va to'liq g'arbiy yarimshar", "50° shimoliy kenglikdan 20° shimoliy kenglikkacha va to'liq g'arbiy yarimshar", "60° shimoliy kenglikdan 20° janubiy kenglikkacha va to'liq sharqiy yarimshar"], correctIndex: 3 },
-            { q: "10. Ushbu belgi qaysi ob-havo hodisasini bildiradi?", options: ["quyun", "tuman", "yomg'ir", "qat-qat bulut"], correctIndex: 1 },
-            { q: "11. Qadimgi dunyoda Yerning shakli haqidagi dastlabki tasavvurlar qanday bo'lgan?", options: ["Karsimon tekislik", "Uch fil ustida turgan yassi disk shaklida", "Mukammal shar shaklida", "ellipsoid shaklida"], correctIndex: 1 },
-            { q: "12. Buyuk geografik kashfiyotlar davri qaysi asrlarni o'z ichiga oladi?", options: ["XV asr o'rtalari – XVII asr o'rtalari", "XIV asr oxiri – XVI asr boshi", "XVI asr boshlari – XVIII asr oxirlari", "XIII asr – XIV asrlar"], correctIndex: 0 },
-            { q: "13. Afrikaning janubiy chekka burnini birinchi bo'lib kashf etgan dengizchi kim?", options: ["Vasko da Gama", "Bartolomeu Diash", "Xristofor Kolumb", "Amerigo Vespucci"], correctIndex: 1 },
-            { q: "14. Hindistonga dengiz yo'lini ochgan portugaliyalik sayohatchini toping.", options: ["Ferdinand Magellan", "Vasko da Gama", "Peskash", "Mark Polo"], correctIndex: 1 },
-            { q: "15. Okeanlarni o'rganishda qaysi xalqqa mansub dengizchilar Buyuk geografik kashfiyotlar davridan oldin ham ulkan muvaffaqiyatlarga erishgan?", options: ["Rimliklar", "Finikiyaliklar", "Grekiyaliklar", "Misrliklar"], correctIndex: 1 },
-            { q: "16. Abu Rayhon Beruniy o'zining qaysi mashhur asarida Yerning radiusini aniq hisoblab chiqqan?", options: ["«Qonuni Ma'sudiy»", "«Al-Qonun fi ttibb»", "«Kitob al-hind»", "«Sayohatnoma»"], correctIndex: 0 },
-            { q: "17. Dengiz sathidan balandlik ortib borgan sari havo harorati qanday o'zgaradi?", options: ["Har 100 metrda 0,6°C ga pasayadi", "Har 1000 metrda 1°C ga ko'tariladi", "O'zgarmas qoladi", "Har 1 kilometrda 6°C ga ko'tariladi"], correctIndex: 0 },
-            { q: "18. Atmosfera bosimini o'lchovchi asbob qanday nomlanadi?", options: ["Gigrometr", "Barometr", "Termometr", "Anemometr"], correctIndex: 1 },
-            { q: "19. Shamol yo'nalishini va tezligini aniqlashda qaysi qurilmadan foydalaniladi?", options: ["Fluger", "Kompas", "Seysmograf", "Eholot"], correctIndex: 0 },
-            { q: "20. Litosfera plitalari nazariyasiga ko'ra, qit'alarning harakatlanishiga nima sabab bo'ladi?", options: ["Yer osti suvlari oqimi", "Mantiya moddalarining konveksion oqimlari", "Oyding tortish kuchi", "Atmosfera bosimining o'zgarishi"], correctIndex: 1 },
-            { q: "21. Yer yuzidagi eng chuqur botqoqlik yoki okean chuqurligi qaysi?", options: ["Mariana botig'i (Challenger chuqurligi)", "Sond chuqurligi", "Puerto-Riko", "Philippin chuqurligi"], correctIndex: 0 },
-            { q: "22. Dunyo okeanining asosiy qismlarini ko'rsating.", options: ["Okeanlar, dengizlar, qo'ltiqlar, bo'g'ozlar", "Ko'llar, daryolar, suv omborlari", "Atmosfera, biosfera, litosfera", "Materiklar va orollar"], correctIndex: 0 },
-            { q: "23. Qaysi oqim Yer yuzidagi eng yirik sovuq oqim hisoblanadi?", options: ["Golsftrim", "G'arbiy Shamollar oqimi", "Kurosio", "Gulfstrim"], correctIndex: 1 },
-            { q: "24. Yer sharining eng issiq mintaqasi qaysi?", options: ["Tropik mintaqa", "Ekvatorial mintaqa", "Mo'tadil mintaqa", "Qutb mintaqasi"], correctIndex: 1 },
-            { q: "25. Shaharlar va geografik ob'ektlarning xaritadagi o'rnini topish uchun nima ishlatiladi?", options: ["Geografik koordinatalar (kenglik va uzunlik)", "Absolyut balandlik", "Atmosfera bosimi", "Selsiy shkalasi"], correctIndex: 0 },
-            { q: "26. O'zbekiston hududi qaysi soat mintaqasida joylashgan?", options: ["2-soat mintaqasi", "4-soat mintaqasi", "5-soat mintaqasi", "6-soat mintaqasi"], correctIndex: 2 },
-            { q: "27. Qaysi olim ilk bor Yerning sharsimon ekanligini ilmiy asoslab bergan?", options: ["Pifagor", "Aristotel", "Eratosfen", "Ptolemey"], correctIndex: 1 },
-            { q: "28. Xarita masshtabi qanday turlarga bo'linadi?", options: ["Raqamli, nomli, chiziqli", "Katta, o'rta, kichik", "Asosiy va yordamchi", "Geografik va geometrik"], correctIndex: 0 },
-            { q: "29. Litosfera plitalarining to'qnashgan chegaralarida nima hosil bo'ladi?", options: ["Tog' tizmalari va chuqur botiqlar", "Tekisliklar va platformalar", "Daryo o'zanlari", "Quruq cho'llar"], correctIndex: 0 },
-            { q: "30. Qaysi sayohatchi birinchi bo'lib Tinch okeani orqali suzib o'tib, unga «Tinch okean» nomini bergan?", options: ["Ferdinand Magellan", "Xristofor Kolumb", "Jeyms Kuk", "Vasko da Gama"], correctIndex: 0 }
-        ];
-
-        const chapter2Questions = [
-            { q: "1. Yerga eng yaqin bo'lgan qizib yotgan yulduz nima deb ataladi?", options: ["Sirius", "Oy", "Quyosh", "Qutb yulduzi"], correctIndex: 2 },
-            { q: "2. Shimoliy yarimsharda qishki Quyosh turishi kuni qachon bo'ladi?", options: ["23-dekabr", "1-yanvar", "21-dekabr", "22-dekabr"], correctIndex: 3 },
-            { q: "3. Sayyoralarning yulduzlardan farqi nimada?", options: ["Nur sochmasligida", "Hayotning mavjudligida", "Quyoshdan tushgan nurni qaytarishida", "A va C"], correctIndex: 3 },
-            { q: "4. Yer o'qi yo'nalishi bilan orbita tekisligi orasida hosil bo'lgan burchakni toping.", options: ["66°30'", "60°33'", "66°33'", "60°30'"], correctIndex: 2 },
-            { q: "5. Oy, Yer va Quyosh osmonda bir chiziqqa kelganda qanday hodisa ro'y beradi?", options: ["Quyosh tutiladi", "Oy tutiladi", "Yulduz tutiladi", "To'lin Oy bo'ladi"], correctIndex: 0 },
-            { q: "6. Yo'ldoshlari soni 67 ta bo'lgan sayyorani toping.", options: ["Neptun", "Saturn", "Uran", "Yupiter"], correctIndex: 3 },
-            { q: "7. Yer yuzida ekvatordan bir xil uzoqlikda o'tgan aylana chiziqlar nima deb ataladi?", options: ["meridianlar", "ekvator", "parallellar", "tropik chiziqlar"], correctIndex: 2 },
-            { q: "8. Oriyentirlash - bu...", options: ["Yulduzlarni kuzatish", "Osmonda yulduzlarning o'rnini aniqlash", "O'zi turgan joyni yulduzlarga nisbatan aniqlash", "O'zi turgan joyni ufq tomonlariga nisbatan aniqlash"], correctIndex: 3 },
-            { q: "9. 21 km qaysi javobga mos keladi?", options: ["Yerning qutb radiusi ekvator radiusidan 21 km ga katta", "Yerning ekvator radiusi qutb radiusidan 21 km ga katta", "Yerning markaziy radiusi qutb radiusidan 21 km ga kichik", "Bosh meridian bilan ekvator orasidagi masofa 21 km"], correctIndex: 1 },
-            { q: "10. Yevropada birinchi globusni qaysi olim yasagan?", options: ["Aristotel", "M. Bexaym", "Strabon", "Ptolemey"], correctIndex: 1 },
-            { q: "11. Bugungi kunduz davomiyligi kechagidan qisqaroq va ertaga ham yana qisqaroq bo'ladi. Kunduz eng uzun bo'ladigan sana qaysi?", options: ["21-iyun", "23-sentyabr", "22-iyun", "22-dekabr"], correctIndex: 0 },
-            { q: "12. Quyosh atrofida nechta sayyora aylanadi?", options: ["8 ta", "9 ta", "10 ta", "7 ta"], correctIndex: 0 },
-            { q: "13. Yo'ldoshlari mavjud bo'lmagan sayyoralarni belgilang.", options: ["Yupiter va Saturn", "Saturn va Mars", "Mars va Neptun", "Venera va Merkuriy"], correctIndex: 3 },
-            { q: "14. Yerning o'z joyida aylanadigan ikki nuqtasi nima deb ataladi?", options: ["yer qutblari", "yerning o'qlari", "parallellar", "ekvator"], correctIndex: 0 },
-            { q: "15. Quyosh o'z o'qi atrofida necha Yer sutkasida bir marta aylanib chiqadi?", options: ["28", "27", "31", "30"], correctIndex: 1 },
-            { q: "16. Bir sutka qancha vaqtni tashkil qiladi?", options: ["23 soat 56 daqiqa 4 soniya", "23 soat 44 daqiqa 4 soniya", "23 soat 54 daqiqa 6 soniya", "24 soat"], correctIndex: 0 },
-            { q: "17. Nihoyatda qizib yotgan va Yerdan juda uzoqda joylashgan osmon yoritgichlari qanday nomlanadi?", options: ["meteor jismlar", "kometalar", "asteroidlar", "yulduzlar"], correctIndex: 3 },
-            { q: "18. 22-iyun kuni 23,5° shimoliy kenglikda turgan insonning tush paytidagi soyasi necha daraja burchak ostida tushadi?", options: ["45°", "0°", "23,5°", "90°"], correctIndex: 1 },
-            { q: "19. Yangi Oy ufqning qaysi tomonida ko'rinadi?", options: ["Kechqurun, Quyosh botganda g'arb tomondan", "Kechqurun, Quyosh botganda sharq tomondan", "Ertalab, Quyosh chiqmasdan sharq tomondan", "Ertalab, Quyosh chiqmasdan g'arb tomondan"], correctIndex: 0 },
-            { q: "20. Yerning markazidan Yer yuzasigacha bo'lgan masofa ekvatorda qancha?", options: ["6357 km", "6352 km", "6378 km", "6363 km"], correctIndex: 2 },
-            { q: "21. Qadimda qaysi xalq vakillari Yer yassi, gumbazsimon shaklda bo'lib, uning atrofini ulkan daryo yoki okean o'rab turadi deb tasavvur qilishgan?", options: ["hindlar", "arablar", "forslar", "yunonlar"], correctIndex: 0 },
-            { q: "22. 66,5° shimoliy va 66,5° janubiy kengliklardan o'tuvchi parallel chiziqlar nima deb ataladi?", options: ["qutbiy doiralar", "shimoliy tropik", "janubiy tropik", "meridianlar"], correctIndex: 0 },
-            { q: "23. Saturn sayyorasining yo'ldoshlari soni nechta?", options: ["14", "67", "62", "27"], correctIndex: 2 },
-            { q: "24. Yerning tabiiy yo'ldoshi - Oy...", options: ["O'zidan nur sochadi", "Quyoshdan tushgan nurni qaytaradi", "O'z o'rnini o'zgartirmaydi", "Yerga nisbatan kattaroq"], correctIndex: 1 },
-            { q: "25. Quyoshning diametri Yer diametridan necha marta katta?", options: ["109 marta", "332 marta", "209 marta", "322 marta"], correctIndex: 0 },
-            { q: "26. Bugungi kunduz davomiyligi kechagidan uzunroq, ammo ertaga yana qisqaroq bo'ladi. Bugungi kunni aniqlang.", options: ["23-sentyabr", "22-dekabr", "21-iyun", "21-dekabr"], correctIndex: 2 },
-            { q: "27. M. Bexaym globusida tasvirlangan materiklarni toping.", options: ["Yevrosiyo va Avstraliya", "Amerika va Yevrosiyo", "Afrika va Yevrosiyo", "Avstraliya va Amerika"], correctIndex: 2 },
-            { q: "28. Suvning ko'tarilib qaytishiga Oy tortish kuchiga nisbatan Quyosh tortish kuchi qanday ta'sir qiladi?", options: ["2 marta kuchli boʻladi", "o'zgarmaydi", "2 marta kuchsiz bo'ladi", "4 marta kuchli bo'ladi"], correctIndex: 2 },
-            { q: "29. Umumiy yo'ldoshlari soni 27 ta bo'lgan sayyorani toping.", options: ["Uran", "Yupiter", "Mars", "Saturn"], correctIndex: 0 },
-            { q: "30. Yer ekvatorining uzunligi taxminan qancha?", options: ["4000 km", "40 000 km", "39 000 km", "41 000 km"], correctIndex: 1 },
-            { q: "31. Yer uchun yorug'lik va issiqlik manbai nima?", options: ["Quyosh", "Oy", "Yulduzlar", "Yer atmosferasi"], correctIndex: 0 },
-            { q: "32. Odatda kabisa yili qachon keladi?", options: ["har yilda", "har 3 yilda", "har 4 yilda", "har 5 yilda"], correctIndex: 2 },
-            { q: "33. Aristotel geografiya fani rivojiga qanday hissa qo'shgan?", options: ["Yerning o'lchamlarini nazariy jihatdan aniqlagan", "Olam markazida Yer turadi degan geotsentrik nazariyani ilgari surgan", "Yerning Quyosh atrofida aylanishini isbotlagan", "Yerning geografik koordinatalarini aniqlagan"], correctIndex: 1 },
-            { q: "34. 23.5° shimoliy va 23.5° janubiy kengliklardan o'tuvchi chiziqlar nima deb ataladi?", options: ["izochiziqlar", "izotermalar", "qutbiy chiziqlar", "tropik chiziqlar"], correctIndex: 3 },
-            { q: "35. Oltinqoziq yulduzini topish uchun Katta Ayiq yulduz turkumidagi cho'michning chekkasidagi ikki yulduz oralig'idagi masofani necha marta qo'yib chiqish kerak bo'ladi?", options: ["3", "6", "5", "4"], correctIndex: 2 },
-            { q: "36. Bosh meridian sifatida qabul qilingan meridian qaysi obyektdan o'tgan?", options: ["London shahridagi Grinvich rasadxonasi", "Moskva shahridagi Kreml maydoni", "Istanbul shahridagi Sofiya ibodatxonasi", "Parij shahridagi Eyfel minorasi"], correctIndex: 0 },
-            { q: "37. Neptun sayyorasining yo'ldoshlari soni nechta?", options: ["62", "12", "27", "14"], correctIndex: 3 },
-            { q: "38. Yangi Oy qanday shaklda bo'ladi?", options: ["cho'michsimon", "o'roq", "yarimoy", "ovalsimon"], correctIndex: 1 },
-            { q: "39. M. Bexaym yasagan globusda nechta qit'a ko'rsatilmagan?", options: ["4", "2", "3", "1"], correctIndex: 1 },
-            { q: "40. \"Oriyentirlash\" so'zi qanday ma'noni bildiradi?", options: ["sharqlash", "aniqlash", "kuzatish", "chegaralayman"], correctIndex: 0 },
-            { q: "41. Yer sharida meridianlar 180°, parallellar esa 90° bilan chegaralanishining asosiy sababi qaysi javobda to'g'ri izohlangan?", options: ["Yer shar shakliga ega bo'lgani uchun meridianlar qutblarni tutashtiruvchi yarim doira, parallellar esa ekvatordan qutblargacha bo'lgan masofani ifodalaydi", "Yer shar shakliga ega bo'lib, qutblar orqali o'tuvchi chiziqlar 180° ga, ekvatordan qutblargacha bo'lgan masala esa 90° ga teng bo'lgani uchun", "Meridianlar faqat shimoliy yarimsharda, parallellar esa janubiy yarimsharda joylashgani uchun", "Geografik koordinatalar tizimida uzunlik 90° gacha, kenglik esa 180° bilan chegaralangani uchun"], correctIndex: 0 },
-            { q: "42. Quyidagilardan qaysi biri yulduz turkumi hisoblanmaydi?", options: ["Oltinqoziq", "Chayon", "Kichik Ayiq", "Katta Ayiq"], correctIndex: 0 },
-            { q: "43. Quruqlikdagi eng baland tog' cho'qqisini toping.", options: ["Jamolungma", "Kilimanjaro", "Akonkagua", "Denali"], correctIndex: 0 },
-            { q: "44. Yerning tabiiy yo'ldoshi nima?", options: ["Oy", "Quyosh", "Mars", "Oltinqoziq"], correctIndex: 0 },
-            { q: "45. Umumiy yo'ldoshlari soni 2 ta bo'lgan sayyorani toping.", options: ["Venera", "Merkuriy", "Mars", "Yer"], correctIndex: 2 },
-            { q: "46. 23-sentyabr kuni ekvatorda turgan insonning tush paytidagi soyasi qanday holatda bo'ladi?", options: ["45° burchak ostida", "soya bo'lmaydi", "23,5° burchak ostida", "juda uzun bo'ladi"], correctIndex: 1 },
-            { q: "47. Ufqning nechta asosiy va oraliq tomoni mavjud?", options: ["4 ta", "16 ta", "12 ta", "8 ta"], correctIndex: 3 },
-            { q: "48. Yerning qutblarini tutashtiruvchi va Yer markazidan o'tuvchi to'g'ri chiziq nima deb ataladi?", options: ["parallellar", "meridianlar", "yer o'qi", "ekvator"], correctIndex: 2 },
-            { q: "49. Oyning qaysi kunlari to'lin Oy davri hisoblanadi?", options: ["14-15-kunlari", "12-13-kunlari", "13-14-kunlari", "15-16-kunlari"], correctIndex: 0 },
-            { q: "50. Bahorgi va kuzgi tengkunliklar qachon bo'ladi?", options: ["23-mart va 21-sentyabr", "21-mart va 23-sentyabr", "22-mart va 22-sentyabr", "21-mart va 21-sentyabr"], correctIndex: 1 },
-            { q: "51. Yerning sharsimon ekanligini birinchi bo'lib qaysi olim isbotlagan?", options: ["Gomer", "Eratosfen", "Strabon", "Aristotel"], correctIndex: 3 },
-            { q: "52. Yer sharida meridian bo'ylab 1º yoyning uzunligi qancha?", options: ["109,3 km", "111,1 km", "109 km", "109,1 km"], correctIndex: 1 },
-            { q: "53. Yer sayyorasi o'rtacha diametriga, ya'ni kattaligiga eng yaqin va o'xshash sayyora qaysi?", options: ["Mars", "Merkuriy", "Neptun", "Venera"], correctIndex: 3 },
-            { q: "54. Agar Oy doira shaklida ko'rinsa, u qanday ataladi?", options: ["to'lgan Oy", "to'lin Oy", "to'liq Oy", "tugayotgan Oy"], correctIndex: 1 },
-            { q: "55. Globusda meridianlarning ekvator yonida yozib qo'yilgan darajalari yordamida nimani aniqlash mumkin?", options: ["geografik uzunlikni", "masshtabni", "geografik kenglikni", "mutlaq balandlikni"], correctIndex: 0 },
-            { q: "56. Agar old tomoningiz bilan g'arbga qarab turgan bo'lsangiz, o'ng qo'lingiz ufqning qaysi tomonini ko'rsatadi?", options: ["g'arb", "janub", "shimol", "sharq"], correctIndex: 2 },
-            { q: "57. Yerning qutb radiusi ekvator radiusidan necha kilometr qisqa?", options: ["20 km", "21 km", "22 km", "19 km"], correctIndex: 1 },
-            { q: "58. Doim yerdagi kuzatuvchiga Oy qanday ko'rinadi?", options: ["barcha qismi ko'rinadi", "yarim qismi ko'rinadi", "chorak qismi ko'rinadi", "Quyosh nuri bilan yoritilgan qismi ko'rinadi"], correctIndex: 3 },
-            { q: "59. \"Toshkent globusi\" qayerda saqlanadi?", options: ["O'zbekiston Fanlar akademiyasida", "O'zbekiston Milliy universitetida", "O'zbekiston tarixi davlat muzeyida", "Samarqand davlat universitetida"], correctIndex: 2 },
-            { q: "60. Quyidagilar ichidan xato fikrni toping.", options: ["Yulduzlarning sayyoralardan farqi shuki, ular o'z o'rinlarini ancha o'zgartirib turadi.", "Sayyoralar va ularning yo'ldoshlari, asosan, bir xil moddalardan tuzilgan.", "Oy Yer atrofini deyarli bir oyda bir marta aylanib chiqadi.", "Yangi Oy kechqurun Quyosh botganda, g'arb tomonda ko'rinadi"], correctIndex: 0 },
-            { q: "61. Bugun kunduz va tun davomiyligi teng. Ertadan boshlab tun kunduzdan uzun bo'la boshlaydi. Bugungi sanani toping.", options: ["22-dekabr", "22-iyun", "23-sentyabr", "22-semtabr"], correctIndex: 2 },
-            { q: "62. Oy tutilishi qaysi davrda sodir bo'ladi?", options: ["yangi oy davrida", "to'lin oy davrida", "eski oy davrida", "tugayotgan oy davrida"], correctIndex: 1 },
-            { q: "63. Yer va Merkuriy sayyoralari orasidagi o'rtacha masofani toping.", options: ["98 mln km", "48 mln km", "92 mln km", "42 mln km"], correctIndex: 1 },
-            { q: "64. Yer o'z o'qi atrofida qanday yo'nalishda aylanadi?", options: ["Sharqdan g'arbga tomon", "G'arbdan sharqqa tomon", "Shimoldan janubga tomon", "Janubdan shimolga tomon"], correctIndex: 1 },
-            { q: "65. Yerning kichraytirilgan shakli nima deb ataladi?", options: ["Globus", "Xarita", "Joy plani", "Atlas"], correctIndex: 0 },
-            { q: "66. Ekvatordan qutblarga tomon borgan sari parallellarning uzunligi qanday o'zgaradi?", options: ["saqlanadi", "o'zgarmaydi", "qisqaradi", "kengayadi"], correctIndex: 2 },
-            { q: "67. Yerning o'rtacha diametridan taxminan ikki marotaba kichikroq bo'lgan sayyorani toping.", options: ["Merkuriy", "Mars", "Venera", "Neptun"], correctIndex: 0 },
-            { q: "68. Soatiga 500 km tezlikda uchadigan samolyot Yerdan Quyoshgacha qanchada yetib boradi?", options: ["17 yil", "8,5 yil", "5 oy", "34 yil"], correctIndex: 0 },
-            { q: "69. 22-dekabr kuni 23.5° janubiy kenglikda turgan insonning tush paytidagi soyasi necha daraja burchak ostida tushadi?", options: ["23.5°", "0°", "45°", "90°"], correctIndex: 1 },
-            { q: "70. Quyosh yuzasidagi o'rtacha harorat qancha?", options: ["+8000°C", "+6000°C", "+2000°C", "+4000°C"], correctIndex: 1 },
-            { q: "71. Yer yuzining umumiy maydoni qancha?", options: ["561 mln km²", "361 mln km²", "480 mln km²", "510 mln km²"], correctIndex: 3 },
-            { q: "72. Neptun sayyorasi bilan Quyosh o'rtasidagi masofa qancha?", options: ["4 504 mln km", "2 871 mln km", "4 405 mln km", "1 428 mln km"], correctIndex: 0 },
-            { q: "73. O'rtacha diametri 4 878 km bo'lgan sayyorani toping.", options: ["Mars", "Venera", "Yer", "Merkuriy"], correctIndex: 3 },
-            { q: "74. Har doim deyarli bir joyda, ya'ni Shimoliy qutb ustida joylashgan yulduzni toping.", options: ["Quyosh", "Kichik Ayiq", "Oltinqoziq", "Katta Ayiq"], correctIndex: 2 },
-            { q: "75. Yer ekvatori bilan orbita tekisligi orasida hosil bo'lgan burchakni toping.", options: ["23°27'", "30°27'", "66°33'", "66° 30'"], correctIndex: 0 },
-            { q: "76. Aristotel Yerning sharsimonligini asoslash uchun qanday dalillar keltirgan? 1. Dengizda qirg'oqqa yaqinlashib kelayotgan kemaning avval machtalari, keyin korpusining suvdan ko'tarilib chiqishi. 2. Oy tutilishi vaqtida Yer soyasining Oy yuzasida doira shaklida ko'rinishi. 3. Tekis va ochiq joyda balandlik oshgani sari ko'rinadigan ufqning kengayib borishi. 4. Ko'plab yirik osmon jismlarining sharsimon shaklda bo'lishi.", options: ["1, 2", "1, 2, 3, 4", "3, 4", "2, 3"], correctIndex: 1 },
-            { q: "77. Oy Yer atrofini qancha vaqtda bir marta aylanib chiqadi?", options: ["bir oyda", "14-15 kunda", "bir sutkada", "bir haftada"], correctIndex: 0 },
-            { q: "78. Yer yuzida qutblardan barobar uzoqlikda joylashgan katta aylana chiziq nima deyiladi?", options: ["meridianlar", "ekvator", "parallellar", "tropik chiziqlar"], correctIndex: 1 },
-            { q: "79. Qadimda Hindistonda yashagan odamlar Yerni nima ko'tarib turadi deb tasavvur qilishgan?", options: ["yo'lbarslar", "nahang baliqlar", "fillar", "ho'kizlar"], correctIndex: 2 },
-            { q: "80. 66.5° shimoliy va 66.5° janubiy kengliklardan o'tuvchi chiziqlar nima deb ataladi?", options: ["qutbiy doiralar", "shimoliy tropik", "qutbiy chiziq", "janubiy tropik"], correctIndex: 0 },
-            { q: "81. Quyoshdan 778 mln km uzoqlikda joylashgan sayyorani toping.", options: ["Uran", "Mars", "Saturn", "Yupiter"], correctIndex: 3 },
-            { q: "82. Quyosh, Oy va Yer osmonda bir chiziqqa to'g'ri kelganda qanday hodisa ro'y beradi?", options: ["Quyosh tutiladi", "Oy tutiladi", "Yulduz tutiladi", "To'lin Oy bo'ladi"], correctIndex: 0 },
-            { q: "83. Yerning markazidan Yer yuzasigacha bo'lgan masofa qutblarda qancha?", options: ["6357 km", "6378 km", "6366 km", "6350 km"], correctIndex: 0 },
-            { q: "84. Quyosh sistemasidagi sayyoralar Quyoshdan uzoqlikdan yaqinlikka ko'ra to'g'ri tartibda joylashtirilgan javobni toping: 1) Yer; 2) Venera; 3) Merkuriy; 4) Yupiter; 5) Uran; 6) Neptun; 7) Mars; 8) Saturn.", options: ["6, 5, 8, 4, 7, 1, 2, 3", "8, 7, 6, 5, 4, 3, 2, 1", "6, 8, 5, 4, 7, 1, 2, 3", "1, 2, 3, 4, 5, 6, 7, 8"], correctIndex: 0 },
-            { q: "85. Bugungi kunduz davomiyligi kechagidan qisqaroq, lekin ertaga undan uzunroq bo'ladi. Bugungi kunni aniqlang.", options: ["21-mart", "21-dekabr", "21-iyun", "23-sentyabr"], correctIndex: 1 },
-            { q: "86. Quyoshning massasi Yer massasidan necha marta katta?", options: ["332 ming", "109 ming", "270 ming", "450 ming"], correctIndex: 0 },
-            { q: "87. Yupiter sayyorasining o'rtacha diametri qancha?", options: ["142 796 km", "120 000 km", "142 756 km", "140 000 km"], correctIndex: 2 },
-            { q: "88. \"Toshkent globusi\"ning o'lchamlarini aniqlang.", options: ["Bo'yi 3 m, diametri 5 m, aylanasi 6 m, og'irligi 500 kg", "Bo'yi 2,5 m, diametri 3 m, aylanasi 6 m, og'irligi 490 kg", "Bo'yi 2 m, diametri 4 m, aylanasi 5 m, og'irligi 490 kg", "Bo'yi 2,5 m, diametri 2 m, aylanasi 6 m, og'irligi 490 kg"], correctIndex: 3 },
-            { q: "89. Yer sayyorasining o'rtacha diametri necha km?", options: ["12 104 km", "12 576 km", "12 756 km", "12 657 km"], correctIndex: 2 },
-            { q: "90. Hozirgi vaqtda olimlar yulduzlarning kattaligi, harorati, harakati va modda tarkibini qayerda o'rganmoqda?", options: ["gidrometeorologiya stansiyasida", "astronomik markazda", "observatoriyada", "meteorologiya stansiyasida"], correctIndex: 2 },
-            { q: "91. Okeandagi eng chuqur botiq nomini toping.", options: ["Mariana", "Zond", "Karmadek", "Puerto-Riko"], correctIndex: 0 },
-            { q: "92. Yer sharsimon, dumaloq degan dastlabki tasavvur paydo bo'lganiga qancha vaqt bo'lgan?", options: ["3500 yil", "7000 yil", "2400 yil", "3000 yil"], correctIndex: 1 },
-            { q: "93. Yer sharining ekvatorida parallel bo'ylab 1° yoyning uzunligi qancha?", options: ["109,6 km", "111,1 km", "109 km", "111,3 km"], correctIndex: 3 },
-            { q: "94. Osmon yoritgichlari harakat yo'lining aylana emasligini kim birinchi bo'lib aniqlagan?", options: ["Muso al-Xorazmiy", "Abu Nasr Forobiy", "Abu Rayhon Beruniy", "Ahmad al-Farg'oniy"], correctIndex: 2 },
-            { q: "95. O'rtacha diametri 52 400 km bo'lgan sayyorani toping.", options: ["Saturn", "Neptun", "Uran", "Yupiter"], correctIndex: 2 },
-            { q: "96. Yer yuzida Shimoliy va Janubiy qutblarni tutashtiruvchi, Yer yuzasidan o'tgan yarim aylana chiziqlar nima deb ataladi?", options: ["meridianlar", "ekvator", "parallellar", "tropik chiziqlar"], correctIndex: 0 },
-            { q: "97. Eski Oy ufqning qaysi tomonida ko'rinadi?", options: ["Erta tongda, Quyosh chiqmasdan sharq tomondan", "Erta tongda, Quyosh chiqmasdan g'arb tomondan", "Kechqurun, Quyosh botganda g'arb tomondan", "Kechqurun, Quyosh botganda sharq tomondan"], correctIndex: 0 },
-            { q: "98. 21-mart kuni ekvatorda turgan insonning tush paytidagi soyasi qanday bo'ladi?", options: ["Uzun soya tushadi", "23.5° burchak ostida tushadi", "Soya bo'lmaydi", "45° burchak ostida tushadi"], correctIndex: 2 },
-            { q: "99. Katta Ayiq yulduz turkumi xayolan tutashtirilsa, qanday predmetga o'xshaydi?", options: ["o'roq", "qoshiq", "cho'mich", "bolta"], correctIndex: 2 },
-            { q: "100. Kimning rahbarligida ulkan \"Toshkent globusi\" yasalgan?", options: ["H. Hasanov", "K. Zokirov", "I. Oshev", "H. Hay'atiy"], correctIndex: 0 },
-            { q: "101. Qadimda O'rta Osiyo xalqlari Yerni nima ko'tarib turadi deb tasavvur qilishgan?", options: ["toshbaqa", "yo'lbarslar", "nahang baliqlar", "ho'kizlar"], correctIndex: 3 },
-            { q: "102. Yer Quyosh atrofini qancha vaqtda to'liq bir marta aylanib chiqadi?", options: ["365 sutka 6 soat", "365 sutka", "365 sutka 5 soat", "366 sutka"], correctIndex: 0 },
-            { q: "103. Qadimda jangchilarning ko'zi o'tkirligi qaysi yulduzni ko'ra olishiga qarab aniqlangan. Ushbu yulduz qaysi yulduz turkumiga mansub?", options: ["Chayon", "Katta Ayiq", "Kichik Ayiq", "Tarozu"], correctIndex: 1 },
-            { q: "104. Yerda nechta issiqlik mintaqasi mavjud?", options: ["5 ta", "3 ta", "11 ta", "13 ta"], correctIndex: 0 },
-            { q: "105. M. Bexaym globusni qachon yasagan?", options: ["1492-yilda", "1494-yilda", "1498-yilda", "1488-yilda"], correctIndex: 0 },
-            { q: "106. M. Bexaym globusida qaysi qit'alar tasvirlanmagan?", options: ["Amerika", "barchasi tasvirlangan", "Avstraliya", "A va C"], correctIndex: 3 },
-            { q: "107. Oyning nechta asosiy ko'rinishi mavjud?", options: ["8", "7", "6", "5"], correctIndex: 0 },
-            { q: "108. Globusda parallellarga bosh meridian yonida yozib qo'yilgan darajalar yordamida nimani aniqlash mumkin?", options: ["geografik kenglikni", "mutlaq balandlikni", "masshtabni", "geografik uzunlikni"], correctIndex: 3 },
-            { q: "109. Shimoliy yarimsharda yozgi Quyosh turishi kuni qachon bo'ladi?", options: ["21-iyun", "22-iyun", "21-iyul", "22-iyul"], correctIndex: 1 },
-            { q: "110. M. Bexaym Germaniyaning qaysi shahrida tug'ilgan?", options: ["Berlin", "Myunxen", "Nyurnberg", "Gamburg"], correctIndex: 2 },
-            { q: "111. Aristotelning geografiya fani rivojiga qo'shgan asosiy hissasini aniqlang.", options: ["Yerning sharsimonligini mantiqiy jihatdan isbotlagan", "Yerning geografik koordinatalarini aniqlagan", "Yerning Quyosh atrofida aylanishini isbotlagan", "Yerning o'lchamlarini nazariy jihatdan aniqlagan"], correctIndex: 0 },
-            { q: "112. Kunduzi ufq tomonlarini nimaga qarab aniqlash mumkin?", options: ["Quyoshga", "Yulduzlarga", "Oyga", "Aniqlab bo'lmaydi"], correctIndex: 0 },
-            { q: "113. Yerning haqiqiy shaklini nima deb atash mumkin?", options: ["geoid", "ellipsoid", "sferoid", "shar"], correctIndex: 0 },
-            { q: "114. Bugun kunduz va tun davomiyligi teng. Ertadan boshlab kunduz tunlardan uzun bo'la boshlaydi. Bugungi kunni aniqlang.", options: ["21-mart", "23-sentyabr", "21-iyun", "22-mart"], correctIndex: 0 },
-            { q: "115. Quyosh va Yer orasidagi o'rtacha masofa qancha?", options: ["250 mln km", "200 mln km", "150 mln km", "100 mln km"], correctIndex: 2 },
-            { q: "116. Yer qaysi faslda Quyoshga eng yaqin keladi?", options: ["bahor", "yoz", "kuz", "qish"], correctIndex: 3 }
-        ];
-
-        let currentCaptchaAnswer = "";
-        function generateAiCaptcha() {
-            const securityTasks = [
-                { q: "O'zbekistonda nechta viloyat bor?", ans: "12" },
-                { q: "Everest cho'qqisi joylashgan qit'ani yozing", ans: "osiyo" },
-                { q: "18 + 22 yig'indisi nechiga teng?", ans: "40" },
-                { q: "Toshkent shahridan oqib o'tuvchi daryo nomi", ans: "chirchiq" }
-            ];
-            let rand = securityTasks[Math.floor(Math.random() * securityTasks.length)];
-            currentCaptchaAnswer = rand.ans.toLowerCase();
-            document.getElementById('aiCaptchaText').innerText = `Xavfsizlik sharti: ${rand.q}`;
+        function toggleTheme() {
+            let html = document.documentElement;
+            let theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', theme);
+            document.getElementById('themeBtn').innerText = theme === 'dark' ? '🌙 Tungi rejim' : '☀️ Kunduzgi rejim';
         }
 
-        let appUsers = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
-        if (!appUsers.some(u => u.jshshr === '30000000000000')) {
-            appUsers.push({ name: "Nurmataliyev Muzaffar", jshshr: "30000000000000", phone: "+998900000000", pass: "admin123", role: "admin" });
-            localStorage.setItem('geo_sys_users', JSON.stringify(appUsers));
+        let captchaAns = "";
+        function genCaptcha() {
+            let tasks = [{q: "7 + 8 necha?", a: "15"}, {q: "O'zbekistonda nechta viloyat bor?", a: "12"}];
+            let item = tasks[Math.floor(Math.random()*tasks.length)];
+            captchaAns = item.a;
+            document.getElementById('captchaText').innerText = `Xavfsizlik sharti: ${item.q}`;
         }
 
-        let currentUser = JSON.parse(localStorage.getItem('geo_sys_logged') || 'null');
-        let currentQuizQuestions = [], userAnswers = {}, currentQIndex = 0;
-        let timerInterval = null, totalSeconds = 0, spentSeconds = 0, activeModeName = '';
+        let users = JSON.parse(localStorage.getItem('geo_users') || '[]');
+        if(!users.some(u => u.jsh === '30000000000000')) {
+            users.push({name: "Nurmataliyev Muzaffar", jsh: "30000000000000", phone: "+998900000000", pass: "admin123", role: "admin"});
+            localStorage.setItem('geo_users', JSON.stringify(users));
+        }
 
-        window.onload = function() {
-            generateAiCaptcha();
-            if (currentUser) showMainMenu();
-            else switchAuthTab('login');
-        };
+        let currentUser = JSON.parse(localStorage.getItem('geo_logged') || 'null');
+        let questions = [], userAns = {}, qIdx = 0, timer = null, totalSec = 3600, activeMode = "";
 
-        function switchAuthTab(tab) {
-            document.getElementById('tabLoginBtn').className = `tab-btn ${tab === 'login' ? 'active' : ''}`;
-            document.getElementById('tabRegBtn').className = `tab-btn ${tab === 'register' ? 'active' : ''}`;
+        window.onload = () => { genCaptcha(); if(currentUser) showMain(); };
+
+        function switchAuth(tab) {
             document.getElementById('loginForm').classList.toggle('hidden', tab !== 'login');
-            document.getElementById('registerForm').classList.toggle('hidden', tab !== 'register');
-            if(tab === 'register') generateAiCaptcha();
+            document.getElementById('regForm').classList.toggle('hidden', tab !== 'reg');
         }
 
-        function handleRegister() {
-            const name = document.getElementById('regNameInput').value.trim();
-            const jshshr = document.getElementById('regJshshrInput').value.trim();
-            const phone = document.getElementById('regPhoneInput').value.trim();
-            const pass = document.getElementById('regPassInput').value.trim();
-            const captchaInput = document.getElementById('regCaptchaInput').value.trim().toLowerCase();
-
-            if (!name || !jshshr || !phone || !pass || !captchaInput) {
-                alert("Barcha maydonlarni to'ldirishingiz shart!");
-                return;
-            }
-            if (!/^\d{14}$/.test(jshshr)) {
-                alert("JSHSHR faqat 14 ta raqamdan iborat bo'lishi shart!");
-                return;
-            }
-            if (captchaInput !== currentCaptchaAnswer) {
-                alert("Xavfsizlik sharti javobi xato!");
-                generateAiCaptcha();
-                return;
-            }
-
-            let users = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
-            if (users.some(u => u.jshshr === jshshr)) {
-                alert("Bu JSHSHR allaqachon ro'yxatdan o'tgan!");
-                return;
-            }
-
-            const newUser = { name, jshshr, phone, pass, role: "user" };
-            users.push(newUser);
-            localStorage.setItem('geo_sys_users', JSON.stringify(users));
-            currentUser = newUser;
-            localStorage.setItem('geo_sys_logged', JSON.stringify(currentUser));
-            showMainMenu();
+        function register() {
+            let name = document.getElementById('rName').value.trim();
+            let jsh = document.getElementById('rJsh').value.trim();
+            let phone = document.getElementById('rPhone').value.trim();
+            let pass = document.getElementById('rPass').value.trim();
+            let cap = document.getElementById('rCap').value.trim();
+            if(!name || !jsh || !phone || !pass || cap !== captchaAns) { alert("Xato yoki to'liq emas!"); return; }
+            if(users.some(u => u.jsh === jsh)) { alert("JSHSHR band!"); return; }
+            let u = {name, jsh, phone, pass, role: "user"};
+            users.push(u); localStorage.setItem('geo_users', JSON.stringify(users));
+            currentUser = u; localStorage.setItem('geo_logged', JSON.stringify(u));
+            showMain();
         }
 
-        function handleLogin() {
-            const jshshr = document.getElementById('loginInput').value.trim();
-            const pas = document.getElementById('passwordInput').value.trim();
-            let users = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
-            let found = users.find(u => u.jshshr === jshshr && u.pass === pas);
-            if (found) {
-                currentUser = found;
-                localStorage.setItem('geo_sys_logged', JSON.stringify(currentUser));
-                showMainMenu();
-            } else {
-                alert("JSHSHR yoki parol xato!");
-            }
-        }
-
-        function showMainMenu() {
-            hideAll();
-            document.getElementById('mainMenu').classList.remove('hidden');
-            document.getElementById('userNameDisplay').innerText = currentUser.name;
-            document.getElementById('userJshshrDisplay').innerText = `JSHSHR: ${currentUser.jshshr}`;
-            document.getElementById('userPhoneDisplay').innerText = `📱 ${currentUser.phone}`;
-
-            if (currentUser.role === 'admin') {
-                document.getElementById('roleBadge').classList.remove('hidden');
-                document.getElementById('adminBtn').classList.remove('hidden');
-            } else {
-                document.getElementById('roleBadge').classList.add('hidden');
-                document.getElementById('adminBtn').classList.add('hidden');
-            }
+        function login() {
+            let jsh = document.getElementById('lJsh').value.trim();
+            let pass = document.getElementById('lPass').value.trim();
+            let f = users.find(u => u.jsh === jsh && u.pass === pass);
+            if(f) { currentUser = f; localStorage.setItem('geo_logged', JSON.stringify(f)); showMain(); }
+            else alert("Ma'lumotlar xato!");
         }
 
         function hideAll() {
-            ['authSection', 'mainMenu', 'modeSection', 'supportSection', 'aiCreatorSection', 'quizSection', 'resultSection', 'cabinetSection', 'ratingSection', 'adminSection']
-                .forEach(id => document.getElementById(id).classList.add('hidden'));
-            if (timerInterval) clearInterval(timerInterval);
+            ['authSection', 'mainMenu', 'modeSection', 'aiGenSection', 'quizSection', 'resultSection', 'cabinetSection', 'ratingSection', 'adminSection'].forEach(id => document.getElementById(id).classList.add('hidden'));
+            if(timer) clearInterval(timer);
         }
 
-        function showModeSection() { hideAll(); document.getElementById('modeSection').classList.remove('hidden'); }
-        function showSupportSection() { hideAll(); document.getElementById('supportSection').classList.remove('hidden'); renderUserMessages(); }
-        function showAiCreatorSection() { hideAll(); document.getElementById('aiCreatorSection').classList.remove('hidden'); }
-
-        function sendSupportMessage() {
-            let subj = document.getElementById('supportSubject').value.trim();
-            let msg = document.getElementById('supportMessage').value.trim();
-            if (!subj || !msg) return;
-            let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]');
-            messages.push({ name: currentUser.name, jshshr: currentUser.jshshr, subject: subj, message: msg, reply: "", date: new Date().toLocaleDateString() });
-            localStorage.setItem('geo_sys_messages', JSON.stringify(messages));
-            alert("Yuborildi!");
-            renderUserMessages();
+        function showMain() {
+            hideAll(); document.getElementById('mainMenu').classList.remove('hidden');
+            document.getElementById('uNameDisplay').innerText = currentUser.name;
+            document.getElementById('uJshDisplay').innerText = `JSHSHR: ${currentUser.jsh}`;
+            document.getElementById('roleBadge').classList.toggle('hidden', currentUser.role !== 'admin');
+            document.getElementById('adminBtn').classList.toggle('hidden', currentUser.role !== 'admin');
+            renderBadges();
         }
 
-        function renderUserMessages() {
-            let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]').filter(m => m.jshshr === currentUser.jshshr);
-            let box = document.getElementById('userMessagesHistoryBox');
-            box.innerHTML = messages.length === 0 ? '<div style="font-size:0.8rem; color:var(--text-muted); text-align:center;">Xabarlar yo\'q</div>' : '';
-            messages.forEach(m => {
-                box.innerHTML += `<div style="background:#090d16; border:1px solid var(--border-color); padding:10px; border-radius:10px;"><div style="font-size:0.8rem; color:var(--text-muted);">${m.subject}</div><div>Siz: ${m.message}</div>${m.reply ? `<div style="color:#fde047; margin-top:4px;">Yaratuvchi javobi: ${m.reply}</div>` : ''}</div>`;
-            });
+        function renderBadges() {
+            let hist = JSON.parse(localStorage.getItem('geo_hist') || '[]').filter(h => h.jsh === currentUser.jsh);
+            let bBox = document.getElementById('userBadges'); bBox.innerHTML = '';
+            if(hist.length > 0) bBox.innerHTML += `<span class="badge-item">🥇 Faol O'quvchi</span>`;
+            if(hist.some(h => h.percent >= 90)) bBox.innerHTML += `<span class="badge-item">⭐ A'lochi</span>`;
         }
 
-        function generateAiTestByPrompt() {
-            let topic = document.getElementById('aiTopicInput').value.trim();
-            let count = parseInt(document.getElementById('aiCountInput').value) || 5;
-            if (!topic) return;
-            activeModeName = `AI Test: ${topic}`;
-            currentQuizQuestions = [];
-            for(let i=0; i<count; i++) {
-                currentQuizQuestions.push({
-                    q: `${i+1}-savol (${topic}):`,
-                    options: [`To'g'ri javob ${i+1}`, "Xato variant 1", "Xato variant 2", "Xato variant 3"],
-                    correctIndex: 0
-                });
+        function showModes() { hideAll(); document.getElementById('modeSection').classList.remove('hidden'); }
+        function showAiGen() { hideAll(); document.getElementById('aiGenSection').classList.remove('hidden'); }
+
+        const baseQ1 = [
+            {q: "Geografiya atamasi qaysi tildan olingan?", options: ["yunoncha", "lotincha", "arabcha", "forscha"], correctIndex: 0},
+            {q: "1492-yilda X. Kolumb qayerga yo'l olgan?", options: ["Hindiston", "Amerika", "Xitoy", "Afrika"], correctIndex: 0},
+            {q: "Abu Rayhon Beruniy nimani aniq hisoblagan?", options: ["Yer radiusini", "Quyosh massasini", "Oy masofasini", "Atmosfera bosimini"], correctIndex: 0},
+            {q: "Atmosfera bosimini o'lchovchi asbob?", options: ["Barometr", "Termometr", "Gigrometr", "Kompas"], correctIndex: 0},
+            {q: "O'zbekiston qaysi soat mintaqasida?", options: ["5-soat", "2-soat", "4-soat", "3-soat"], correctIndex: 0}
+        ];
+
+        function startQuiz(mode, count) {
+            activeMode = mode; questions = [...baseQ1];
+            while(questions.length < count) {
+                questions.push({q: `${questions.length+1}-savol: Geografik obyekt xususiyati?`, options: ["To'g'ri variant", "Xato 1", "Xato 2", "Xato 3"], correctIndex: 0});
             }
-            startQuizEngine(count, 3600);
-        }
+            userAns = {}; qIdx = 0; totalSec = 3600;
+            hideAll(); document.getElementById('quizSection').classList.remove('hidden');
+            document.getElementById('quizHead').innerText = mode;
+            document.getElementById('qTot').innerText = questions.length;
+            
+            // Anti-cheat listener
+            document.addEventListener("visibilitychange", antiCheatHandler);
 
-        function startQuiz(modeName, count) {
-            activeModeName = modeName;
-            if (modeName.includes('II-bob')) {
-                currentQuizQuestions = [...chapter2Questions];
-            } else {
-                currentQuizQuestions = [...chapter1Questions].slice(0, count);
-            }
-            startQuizEngine(currentQuizQuestions.length, 3600);
-        }
-
-        function startQuizEngine(count, timeSec) {
-            userAnswers = {};
-            currentQIndex = 0;
-            spentSeconds = 0;
-            totalSeconds = timeSec;
-            hideAll();
-            document.getElementById('quizSection').classList.remove('hidden');
-            document.getElementById('quizHead').innerText = activeModeName;
-            document.getElementById('qTotal').innerText = count;
-            runTimer();
-            loadQuestion();
-        }
-
-        function runTimer() {
-            updateTimerText();
-            timerInterval = setInterval(() => {
-                totalSeconds--;
-                spentSeconds++;
-                updateTimerText();
-                if (totalSeconds <= 0) { clearInterval(timerInterval); finishQuiz(); }
+            timer = setInterval(() => {
+                totalSec--;
+                let h = Math.floor(totalSec/3600), m = Math.floor((totalSec%3600)/60), s = totalSec%60;
+                document.getElementById('timerDisp').innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                if(totalSec <= 0) finishQuiz();
             }, 1000);
+            loadQ();
         }
 
-        function updateTimerText() {
-            let h = Math.floor(totalSeconds / 3600), m = Math.floor((totalSeconds % 3600) / 60), s = totalSeconds % 60;
-            document.getElementById('timerDisplay').innerText = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+        function antiCheatHandler() {
+            if(document.hidden) {
+                alert("Ogohlantirish! Imtihon oynasidan chiqish taqiqlanadi. Natija avtomatik yakunlanadi.");
+                finishQuiz();
+            }
         }
 
-        function loadQuestion() {
-            let q = currentQuizQuestions[currentQIndex];
-            document.getElementById('qNum').innerText = currentQIndex + 1;
+        function generateAiQuiz() {
+            let topic = document.getElementById('aiPrompt').value.trim();
+            let cnt = parseInt(document.getElementById('aiCount').value) || 5;
+            if(!topic) return;
+            activeMode = `AI: ${topic}`; questions = [];
+            for(let i=0; i<cnt; i++) {
+                questions.push({q: `${i+1}-savol (${topic}): Asosiy omil nima?`, options: ["To'g'ri javob", "Xato A", "Xato B", "Xato C"], correctIndex: 0});
+            }
+            userAns = {}; qIdx = 0; totalSec = 1800;
+            hideAll(); document.getElementById('quizSection').classList.remove('hidden');
+            document.getElementById('quizHead').innerText = activeMode;
+            document.getElementById('qTot').innerText = cnt;
+            timer = setInterval(() => { totalSec--; if(totalSec<=0) finishQuiz(); }, 1000);
+            loadQ();
+        }
+
+        function loadQ() {
+            let q = questions[qIdx];
+            document.getElementById('qNum').innerText = qIdx + 1;
             document.getElementById('qText').innerText = q.q;
-
-            let box = document.getElementById('optsBox');
-            box.innerHTML = '';
+            let b = document.getElementById('optsBox'); b.innerHTML = '';
             q.options.forEach((opt, idx) => {
-                box.innerHTML += `<div class="option-btn ${userAnswers[currentQIndex] === idx ? 'selected' : ''}" onclick="userAnswers[currentQIndex]=${idx};loadQuestion()"><strong>${['A','B','C','D'][idx]})</strong> <span>${opt}</span></div>`;
+                b.innerHTML += `<div class="option-btn ${userAns[qIdx]===idx?'selected':''}" onclick="userAns[qIdx]=${idx};loadQ()"><strong>${['A','B','C','D'][idx]})</strong> ${opt}</div>`;
             });
-            document.getElementById('prevBtn').disabled = (currentQIndex === 0);
         }
 
-        function nextQ() {
-            if (currentQIndex < currentQuizQuestions.length - 1) { currentQIndex++; loadQuestion(); } else { confirmFinishQuiz(); }
-        }
-        function prevQ() { if (currentQIndex > 0) { currentQIndex--; loadQuestion(); } }
-        function confirmFinishQuiz() { if (confirm("Yakunlaysizmi?")) finishQuiz(); }
+        function nextQ() { if(qIdx < questions.length - 1) { qIdx++; loadQ(); } else finishQuiz(); }
+        function prevQ() { if(qIdx > 0) { qIdx--; loadQ(); } }
 
         function finishQuiz() {
-            if (timerInterval) clearInterval(timerInterval);
+            document.removeEventListener("visibilitychange", antiCheatHandler);
+            if(timer) clearInterval(timer);
             let correct = 0;
-            currentQuizQuestions.forEach((q, i) => { if (userAnswers[i] === q.correctIndex) correct++; });
-            let total = currentQuizQuestions.length;
-            let percent = Math.round((correct / total) * 100);
+            questions.forEach((q, i) => { if(userAns[i] === q.correctIndex) correct++; });
+            let percent = Math.round((correct / questions.length) * 100);
 
-            document.getElementById('resScoreText').innerText = `${correct}/${total}`;
-            document.getElementById('resPercentText').innerText = `${percent}%`;
-            document.getElementById('resTimeText').innerText = `${Math.floor(spentSeconds/60)}m`;
-            document.getElementById('aiFeedbackText').innerText = percent >= 80 ? "Ajoyib natija!" : "Yaxshi, biroq yana tayyorgarlik ko'rish kerak.";
+            document.getElementById('resScore').innerText = `${correct}/${questions.length}`;
+            document.getElementById('resPercent').innerText = `${percent}%`;
+            document.getElementById('resTime').innerText = `${Math.floor((3600-totalSec)/60)}m`;
+            document.getElementById('aiTextResult').innerText = percent >= 80 ? "Ajoyib! Mavzuni mukammal o'zlashtirgansiz." : "Qoniqarli, ammo xatolarni qayta ko'rib chiqish tavsiya etiladi.";
 
-            let certBox = document.getElementById('certificateContainer');
-            if (percent >= 50) {
-                certBox.classList.remove('hidden');
-                document.getElementById('certUserName').innerText = currentUser.name;
-                document.getElementById('certResultScore').innerText = `${percent}% (${correct}/${total})`;
-                document.getElementById('certDate').innerText = new Date().toLocaleDateString();
-            } else {
-                certBox.classList.add('hidden');
-            }
+            document.getElementById('certContainer').classList.toggle('hidden', percent < 50);
+            document.getElementById('certName').innerText = currentUser.name;
 
-            let rBox = document.getElementById('reviewBox');
-            rBox.innerHTML = '';
-            currentQuizQuestions.forEach((q, i) => {
-                let isRight = userAnswers[i] === q.correctIndex;
-                rBox.innerHTML += `<div class="review-item ${isRight ? 'correct-item' : 'wrong-item'}"><div>${q.q}</div><div style="color:var(--emerald-main);">To'g'ri: ${q.options[q.correctIndex]}</div></div>`;
-            });
+            let h = JSON.parse(localStorage.getItem('geo_hist') || '[]');
+            h.push({name: currentUser.name, jsh: currentUser.jsh, mode: activeMode, score: correct, total: questions.length, percent, date: new Date().toLocaleDateString()});
+            localStorage.setItem('geo_hist', JSON.stringify(h));
 
-            let histories = JSON.parse(localStorage.getItem('geo_sys_histories') || '[]');
-            histories.push({ name: currentUser.name, jshshr: currentUser.jshshr, mode: activeModeName, score: correct, total, percent, time: `${Math.floor(spentSeconds/60)}m`, date: new Date().toLocaleDateString() });
-            localStorage.setItem('geo_sys_histories', JSON.stringify(histories));
-
-            hideAll();
-            document.getElementById('resultSection').classList.remove('hidden');
+            hideAll(); document.getElementById('resultSection').classList.remove('hidden');
         }
 
+        function speakAi() {
+            let text = document.getElementById('aiTextResult').innerText;
+            let speech = new SpeechSynthesisUtterance(text);
+            speech.lang = 'uz-UZ';
+            window.speechSynthesis.speak(speech);
+        }
+
+        let myChart = null;
         function showCabinet() {
-            hideAll();
-            document.getElementById('cabinetSection').classList.remove('hidden');
-            let h = JSON.parse(localStorage.getItem('geo_sys_histories') || '[]').filter(x => x.jshshr === currentUser.jshshr);
-            document.getElementById('cabTotalTests').innerText = h.length;
-            document.getElementById('cabAvgScore').innerText = h.length ? Math.round(h.reduce((a,b)=>a+b.percent,0)/h.length) + '%' : '0%';
-            document.getElementById('cabBestScore').innerText = h.length ? Math.max(...h.map(x=>x.score)) : 0;
-            let tbody = document.getElementById('cabinetHistoryTable');
-            tbody.innerHTML = '';
-            h.forEach(x => { tbody.innerHTML += `<tr><td>${x.date}</td><td>${x.mode}</td><td>${x.score}/${x.total} (${x.percent}%)</td><td>${x.time}</td></tr>`; });
+            hideAll(); document.getElementById('cabinetSection').classList.remove('hidden');
+            let h = JSON.parse(localStorage.getItem('geo_hist') || '[]').filter(x => x.jsh === currentUser.jsh);
+            let tbody = document.getElementById('cabHist'); tbody.innerHTML = '';
+            h.forEach(x => { tbody.innerHTML += `<tr><td>${x.date}</td><td>${x.mode}</td><td>${x.percent}%</td></tr>`; });
+
+            let ctx = document.getElementById('statsChart').getContext('2d');
+            if(myChart) myChart.destroy();
+            myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: h.map((_, i) => `Urinish ${i+1}`),
+                    datasets: [{ label: 'Foiz', data: h.map(x => x.percent), backgroundColor: '#3b82f6' }]
+                }
+            });
         }
 
         function showRating() {
-            hideAll();
-            document.getElementById('ratingSection').classList.remove('hidden');
-            let h = JSON.parse(localStorage.getItem('geo_sys_histories') || '[]').sort((a,b)=>b.percent-a.percent);
-            let tbody = document.getElementById('ratingTable');
-            tbody.innerHTML = '';
-            h.forEach((x, i) => { tbody.innerHTML += `<tr><td>${i+1}</td><td>${x.name}</td><td>${x.jshshr}</td><td>${x.score}/${x.total} (${x.percent}%)</td></tr>`; });
+            hideAll(); document.getElementById('ratingSection').classList.remove('hidden');
+            let h = JSON.parse(localStorage.getItem('geo_hist') || '[]').sort((a,b) => b.percent - a.percent);
+            let tb = document.getElementById('ratBody'); tb.innerHTML = '';
+            h.forEach((x, i) => { tb.innerHTML += `<tr><td>${i+1}</td><td>${x.name}</td><td>${x.jsh}</td><td>${x.percent}%</td></tr>`; });
         }
 
-        function showAdminPanel() {
-            hideAll();
-            document.getElementById('adminSection').classList.remove('hidden');
-            let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]');
-            let msgTbody = document.getElementById('adminSupportMessagesTable');
-            msgTbody.innerHTML = '';
-            messages.forEach((m, idx) => {
-                msgTbody.innerHTML += `<tr><td>${m.name}</td><td>${m.message}<br><input type="text" id="rep_${idx}" placeholder="Javob"><button onclick="replyMsg(${idx})">Yuborish</button></td></tr>`;
-            });
+        function showAdmin() {
+            hideAll(); document.getElementById('adminSection').classList.remove('hidden');
+            let tb = document.getElementById('adminUsersBody'); tb.innerHTML = '';
+            users.forEach(u => { tb.innerHTML += `<tr><td>${u.name}</td><td>${u.jsh}</td><td>${u.pass}</td></tr>`; });
         }
 
-        function replyMsg(idx) {
-            let txt = document.getElementById(`rep_${idx}`).value;
-            let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]');
-            messages[idx].reply = txt;
-            localStorage.setItem('geo_sys_messages', JSON.stringify(messages));
-            alert("Yuborildi!");
-            showAdminPanel();
-        }
-
-        function logout() {
-            localStorage.removeItem('geo_sys_logged');
-            currentUser = null;
-            hideAll();
-            document.getElementById('authSection').classList.remove('hidden');
-        }
+        function logout() { localStorage.removeItem('geo_logged'); currentUser = null; showMain(); }
     </script>
 </body>
 </html>
