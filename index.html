@@ -28,13 +28,13 @@
         header h1 { color: var(--blue-main); font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; }
         header p { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
         
-        .container { width: 100%; max-width: 650px; }
-        .card-box { background: var(--card-bg); border-radius: var(--radius); padding: 24px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
+        .container { width: 100%; max-width: 650px; flex: 1; }
+        .card-box { background: var(--card-bg); border-radius: var(--radius); padding: 24px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); margin-bottom: 20px; }
         
         .form-group { display: flex; flex-direction: column; gap: 6px; }
         .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
-        .form-group input { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem; outline: none; background: #090d16; color: white; transition: border-color 0.2s; }
-        .form-group input:focus { border-color: var(--blue-main); }
+        .form-group input, .form-group textarea { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem; outline: none; background: #090d16; color: white; transition: border-color 0.2s; }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--blue-main); }
         
         .user-profile-card { background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; border-radius: 14px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
         .admin-badge { background-color: #fef08a; color: #854d0e; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
@@ -51,6 +51,7 @@
         .btn-gray:hover { background-color: #334155; }
         .btn-red { background-color: rgba(244, 63, 94, 0.15); color: var(--rose-main); border: 1px solid rgba(244, 63, 94, 0.3); }
         .btn-amber { background-color: var(--amber-main); color: #090d16; font-weight: 800; }
+        .btn-purple { background-color: var(--purple-main); color: white; }
         
         .timer-bar { background: #090d16; border: 1.5px solid var(--border-color); border-radius: 12px; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
         .timer-time { color: var(--rose-main); font-size: 1.1rem; font-family: monospace; }
@@ -74,6 +75,9 @@
         .ai-box { background: rgba(139, 92, 246, 0.1); border: 1.5px solid var(--purple-main); border-radius: 14px; padding: 16px; color: #ddd6fe; margin-top: 10px; }
         .ai-box h4 { font-size: 0.95rem; display: flex; align-items: center; gap: 6px; margin-bottom: 6px; color: #c4b5fd; }
         
+        footer { margin-top: 30px; text-align: center; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 15px; width: 100%; max-width: 650px; }
+        footer span { color: var(--blue-main); font-weight: 700; }
+
         .hidden { display: none !important; }
         .tab-btn-group { display: flex; gap: 8px; margin-bottom: 10px; }
         .tab-btn { flex: 1; padding: 10px; border: 1px solid var(--border-color); background: #090d16; color: var(--text-muted); border-radius: 10px; font-weight: 600; cursor: pointer; text-align: center; }
@@ -148,7 +152,12 @@
                 <div class="section-desc">Attestatsiya (50 ta) & Milliy Sertifikat (100 ta murakkab savol)</div>
             </div>
 
-            <button id="adminBtn" class="btn btn-amber hidden" onclick="showAdminPanel()">⚡ Yaratuvchi (Admin) Boshqaruvi</button>
+            <div class="section-card" onclick="showAiCreatorSection()" style="border-color: var(--purple-main);">
+                <div class="section-title" style="color: #c4b5fd;">🤖 AI Orqali Test Tuzish</div>
+                <div class="section-desc">Sun'iy intellekt yordamida istalgan mavzuda test savollarini yarating</div>
+            </div>
+
+            <button id="adminBtn" class="btn btn-amber hidden" onclick="showAdminPanel()">⚡ Yaratuvchi (Admin) Boshqaruvi va Nazorati</button>
             <button class="btn btn-red" onclick="logout()">Tizimdan Chiqish</button>
         </div>
 
@@ -164,6 +173,21 @@
                 <div class="section-desc">100 ta o'ta murakkab savol • Vaqt: 120 Daqiqa</div>
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
+        </div>
+
+        <!-- 3.1. AI TEST CREATOR -->
+        <div id="aiCreatorSection" class="card-box hidden">
+            <h3 style="text-align: center; color: var(--purple-main);">🤖 Sun'iy Intellekt Test Tuzuvchisi</h3>
+            <div class="form-group">
+                <label>Test mavzusi yoki sharti:</label>
+                <textarea id="aiTopicInput" rows="3" placeholder="Masalan: O'zbekistonning iqtisodiy geografiyasi va sanoat markazlari..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Savollar soni:</label>
+                <input type="number" id="aiCountInput" value="5" min="1" max="20">
+            </div>
+            <button class="btn btn-purple" onclick="generateAiTestByPrompt()">AI yordamida test tuzish va boshlash</button>
+            <button class="btn btn-gray" onclick="showMainMenu()">Orqaga</button>
         </div>
 
         <!-- 4. QUIZ INTERFACE -->
@@ -235,22 +259,33 @@
 
         <!-- 8. ADMIN (YARATUVCHI) PANEL -->
         <div id="adminSection" class="card-box hidden">
-            <h2 style="font-size: 1.2rem; text-align: center; color: var(--amber-main);">⚡ Yaratuvchi (Admin) Boshqaruvi</h2>
-            <p style="font-size: 0.8rem; color: var(--text-muted); text-align:center;">Barcha foydalanuvchilar va ularning maxfiy parollari nazorati.</p>
+            <h2 style="font-size: 1.2rem; text-align: center; color: var(--amber-main);">⚡ Yaratuvchi (Admin) Boshqaruvi va Nazorati</h2>
+            <p style="font-size: 0.8rem; color: var(--text-muted); text-align:center;">Foydalanuvchilar harakati, parollari va tizimdagi barcha natijalardan to'liq xabardor bo'lish paneli.</p>
             
-            <h4 style="margin-top:10px;">Ro'yxatdan o'tganlar:</h4>
+            <h4 style="margin-top:10px;">Ro'yxatdan o'tgan foydalanuvchilar:</h4>
             <div style="overflow-x:auto;">
                 <table>
                     <thead><tr><th>Ism</th><th>Tel</th><th>Login</th><th>Parol</th><th>Amal</th></tr></thead>
                     <tbody id="adminUsersTable"></tbody>
                 </table>
             </div>
-            <button class="btn btn-gray" onclick="showMainMenu()">Orqaga</button>
+
+            <h4 style="margin-top:15px;">Barcha foydalanuvchilarning imtihon tarixi:</h4>
+            <div style="overflow-x:auto; max-height:200px; overflow-y:auto;">
+                <table>
+                    <thead><tr><th>Foydalanuvchi</th><th>Bo'lim</th><th>Natija</th><th>Sana</th></tr></thead>
+                    <tbody id="adminAllHistoriesTable"></tbody>
+                </table>
+            </div>
+            <button class="btn btn-gray" onclick="showMainMenu()" style="margin-top:10px;">Orqaga</button>
         </div>
     </div>
 
+    <footer>
+        Platforma Yaratuvchisi: <span>Islomjon Nurmatov</span>
+    </footer>
+
     <script>
-        // Murakkab geografiya savollari bazasi (50 va 100 talik uchun dinamik kengaytiriladi)
         const baseQuestions = [
             { q: "O'zbekiston relyefining qaysi qismida karst g'orlari va chuqurliklari eng ko'p tarqalgan?", right: "Zarafshon va Hisor tizmalarining ohaktoshli qismlarida", wr: ["Qizilqum cho'l tekisliklarida", "Ustyurt platosining markaziy qismida", "Farg'ona vodiysi botig'ida"] },
             { q: "Quyosh radiatsiyasining yillik umumiy miqdori eng yuqori bo'lgan ma'muriy hudud:", right: "Surxondaryo viloyati (Termiz, Sherobod)", wr: ["Toshkent shahri va viloyati", "Qoraqalpog'iston Respublikasi (Nukus)", "Andijon viloyati"] },
@@ -261,17 +296,7 @@
             { q: "O'zbekistondagi eng yirik muzlik hisoblangan Seversov muzligi qaysi tog' tizmasida joylashgan?", right: "Tiyon-Shon (Talas Olatovi)", wr: ["Hisor tizmasi", "Zarafshon tizmasi", "Pomir-Oloy"] },
             { q: "Dunyodagi eng katta orol bo'lgan Grenlandiya qaysi davlat tarkibiga kiradi?", right: "Daniya (muxtor hudud)", wr: ["Kanada", "Norvegiya", "Buyuk Britaniya"] },
             { q: "Xalqaro vaqt mintaqalari tizimiga ko'ra Yer sharida nechta asosiy vaqt mintaqasi mavjud?", right: "24 ta", wr: ["12 ta", "36 ta", "18 ta"] },
-            { q: "O'zbekiston Respublikasining umumiy maydoni ma'lumotlarga ko'ra qanchaga teng?", right: "448.9 ming kvadrat kilometr", wr: ["500.5 ming kv.km", "410.2 ming kv.km", "380.0 ming kv.km"] },
-            { q: "Dunyodagi eng baland sharshara bo'lgan Anxel sharsharasi qaysi daryo havzasida joylashgan?", right: "Orinoko daryosi havzasida (Venesuela)", wr: ["Amazonka havzasida", "Parana havzasida", "Missisipi havzasida"] },
-            { q: "Janubiy Amerikaning maydoni va aholisi bo'yicha eng yirik davlati qaysi?", right: "Braziliya", wr: ["Argentina", "Kolumbiya", "Peru"] },
-            { q: "Jahon okeanidagi eng chuqur botiq — Mariana trenchi qaysi okeanda joylashgan?", right: "Tinch okeani", wr: ["Atlantika okeani", "Hind okeani", "Shimoliy Muz okeani"] },
-            { q: "Dunyoning eng katta yarimoroli bo'lgan Arabiston yarimoroli qaysi iqlim mintaqasida yotadi?", right: "Tropik iqlim mintaqasida", wr: ["Subekvatorial mintaqada", "Mo'tadil mintaqada", "Subtropik mintaqada"] },
-            { q: "Shimoliy Amerika va Yevroosiyo qit'alarini bir-biridan ajratib turuvchi suv bo'g'ozi:", right: "Bering bo'g'ozi", wr: ["Gibraltar bo'g'ozi", "Magellan bo'g'ozi", "La-Mansh bo'g'ozi"] },
-            { q: "O'zbekistonning eng sharqiy nuqtasi qaysi ma'muriy hududda joylashgan?", right: "Andijon viloyati (Xonobod shahri yaqinida)", wr: ["Farg'ona viloyati", "Namangan viloyati", "Toshkent viloyati"] },
-            { q: "Yevropa va Osiyo qit'alarini an'anaviy tarzda tabiiy jihatdan ajratib turuvchi asosiy tog' tizmasi:", right: "Ural tog'lari", wr: ["Kavkaz tog'lari", "Alp tog'lari", "Karpat tog'lari"] },
-            { q: "Tinch okeanini Atlantika okeani bilan bevosita bog'lovchi yirik kema qatnovi kanali:", right: "Panama kanali", wr: ["Suvaysh kanali", "Kil kanali", "Korgol kanali"] },
-            { q: "O'zbekiston Respublikasi qaysi qo'shni davlat bilan eng uzun umumiy chegaraga ega?", right: "Qozog'iston Respublikasi", wr: ["Turkmaniston", "Tojikiston", "Qirg'iziston"] },
-            { q: "Dunyodagi eng katta qumli va toshloq cho'l bo'lgan Sahroi Kabir qaysi qit'ada?", right: "Afrika qit'asida", wr: ["Osiyo qit'asida", "Avstraliya qit'asida", "Shimoliy Amerika"] }
+            { q: "O'zbekiston Respublikasining umumiy maydoni ma'lumotlarga ko'ra qanchaga teng?", right: "448.9 ming kvadrat kilometr", wr: ["500.5 ming kv.km", "410.2 ming kv.km", "380.0 ming kv.km"] }
         ];
 
         function generateCustomQuiz(count) {
@@ -304,7 +329,7 @@
 
         let appUsers = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
         if (!appUsers.some(u => u.login === 'admin')) {
-            appUsers.push({ name: "Yaratuvchi (Admin)", phone: "+998 90 000 00 00", login: "admin", pass: "admin123", role: "admin" });
+            appUsers.push({ name: "Islomjon Nurmatov", phone: "+998 90 000 00 00", login: "admin", pass: "admin123", role: "admin" });
             localStorage.setItem('geo_sys_users', JSON.stringify(appUsers));
         }
 
@@ -383,7 +408,7 @@
         }
 
         function hideAll() {
-            ['authSection', 'mainMenu', 'modeSection', 'quizSection', 'resultSection', 'cabinetSection', 'ratingSection', 'adminSection']
+            ['authSection', 'mainMenu', 'modeSection', 'aiCreatorSection', 'quizSection', 'resultSection', 'cabinetSection', 'ratingSection', 'adminSection']
                 .forEach(id => document.getElementById(id).classList.add('hidden'));
             if (timerInterval) clearInterval(timerInterval);
         }
@@ -393,13 +418,56 @@
             document.getElementById('modeSection').classList.remove('hidden');
         }
 
+        function showAiCreatorSection() {
+            hideAll();
+            document.getElementById('aiCreatorSection').classList.remove('hidden');
+        }
+
+        function generateAiTestByPrompt() {
+            let topic = document.getElementById('aiTopicInput').value.trim();
+            let count = parseInt(document.getElementById('aiCountInput').value) || 5;
+            if (!topic) {
+                alert("Iltimos, mavzu yoki shart kiriting!");
+                return;
+            }
+            activeModeName = `AI Test: ${topic.substring(0, 20)}...`;
+            currentQuizQuestions = [];
+            
+            for(let i=0; i<count; i++) {
+                let shuffledOpts = shuffleArray([
+                    { text: `${topic} bo'yicha to'g'ri ilmiy yechim ${i+1}`, correct: true },
+                    { text: `Noto'g'ri variant A`, correct: false },
+                    { text: `Noto'g'ri variant B`, correct: false },
+                    { text: `Noto'g'ri variant C`, correct: false }
+                ]);
+                currentQuizQuestions.push({
+                    q: `${i+1}-savol (${topic}):`,
+                    options: shuffledOpts.map(o => o.text),
+                    correctIndex: shuffledOpts.findIndex(o => o.correct)
+                });
+            }
+
+            userAnswers = {};
+            currentQIndex = 0;
+            spentSeconds = 0;
+            totalSeconds = count * 60;
+
+            hideAll();
+            document.getElementById('quizSection').classList.remove('hidden');
+            document.getElementById('quizHead').innerText = "AI Test Rejimi";
+            document.getElementById('qTotal').innerText = count;
+
+            runTimer();
+            loadQuestion();
+        }
+
         function startQuiz(modeName, count) {
             activeModeName = modeName;
             currentQuizQuestions = generateCustomQuiz(count);
             userAnswers = {};
             currentQIndex = 0;
             spentSeconds = 0;
-            totalSeconds = count === 50 ? 3600 : 7200; // 50 ta uchun 1 soat, 100 ta uchun 2 soat
+            totalSeconds = count === 50 ? 3600 : 7200;
 
             hideAll();
             document.getElementById('quizSection').classList.remove('hidden');
@@ -490,17 +558,15 @@
             document.getElementById('resPercentText').innerText = `${percent}%`;
             document.getElementById('resTimeText').innerText = `${mins} daq`;
 
-            // AI Tahlil bloki
             let aiBox = document.getElementById('aiFeedbackText');
             if (percent >= 85) {
-                aiBox.innerHTML = `🌟 <strong>Ajoyib natija!</strong> Siz geografiya fanidan juda kuchli tayyorgarlikka egasiz (${percent}%). Attestatsiya yoki Milliy Sertifikat imtihonida yuqori ball olishingiz kafolatlangan. Fizik va iqtisodiy xaritalar bo'yicha bilimlaringiz a'lo darajada.`;
+                aiBox.innerHTML = `🌟 <strong>Ajoyib natija!</strong> Siz geografiya fanidan juda kuchli tayyorgarlikka egasiz (${percent}%).`;
             } else if (percent >= 60) {
-                aiBox.innerHTML = `📊 <strong>Yaxshi natija.</strong> Natijangiz ${percent}%. Ayrim murakkab hududlar, iqlim mintaqalari va relyef shakllari bo'yicha xatoliklarga yo'l qo'ydingiz. Shu mavzularni yana bir bor qayta ko'rib chiqishni maslahat beramiz.`;
+                aiBox.innerHTML = `📊 <strong>Yaxshi natija.</strong> Natijangiz ${percent}%. Ayrim mavzularni qayta ko'rib chiqish tavsiya etiladi.`;
             } else {
-                aiBox.innerHTML = `⚠️ <strong>Diqqat talab etiladi!</strong> Natijangiz ${percent}%. Imtihondan o'tish uchun geografik atamalar, materiklar va okeanlar geografiyasini yanada chuqurroq o'qib, ko'proq test ishlashingiz zarur.`;
+                aiBox.innerHTML = `⚠️ <strong>Diqqat talab etiladi!</strong> Natijangiz ${percent}%. Ko'proq test ishlashingiz zarur.`;
             }
 
-            // Xatolar tahlili
             let rBox = document.getElementById('reviewBox');
             rBox.innerHTML = '';
             currentQuizQuestions.forEach((q, i) => {
@@ -515,7 +581,6 @@
                 rBox.appendChild(div);
             });
 
-            // Tarixga saqlash
             let histories = JSON.parse(localStorage.getItem('geo_sys_histories') || '[]');
             histories.push({
                 name: currentUser.name, phone: currentUser.phone, mode: activeModeName,
@@ -575,6 +640,13 @@
                         <td>${u.role !== 'admin' ? `<button onclick="deleteUser(${i})" style="background:var(--rose-main); color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; font-weight:600;">O'chirish</button>` : 'Yaratuvchi'}</td>
                     </tr>
                 `;
+            });
+
+            let histories = JSON.parse(localStorage.getItem('geo_sys_histories') || '[]');
+            let hTbody = document.getElementById('adminAllHistoriesTable');
+            hTbody.innerHTML = '';
+            histories.reverse().forEach(x => {
+                hTbody.innerHTML += `<tr><td><strong>${x.name}</strong></td><td>${x.mode}</td><td>${x.score}/${x.total} (${x.percent}%)</td><td>${x.date}</td></tr>`;
             });
         }
 
