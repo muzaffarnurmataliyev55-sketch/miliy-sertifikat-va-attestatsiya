@@ -88,6 +88,14 @@
         .tab-btn-group { display: flex; gap: 8px; margin-bottom: 10px; }
         .tab-btn { flex: 1; padding: 10px; border: 1px solid var(--border-color); background: #090d16; color: var(--text-muted); border-radius: 10px; font-weight: 600; cursor: pointer; text-align: center; }
         .tab-btn.active { background: var(--blue-main); color: white; border-color: var(--blue-main); }
+
+        /* Sertifikat dizayni */
+        .certificate-card { background: #fff; color: #1e293b; border-radius: 16px; padding: 30px 20px; text-align: center; border: 8px double var(--amber-main); position: relative; margin-top: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .certificate-card h2 { color: #1e40af; font-size: 1.4rem; font-weight: 800; margin-bottom: 5px; text-transform: uppercase; }
+        .certificate-card h3 { color: #d97706; font-size: 1rem; margin-bottom: 15px; }
+        .certificate-card .cert-name { font-size: 1.3rem; font-weight: 800; color: #0f172a; margin: 10px 0; border-bottom: 2px solid #cbd5e1; display: inline-block; padding-bottom: 4px; }
+        .certificate-card p { font-size: 0.85rem; color: #475569; line-height: 1.5; }
+        .cert-footer { display: flex; justify-content: space-between; margin-top: 25px; font-size: 0.75rem; font-weight: 700; color: #334155; }
     </style>
 </head>
 <body>
@@ -191,12 +199,12 @@
         <!-- 3. MODE SELECTION -->
         <div id="modeSection" class="card-box hidden">
             <h3 style="text-align: center; color: var(--blue-main);" id="t-selectModeTitle">Imtihon Turini Tanlang</h3>
-            <div class="section-card" onclick="startQuiz('Attestatsiya', 30)">
-                <div class="section-title" id="t-attestTitle">📘 Attestatsiya Bo'limi</div>
+            <div class="section-card" onclick="startQuiz('7-10 sinflar testi (1-bosqich)', 30)">
+                <div class="section-title" id="t-attestTitle">📘 7-10 sinflar testi</div>
                 <div class="section-desc" id="t-attestDesc">7-sinf I-bob to'liq test bazasi • Vaqt: 45 Daqiqa</div>
             </div>
-            <div class="section-card" onclick="startQuiz('Milliy Sertifikat', 50)">
-                <div class="section-title" id="t-sertTitle">📗 Milliy Sertifikat Bo'limi</div>
+            <div class="section-card" onclick="startQuiz('7-10 sinflar testi (Murakkab)', 50)">
+                <div class="section-title" id="t-sertTitle">📗 7-10 sinflar testi</div>
                 <div class="section-desc" id="t-sertDesc">50 ta o'ta murakkab savol va geografik masalalar • Vaqt: 60 Daqiqa</div>
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()" id="t-backBtn1">Orqaga qaytish</button>
@@ -225,7 +233,7 @@
             <h3 style="text-align: center; color: var(--purple-main);" id="t-aiHeader">🤖 Sun'iy Intellekt Test Tuzuvchisi</h3>
             <div class="form-group">
                 <label id="t-aiTopicLbl">Test mavzusi yoki sharti:</label>
-                <textarea id="aiTopicInput" rows="3" placeholder="Masalan: 7-sinf Geografiya I-bob..."></textarea>
+                <textarea id="aiTopicInput" rows="3" placeholder="Masalan: 7-10 sinflar geografiyasi..."></textarea>
             </div>
             <div class="form-group">
                 <label id="t-aiCountLbl">Savollar soni:</label>
@@ -262,6 +270,24 @@
                 <div class="stat-card"><div class="val" id="resPercentText">0%</div><div class="lbl" id="t-resPercentLbl">Foiz</div></div>
                 <div class="stat-card"><div class="val" id="resTimeText">00:00</div><div class="lbl" id="t-resTimeLbl">Vaqt</div></div>
             </div>
+
+            <!-- SERTIFIKAT QISMI -->
+            <div id="certificateContainer" class="hidden">
+                <div class="certificate-card">
+                    <h2>Sertifikat</h2>
+                    <h3>Geografiya Fani Bilimlar Sifatini Baholash Tizimi</h3>
+                    <p>Ushbu sertifikat quyidagi shaxsga beriladi:</p>
+                    <div class="cert-name" id="certUserName">Foydalanuvchi Ismi</div>
+                    <p><strong>7-10 sinflar testi</strong> sinovlarida muvaffaqiyatli qatnashib, yuqori natija ko'rsatgani va bilim darajasini tasdiqlagani uchun taqdim etiladi.</p>
+                    <div class="cert-footer">
+                        <span>Natija: <strong id="certResultScore">0%</strong></span>
+                        <span>Sana: <strong id="certDate">01.01.2026</strong></span>
+                        <span>Yaratuvchi: <strong>Nurmataliyev M.</strong></span>
+                    </div>
+                </div>
+                <button class="btn btn-emerald" style="margin-top: 12px;" onclick="window.print()">🖨️ Sertifikatni yuklab olish / Chop etish</button>
+            </div>
+
             <div class="ai-box">
                 <h4 id="t-aiSummaryHeader">🤖 Sun'iy Intellekt (AI) Xulosasi:</h4>
                 <div id="aiFeedbackText" style="font-size: 0.88rem; line-height: 1.5;">Tahlil qilinmoqda...</div>
@@ -331,7 +357,7 @@
             uz: {
                 title: "Geografiya AI — Professional Attestatsiya va Sertifikat Tizimi",
                 mainTitle: "🌍 Geografiya AI — Professional Tizim",
-                mainDesc: "Attestatsiya va Milliy Sertifikat uchun aqlli imtihon muhiti",
+                mainDesc: "7-10 sinflar testlari va sertifikatlash muhiti",
                 loginTab: "Kirish",
                 regTab: "Ro'yxatdan o'tish",
                 jshshrLbl: "JSHSHR (14 xonali shaxsiy raqam)",
@@ -347,7 +373,7 @@
                 cabinetBtn: "👤 Shaxsiy Kabinet",
                 ratingBtn: "🏆 Umumiy Reyting",
                 geoSectionTitle: "🌍 Geografiya Fani Sinovlari",
-                geoSectionDesc: "Attestatsiya va Milliy Sertifikat",
+                geoSectionDesc: "7-10 sinflar testi",
                 supportTitle: "💬 Qo'llab-quvvatlash Markazi va Javoblar",
                 supportDesc: "Yaratuvchi Nurmataliyev Muzaffardan kelgan javoblar va xabarlar",
                 aiTitle: "🤖 AI Orqali Test Tuzish",
@@ -355,9 +381,9 @@
                 adminBtn: "⚡ Yaratuvchi Boshqaruvi va Nazorati",
                 logoutBtn: "Tizimdan Chiqish",
                 selectModeTitle: "Imtihon Turini Tanlang",
-                attestTitle: "📘 Attestatsiya Bo'limi",
+                attestTitle: "📘 7-10 sinflar testi",
                 attestDesc: "7-sinf I-bob to'liq test bazasi • Vaqt: 45 Daqiqa",
-                sertTitle: "📗 Milliy Sertifikat Bo'limi",
+                sertTitle: "📗 7-10 sinflar testi",
                 sertDesc: "50 ta o'ta murakkab savol va geografik masalalar • Vaqt: 60 Daqiqa",
                 backBtn: "Orqaga qaytish",
                 supportHeader: "💬 Qo'llab-quvvatlash va Murojaatlar",
@@ -393,9 +419,9 @@
                 footerText: "Platforma Yaratuvchisi:"
             },
             ru: {
-                title: "География AI — Профессиональная Аттестация и Сертификация",
-                mainTitle: "🌍 География AI — Профессиональная Система",
-                mainDesc: "Умная среда тестирования для аттестации и национального сертификата",
+                title: "География AI — Система тестирования 7-10 классов",
+                mainTitle: "🌍 География AI — Система",
+                mainDesc: "Тесты 7-10 классов и среда сертификации",
                 loginTab: "Вход",
                 regTab: "Регистрация",
                 jshshrLbl: "ПИНФЛ (14-значный личный номер)",
@@ -411,7 +437,7 @@
                 cabinetBtn: "👤 Личный кабинет",
                 ratingBtn: "🏆 Общий рейтинг",
                 geoSectionTitle: "🌍 Тесты по географии",
-                geoSectionDesc: "Аттестация и Национальный сертификат",
+                geoSectionDesc: "Тесты 7-10 классов",
                 supportTitle: "💬 Центр поддержки и ответы",
                 supportDesc: "Ответы и сообщения от создателя Нурматалиева Музаффара",
                 aiTitle: "🤖 Генерация тестов через ИИ",
@@ -419,9 +445,9 @@
                 adminBtn: "⚡ Управление и контроль создателя",
                 logoutBtn: "Выйти из системы",
                 selectModeTitle: "Выберите тип экзамена",
-                attestTitle: "📘 Раздел аттестации",
+                attestTitle: "📘 Тест 7-10 классов",
                 attestDesc: "Полная база тестов I-главы 7 класса • Время: 45 минут",
-                sertTitle: "📗 Национальный сертификат",
+                sertTitle: "📗 Тест 7-10 классов",
                 sertDesc: "50 сложных вопросов и географических задач • Время: 60 минут",
                 backBtn: "Назад",
                 supportHeader: "💬 Поддержка и обращения",
@@ -457,9 +483,9 @@
                 footerText: "Создатель платформы:"
             },
             en: {
-                title: "Geography AI — Professional Certification & Assessment System",
-                mainTitle: "🌍 Geography AI — Professional System",
-                mainDesc: "Smart testing environment for certification and national tests",
+                title: "Geography AI — 7-10 Grades Testing System",
+                mainTitle: "🌍 Geography AI — System",
+                mainDesc: "7-10 grades tests and certification environment",
                 loginTab: "Login",
                 regTab: "Register",
                 jshshrLbl: "JSHSHR (14-digit personal ID)",
@@ -475,7 +501,7 @@
                 cabinetBtn: "👤 Personal Cabinet",
                 ratingBtn: "🏆 General Rating",
                 geoSectionTitle: "🌍 Geography Tests",
-                geoSectionDesc: "Certification & National Certificate",
+                geoSectionDesc: "7-10 Grades Tests",
                 supportTitle: "💬 Support Center & Replies",
                 supportDesc: "Replies and messages from creator Nurmataliyev Muzaffar",
                 aiTitle: "🤖 AI Test Generator",
@@ -483,9 +509,9 @@
                 adminBtn: "⚡ Creator Dashboard & Control",
                 logoutBtn: "Log Out",
                 selectModeTitle: "Select Exam Type",
-                attestTitle: "📘 Certification Section",
+                attestTitle: "📘 7-10 Grades Test",
                 attestDesc: "Full 7th grade Chapter I test base • Time: 45 Minutes",
-                sertTitle: "📗 National Certificate Section",
+                sertTitle: "📗 7-10 Grades Test",
                 sertDesc: "50 complex questions and geographic problems • Time: 60 Minutes",
                 backBtn: "Go Back",
                 supportHeader: "💬 Support & Inquiries",
@@ -944,10 +970,8 @@
 
         function startQuiz(modeName, count) {
             activeModeName = modeName;
-            // Bazadagi barcha savollardan nusxalash yoki kerakli miqdorda taqdim etish
             currentQuizQuestions = [...baseQuestions];
             if(count === 50 && currentQuizQuestions.length < 50) {
-                // Agar 50 talik so'ralsa va baza 30 talik bo'lsa, qolganini to'ldiramiz
                 while(currentQuizQuestions.length < 50) {
                     let base = baseQuestions[currentQuizQuestions.length % baseQuestions.length];
                     currentQuizQuestions.push({
@@ -959,7 +983,7 @@
             } else {
                 currentQuizQuestions = currentQuizQuestions.slice(0, count);
             }
-            startQuizEngine(currentQuizQuestions.length, modeName === 'Attestatsiya' ? 2700 : 3600);
+            startQuizEngine(currentQuizQuestions.length, 2700);
         }
 
         function startQuizEngine(count, timeSec) {
@@ -1020,6 +1044,17 @@
             document.getElementById('resPercentText').innerText = `${percent}%`;
             document.getElementById('resTimeText').innerText = `${Math.floor(spentSeconds/60)}m`;
             document.getElementById('aiFeedbackText').innerText = percent >= 80 ? "Ajoyib natija!" : "Yaxshi, biroq yana tayyorgarlik ko'rish kerak.";
+
+            // Sertifikatni chiqarish sharti (Masalan, 50% va undan yuqori natija olganlarga)
+            let certBox = document.getElementById('certificateContainer');
+            if (percent >= 50) {
+                certBox.classList.remove('hidden');
+                document.getElementById('certUserName').innerText = currentUser.name;
+                document.getElementById('certResultScore').innerText = `${percent}% (${correct}/${total})`;
+                document.getElementById('certDate').innerText = new Date().toLocaleDateString();
+            } else {
+                certBox.classList.add('hidden');
+            }
 
             let rBox = document.getElementById('reviewBox');
             rBox.innerHTML = '';
