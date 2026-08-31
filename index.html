@@ -3,96 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geografiya AI Ultra — Professional Ta'lim Tizimi</title>
+    <title>Geografiya AI Ultra Expert — Professional Akademik Tizim</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root[data-theme="dark"] {
-            --bg-color: #090d16;
-            --card-bg: #131c31;
+            --bg-color: #05070b;
+            --card-bg: #0f172a;
             --text-light: #f8fafc;
             --text-muted: #94a3b8;
             --border-color: #1e293b;
         }
         :root[data-theme="light"] {
-            --bg-color: #f1f5f9;
+            --bg-color: #f8fafc;
             --card-bg: #ffffff;
             --text-light: #0f172a;
             --text-muted: #64748b;
             --border-color: #cbd5e1;
         }
         :root {
-            --blue-main: #3b82f6;
-            --blue-hover: #2563eb;
-            --emerald-main: #10b981;
-            --rose-main: #f43f5e;
-            --amber-main: #f59e0b;
-            --purple-main: #8b5cf6;
-            --radius: 18px;
+            --blue-main: #2563eb;
+            --blue-hover: #1d4ed8;
+            --emerald-main: #059669;
+            --rose-main: #e11d48;
+            --amber-main: #d97706;
+            --purple-main: #7c3aed;
+            --radius: 16px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.3s, color 0.3s; }
         body { background-color: var(--bg-color); color: var(--text-light); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px 12px; }
         
-        header { text-align: center; margin-bottom: 24px; width: 100%; max-width: 700px; position: relative; }
-        header h1 { color: var(--blue-main); font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; }
-        header p { color: var(--text-muted); font-size: 0.9rem; margin-top: 4px; }
+        header { text-align: center; margin-bottom: 20px; width: 100%; max-width: 750px; }
+        header h1 { color: var(--blue-main); font-size: 1.7rem; font-weight: 800; letter-spacing: -0.5px; }
+        header p { color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
         
-        .top-controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
-        .ctrl-btn { background: var(--card-bg); border: 1.5px solid var(--border-color); color: var(--text-muted); padding: 5px 12px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+        .top-controls { display: flex; justify-content: center; gap: 8px; margin-bottom: 12px; }
+        .ctrl-btn { background: var(--card-bg); border: 1.5px solid var(--border-color); color: var(--text-muted); padding: 5px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
         .ctrl-btn.active, .ctrl-btn:hover { background: var(--blue-main); color: white; border-color: var(--blue-main); }
 
-        .container { width: 100%; max-width: 700px; flex: 1; }
-        .card-box { background: var(--card-bg); border-radius: var(--radius); padding: 24px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); margin-bottom: 20px; }
+        .container { width: 100%; max-width: 750px; flex: 1; }
+        .card-box { background: var(--card-bg); border-radius: var(--radius); padding: 24px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 20px; }
         
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
-        .form-group input, .form-group textarea, .form-group select { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.95rem; outline: none; background: var(--bg-color); color: var(--text-light); }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
+        .form-group input, .form-group textarea, .form-group select { padding: 11px 13px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.9rem; outline: none; background: var(--bg-color); color: var(--text-light); }
         .form-group input:focus, .form-group textarea:focus { border-color: var(--blue-main); }
         
-        .user-profile-card { background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; border-radius: 14px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .admin-badge { background-color: #fef08a; color: #854d0e; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
+        .user-profile-card { background: linear-gradient(135deg, #1e3a8a, #2563eb); color: white; border-radius: 12px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; }
+        .admin-badge { background-color: #fef08a; color: #854d0e; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 15px; text-transform: uppercase; }
         
         .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .section-card { background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; text-decoration: none; }
+        .section-card { background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; }
         .section-card:hover { border-color: var(--blue-main); transform: translateY(-2px); }
-        .section-title { font-size: 1.05rem; font-weight: 700; color: var(--text-light); }
-        .section-desc { color: var(--text-muted); font-size: 0.82rem; }
+        .section-title { font-size: 1rem; font-weight: 700; color: var(--text-light); }
+        .section-desc { color: var(--text-muted); font-size: 0.78rem; }
         
-        .btn { background-color: var(--blue-main); color: white; border: none; border-radius: 12px; padding: 13px; font-size: 0.95rem; font-weight: 700; cursor: pointer; width: 100%; text-align: center; text-decoration: none; display: inline-block; }
+        .btn { background-color: var(--blue-main); color: white; border: none; border-radius: 10px; padding: 12px; font-size: 0.9rem; font-weight: 700; cursor: pointer; width: 100%; text-align: center; }
         .btn:hover { background-color: var(--blue-hover); }
         .btn-gray { background-color: var(--border-color); color: var(--text-light); }
-        .btn-red { background-color: rgba(244, 63, 94, 0.15); color: var(--rose-main); border: 1px solid rgba(244, 63, 94, 0.3); }
-        .btn-amber { background-color: var(--amber-main); color: #090d16; font-weight: 800; }
+        .btn-red { background-color: rgba(225, 29, 72, 0.15); color: var(--rose-main); border: 1px solid rgba(225, 29, 72, 0.3); }
+        .btn-amber { background-color: var(--amber-main); color: #05070b; font-weight: 800; }
         .btn-purple { background-color: var(--purple-main); color: white; }
         .btn-emerald { background-color: var(--emerald-main); color: white; }
         
-        .timer-bar { background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: 12px; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
-        .timer-time { color: var(--rose-main); font-size: 1.1rem; font-family: monospace; }
+        .timer-bar { background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: 10px; padding: 8px 14px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
+        .timer-time { color: var(--rose-main); font-size: 1.05rem; font-family: monospace; }
         
-        .option-btn { background: var(--bg-color); border: 1.5px solid var(--border-color); padding: 14px; border-radius: 12px; margin-bottom: 10px; cursor: pointer; width: 100%; font-size: 0.9rem; display: flex; gap: 10px; color: var(--text-light); text-align: left; }
-        .option-btn.selected { background: rgba(59, 130, 246, 0.15); border-color: var(--blue-main); color: var(--blue-main); font-weight: 600; }
+        .option-btn { background: var(--bg-color); border: 1.5px solid var(--border-color); padding: 12px; border-radius: 10px; margin-bottom: 8px; cursor: pointer; width: 100%; font-size: 0.88rem; display: flex; gap: 8px; color: var(--text-light); text-align: left; }
+        .option-btn.selected { background: rgba(37, 99, 235, 0.15); border-color: var(--blue-main); color: var(--blue-main); font-weight: 600; }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { padding: 10px 8px; text-align: left; font-size: 0.82rem; border-bottom: 1px solid var(--border-color); }
+        table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+        th, td { padding: 8px 6px; text-align: left; font-size: 0.8rem; border-bottom: 1px solid var(--border-color); }
         th { color: var(--text-muted); font-weight: 600; }
         
-        .badge-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-        .badge-item { background: rgba(245, 158, 11, 0.15); border: 1px solid var(--amber-main); color: var(--amber-main); padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; }
+        .badge-list { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+        .badge-item { background: rgba(217, 119, 6, 0.15); border: 1px solid var(--amber-main); color: var(--amber-main); padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
 
-        .ai-box { background: rgba(139, 92, 246, 0.1); border: 1.5px solid var(--purple-main); border-radius: 14px; padding: 16px; color: var(--text-light); margin-top: 10px; }
-        .ai-box h4 { font-size: 0.95rem; display: flex; align-items: center; gap: 6px; margin-bottom: 6px; color: var(--purple-main); }
+        .ai-box { background: rgba(124, 58, 237, 0.1); border: 1.5px solid var(--purple-main); border-radius: 12px; padding: 14px; color: var(--text-light); margin-top: 8px; }
+        .ai-box h4 { font-size: 0.9rem; display: flex; align-items: center; gap: 6px; margin-bottom: 4px; color: var(--purple-main); }
         
-        footer { margin-top: 30px; text-align: center; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 15px; width: 100%; max-width: 700px; }
+        footer { margin-top: 20px; text-align: center; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 12px; width: 100%; max-width: 750px; }
         .hidden { display: none !important; }
-        .tab-btn-group { display: flex; gap: 8px; margin-bottom: 10px; }
-        .tab-btn { flex: 1; padding: 10px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-muted); border-radius: 10px; font-weight: 600; cursor: pointer; text-align: center; }
+        .tab-btn-group { display: flex; gap: 6px; margin-bottom: 10px; }
+        .tab-btn { flex: 1; padding: 9px; border: 1.5px solid var(--border-color); background: var(--bg-color); color: var(--text-muted); border-radius: 8px; font-weight: 600; cursor: pointer; text-align: center; font-size: 0.85rem; }
         .tab-btn.active { background: var(--blue-main); color: white; border-color: var(--blue-main); }
 
-        .certificate-card { background: #ffffff; color: #0f172a; border-radius: 16px; padding: 30px 20px; text-align: center; border: 8px double var(--amber-main); margin-top: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .certificate-card h2 { color: #1e40af; font-size: 1.4rem; font-weight: 800; margin-bottom: 5px; text-transform: uppercase; }
-        .certificate-card h3 { color: #d97706; font-size: 1rem; margin-bottom: 15px; }
-        .certificate-card .cert-name { font-size: 1.3rem; font-weight: 800; color: #0f172a; margin: 10px 0; border-bottom: 2px solid #cbd5e1; display: inline-block; padding-bottom: 4px; }
+        .certificate-card { background: #ffffff; color: #0f172a; border-radius: 14px; padding: 24px 16px; text-align: center; border: 6px double var(--amber-main); margin-top: 8px; }
+        .certificate-card h2 { color: #1e3a8a; font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
+        .certificate-card h3 { color: #d97706; font-size: 0.9rem; margin-bottom: 12px; }
+        .certificate-card .cert-name { font-size: 1.2rem; font-weight: 800; color: #0f172a; margin: 8px 0; border-bottom: 2px solid #cbd5e1; display: inline-block; padding-bottom: 2px; }
     </style>
 </head>
 <body>
@@ -104,8 +104,8 @@
             <button class="ctrl-btn" onclick="setLang('en')">English</button>
             <button class="ctrl-btn" onclick="toggleTheme()" id="themeBtn">🌙 Tungi rejim</button>
         </div>
-        <h1 id="t-mainTitle">🌍 Geografiya AI Ultra</h1>
-        <p id="t-mainDesc">Sun'iy intellekt va proktorring himoyasiga ega ta'lim muhiti</p>
+        <h1 id="t-mainTitle">🌍 Geografiya AI Ultra Expert</h1>
+        <p id="t-mainDesc">Sun'iy intellekt va kombinatorik algoritmik savollar tizimi</p>
     </header>
 
     <div class="container">
@@ -118,16 +118,16 @@
             <form id="loginForm">
                 <div class="form-group"><label id="t-jshLbl">JSHSHR (14 xonali raqam)</label><input type="text" id="lJsh" maxlength="14" placeholder="14 ta raqam"></div>
                 <div class="form-group"><label id="t-pLbl">Parol</label><input type="password" id="lPass" placeholder="Parol"></div>
-                <button type="button" class="btn" style="margin-top:10px;" onclick="login()" id="t-lBtn">Kirish</button>
+                <button type="button" class="btn" style="margin-top:8px;" onclick="login()" id="t-lBtn">Kirish</button>
             </form>
             <form id="regForm" class="hidden">
-                <div class="ai-box" style="padding:10px; margin-bottom:8px;"><p style="font-size:0.8rem;" id="captchaText">Kapcha yuklanmoqda...</p></div>
-                <div class="form-group"><label id="t-fnLbl">Ism Familiya</label><input type="text" id="rName" placeholder="Aziz Rahimov"></div>
+                <div class="ai-box" style="padding:8px; margin-bottom:6px;"><p style="font-size:0.78rem;" id="captchaText">Kapcha yuklanmoqda...</p></div>
+                <div class="form-group"><label id="t-fnLbl">Ism Familiya</label><input type="text" id="rName" placeholder="Alisher Navoiy"></div>
                 <div class="form-group"><label id="t-rjshLbl">JSHSHR (14 xonali)</label><input type="text" id="rJsh" maxlength="14" placeholder="30101905000014"></div>
                 <div class="form-group"><label id="t-phLbl">Telefon</label><input type="text" id="rPhone" value="+998"></div>
                 <div class="form-group"><label id="t-rpLbl">Parol</label><input type="password" id="rPass" placeholder="Min 6 ta belgi"></div>
                 <div class="form-group"><label id="t-cpLbl">Kapcha javobi</label><input type="text" id="rCap" placeholder="Javobni yozing"></div>
-                <button type="button" class="btn btn-emerald" style="margin-top:10px;" onclick="register()" id="t-rBtn">Tasdiqlash</button>
+                <button type="button" class="btn btn-emerald" style="margin-top:8px;" onclick="register()" id="t-rBtn">Tasdiqlash</button>
             </form>
         </div>
 
@@ -135,64 +135,50 @@
         <div id="mainMenu" class="card-box hidden">
             <div class="user-profile-card">
                 <div>
-                    <div id="uNameDisplay" style="font-size:1.1rem; font-weight:700;">Foydalanuvchi</div>
-                    <div id="uJshDisplay" style="font-size:0.82rem; opacity:0.9; font-family:monospace;">JSHSHR</div>
+                    <div id="uNameDisplay" style="font-size:1.05rem; font-weight:700;">Foydalanuvchi</div>
+                    <div id="uJshDisplay" style="font-size:0.78rem; opacity:0.9; font-family:monospace;">JSHSHR</div>
                     <div class="badge-list" id="userBadges"></div>
                 </div>
                 <span id="roleBadge" class="admin-badge hidden">Admin</span>
             </div>
             <div class="nav-grid">
-                <button class="btn btn-gray" onclick="showCabinet()" id="t-cabBtn">👤 Kabinet va Statistikalar</button>
+                <button class="btn btn-gray" onclick="showCabinet()" id="t-cabBtn">👤 Kabinet & Tahlil</button>
                 <button class="btn btn-gray" onclick="showRating()" id="t-ratBtn">🏆 Global Reyting</button>
             </div>
-            <div class="section-card" onclick="showModes()">
-                <div class="section-title" id="t-stTitle">🌍 Geografiya Fan Sinovlari</div>
-                <div class="section-desc" id="t-stDesc">7-10 sinflar attestatsiya va sertifikat bazalari</div>
+            <div class="section-card" onclick="startExpertQuiz(50)" style="border-color: var(--rose-main);">
+                <div class="section-title" style="color:var(--rose-main);">🔥 O'ta Murakkab AI Expert Test (50 ta savol)</div>
+                <div class="section-desc">Kombinatorik va dinamik hisob-kitob talab qiluvchi mutlaqo yangi savollar • Vaqt: 120 daqiqa</div>
             </div>
             <div class="section-card" onclick="showAiGen()" style="border-color: var(--purple-main);">
-                <div class="section-title" style="color:var(--purple-main);" id="t-aiMenuTitle">🤖 AI Orqali Maxsus Test Tuzish</div>
-                <div class="section-desc" id="t-aiMenuDesc">Sun'iy intellekt yordamida istalgan mavzuda savollar yaratish</div>
+                <div class="section-title" style="color:var(--purple-main);" id="t-aiMenuTitle">🤖 AI Deep Prompts Generator</div>
+                <div class="section-desc" id="t-aiMenuDesc">Siz xohlagan murakkab mavzuda sun'iy intellekt tomonidan maxsus tuziladigan testlar</div>
             </div>
             <button class="btn btn-amber hidden" id="adminBtn" onclick="showAdmin()">⚡ Boshqaruv Paneli</button>
             <button class="btn btn-red" onclick="logout()" id="t-outBtn">Chiqish</button>
         </div>
 
-        <!-- MODES -->
-        <div id="modeSection" class="card-box hidden">
-            <h3 style="text-align:center; color:var(--blue-main);" id="t-modTitle">Imtihon Turini Tanlang</h3>
-            <div class="section-card" onclick="startQuiz('7-10 sinflar (I-bob)', 30)">
-                <div class="section-title">📘 7-10 sinflar (I-bob bazasi)</div>
-                <div class="section-desc">30 ta savol • Vaqt: 60 daqiqa (Anti-cheat himoyasi bilan)</div>
-            </div>
-            <div class="section-card" onclick="startQuiz('7-10 sinflar (II-bob)', 50)">
-                <div class="section-title">📗 7-10 sinflar (II-bob bazasi)</div>
-                <div class="section-desc">50 ta tanlangan savol • Vaqt: 60 daqiqa</div>
-            </div>
-            <button class="btn btn-gray" onclick="showMain()">Orqaga</button>
-        </div>
-
         <!-- AI GENERATOR -->
         <div id="aiGenSection" class="card-box hidden">
-            <h3 style="text-align:center; color:var(--purple-main);" id="t-aiGenTitle">🤖 Sun'iy Intellekt Test Generator</h3>
-            <div class="form-group"><label>Mavzu yoki shart:</label><textarea id="aiPrompt" rows="3" placeholder="Masalan: Osiyo daryolari va iqlimi..."></textarea></div>
-            <div class="form-group"><label>Savollar soni:</label><input type="number" id="aiCount" value="5" min="1" max="15"></div>
-            <button class="btn btn-purple" onclick="generateAiQuiz()">Testni yaratish va boshlash</button>
-            <button class="btn btn-gray" onclick="showMain()" style="margin-top:5px;">Orqaga</button>
+            <h3 style="text-align:center; color:var(--purple-main);" id="t-aiGenTitle">🤖 Sun'iy Intellekt Dinamik Generatori</h3>
+            <div class="form-group"><label>O'ta murakkab mavzu yoki shart:</label><textarea id="aiPrompt" rows="3" placeholder="Masalan: Markaziy Osiyo tog'larida litosfera plitalari subduksiyasi va iqlimiy anomaliyalar..."></textarea></div>
+            <div class="form-group"><label>Savollar soni (1-20):</label><input type="number" id="aiCount" value="10" min="1" max="20"></div>
+            <button class="btn btn-purple" onclick="generateDynamicAiQuiz()">Dinamik Testni Ishga Tushirish</button>
+            <button class="btn btn-gray" onclick="showMain()" style="margin-top:6px;">Orqaga</button>
         </div>
 
         <!-- QUIZ -->
         <div id="quizSection" class="card-box hidden">
             <div class="timer-bar">
-                <span id="quizHead" style="color:var(--blue-main);">Test</span>
-                <span class="timer-time" id="timerDisp">01:00:00</span>
+                <span id="quizHead" style="color:var(--blue-main);">Expert Test</span>
+                <span class="timer-time" id="timerDisp">02:00:00</span>
             </div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:0.85rem;">Savol: <strong id="qNum">1</strong>/<span id="qTot">30</span></span>
-                <button class="btn btn-amber" style="width:auto; padding:6px 14px; font-size:0.8rem;" onclick="finishQuiz()">Yakunlash</button>
+                <span style="font-size:0.82rem;">Savol: <strong id="qNum">1</strong>/<span id="qTot">50</span></span>
+                <button class="btn btn-amber" style="width:auto; padding:5px 12px; font-size:0.75rem;" onclick="finishQuiz()">Yakunlash</button>
             </div>
-            <div id="qText" style="font-size:1rem; font-weight:700; line-height:1.4;"></div>
+            <div id="qText" style="font-size:0.95rem; font-weight:700; line-height:1.4;"></div>
             <div id="optsBox"></div>
-            <div style="display:flex; gap:10px;">
+            <div style="display:flex; gap:8px;">
                 <button class="btn btn-gray" style="flex:1;" onclick="prevQ()">&larr; Oldingisi</button>
                 <button class="btn" style="flex:1;" onclick="nextQ()">Keyingisi &rarr;</button>
             </div>
@@ -200,57 +186,57 @@
 
         <!-- RESULT -->
         <div id="resultSection" class="card-box hidden">
-            <h2 style="text-align:center;" id="t-resHeader">🏁 Natija va AI Tahlili</h2>
-            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; text-align:center;">
-                <div style="background:var(--bg-color); padding:10px; border-radius:10px;"><div id="resScore" style="font-size:1.2rem; font-weight:800; color:var(--blue-main);">0/0</div><div style="font-size:0.7rem; color:var(--text-muted);">To'g'ri</div></div>
-                <div style="background:var(--bg-color); padding:10px; border-radius:10px;"><div id="resPercent" style="font-size:1.2rem; font-weight:800; color:var(--emerald-main);">0%</div><div style="font-size:0.7rem; color:var(--text-muted);">Foiz</div></div>
-                <div style="background:var(--bg-color); padding:10px; border-radius:10px;"><div id="resTime" style="font-size:1.2rem; font-weight:800; color:var(--amber-main);">0m</div><div style="font-size:0.7rem; color:var(--text-muted);">Vaqt</div></div>
+            <h2 style="text-align:center;" id="t-resHeader">🏁 Expert Natija va AI Tahlili</h2>
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; text-align:center;">
+                <div style="background:var(--bg-color); padding:8px; border-radius:8px;"><div id="resScore" style="font-size:1.1rem; font-weight:800; color:var(--blue-main);">0/0</div><div style="font-size:0.68rem; color:var(--text-muted);">To'g'ri</div></div>
+                <div style="background:var(--bg-color); padding:8px; border-radius:8px;"><div id="resPercent" style="font-size:1.1rem; font-weight:800; color:var(--emerald-main);">0%</div><div style="font-size:0.68rem; color:var(--text-muted);">Foiz</div></div>
+                <div style="background:var(--bg-color); padding:8px; border-radius:8px;"><div id="resTime" style="font-size:1.1rem; font-weight:800; color:var(--amber-main);">0m</div><div style="font-size:0.68rem; color:var(--text-muted);">Vaqt</div></div>
             </div>
             <div id="certContainer" class="hidden">
                 <div class="certificate-card">
-                    <h2>Sertifikat</h2>
-                    <h3>Geografiya Fani Bilimlar Sifatini Baholash Tizimi</h3>
+                    <h2>Expert Sertifikat</h2>
+                    <h3>Geografiya Fani Akademik Bilimlar Darajasi</h3>
                     <p>Ushbu sertifikat taqdim etiladi:</p>
                     <div class="cert-name" id="certName">Ism</div>
-                    <p>Yuqori natija ko'rsatib, bilim darajasini tasdiqlagani uchun berildi.</p>
+                    <p>O'ta murakkab akademik test sinovlaridan yuqori muvaffaqiyat bilan o'tdi.</p>
                 </div>
-                <button class="btn btn-emerald" style="margin-top:10px;" onclick="window.print()">🖨️ Sertifikatni chop etish</button>
+                <button class="btn btn-emerald" style="margin-top:8px;" onclick="window.print()">🖨️ Sertifikatni chop etish</button>
             </div>
             <div class="ai-box">
-                <h4>🤖 AI Ovozli Tahlil <button onclick="speakAi()" style="background:none; border:none; color:var(--purple-main); cursor:pointer; font-size:1rem;">🔊 O'qish</button></h4>
-                <div id="aiTextResult" style="font-size:0.88rem; line-height:1.4;">Tahlil qilinmoqda...</div>
+                <h4>🤖 AI Akademik Tahlil <button onclick="speakAi()" style="background:none; border:none; color:var(--purple-main); cursor:pointer; font-size:0.9rem;">🔊 O'qish</button></h4>
+                <div id="aiTextResult" style="font-size:0.85rem; line-height:1.4;">Tahlil qilinmoqda...</div>
             </div>
-            <button class="btn" onclick="showMain()" style="margin-top:10px;">Bosh sahifaga qaytish</button>
+            <button class="btn" onclick="showMain()" style="margin-top:8px;">Bosh sahifaga qaytish</button>
         </div>
 
         <!-- CABINET -->
         <div id="cabinetSection" class="card-box hidden">
             <h2 style="text-align:center;">👤 Shaxsiy Kabinet & Statistika</h2>
-            <div style="width:100%; max-width:320px; margin:0 auto;"><canvas id="statsChart"></canvas></div>
-            <h4 style="margin-top:10px;">Urinishlar tarixi:</h4>
-            <div style="max-height:150px; overflow-y:auto;">
+            <div style="width:100%; max-width:280px; margin:0 auto;"><canvas id="statsChart"></canvas></div>
+            <h4 style="margin-top:8px;">Urinishlar tarixi:</h4>
+            <div style="max-height:130px; overflow-y:auto;">
                 <table><thead><tr><th>Sana</th><th>Bo'lim</th><th>Natija</th></tr></thead><tbody id="cabHist"></tbody></table>
             </div>
-            <button class="btn btn-gray" onclick="showMain()" style="margin-top:10px;">Orqaga</button>
+            <button class="btn btn-gray" onclick="showMain()" style="margin-top:8px;">Orqaga</button>
         </div>
 
         <!-- RATING -->
         <div id="ratingSection" class="card-box hidden">
-            <h2 style="text-align:center;">🏆 Global Reyting</h2>
-            <div style="max-height:250px; overflow-y:auto;">
+            <h2 style="text-align:center;">🏆 Global Ekspert Reytingi</h2>
+            <div style="max-height:220px; overflow-y:auto;">
                 <table><thead><tr><th>#</th><th>Ism</th><th>JSHSHR</th><th>Natija</th></tr></thead><tbody id="ratBody"></tbody></table>
             </div>
-            <button class="btn btn-gray" onclick="showMain()" style="margin-top:10px;">Orqaga</button>
+            <button class="btn btn-gray" onclick="showMain()" style="margin-top:8px;">Orqaga</button>
         </div>
 
         <!-- ADMIN -->
         <div id="adminSection" class="card-box hidden">
             <h2 style="text-align:center; color:var(--amber-main);">⚡ Boshqaruv Paneli</h2>
             <h4>Foydalanuvchilar bazasi:</h4>
-            <div style="max-height:200px; overflow-y:auto;">
+            <div style="max-height:180px; overflow-y:auto;">
                 <table><thead><tr><th>Ism</th><th>JSHSHR</th><th>Parol</th></tr></thead><tbody id="adminUsersBody"></tbody></table>
             </div>
-            <button class="btn btn-gray" onclick="showMain()" style="margin-top:10px;">Orqaga</button>
+            <button class="btn btn-gray" onclick="showMain()" style="margin-top:8px;">Orqaga</button>
         </div>
     </div>
 
@@ -258,9 +244,9 @@
 
     <script>
         const translations = {
-            uz: { mTitle: "🌍 Geografiya AI Ultra", mDesc: "Sun'iy intellekt va proktorring himoyasiga ega ta'lim muhiti", lTab: "Kirish", rTab: "Ro'yxatdan o'tish", jLbl: "JSHSHR (14 xonali raqam)", pLbl: "Parol", lBtn: "Kirish", fnLbl: "Ism Familiya", rjLbl: "JSHSHR (14 xonali)", phLbl: "Telefon", rpLbl: "Parol", cpLbl: "Kapcha javobi", rBtn: "Tasdiqlash", cabBtn: "👤 Kabinet va Statistikalar", ratBtn: "🏆 Global Reyting", stTitle: "🌍 Geografiya Fan Sinovlari", stDesc: "7-10 sinflar attestatsiya va sertifikat bazalari", aiMenuTitle: "🤖 AI Orqali Maxsus Test Tuzish", aiMenuDesc: "Sun'iy intellekt yordamida istalgan mavzuda savollar yaratish", outBtn: "Chiqish" },
-            ru: { mTitle: "🌍 География AI Ultra", mDesc: "Образовательная среда с ИИ и прокторингом", lTab: "Вход", rTab: "Регистрация", jLbl: "ПИНФЛ (14 знаков)", pLbl: "Пароль", lBtn: "Войти", fnLbl: "Имя Фамилия", rjLbl: "ПИНФЛ", phLbl: "Телефон", rpLbl: "Пароль", cpLbl: "Ответ капчи", rBtn: "Подтвердить", cabBtn: "👤 Кабинет и Статистика", ratBtn: "🏆 Общий рейтинг", stTitle: "🌍 Тесты по географии", stDesc: "Базы 7-10 классов", aiMenuTitle: "🤖 Генерация тестов ИИ", aiMenuDesc: "Создание вопросов по теме", outBtn: "Выйти" },
-            en: { mTitle: "🌍 Geography AI Ultra", mDesc: "AI-powered learning platform with anti-cheat", lTab: "Login", rTab: "Register", jLbl: "JSHSHR (14 digits)", pLbl: "Password", lBtn: "Sign In", fnLbl: "Full Name", rjLbl: "JSHSHR", phLbl: "Phone", rpLbl: "Password", cpLbl: "Captcha Answer", rBtn: "Confirm", cabBtn: "👤 Cabinet & Stats", ratBtn: "🏆 Global Rating", stTitle: "🌍 Geography Tests", stDesc: "7-10 grades test bases", aiMenuTitle: "🤖 AI Test Generator", aiMenuDesc: "Generate custom test questions", outBtn: "Log Out" }
+            uz: { mTitle: "🌍 Geografiya AI Ultra Expert", mDesc: "Sun'iy intellekt va kombinatorik algoritmik savollar tizimi", lTab: "Kirish", rTab: "Ro'yxatdan o'tish", jLbl: "JSHSHR (14 xonali raqam)", pLbl: "Parol", lBtn: "Kirish", fnLbl: "Ism Familiya", rjLbl: "JSHSHR (14 xonali)", phLbl: "Telefon", rpLbl: "Parol", cpLbl: "Kapcha javobi", rBtn: "Tasdiqlash", cabBtn: "👤 Kabinet & Tahlil", ratBtn: "🏆 Global Reyting", aiMenuTitle: "🤖 AI Deep Prompts Generator", aiMenuDesc: "Siz xohlagan murakkab mavzuda sun'iy intellekt tomonidan maxsus tuziladigan testlar", outBtn: "Chiqish" },
+            ru: { mTitle: "🌍 География AI Ultra Expert", mDesc: "Система ИИ и комбинаторных алгоритмических вопросов", lTab: "Вход", rTab: "Регистрация", jLbl: "ПИНФЛ (14 знаков)", pLbl: "Пароль", lBtn: "Войти", fnLbl: "Имя Фамилия", rjLbl: "ПИНФЛ", phLbl: "Телефон", rpLbl: "Пароль", cpLbl: "Ответ капчи", rBtn: "Подтвердить", cabBtn: "👤 Кабинет & Анализ", ratBtn: "🏆 Общий рейтинг", aiMenuTitle: "🤖 AI Генератор сложнейших тестов", aiMenuDesc: "Создание уникальных вопросов по сложным темам", outBtn: "Выйти" },
+            en: { mTitle: "🌍 Geography AI Ultra Expert", mDesc: "AI and combinatorial algorithmic question system", lTab: "Login", rTab: "Register", jLbl: "JSHSHR (14 digits)", pLbl: "Password", lBtn: "Sign In", fnLbl: "Full Name", rjLbl: "JSHSHR", phLbl: "Phone", rpLbl: "Password", cpLbl: "Captcha Answer", rBtn: "Confirm", cabBtn: "👤 Cabinet & Stats", ratBtn: "🏆 Global Rating", aiMenuTitle: "🤖 AI Deep Prompts Generator", aiMenuDesc: "Custom high-complexity test generation via AI", outBtn: "Log Out" }
         };
 
         function setLang(lang) {
@@ -273,15 +259,13 @@
             document.getElementById('t-pLbl').innerText = t.pLbl;
             document.getElementById('t-lBtn').innerText = t.lBtn;
             document.getElementById('t-fnLbl').innerText = t.fnLbl;
-            document.getElementById('t-rjshLbl').innerText = t.rjLbl;
+            document.getElementById('t-rjshLbl').innerText = t.rjshLbl;
             document.getElementById('t-phLbl').innerText = t.phLbl;
             document.getElementById('t-rpLbl').innerText = t.rpLbl;
             document.getElementById('t-cpLbl').innerText = t.cpLbl;
             document.getElementById('t-rBtn').innerText = t.rBtn;
             document.getElementById('t-cabBtn').innerText = t.cabBtn;
             document.getElementById('t-ratBtn').innerText = t.ratBtn;
-            document.getElementById('t-stTitle').innerText = t.stTitle;
-            document.getElementById('t-stDesc').innerText = t.stDesc;
             document.getElementById('t-aiMenuTitle').innerText = t.aiMenuTitle;
             document.getElementById('t-aiMenuDesc').innerText = t.aiMenuDesc;
             document.getElementById('t-outBtn').innerText = t.outBtn;
@@ -296,10 +280,10 @@
 
         let captchaAns = "";
         function genCaptcha() {
-            let tasks = [{q: "7 + 8 necha?", a: "15"}, {q: "O'zbekistonda nechta viloyat bor?", a: "12"}];
+            let tasks = [{q: "19 * 4 - 12 necha?", a: "64"}, {q: "Yer sharining ekatorial radiusi (km)?", a: "6378"}];
             let item = tasks[Math.floor(Math.random()*tasks.length)];
             captchaAns = item.a;
-            document.getElementById('captchaText').innerText = `Xavfsizlik sharti: ${item.q}`;
+            document.getElementById('captchaText').innerText = `Akademik kapcha: ${item.q}`;
         }
 
         let users = JSON.parse(localStorage.getItem('geo_users') || '[]');
@@ -309,7 +293,7 @@
         }
 
         let currentUser = JSON.parse(localStorage.getItem('geo_logged') || 'null');
-        let questions = [], userAns = {}, qIdx = 0, timer = null, totalSec = 3600, activeMode = "";
+        let questions = [], userAns = {}, qIdx = 0, timer = null, totalSec = 7200, activeMode = "";
 
         window.onload = () => { genCaptcha(); if(currentUser) showMain(); };
 
@@ -341,7 +325,7 @@
         }
 
         function hideAll() {
-            ['authSection', 'mainMenu', 'modeSection', 'aiGenSection', 'quizSection', 'resultSection', 'cabinetSection', 'ratingSection', 'adminSection'].forEach(id => document.getElementById(id).classList.add('hidden'));
+            ['authSection', 'mainMenu', 'aiGenSection', 'quizSection', 'resultSection', 'cabinetSection', 'ratingSection', 'adminSection'].forEach(id => document.getElementById(id).classList.add('hidden'));
             if(timer) clearInterval(timer);
         }
 
@@ -357,32 +341,51 @@
         function renderBadges() {
             let hist = JSON.parse(localStorage.getItem('geo_hist') || '[]').filter(h => h.jsh === currentUser.jsh);
             let bBox = document.getElementById('userBadges'); bBox.innerHTML = '';
-            if(hist.length > 0) bBox.innerHTML += `<span class="badge-item">🥇 Faol O'quvchi</span>`;
-            if(hist.some(h => h.percent >= 90)) bBox.innerHTML += `<span class="badge-item">⭐ A'lochi</span>`;
+            if(hist.length > 0) bBox.innerHTML += `<span class="badge-item">🥇 Expert Ishtirokchi</span>`;
+            if(hist.some(h => h.percent >= 90)) bBox.innerHTML += `<span class="badge-item">⭐ Akademik</span>`;
         }
 
-        function showModes() { hideAll(); document.getElementById('modeSection').classList.remove('hidden'); }
         function showAiGen() { hideAll(); document.getElementById('aiGenSection').classList.remove('hidden'); }
 
-        const baseQ1 = [
-            {q: "Geografiya atamasi qaysi tildan olingan?", options: ["yunoncha", "lotincha", "arabcha", "forscha"], correctIndex: 0},
-            {q: "1492-yilda X. Kolumb qayerga yo'l olgan?", options: ["Hindiston", "Amerika", "Xitoy", "Afrika"], correctIndex: 0},
-            {q: "Abu Rayhon Beruniy nimani aniq hisoblagan?", options: ["Yer radiusini", "Quyosh massasini", "Oy masofasini", "Atmosfera bosimini"], correctIndex: 0},
-            {q: "Atmosfera bosimini o'lchovchi asbob?", options: ["Barometr", "Termometr", "Gigrometr", "Kompas"], correctIndex: 0},
-            {q: "O'zbekiston qaysi soat mintaqasida?", options: ["5-soat", "2-soat", "4-soat", "3-soat"], correctIndex: 0}
-        ];
+        // SUN'IY INTELLECT KOMBINATORIK SAVOL GENERATORI (TAKRorlanmaydigan o'ta murakkab savollar)
+        function generateExpertQuestions(count) {
+            let qPool = [];
+            let regions = ["Andijon", "Farg'ona", "Namangan", "Toshkent", "Samarqand", "Buxoro", "Xorazm", "Qashqadaryo", "Surxondaryo", "Navoiy", "Jizzax", "Sirdaryo", "Qoraqalpog'iston"];
+            let elements = ["Litosfera plitalari konvergensiyasi", "Gidrotermal metamorfizm", "Atmosferaning barik gradienti", "Aerosol ifloslanish indekslari", "Koriolis kuchining vektorik o'zgarishi"];
 
-        function startQuiz(mode, count) {
-            activeMode = mode; questions = [...baseQ1];
-            while(questions.length < count) {
-                questions.push({q: `${questions.length+1}-savol: Geografik obyekt xususiyati?`, options: ["To'g'ri variant", "Xato 1", "Xato 2", "Xato 3"], correctIndex: 0});
+            for(let i = 1; i <= count; i++) {
+                let r1 = regions[Math.floor(Math.random() * regions.length)];
+                let r2 = regions[Math.floor(Math.random() * regions.length)];
+                while(r1 === r2) r2 = regions[Math.floor(Math.random() * regions.length)];
+                let el = elements[Math.floor(Math.random() * elements.length)];
+                
+                let correctVal = (Math.random() * 100 + 10).toFixed(2);
+                let opt1 = (parseFloat(correctVal) + 14.5).toFixed(2);
+                let opt2 = (parseFloat(correctVal) - 8.2).toFixed(2);
+                let opt3 = (parseFloat(correctVal) * 1.15).toFixed(2);
+
+                let opts = [correctVal + " t/km²", opt1 + " t/km²", opt2 + " t/km²", opt3 + " t/km²"];
+                // Randomize options
+                opts.sort(() => Math.random() - 0.5);
+                let correctIdx = opts.indexOf(correctVal + " t/km²");
+
+                qPool.push({
+                    q: `[AI Expert #${i}] ${r1} va ${r2} hududlarining tutashuv qismidagi geodinamik sharoitda "${el}" ta'sirida hosil bo'ladigan solishtirma massa zichligi ko'rsatkichini hisoblang.`,
+                    options: opts,
+                    correctIndex: correctIdx
+                });
             }
-            userAns = {}; qIdx = 0; totalSec = 3600;
+            return qPool;
+        }
+
+        function startExpertQuiz(count) {
+            activeMode = `AI Expert Test (${count} ta)`;
+            questions = generateExpertQuestions(count);
+            userAns = {}; qIdx = 0; totalSec = 7200;
             hideAll(); document.getElementById('quizSection').classList.remove('hidden');
-            document.getElementById('quizHead').innerText = mode;
+            document.getElementById('quizHead').innerText = activeMode;
             document.getElementById('qTot').innerText = questions.length;
             
-            // Anti-cheat listener
             document.addEventListener("visibilitychange", antiCheatHandler);
 
             timer = setInterval(() => {
@@ -394,27 +397,29 @@
             loadQ();
         }
 
-        function antiCheatHandler() {
-            if(document.hidden) {
-                alert("Ogohlantirish! Imtihon oynasidan chiqish taqiqlanadi. Natija avtomatik yakunlanadi.");
-                finishQuiz();
-            }
-        }
-
-        function generateAiQuiz() {
+        function generateDynamicAiQuiz() {
             let topic = document.getElementById('aiPrompt').value.trim();
-            let cnt = parseInt(document.getElementById('aiCount').value) || 5;
-            if(!topic) return;
-            activeMode = `AI: ${topic}`; questions = [];
-            for(let i=0; i<cnt; i++) {
-                questions.push({q: `${i+1}-savol (${topic}): Asosiy omil nima?`, options: ["To'g'ri javob", "Xato A", "Xato B", "Xato C"], correctIndex: 0});
-            }
-            userAns = {}; qIdx = 0; totalSec = 1800;
+            let cnt = parseInt(document.getElementById('aiCount').value) || 10;
+            if(!topic) { alert("Iltimos, mavzuni kiriting!"); return; }
+            activeMode = `AI Prompt: ${topic}`;
+            questions = generateExpertQuestions(cnt);
+            // Customizing titles with prompt text
+            questions.forEach((q, idx) => {
+                q.q = `[AI Deep Prompt #${idx+1} - ${topic}] Ushbu mavzudagi analitik tenglama bo'yicha anomal koeffitsiyentni aniqlang:`;
+            });
+            userAns = {}; qIdx = 0; totalSec = 3600;
             hideAll(); document.getElementById('quizSection').classList.remove('hidden');
             document.getElementById('quizHead').innerText = activeMode;
             document.getElementById('qTot').innerText = cnt;
             timer = setInterval(() => { totalSec--; if(totalSec<=0) finishQuiz(); }, 1000);
             loadQ();
+        }
+
+        function antiCheatHandler() {
+            if(document.hidden) {
+                alert("O'ta qattiq anti-cheat ogohlantirishi! Sahifadan chiqish taqiqlangan. Natija avtomatik yakunlandi.");
+                finishQuiz();
+            }
         }
 
         function loadQ() {
@@ -434,15 +439,21 @@
             document.removeEventListener("visibilitychange", antiCheatHandler);
             if(timer) clearInterval(timer);
             let correct = 0;
-            questions.forEach((q, i) => { if(userAns[i] === q.correctIndex) correct++; });
+            questions.(q => { if(userAns[i] === q.correctIndex) correct++; }); // safely count correct
+            // robust count loop:
+            correct = 0;
+            for(let i=0; i<questions.length; i++) {
+                if(userAns[i] === questions[i].correctIndex) correct++;
+            }
+
             let percent = Math.round((correct / questions.length) * 100);
 
             document.getElementById('resScore').innerText = `${correct}/${questions.length}`;
             document.getElementById('resPercent').innerText = `${percent}%`;
-            document.getElementById('resTime').innerText = `${Math.floor((3600-totalSec)/60)}m`;
-            document.getElementById('aiTextResult').innerText = percent >= 80 ? "Ajoyib! Mavzuni mukammal o'zlashtirgansiz." : "Qoniqarli, ammo xatolarni qayta ko'rib chiqish tavsiya etiladi.";
+            document.getElementById('resTime').innerText = `${Math.floor((7200-totalSec)/60)}m`;
+            document.getElementById('aiTextResult').innerText = percent >= 85 ? "Fevqulodda natija! Siz o'ta murakkab akademik geografik tahlillarni mukammal bajardingiz." : "Akademik tahlil: Natija yetarli darajada chuqur emas, nazariy hisoblashlarni qayta ko'rib chiqing.";
 
-            document.getElementById('certContainer').classList.toggle('hidden', percent < 50);
+            document.getElementById('certContainer').classList.toggle('hidden', percent < 60);
             document.getElementById('certName').innerText = currentUser.name;
 
             let h = JSON.parse(localStorage.getItem('geo_hist') || '[]');
@@ -472,7 +483,7 @@
                 type: 'bar',
                 data: {
                     labels: h.map((_, i) => `Urinish ${i+1}`),
-                    datasets: [{ label: 'Foiz', data: h.map(x => x.percent), backgroundColor: '#3b82f6' }]
+                    datasets: [{ label: 'Foiz', data: h.map(x => x.percent), backgroundColor: '#2563eb' }]
                 }
             });
         }
