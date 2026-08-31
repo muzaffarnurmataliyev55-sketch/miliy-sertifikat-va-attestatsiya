@@ -191,13 +191,13 @@
         <!-- 3. MODE SELECTION -->
         <div id="modeSection" class="card-box hidden">
             <h3 style="text-align: center; color: var(--blue-main);" id="t-selectModeTitle">Imtihon Turini Tanlang</h3>
-            <div class="section-card" onclick="startQuiz('Attestatsiya', 50)">
+            <div class="section-card" onclick="startQuiz('Attestatsiya', 30)">
                 <div class="section-title" id="t-attestTitle">📘 Attestatsiya Bo'limi</div>
-                <div class="section-desc" id="t-attestDesc">50 ta so'nggi attestatsiya savollari • Vaqt: 60 Daqiqa</div>
+                <div class="section-desc" id="t-attestDesc">7-sinf I-bob to'liq test bazasi • Vaqt: 45 Daqiqa</div>
             </div>
-            <div class="section-card" onclick="startQuiz('Milliy Sertifikat', 100)">
-                <div class="section-title" id="t-sertTitle">📗 Milliy Sertifikat Bo'limi (100 ta)</div>
-                <div class="section-desc" id="t-sertDesc">100 ta o'ta murakkab savol va geografik masalalar • Vaqt: 120 Daqiqa</div>
+            <div class="section-card" onclick="startQuiz('Milliy Sertifikat', 50)">
+                <div class="section-title" id="t-sertTitle">📗 Milliy Sertifikat Bo'limi</div>
+                <div class="section-desc" id="t-sertDesc">50 ta o'ta murakkab savol va geografik masalalar • Vaqt: 60 Daqiqa</div>
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()" id="t-backBtn1">Orqaga qaytish</button>
         </div>
@@ -225,7 +225,7 @@
             <h3 style="text-align: center; color: var(--purple-main);" id="t-aiHeader">🤖 Sun'iy Intellekt Test Tuzuvchisi</h3>
             <div class="form-group">
                 <label id="t-aiTopicLbl">Test mavzusi yoki sharti:</label>
-                <textarea id="aiTopicInput" rows="3" placeholder="Masalan: O'zbekistonning iqtisodiy geografiyasi..."></textarea>
+                <textarea id="aiTopicInput" rows="3" placeholder="Masalan: 7-sinf Geografiya I-bob..."></textarea>
             </div>
             <div class="form-group">
                 <label id="t-aiCountLbl">Savollar soni:</label>
@@ -242,7 +242,7 @@
                 <span class="timer-time" id="timerDisplay">00:00:00</span>
             </div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:0.85rem;"><span id="t-qNumLabel">Savol:</span> <strong id="qNum">1</strong>/<span id="qTotal">50</span></span>
+                <span style="font-size:0.85rem;"><span id="t-qNumLabel">Savol:</span> <strong id="qNum">1</strong>/<span id="qTotal">30</span></span>
                 <button class="btn btn-amber" style="width:auto; padding:6px 14px; font-size:0.8rem;" onclick="confirmFinishQuiz()" id="t-finishQuizBtn">🏁 Yakunlash</button>
             </div>
             
@@ -356,9 +356,9 @@
                 logoutBtn: "Tizimdan Chiqish",
                 selectModeTitle: "Imtihon Turini Tanlang",
                 attestTitle: "📘 Attestatsiya Bo'limi",
-                attestDesc: "50 ta so'nggi attestatsiya savollari • Vaqt: 60 Daqiqa",
-                sertTitle: "📗 Milliy Sertifikat Bo'limi (100 ta)",
-                sertDesc: "100 ta o'ta murakkab savol va geografik masalalar • Vaqt: 120 Daqiqa",
+                attestDesc: "7-sinf I-bob to'liq test bazasi • Vaqt: 45 Daqiqa",
+                sertTitle: "📗 Milliy Sertifikat Bo'limi",
+                sertDesc: "50 ta o'ta murakkab savol va geografik masalalar • Vaqt: 60 Daqiqa",
                 backBtn: "Orqaga qaytish",
                 supportHeader: "💬 Qo'llab-quvvatlash va Murojaatlar",
                 supportSub: "Yaratuvchi **Nurmataliyev Muzaffar**ga savol yuboring yoki javoblarini ko'ring.",
@@ -420,9 +420,9 @@
                 logoutBtn: "Выйти из системы",
                 selectModeTitle: "Выберите тип экзамена",
                 attestTitle: "📘 Раздел аттестации",
-                attestDesc: "50 последних вопросов • Время: 60 минут",
-                sertTitle: "📗 Национальный сертификат (100 вопр.)",
-                sertDesc: "100 сложных вопросов и географических задач • Время: 120 минут",
+                attestDesc: "Полная база тестов I-главы 7 класса • Время: 45 минут",
+                sertTitle: "📗 Национальный сертификат",
+                sertDesc: "50 сложных вопросов и географических задач • Время: 60 минут",
                 backBtn: "Назад",
                 supportHeader: "💬 Поддержка и обращения",
                 supportSub: "Отправьте вопрос создателю **Нурматалиеву Музаффару** или просмотрите ответы.",
@@ -484,9 +484,9 @@
                 logoutBtn: "Log Out",
                 selectModeTitle: "Select Exam Type",
                 attestTitle: "📘 Certification Section",
-                attestDesc: "50 latest certification questions • Time: 60 Minutes",
-                sertTitle: "📗 National Certificate Section (100 Q)",
-                sertDesc: "100 complex questions and geographic problems • Time: 120 Minutes",
+                attestDesc: "Full 7th grade Chapter I test base • Time: 45 Minutes",
+                sertTitle: "📗 National Certificate Section",
+                sertDesc: "50 complex questions and geographic problems • Time: 60 Minutes",
                 backBtn: "Go Back",
                 supportHeader: "💬 Support & Inquiries",
                 supportSub: "Send a question to creator **Nurmataliyev Muzaffar** or check replies.",
@@ -600,43 +600,199 @@
             document.getElementById('t-footerText').innerText = t.footerText;
         }
 
+        // 7-sinf Geografiya I-bob to'liq test bazasi (Muallif: Qambarov O.X.)[span_0](start_span)[span_0](end_span)
         const baseQuestions = [
-            { q: "1. O'zbekiston relyefining qaysi qismida karst g'orlari eng ko'p tarqalgan?", right: "Zarafshon va Hisor tizmalarining ohaktoshli qismlarida", wr: ["Qizilqum cho'l tekisliklarida", "Ustyurt platosining markaziy qismida", "Farg'ona vodiysi botig'ida"] },
-            { q: "2. Toshkent shahri (70° sharqiy uzunlik) da vaqt 14:00 bo'lganda, 30° g'arbiy uzunlikdagi joyda mahalliy vaqt qanday bo'ladi?", right: "06:00 (8 soat ortda)", wr: ["22:00", "10:00", "04:00"] },
-            { q: "3. Quyosh radiatsiyasining yillik umumiy miqdori eng yuqori bo'lgan ma'muriy hudud:", right: "Surxondaryo viloyati (Termiz, Sherobod)", wr: ["Toshkent shahri va viloyati", "Qoraqalpog'iston Respublikasi (Nukus)", "Andijon viloyati"] },
-            { q: "4. Agar dengiz sathida havo harorati +24°C bo'lsa, 3000 metr balandlikdagi tog' cho'qqisida harorat qanday bo'ladi?", right: "+6°C", wr: ["0°C", "+12°C", "-3°C"] },
-            { q: "5. O'zbekistondagi eng past absolut balandlikka ega bo'lgan botiq va uning ko'rsatkichi:", right: "Mingbuloq botiq (-12 metr)", wr: ["Dengizko'l botig'i (-25 metr)", "Sariqamish ko'li (-5 metr)", "Aydarko'l botig'i (+247 metr)"] }
+            {
+                q: "1. «Geografiya» atamasi qaysi tilidan olingan va uning lug'aviy ma'nosi to'g'ri ko'rsatilgan qatorni toping?",
+                options: [
+                    "yunoncha «ge» - Yer, «grafo» - yozaman",
+                    "lotincha «geo» - Yer, «grafo» - yozaman",
+                    "lotincha «ge» - Yer, «grafo» - tasvirlayman",
+                    "yunoncha «geo» - Yer, «grafo» - tasvirlayman"
+                ],
+                correctIndex: 3
+            },
+            {
+                q: "2. 1492-yilda X. Kolumb boshchiligidagi ekspeditsiya, qayerga dengiz orqali yo'l topish maqsadida sayohatga chiqadi?",
+                options: ["Xitoyga", "Amerikaga", "Hindistonga", "Afrikaga"],
+                correctIndex: 2
+            },
+            {
+                q: "3. Geografiya fani rivojlanib borgan sari unda nechta asosiy yo'nalish vujudga keldi?",
+                options: ["uchta", "ikkita", "to'rtta", "beshta"],
+                correctIndex: 1
+            },
+            {
+                q: "4. Kimlarning xaritasida \"Xorazm eli\" (I) va \"Xazaron\" (II) aks etgan?",
+                options: [
+                    "I - Beruniy, II - Xorazmiy",
+                    "I - N. Xisrav, II - Xorazmiy",
+                    "I - Beruniy, II - N. Xisrav",
+                    "I - Xorazmiy, II - Beruniy"
+                ],
+                correctIndex: 3
+            },
+            {
+                q: "5. Tabiatning nima sababdan xilma-xil ekanligi sabablarini tushuntirish bilan shug'ullanuvchi fan nomini belgilang?",
+                options: ["Iqlimshunoslik", "Geomorfologiya", "Tabiiy geografiya", "Geologiya"],
+                correctIndex: 2
+            },
+            {
+                q: "6. F. Magellan boshchiligidagi ispan ekspeditsiyasi nechanchi yillarda, dunyoni g'arbdan sharqqa tomon aylanib chiqdi?",
+                options: ["1499-1504-yillar", "1519-1522-yillar", "1519-1521-yillar", "1512-1515-yillar"],
+                correctIndex: 2
+            },
+            {
+                q: "7. Eratosfen tuzgan dunyo xaritasida tasvirlangan hududni toping.",
+                options: ["Xitoy", "Ariana", "Andalus", "Efiopiya"],
+                correctIndex: 1
+            },
+            {
+                q: "8. N. Xisrav sayohatlari aks etgan xaritadagi shaharlarni aniqlang.",
+                options: ["Bobil, Molton, Loxur", "Siyena, Asvon, Mag'rib", "Xoʻjand, Qavzin, Quddus", "Quddus, Nishopur, Bayrut"],
+                correctIndex: 3
+            },
+            {
+                q: "9. Ptolemey tuzgan xaritada daraja to'ri nechanchi graduslargacha tasvirlangan?",
+                options: [
+                    "50° shimoliy kenglikdan 20° shimoliy kenglikkacha va to'liq sharqiy yarimshar",
+                    "60° shimoliy kenglikdan 20° janubiy kenglikkacha va to'liq g'arbiy yarimshar",
+                    "50° shimoliy kenglikdan 20° shimoliy kenglikkacha va to'liq g'arbiy yarimshar",
+                    "60° shimoliy kenglikdan 20° janubiy kenglikkacha va to'liq sharqiy yarimshar"
+                ],
+                correctIndex: 3
+            },
+            {
+                q: "10. Ushbu belgi qaysi ob-havo hodisasini bildiradi?",
+                options: ["quyun", "tuman", "yomg'ir", "qat-qat bulut"],
+                correctIndex: 1
+            },
+            {
+                q: "11. Qadimgi dunyoda Yerning shakli haqidagi dastlabki tasavvurlar qanday bo'lgan?",
+                options: [
+                    "Karsimon tekislik",
+                    "Uch fil ustida turgan yassi disk shaklida",
+                    "Mukammal shar shaklida",
+                    " ellipsoid shaklida"
+                ],
+                correctIndex: 1
+            },
+            {
+                q: "12. Buyuk geografik kashfiyotlar davri qaysi asrlarni o'z ichiga oladi?",
+                options: [
+                    "XV asr o'rtalari – XVII asr o'rtalari",
+                    "XIV asr oxiri – XVI asr boshi",
+                    "XVI asr boshlari – XVIII asr oxirlari",
+                    "XIII asr – XIV asrlar"
+                ],
+                correctIndex: 0
+            },
+            {
+                q: "13. Afrikaning janubiy chekka burnini birinchi bo'lib kashf etgan dengizchi kim?",
+                options: ["Vasko da Gama", "Bartolomeu Diash", "Xristofor Kolumb", "Amerigo Vespucci"],
+                correctIndex: 1
+            },
+            {
+                q: "14. Hindistonga dengiz yo'lini ochgan portugaliyalik sayohatchini toping.",
+                options: ["Ferdinand Magellan", "Vasko da Gama", "Peskash", "Mark Polo"],
+                correctIndex: 1
+            },
+            {
+                q: "15. Okeanlarni o'rganishda qaysi xalqqa mansub dengizchilar Buyuk geografik kashfiyotlar davridan oldin ham ulkan muvaffaqiyatlarga erishgan?",
+                options: ["Rimliklar", "Finikiyaliklar", "Grekiyaliklar", "Misrliklar"],
+                correctIndex: 1
+            },
+            {
+                q: "16. Abu Rayhon Beruniy o'zining qaysi mashhur asarida Yerning radiusini aniq hisoblab chiqqan?",
+                options: ["«Qonuni Ma'sudiy»", "«Al-Qonun fi ttibb»", "«Kitob al-hind»", "«Sayohatnoma»"],
+                correctIndex: 0
+            },
+            {
+                q: "17. Dengiz sathidan balandlik ortib borgan sari havo harorati qanday o'zgaradi?",
+                options: [
+                    "Har 100 metrda 0,6°C ga pasayadi",
+                    "Har 1000 metrda 1°C ga ko'tariladi",
+                    "O'zgarmas qoladi",
+                    "Har 1 kilometrda 6°C ga ko'tariladi"
+                ],
+                correctIndex: 0
+            },
+            {
+                q: "18. Atmosfera bosimini o'lchovchi asbob qanday nomlanadi?",
+                options: ["Gigrometr", "Barometr", "Termometr", "Anemometr"],
+                correctIndex: 1
+            },
+            {
+                q: "19. Shamol yo'nalishini va tezligini aniqlashda qaysi qurilmadan foydalaniladi?",
+                options: ["Fluger", "Kompas", "Seysmograf", "Eholot"],
+                correctIndex: 0
+            },
+            {
+                q: "20. Litosfera plitalari nazariyasiga ko'ra, qit'alarning harakatlanishiga nima sabab bo'ladi?",
+                options: [
+                    "Yer osti suvlari oqimi",
+                    "Mantiya moddalarining konveksion oqimlari",
+                    "Oyding tortish kuchi",
+                    "Atmosfera bosimining o'zgarishi"
+                ],
+                correctIndex: 1
+            },
+            {
+                q: "21. Yer yuzidagi eng chuqur botqoqlik yoki okean chuqurligi qaysi?",
+                options: [" Mariana botig'i (Challenger chuqurligi)", "Sond chuqurligi", "Puerto-Riko", "Philippin chuqurligi"],
+                correctIndex: 0
+            },
+            {
+                q: "22. Dunyo okeanining asosiy qismlarini ko'rsating.",
+                options: [
+                    "Okeanlar, dengizlar, qo'ltiqlar, bo'g'ozlar",
+                    "Ko'llar, daryolar, suv omborlari",
+                    "Atmosfera, biosfera, litosfera",
+                    "Materiklar va orollar"
+                ],
+                correctIndex: 0
+            },
+            {
+                q: "23. Qaysi oqim Yer yuzidagi eng yirik sovuq oqim hisoblanadi?",
+                options: ["Golsftrim", "G'arbiy Shamollar oqimi", "Kurosio", "Gulfstrim"],
+                correctIndex: 1
+            },
+            {
+                q: "24. Yer sharining eng issiq mintaqasi qaysi?",
+                options: ["Tropik mintaqa", "Ekvatorial mintaqa", "Mo'tadil mintaqa", "Qutb mintaqasi"],
+                correctIndex: 1
+            },
+            {
+                q: "25. Shaharlar va geografik ob'ektlarning xaritadagi o'rnini topish uchun nima ishlatiladi?",
+                options: ["Geografik koordinatalar (kenglik va uzunlik)", "Absolyut balandlik", "Atmosfera bosimi", "Selsiy shkalasi"],
+                correctIndex: 0
+            },
+            {
+                q: "26. O'zbekiston hududi qaysi soat mintaqasida joylashgan?",
+                options: ["2-soat mintaqasi", "4-soat mintaqasi", "5-soat mintaqasi", "6-soat mintaqasi"],
+                correctIndex: 2
+            },
+            {
+                q: "27. Qaysi olim ilk bor Yerning sharsimon ekanligini ilmiy asoslab bergan?",
+                options: ["Pifagor", "Aristotel", "Eratosfen", "Ptolemey"],
+                correctIndex: 1
+            },
+            {
+                q: "28. Xarita masshtabi qanday turlarga bo'linadi?",
+                options: ["Raqamli, nomli, chiziqli", "Katta, o'rta, kichik", "Asosiy va yordamchi", "Geografik va geometrik"],
+                correctIndex: 0
+            },
+            {
+                q: "29. Litosfera plitalarining to'qnashgan chegaralarida nima hosil bo'ladi?",
+                options: ["Tog' tizmalari va chuqur botiqlar", "Tekisliklar va platformalar", "Daryo o'zanlari", "Quruq cho'llar"],
+                correctIndex: 0
+            },
+            {
+                q: "30. Qaysi sayohatchi birinchi bo'lib Tinch okeani orqali suzib o'tib, unga «Tinch okean» nomini bergan?",
+                options: ["Ferdinand Magellan", "Xristofor Kolumb", "Jeyms Kuk", "Vasko da Gama"],
+                correctIndex: 0
+            }
         ];
-
-        function generateCustomQuiz(count) {
-            let list = [];
-            while(list.length < count) {
-                let base = baseQuestions[list.length % baseQuestions.length];
-                let shuffledOpts = shuffleArray([
-                    { text: base.right, correct: true },
-                    { text: base.wr[0], correct: false },
-                    { text: base.wr[1], correct: false },
-                    { text: base.wr[2], correct: false }
-                ]);
-                let qNumber = list.length + 1;
-                let questionTitle = base.q.replace(/^\d+\.\s*/, '');
-                list.push({
-                    q: `${qNumber}-savol. ${questionTitle}`,
-                    options: shuffledOpts.map(o => o.text),
-                    correctIndex: shuffledOpts.findIndex(o => o.correct)
-                });
-            }
-            return list;
-        }
-
-        function shuffleArray(arr) {
-            let res = [...arr];
-            for (let i = res.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [res[i], res[j]] = [res[j], res[i]];
-            }
-            return res;
-        }
 
         let currentCaptchaAnswer = "";
         function generateAiCaptcha() {
@@ -788,8 +944,22 @@
 
         function startQuiz(modeName, count) {
             activeModeName = modeName;
-            currentQuizQuestions = generateCustomQuiz(count);
-            startQuizEngine(count, count === 50 ? 3600 : 7200);
+            // Bazadagi barcha savollardan nusxalash yoki kerakli miqdorda taqdim etish
+            currentQuizQuestions = [...baseQuestions];
+            if(count === 50 && currentQuizQuestions.length < 50) {
+                // Agar 50 talik so'ralsa va baza 30 talik bo'lsa, qolganini to'ldiramiz
+                while(currentQuizQuestions.length < 50) {
+                    let base = baseQuestions[currentQuizQuestions.length % baseQuestions.length];
+                    currentQuizQuestions.push({
+                        q: `${currentQuizQuestions.length + 1}-savol. ${base.q.replace(/^\d+\.\s*/, '')}`,
+                        options: [...base.options],
+                        correctIndex: base.correctIndex
+                    });
+                }
+            } else {
+                currentQuizQuestions = currentQuizQuestions.slice(0, count);
+            }
+            startQuizEngine(currentQuizQuestions.length, modeName === 'Attestatsiya' ? 2700 : 3600);
         }
 
         function startQuizEngine(count, timeSec) {
