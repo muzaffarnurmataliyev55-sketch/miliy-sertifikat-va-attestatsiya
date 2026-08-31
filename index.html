@@ -85,6 +85,8 @@
         .tab-btn-group { display: flex; gap: 8px; margin-bottom: 10px; }
         .tab-btn { flex: 1; padding: 10px; border: 1px solid var(--border-color); background: #090d16; color: var(--text-muted); border-radius: 10px; font-weight: 600; cursor: pointer; text-align: center; }
         .tab-btn.active { background: var(--blue-main); color: white; border-color: var(--blue-main); }
+
+        .quiz-img-preview { width: 100%; max-height: 220px; object-fit: contain; border-radius: 10px; border: 1px solid var(--border-color); background: #000; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -95,7 +97,6 @@
     </header>
 
     <div class="container">
-        <!-- 1. AUTHENTICATION -->
         <div id="authSection" class="card-box">
             <div class="tab-btn-group">
                 <button type="button" id="tabLoginBtn" class="tab-btn active" onclick="switchAuthTab('login')">Kirish</button>
@@ -104,8 +105,8 @@
 
             <form id="loginForm">
                 <div class="form-group">
-                    <label>Login</label>
-                    <input type="text" id="loginInput" placeholder="Loginingizni kiriting" required>
+                    <label>JSHSHR (14 xonali shaxsiy raqam)</label>
+                    <input type="text" id="loginInput" placeholder="14 ta raqamni kiriting" maxlength="14" required>
                 </div>
                 <div class="form-group">
                     <label>Parol</label>
@@ -124,12 +125,12 @@
                     <input type="text" id="regNameInput" placeholder="Masalan: Aziz Rahimov" required>
                 </div>
                 <div class="form-group">
-                    <label>Telefon Raqami (+998 bilan boshlanishi shart)</label>
-                    <input type="tel" id="regPhoneInput" placeholder="+998901234567" value="+998" required>
+                    <label>JSHSHR (14 xonali shaxsiy raqam)</label>
+                    <input type="text" id="regJshshrInput" placeholder="Masalan: 30101905000014" maxlength="14" required>
                 </div>
                 <div class="form-group">
-                    <label>Yangi Login (Lotin harflari va raqamlar, min 4 ta belgi)</label>
-                    <input type="text" id="regLoginInput" placeholder="Login o'ylab toping" required>
+                    <label>Telefon Raqami (+998 bilan boshlanishi shart)</label>
+                    <input type="tel" id="regPhoneInput" placeholder="+998901234567" value="+998" required>
                 </div>
                 <div class="form-group">
                     <label>Yangi Parol (Min 6 ta belgi, harf va raqamli)</label>
@@ -143,14 +144,14 @@
             </form>
         </div>
 
-        <!-- 2. MAIN MENU -->
         <div id="mainMenu" class="card-box hidden">
             <div class="user-profile-card">
                 <div class="user-avatar-container">
                     <img id="menuUserAvatar" class="user-avatar" src="" alt="Avatar" onerror="this.src='https://via.placeholder.com/50/3b82f6/ffffff?text=USER'">
                     <div>
                         <div id="userNameDisplay" style="font-size:1.1rem; font-weight:700;">Foydalanuvchi</div>
-                        <div id="userPhoneDisplay" style="font-size:0.85rem; opacity:0.8;">📱 +998 -- --- -- --</div>
+                        <div id="userJshshrDisplay" style="font-size:0.82rem; opacity:0.9; font-family:monospace;">JSHSHR: --------------</div>
+                        <div id="userPhoneDisplay" style="font-size:0.82rem; opacity:0.8;">📱 +998 -- --- -- --</div>
                     </div>
                 </div>
                 <span id="roleBadge" class="admin-badge hidden">Yaratuvchi</span>
@@ -163,12 +164,12 @@
 
             <div class="section-card" onclick="showModeSection()">
                 <div class="section-title">🌍 Geografiya Fani Sinovlari</div>
-                <div class="section-desc">Attestatsiya (50 ta) & Milliy Sertifikat (100 ta masala va so'nggi imtihon savollari)</div>
+                <div class="section-desc">Attestatsiya, Milliy Sertifikat & Afrika Maxsus Rasmli Testlari</div>
             </div>
 
             <div class="section-card" onclick="showBooksSection()" style="border-color: var(--emerald-main);">
                 <div class="section-title" style="color: var(--emerald-main);">📚 Yaratuvchi PDF Fayllari va Darsliklar</div>
-                <div class="section-desc">Faqat yaratuvchi fayl yuklagandagina ko'rinadi (Hozircha yuklanmagan bo'lishi mumkin)</div>
+                <div class="section-desc">Faqat yaratuvchi fayl yuklagandagina ko'rinadi</div>
             </div>
 
             <div class="section-card" onclick="showSupportSection()" style="border-color: var(--amber-main);">
@@ -185,7 +186,6 @@
             <button class="btn btn-red" onclick="logout()">Tizimdan Chiqish</button>
         </div>
 
-        <!-- 3. MODE SELECTION -->
         <div id="modeSection" class="card-box hidden">
             <h3 style="text-align: center; color: var(--blue-main);">Imtihon Turini Tanlang</h3>
             <div class="section-card" onclick="startQuiz('Attestatsiya', 50)">
@@ -194,21 +194,22 @@
             </div>
             <div class="section-card" onclick="startQuiz('Milliy Sertifikat', 100)">
                 <div class="section-title">📗 Milliy Sertifikat Bo'limi (100 ta)</div>
-                <div class="section-desc">100 ta o'ta murakkab savol, geografik masalalar va so'nggi milliy sertifikat savollari • Vaqt: 120 Daqiqa</div>
+                <div class="section-desc">100 ta o'ta murakkab savol va geografik masalalar • Vaqt: 120 Daqiqa</div>
+            </div>
+            <div class="section-card" onclick="startAfricaVisualQuiz()" style="border-color: var(--amber-main);">
+                <div class="section-title" style="color: var(--amber-main);">🖼️ Afrika Materigi Rasmli Testlari (40 ta)</div>
+                <div class="section-desc">Siz yuklagan rasmlar va xaritalar asosidagi 40 ta professional test savoli</div>
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
         </div>
 
-        <!-- 3.0. BOOKS SECTION (FILES) -->
         <div id="booksSection" class="card-box hidden">
             <h3 style="text-align: center; color: var(--emerald-main);">📚 Yaratuvchi PDF Fayllari va Darsliklar</h3>
             <div id="dynamicBooksContainer" style="display: flex; flex-direction: column; gap: 10px; max-height: 350px; overflow-y: auto;">
-                <!-- Dinamik PDF fayllar faqat yaratuvchi yuklagandagina chiqadi -->
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
         </div>
 
-        <!-- 3.1. SUPPORT SECTION -->
         <div id="supportSection" class="card-box hidden">
             <h3 style="text-align: center; color: var(--amber-main);">💬 Qo'llab-quvvatlash va Murojaatlar</h3>
             <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">Yaratuvchi **Nurmataliyev Muzaffar**ga savol yuboring yoki uning javoblarini ko'ring.</p>
@@ -229,7 +230,6 @@
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga</button>
         </div>
 
-        <!-- 3.2. AI TEST CREATOR -->
         <div id="aiCreatorSection" class="card-box hidden">
             <h3 style="text-align: center; color: var(--purple-main);">🤖 Sun'iy Intellekt Test Tuzuvchisi</h3>
             <div class="form-group">
@@ -244,7 +244,6 @@
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga</button>
         </div>
 
-        <!-- 4. QUIZ INTERFACE -->
         <div id="quizSection" class="card-box hidden">
             <div class="timer-bar">
                 <span id="quizHead" style="color: var(--blue-main);">Geografiya</span>
@@ -254,6 +253,11 @@
                 <span style="font-size:0.85rem;">Savol: <strong id="qNum">1</strong>/<span id="qTotal">50</span></span>
                 <button class="btn btn-amber" style="width:auto; padding:6px 14px; font-size:0.8rem;" onclick="confirmFinishQuiz()">🏁 Yakunlash</button>
             </div>
+            
+            <div id="quizImageContainer" class="hidden">
+                <img id="quizImageEl" class="quiz-img-preview" src="" alt="Savol rasmi">
+            </div>
+
             <div id="qText" style="font-size:1rem; font-weight:700; line-height:1.4;"></div>
             <div id="optsBox"></div>
             <div style="display:flex; gap:10px;">
@@ -262,7 +266,6 @@
             </div>
         </div>
 
-        <!-- 5. RESULT & AI ANALYSIS -->
         <div id="resultSection" class="card-box hidden">
             <h2 style="font-size: 1.3rem; text-align: center;">🏁 Test Natijasi va Sun'iy Intellekt Tahlili</h2>
             <div class="stats-grid">
@@ -281,7 +284,6 @@
             <button class="btn" onclick="showMainMenu()">Bosh Sahifaga Qaytish</button>
         </div>
 
-        <!-- 6. CABINET -->
         <div id="cabinetSection" class="card-box hidden">
             <h2 style="font-size: 1.2rem; text-align: center;">👤 Shaxsiy Kabinet</h2>
             
@@ -308,19 +310,17 @@
             <button class="btn btn-gray" onclick="showMainMenu()" style="margin-top:10px;">Orqaga</button>
         </div>
 
-        <!-- 7. RATING -->
         <div id="ratingSection" class="card-box hidden">
             <h2 style="font-size: 1.2rem; text-align: center;">🏆 Umumiy Reyting</h2>
             <div style="overflow-x:auto;">
                 <table>
-                    <thead><tr><th>#</th><th>Ism Familiya</th><th>Tel</th><th>Natija</th></tr></thead>
+                    <thead><tr><th>#</th><th>Ism Familiya</th><th>JSHSHR</th><th>Natija</th></tr></thead>
                     <tbody id="ratingTable"></tbody>
                 </table>
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga</button>
         </div>
 
-        <!-- 8. ADMIN (YARATUVCHI) PANEL -->
         <div id="adminSection" class="card-box hidden">
             <h2 style="font-size: 1.2rem; text-align: center; color: var(--amber-main);">⚡ Yaratuvchi Boshqaruvi va Nazorati</h2>
             
@@ -350,7 +350,7 @@
             <h4 style="margin-top:10px;">Ro'yxatdan o'tgan foydalanuvchilar:</h4>
             <div style="overflow-x:auto; max-height:150px; overflow-y:auto;">
                 <table>
-                    <thead><tr><th>Ism</th><th>Tel</th><th>Login</th><th>Parol</th><th>Amal</th></tr></thead>
+                    <thead><tr><th>Ism</th><th>JSHSHR</th><th>Tel</th><th>Parol</th><th>Amal</th></tr></thead>
                     <tbody id="adminUsersTable"></tbody>
                 </table>
             </div>
@@ -368,12 +368,262 @@
             { q: "2. [Geografik masala] Toshkent shahri (70° sharqiy uzunlik) da vaqt 14:00 bo'lganda, 30° g'arbiy uzunlikdagi joyda mahalliy vaqt qanday bo'ladi?", right: "06:00 (8 soat ortda)", wr: ["22:00", "10:00", "04:00"] },
             { q: "3. [So'nggi Milliy Sertifikat] Quyosh radiatsiyasining yillik umumiy miqdori eng yuqori bo'lgan ma'muriy hudud:", right: "Surxondaryo viloyati (Termiz, Sherobod)", wr: ["Toshkent shahri va viloyati", "Qoraqalpog'iston Respublikasi (Nukus)", "Andijon viloyati"] },
             { q: "4. [Geografik masala] Agar dengiz sathida havo harorati +24°C bo'lsa, 3000 metr balandlikdagi tog' cho'qqisida harorat qanday bo'ladi? (Har 1000m da 6°C pasayadi)", right: "+6°C", wr: ["0°C", "+12°C", "-3°C"] },
-            { q: "5. [So'nggi Attestatsiya] O'zbekistondagi eng past absolut balandlikka ega bo'lgan botiq va uning ko'rsatkichi:", right: "Mingbuloq botiq (-12 metr)", wr: ["Dengizko'l botig'i (-25 metr)", "Sariqamish ko'li (-5 metr)", "Aydarko'l botig'i (+247 metr)"] },
-            { q: "6. [Geografik masala] 1:500 000 massstabli xaritada ikki nuqta orasidagi masofa 6 sm bo'lsa, yerdagi haqiqiy masofa necha kilometr?", right: "30 km", wr: ["15 km", "60 km", "3 km"] },
-            { q: "7. [So'nggi Milliy Sertifikat] Dunyodagi eng uzun tog' tizmasi bo'lmish And tog'lari qaysi materikda joylashgan?", right: "Janubiy Amerika", wr: ["Shimoliy Amerika", "Yevroosiyo", "Afrika"] },
-            { q: "8. [Geografik masala] Shahar 45° shimoliy kenglikda joylashgan. Yozgi quyosh turishi kunida quyoshning zenitdagi balandligini aniqlang.", right: "68.5°", wr: ["90°", "45°", "21.5°"] },
-            { q: "9. [So'nggi Attestatsiya] Afrika qit'asining eng baland nuqtasi hisoblangan Kilimanjaro vulqoni qaysi davlatda?", right: "Tanzaniya", wr: ["Keniya", "Efiopiya", "Janubiy Afrika Respublikasi"] },
-            { q: "10. [Geografik masala] Qiya kanaldan oqayotgan suv sarfini hisoblang: suv tezligi 2 m/s, ko'ndalang kesim yuzi 5 m².", right: "10 m³/s", wr: ["2.5 m³/s", "7 m³/s", "20 m³/s"] }
+            { q: "5. [So'nggi Attestatsiya] O'zbekistondagi eng past absolut balandlikka ega bo'lgan botiq va uning ko'rsatkichi:", right: "Mingbuloq botiq (-12 metr)", wr: ["Dengizko'l botig'i (-25 metr)", "Sariqamish ko'li (-5 metr)", "Aydarko'l botig'i (+247 metr)"] }
+        ];
+
+        // Afrika materigiga oid rasm va xaritalar asosidagi 40 ta savol to'plami
+        const africaVisualQuestions = [
+            // 24114.jpg savollari (1-9)
+            {
+                img: "https://i.ibb.co/qFj6j3jW/24114.jpg", // placeholder or URL reference
+                q: "1. Afrika materigiga xos bo'lgan xususiyatlarni to'g'ri belgilang: 1-eng issiq materik, 2-eng quruq materik, 3-eng sernam materik, 4-qirg'oqlari eng kam parchalangan, 5-Sharqiy yarimsharning eng uzun daryosi bor, 6-olmos qazib chiqarishda birinchi o'rinda",
+                right: "1,3,4,5",
+                wr: ["1,4,5,6", "1,2,4,6", "1,2,5,6"]
+            },
+            {
+                img: "https://i.ibb.co/qFj6j3jW/24114.jpg",
+                q: "2. Ibn Battuta Afrikaning qaysi qismlarini o'rganmagan?",
+                right: "Afrikaning sharqiy sohillari",
+                wr: ["Nil havzasini", "Niger daryosining yuqori oqimidan oqimigacha", "Kalaxari Cho'lini"]
+            },
+            {
+                img: "https://i.ibb.co/qFj6j3jW/24114.jpg",
+                q: "3. Afrika-Arabiston platformasining pasaygan joylarida qanday soyliklar tarkib topgan?",
+                right: "Chad, Kongo, Nyassa",
+                wr: ["Shari, Chad, Kongo", "Kongo, Shari, Nyassa", "Chad, Kongo, Kalaxari"]
+            },
+            {
+                img: "https://i.ibb.co/qFj6j3jW/24114.jpg",
+                q: "4. Afrika materigining qaysi geografik obekti palaxsalanib ko'tarilgan gorst va grabenlardan iborat?",
+                right: "Sharqiy Afrika yassitog'ligi",
+                wr: ["Efiopiya tog'ligi", "Janubiy Afrika yassitog'ligi", "Atlas tog'lari"]
+            },
+            {
+                img: "https://i.ibb.co/qFj6j3jW/24114.jpg",
+                q: "5. Quyidagi geografik obektlardan qaysilari 'Past' Afrikaga tegishli? 1-Shimoliy Afrika, 2-Efiopiya tog'ligi, 3-Tibesti tog'ligi, 4-Kattara botig'I, 5-Viktoriya ko'li",
+                right: "2,4,5",
+                wr: ["2,3,4", "1,2,5", "1,3,4"]
+            },
+            {
+                img: "https://i.ibb.co/qFj6j3jW/24114.jpg",
+                q: "6. [Rasm asosida] Ushbu rasmda qanday tabiiy jarayon aks ettirilgan?",
+                right: "Graben",
+                wr: ["Gorst", "Yerning tashqi energiyasi", "Irg'itma"]
+            },
+            {
+                img: "https://i.ibb.co/qFj6j3jW/24114.jpg",
+                q: "7. Afrika cho'qqilarini balandliklari bilan moslashtiring: 1-Kilimanjaro (a-5199), 2-Margerita (b-5895), 3-Keniya (c-5109)",
+                right: "1-b, 2-c, 3-a",
+                wr: ["1-c, 2-b, 3-a", "1-a, 2-c, 3-b", "1-b, 2-a, 3-c"]
+            },
+            {
+                img: "https://i.ibb.co/qFj6j3jW/24114.jpg",
+                q: "8. Quyidagi hududlardan qaysilarini D.Livingston o'rgangan? 1-Zambezi daryosi, 2-Sahroyi Kabir, 3-Nyassa ko'li, 4-Niger daryosi, 5-Kalaxari cho'li",
+                right: "1,2,3",
+                wr: ["2,4,5", "1,3,5", "2,3,4"]
+            },
+            {
+                img: "https://i.ibb.co/qFj6j3jW/24114.jpg",
+                q: "9. Lualabo va Kongo daryolarining quyi oqimiga kim o'rgandi?",
+                right: "Stenli",
+                wr: ["Yunker", "Vavilov", "Yeliseyev"]
+            },
+
+            // 24113.jpg savollari (10-16)
+            {
+                img: "https://i.ibb.co/6RDYqfW/24113.jpg",
+                q: "10. Ushbu xaritada yashil rang bilan kimning yurgan yo'li tasvirlangan?",
+                right: "Livingston",
+                wr: ["Yunker", "Inb Battuta", "Stenli"]
+            },
+            {
+                img: "https://i.ibb.co/6RDYqfW/24113.jpg",
+                q: "11. Afrikada rudali foydali qazilmalarining ko'p tarkib topishiga sabab nima?",
+                right: "Afrika-Arabiston platformasida joylashgani",
+                wr: ["Metamorfik jinslarning keng tarqalishi", "Vulqonlarning ko'pligi", "Magmatik jinslarning keng tarqalishi"]
+            },
+            {
+                img: "https://i.ibb.co/6RDYqfW/24113.jpg",
+                q: "12. Afrikada fosforitning asosiy konlari materikning qaysi qismida joylashgan?",
+                right: "Shimoliy",
+                wr: ["Sharqiy", "Janubiy", "G'arbiy"]
+            },
+            {
+                img: "https://i.ibb.co/6RDYqfW/24113.jpg",
+                q: "13. Afrika hududining kata qismida yoz va qish asosan qanday xususiyati bilan carqlanadi?",
+                right: "Namlik",
+                wr: ["Quyosh radiatsiyasi", "Havo massalari", "Havo harorati"]
+            },
+            {
+                img: "https://i.ibb.co/6RDYqfW/24113.jpg",
+                q: "14. Ushbu xaritada H va F harflari bilan qaysi geografik obyektlar tasvirlangan?",
+                right: "Tibesti va Drakon tog'lari",
+                wr: ["Axaggar va Kap tog'lari", "Axaggar va Drakon tog'lari", "Tibesti va Kap tog'lari"]
+            },
+            {
+                img: "https://i.ibb.co/6RDYqfW/24113.jpg",
+                q: "15. Afrikada Kongo havzasi va Gvineya qo'ltig'iga ko'p yog'in tushadi, buning sababi nimada?",
+                right: "Havo bosimi past, Ekvatorial havo massalari hukmron",
+                wr: ["Havo bosimi yuqori, ekvatorial havo massalari hukmron", "Havo bosimi past, Subekvatorial havo massalari hukmron", "Havo harorati yuqori, Ekvatorial havo massalari hukmron"]
+            },
+            {
+                img: "https://i.ibb.co/6RDYqfW/24113.jpg",
+                q: "16. Afrikaning qaysi iqlim mintaqasida harorat yil bo'yi yuqori, lekin fasliy farqlar sezilib turadi?",
+                right: "Subekvatorial",
+                wr: ["Ekvatorial", "Tropik", "Subtropik"]
+            },
+
+            // 24116.jpg savollari (17-22)
+            {
+                img: "https://i.ibb.co/0y7N0z3/24116.jpg",
+                q: "17. Butun dunyodagi eng issiq va quruq o'lka — Sahroi Kabir qayerda joylashgan?",
+                right: "Shimoliy Afrika",
+                wr: ["Markaziy Afrika", "G'arbiy Afrika", "Sharqiy Afrika"]
+            },
+            {
+                img: "https://i.ibb.co/0y7N0z3/24116.jpg",
+                q: "18. Afrika iqlim mintaqalarini xususiyatlari bilan to'g'ri moslashtiring: 1-Ekvatorial, 2-Subekvatorial, 3-Tropik, 4-Subtropik",
+                right: "1-a, 2-d, 3-b, 4-c",
+                wr: ["1-b, 2-d, 3-c, 4-a", "1-b, 2-d, 3-a, 4-c", "1-d, 2-b, 3-c, 4-a"]
+            },
+            {
+                img: "https://i.ibb.co/0y7N0z3/24116.jpg",
+                q: "19. Quyidagi holatlarni kuzating. Qaysi variantda ekvatorial iqlim mintaqasiga tegishli harorat va yog'in miqdori berilganini aniqlang?",
+                right: "d (diagramma d)",
+                wr: ["a", "b", "e"]
+            },
+            {
+                img: "https://i.ibb.co/0y7N0z3/24116.jpg",
+                q: "20. Afrikadagi yuqori oqimida ostonalar va sharsharalar hosil qiladigan daryoga xos xususiyatni belgilang?",
+                right: "Bu daryoda mashhur sharsharalardan biri — Viktoriya sharsharasi bor",
+                wr: ["Quyilish joyida katta delta hosil qiladi", "Ekvatorni ikki marta kesib o'tadi", "Chad ko'liga quyiladi"]
+            },
+            {
+                img: "https://i.ibb.co/0y7N0z3/24116.jpg",
+                q: "21. Livingston sharsharalari guruhi joylashgan daryoga xos bo'lgan xususiyatni toping?",
+                right: "O'rta oqimida ko'p ostona va sharsharalar hosil qiladi",
+                wr: ["yuqori oqimida ostonalar va sharsharalar hosil qiladi", "quyi va yuqori oqimida ko'plab ostonalar va sharsharalar hosil qilgan", "Daryo suvidan juda qadim zamonlardan boshlab hosildor yerlarni sug'orishda foydalanib kelingan"]
+            },
+            {
+                img: "https://i.ibb.co/0y7N0z3/24116.jpg",
+                q: "22. Afrikadagi qaysi daryolar hind okeani havzasiga tegishli? 1-Limpopo, 2-Shari, 3-Rufiji, 4-Tana, 5-Oranj, 6-Jubba",
+                right: "1, 3, 6",
+                wr: ["1, 2, 4", "2, 3, 5", "3, 4, 6"]
+            },
+
+            // 24118.jpg savollari (23-28)
+            {
+                img: "https://i.ibb.co/8D3Xv3F/24118.jpg",
+                q: "23. Daryoning kattagina qismi qurg'oqchil yerlardan oqib o'tadi. Shuning uchun daryo suvi yerlarni sug'orishdagi ahamiyati katta. Ushbu fikrlar mazkur xaritadagi qaysi daryoga tegishli?",
+                right: "12 (Nil daryosi)",
+                wr: ["2", "4", "9"]
+            },
+            {
+                img: "https://i.ibb.co/8D3Xv3F/24118.jpg",
+                q: "24. Afrikadagi ko'llarning kata qismi materikning qayerida joylashgan?",
+                right: "Sharqiy Afrika yassitog'lida",
+                wr: ["Markaziy qismida", "Janubiy Afrika", "Shimoliy Afrika"]
+            },
+            {
+                img: "https://i.ibb.co/8D3Xv3F/24118.jpg",
+                q: "25. Atrofini 2000 m gacha balandlikdagi tog'lar o'rab turadigan ko'lga xos bo'lgan xususiyatlarni aniqlang: 1-uzunligi 650 km, 2-chuqurligi 40 metr, 3-eni 50-80 km, 4-Qurg'oqchil davrda qirg'oqlari kichrayadi",
+                right: "1, 4",
+                wr: ["1, 3", "2, 3", "3, 4"]
+            },
+            {
+                img: "https://i.ibb.co/8D3Xv3F/24118.jpg",
+                q: "26. Tanganika ko'li Nyassa ko'lidan necha kmga uzunroq va eng chuqur joyi necha metrga farq qiladi?",
+                right: "90 km, 729 m",
+                wr: ["100 km, 729 m", "90 km, 719 m", "100 km, 719 m"]
+            },
+            {
+                img: "https://i.ibb.co/8D3Xv3F/24118.jpg",
+                q: "27. Afrikadagi Nyassa(a), Tanganika(b), Viktoriya(c), Rudolf(d), ko'llarini quyidagi xaritadan toping?",
+                right: "a-7, b-8, c-6, d-5",
+                wr: ["a-8, b-6, c-7, d-5", "a-8, b-7, c-6, d-5", "a-5, b-6, c-7, d-8"]
+            },
+            {
+                img: "https://i.ibb.co/8D3Xv3F/24118.jpg",
+                q: "28. Afrikadagi ekvatorial o'rmonlarning qaysi yarusda qanday o'simliklar tarqalganligini moslashtiring: 1-Yuqori yarus, 2-o'rta yarus, 3-quyi yarus",
+                right: "1-c, 2-b, 3-a",
+                wr: ["1-a, 2-b, 3-c", "1-b, 2-c, 3-a", "1-c, 2-a, 3-b"]
+            },
+
+            // 24115.jpg savollari (29-33)
+            {
+                img: "https://i.ibb.co/5ghq2q7/24115.jpg",
+                q: "29. Bu yerlar uncha baland bo'lmagan o'tloqlardan iborat, u yer-bu yerda soyabonsimon akatsiyalar o'sadi... Ushbu tarif tegishli bo'lgan tabiat zonasi mazkur xaritada qaysi harf bilan belgilangan?",
+                right: "B (savanna zonasi)",
+                wr: ["A", "F", "C"]
+            },
+            {
+                img: "https://i.ibb.co/5ghq2q7/24115.jpg",
+                q: "30. Afrika savannalarida antiloplarning nechtadan ortiq turlari mavjud?",
+                right: "30",
+                wr: ["50", "40", "20"]
+            },
+            {
+                img: "https://i.ibb.co/5ghq2q7/24115.jpg",
+                q: "31. Pavian nima?",
+                right: "Maymun turi",
+                wr: ["Ekvatorial o'rmonlarda yashaydigan hayvon", "Antilopaning bir turi", "Okapi turi"]
+            },
+            {
+                img: "https://i.ibb.co/5ghq2q7/24115.jpg",
+                q: "32. Bu yerda popukquloq cho'chqa, Afrika bug'uchasi, mitti begemot, okapi, o'rmon fili... yashaydi. Ushbu tarif tegishli bo'lgan tabiat zonasi mazkur xaritada qaysi harf bilan belgilangan?",
+                right: "C",
+                wr: ["A", "D", "E"]
+            },
+            {
+                img: "https://i.ibb.co/5ghq2q7/24115.jpg",
+                q: "33. Nektarxo'r, kotib qush, eng katta Afrika tuyaqushi, marabu, mirzàqush. Mazkur qushlar qaysi tabiat zonasida joylashgan?",
+                right: "E",
+                wr: ["B", "D", "C"]
+            },
+
+            // 24117.jpg savollari (34-40)
+            {
+                img: "https://i.ibb.co/v49gS07/24117.jpg",
+                q: "34. Gienalar (chipor sirtlon), chiyabo'rilar, tulkilar Afrikaning qaysi tabiat zonasida yashaydi?",
+                right: "Chala cho'l va cho'llar",
+                wr: ["Ekvatorial o'rmonlar", "Fasliy nam o'rmonlar", "Savannalar"]
+            },
+            {
+                img: "https://i.ibb.co/v49gS07/24117.jpg",
+                q: "35. Ushbu xaritada Shimoliy Gvineya rayoni va Efiopiya tog'ligi xaritada nechanchi raqamlarda joylashgan?",
+                right: "IV va VI",
+                wr: ["V va VI", "IV va VII", "V va VII"]
+            },
+            {
+                img: "https://i.ibb.co/v49gS07/24117.jpg",
+                q: "36. Bushmenlar bilan gottentotlar Afrikaning qayerlarida yashaydi?",
+                right: "Chala cho'l va cho'llar",
+                wr: ["Ekvatorial o'rmonlar", "Fasliy nam o'rmonlar", "Savannalar"]
+            },
+            {
+                img: "https://i.ibb.co/v49gS07/24117.jpg",
+                q: "37. Keyingi yarim asr mobaynida Sahroi Kabir cho'lining maydoni qanchaga kengaygan?",
+                right: "750 000 km²",
+                wr: ["650 000 km²", "550 000 km²", "450 000 km²"]
+            },
+            {
+                img: "https://i.ibb.co/v49gS07/24117.jpg",
+                q: "38. Kongo Demokratik Respublikasining ......(a) hududini milliy bog'lar, botanika bog'lari, tajriba stansiyalari, Keniya davlatida ......(b) maydonni milliy bog'lar egallaydi?",
+                right: "a-15%, b-10%",
+                wr: ["a-10%, b-15%", "a-15%, b-15%", "a-10%, b-20%"]
+            },
+            {
+                img: "https://i.ibb.co/v49gS07/24117.jpg",
+                q: "39. Pigmeylar qaysi hududda yashaydi?",
+                right: "Ekvatorial o'rmonlar",
+                wr: ["Fasliy nam o'rmonlar", "Chala cho'l va cho'llar", "Savannalar"]
+            },
+            {
+                img: "https://i.ibb.co/v49gS07/24117.jpg",
+                q: "40. Ushbu xaritada Kongo kotlovinasi va Sudan tekisliklari qaysi raqamlar bilan belgilangan?",
+                right: "V va III",
+                wr: ["V va VI", "IV va II", "IV va III"]
+            }
         ];
 
         function generateCustomQuiz(count) {
@@ -391,7 +641,8 @@
                 list.push({
                     q: `${qNumber}-savol. ${questionTitle}`,
                     options: shuffledOpts.map(o => o.text),
-                    correctIndex: shuffledOpts.findIndex(o => o.correct)
+                    correctIndex: shuffledOpts.findIndex(o => o.correct),
+                    img: ""
                 });
             }
             return list;
@@ -406,7 +657,6 @@
             return res;
         }
 
-        // O'ta yuqori xavfsizlik va randomizatsiyalanuvchi AI xavfsizlik sharti
         let currentCaptchaAnswer = "";
         function generateAiCaptcha() {
             const securityTasks = [
@@ -422,14 +672,12 @@
         }
 
         let appUsers = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
-        if (!appUsers.some(u => u.login === 'admin')) {
-            appUsers.push({ name: "Nurmataliyev Muzaffar", phone: "+998900000000", login: "admin", pass: "admin123", role: "admin", avatar: "" });
+        if (!appUsers.some(u => u.jshshr === '30000000000000')) {
+            appUsers.push({ name: "Nurmataliyev Muzaffar", jshshr: "30000000000000", phone: "+998900000000", pass: "admin123", role: "admin", avatar: "" });
             localStorage.setItem('geo_sys_users', JSON.stringify(appUsers));
         }
 
-        // Darsliklar boshlang'ichda to'liq bo'sh, faqat yaratuvchi yuklaganda ko'rinadi
         let appBooks = JSON.parse(localStorage.getItem('geo_sys_books') || '[]');
-
         let currentUser = JSON.parse(localStorage.getItem('geo_sys_logged') || 'null');
         let currentQuizQuestions = [], userAnswers = {}, currentQIndex = 0;
         let timerInterval = null, totalSeconds = 0, spentSeconds = 0, activeModeName = '';
@@ -450,26 +698,24 @@
 
         function handleRegister() {
             const name = document.getElementById('regNameInput').value.trim();
+            const jshshr = document.getElementById('regJshshrInput').value.trim();
             const phone = document.getElementById('regPhoneInput').value.trim();
-            const login = document.getElementById('regLoginInput').value.trim();
             const pass = document.getElementById('regPassInput').value.trim();
             const captchaInput = document.getElementById('regCaptchaInput').value.trim().toLowerCase();
 
-            // O'ta yuqori xavfsizlik tekshiruvlari (soxta simvollar va bo'shliqlarni bloklash)
-            if (!name || !phone || !login || !pass || !captchaInput) {
+            if (!name || !jshshr || !phone || !pass || !captchaInput) {
                 alert("⚠️ Xavfsizlik qoidasi: Barcha maydonlarni to'liq va to'g'ri to'ldirishingiz shart!");
                 return;
             }
 
-            if (!phone.startsWith("+998") || phone.length !== 13) {
-                alert("⚠️ Xavfsizlik xatoligi: Telefon raqami +998 bilan boshlanishi va 13 ta belgidan iborat bo'lishi shart! (Masalan: +998901234567)");
+            const jshshrRegex = /^\d{14}$/;
+            if (!jshshrRegex.test(jshshr)) {
+                alert("⚠️ JSHSHR xatoligi: JSHSHR faqat 14 ta raqamdan iborat bo'lishi shart! Harflar yoki boshqa belgilar qat'iyan taqiqlanadi.");
                 return;
             }
 
-            // Tasodifiy simvollar bilan kirishni bloklash (faqat lotin harflari va raqamlar)
-            const strictLoginRegex = /^[a-zA-Z0-9_]{4,}$/;
-            if (!strictLoginRegex.test(login)) {
-                alert("⚠️ Xavfsizlik xatoligi: Login faqat lotin harflari, raqamlar va pastki chiziqdan iborat bo'lishi va kamida 4 ta belgidan tashkil topishi kerak!");
+            if (!phone.startsWith("+998") || phone.length !== 13) {
+                alert("⚠️ Xavfsizlik xatoligi: Telefon raqami +998 bilan boshlanishi va 13 ta belgidan iborat bo'lishi shart!");
                 return;
             }
 
@@ -478,7 +724,6 @@
                 return;
             }
 
-            // AI/Mantiqiy xavfsizlik tekshiruvi (soxta belgilar yozib kirib ketishni oldini olish)
             if (captchaInput !== currentCaptchaAnswer) {
                 alert("🚨 O'ta yuqori xavfsizlik ogohlantirishi: Xavfsizlik sharti javobi xato! Soxta simvollar yoki botlar qat'iyan bloklanadi.");
                 generateAiCaptcha();
@@ -487,39 +732,39 @@
             }
 
             let users = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
-            if (users.some(u => u.login === login)) {
-                alert("❌ Bu login allaqachon band qilingan. Boshqa login kiriting!");
+            if (users.some(u => u.jshshr === jshshr)) {
+                alert("❌ Bu JSHSHR raqami allaqachon ro'yxatdan o'tgan!");
                 return;
             }
 
-            const newUser = { name, phone, login, pass, role: "user", avatar: "" };
+            const newUser = { name, jshshr, phone, pass, role: "user", avatar: "" };
             users.push(newUser);
             localStorage.setItem('geo_sys_users', JSON.stringify(users));
 
             currentUser = newUser;
             localStorage.setItem('geo_sys_logged', JSON.stringify(currentUser));
-            alert("✅ Xavfsizlik tekshiruvidan muvaffaqiyatli o'tdingiz va ro'yxatdan o'tdingiz!");
+            alert("✅ JSHSHR xavfsizlik tekshiruvidan muvaffaqiyatli o'tdingiz va ro'yxatdan o'tdingiz!");
             showMainMenu();
         }
 
         function handleLogin() {
-            const log = document.getElementById('loginInput').value.trim();
+            const jshshr = document.getElementById('loginInput').value.trim();
             const pas = document.getElementById('passwordInput').value.trim();
 
-            if (!log || !pas) {
-                alert("⚠️ Login va parolni kiriting!");
+            if (!jshshr || !pas) {
+                alert("⚠️ JSHSHR va parolni kiriting!");
                 return;
             }
 
             let users = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
-            let found = users.find(u => u.login === log && u.pass === pas);
+            let found = users.find(u => u.jshshr === jshshr && u.pass === pas);
 
             if (found) {
                 currentUser = found;
                 localStorage.setItem('geo_sys_logged', JSON.stringify(currentUser));
                 showMainMenu();
             } else {
-                alert("❌ Xavfsizlik xatoligi: Login yoki parol noto'g'ri!");
+                alert("❌ Xavfsizlik xatoligi: JSHSHR raqami yoki parol noto'g'ri!");
             }
         }
 
@@ -527,6 +772,7 @@
             hideAll();
             document.getElementById('mainMenu').classList.remove('hidden');
             document.getElementById('userNameDisplay').innerText = currentUser.name;
+            document.getElementById('userJshshrDisplay').innerText = `JSHSHR: ${currentUser.jshshr}`;
             document.getElementById('userPhoneDisplay').innerText = `📱 ${currentUser.phone}`;
             
             let avatarImg = currentUser.avatar || 'https://via.placeholder.com/50/3b82f6/ffffff?text=USER';
@@ -560,7 +806,7 @@
             container.innerHTML = '';
             
             if (books.length === 0) {
-                container.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 25px; line-height: 1.5;">🔒 Hozircha yaratuvchi tomonidan darsliklarga hech qanday PDF fayl yuklanmagan. Yaratuvchi fayl yuklagachgina ushbu bo'limda ko'rinadi.</div>`;
+                container.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 25px; line-height: 1.5;">🔒 Hozircha yaratuvchi tomonidan darsliklarga hech qanday PDF fayl yuklanmagan.</div>`;
                 return;
             }
 
@@ -591,7 +837,7 @@
                 let books = JSON.parse(localStorage.getItem('geo_sys_books') || '[]');
                 books.push({ title: title, desc: desc || "Yaratuvchi tomonidan yuklangan PDF darslik", url: base64File });
                 localStorage.setItem('geo_sys_books', JSON.stringify(books));
-                alert("✅ Yangi PDF darslik muvaffaqiyatli yuklandi va foydalanuvchilarga ochildi!");
+                alert("✅ Yangi PDF darslik muvaffaqiyatli yuklandi!");
                 document.getElementById('adminBookTitle').value = '';
                 document.getElementById('adminBookDesc').value = '';
                 fileInput.value = '';
@@ -618,7 +864,7 @@
             messages.push({
                 id: Date.now(),
                 name: currentUser.name,
-                phone: currentUser.phone,
+                jshshr: currentUser.jshshr,
                 subject: subj,
                 message: msg,
                 reply: "",
@@ -632,7 +878,7 @@
         }
 
         function renderUserMessages() {
-            let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]').filter(m => m.phone === currentUser.phone);
+            let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]').filter(m => m.jshshr === currentUser.jshshr);
             let box = document.getElementById('userMessagesHistoryBox');
             box.innerHTML = '';
             if (messages.length === 0) {
@@ -675,7 +921,8 @@
                 currentQuizQuestions.push({
                     q: `${i+1}-savol (${topic}):`,
                     options: shuffledOpts.map(o => o.text),
-                    correctIndex: shuffledOpts.findIndex(o => o.correct)
+                    correctIndex: shuffledOpts.findIndex(o => o.correct),
+                    img: ""
                 });
             }
 
@@ -710,6 +957,50 @@
             loadQuestion();
         }
 
+        function startAfricaVisualQuiz() {
+            activeModeName = "Afrika Rasmli Testlari";
+            currentQuizQuestions = africaVisualQuestions.map((item, idx) => {
+                let allWr = getWrongAfricaOptions(item.right);
+                let shuffledOpts = shuffleArray([
+                    { text: item.right, correct: true },
+                    { text: allWr[0] || "Boshqa variant 1", correct: false },
+                    { text: allWr[1] || "Boshqa variant 2", correct: false },
+                    { text: allWr[2] || "Boshqa variant 3", correct: false }
+                ]);
+                return {
+                    q: item.q,
+                    options: shuffledOpts.map(o => o.text),
+                    correctIndex: shuffledOpts.findIndex(o => o.correct),
+                    img: item.img
+                };
+            });
+
+            userAnswers = {};
+            currentQIndex = 0;
+            spentSeconds = 0;
+            totalSeconds = currentQuizQuestions.length * 60;
+
+            hideAll();
+            document.getElementById('quizSection').classList.remove('hidden');
+            document.getElementById('quizHead').innerText = activeModeName;
+            document.getElementById('qTotal').innerText = currentQuizQuestions.length;
+
+            runTimer();
+            loadQuestion();
+        }
+
+        function getWrongAfricaOptions(rightAns) {
+            let pool = [
+                "1,2,5,6", "Nil havzasini", "Shari, Chad, Kongo", "Efiopiya tog'ligi", "1,2,3",
+                "Gorst", "1-c, 2-b, 3-a", "2,4,5", "Yunker", "Yenal",
+                "Metamorfik jinslarning keng tarqalishi", "Sharqiy", "Quyosh radiatsiyasi",
+                "Axaggar va Kap tog'lari", "Havo bosimi yuqori", "Ekvatorial", "Markaziy Afrika",
+                "1-b, 2-d, 3-c, 4-a", "a", "Ekvatorni ikki marta kesib o'tadi", "2",
+                "50", "40", "Fasliy nam o'rmonlar", "650 000 km²"
+            ];
+            return pool.filter(x => x !== rightAns);
+        }
+
         function runTimer() {
             updateTimerText();
             timerInterval = setInterval(() => {
@@ -735,6 +1026,16 @@
             let q = currentQuizQuestions[currentQIndex];
             document.getElementById('qNum').innerText = currentQIndex + 1;
             document.getElementById('qText').innerText = q.q;
+
+            let imgContainer = document.getElementById('quizImageContainer');
+            let imgEl = document.getElementById('quizImageEl');
+            if (q.img) {
+                imgContainer.classList.remove('hidden');
+                imgEl.src = q.img;
+            } else {
+                imgContainer.classList.add('hidden');
+                imgEl.src = "";
+            }
 
             let box = document.getElementById('optsBox');
             box.innerHTML = '';
@@ -792,11 +1093,11 @@
 
             let aiBox = document.getElementById('aiFeedbackText');
             if (percent >= 85) {
-                aiBox.innerHTML = `🌟 <strong>Ajoyib natija!</strong> Siz geografiya fanidan juda kuchli tayyorgarlikka egasiz (${percent}%).`;
+                aiBox.innerHTML = `🌟 <strong>Ajoyib natija!</strong> Siz geografiya va xarita bilan ishlashda juda yuqori bilimga egasiz (${percent}%).`;
             } else if (percent >= 60) {
-                aiBox.innerHTML = `📊 <strong>Yaxshi natija.</strong> Natijangiz ${percent}%. Ayrim mavzularni qayta ko'rib chiqish tavsiya etiladi.`;
+                aiBox.innerHTML = `📊 <strong>Yaxshi natija.</strong> Natijangiz ${percent}%. Xaritalar va rasmli savollarni yana bir bor ko'rib chiqish tavsiya etiladi.`;
             } else {
-                aiBox.innerHTML = `⚠️ <strong>Diqqat talab etiladi!</strong> Natijangiz ${percent}%. Ko'proq test ishlashingiz zarur.`;
+                aiBox.innerHTML = `⚠️ <strong>Diqqat talab etiladi!</strong> Natijangiz ${percent}%. Ko'proq amaliy mashqlar bajarishingiz zarur.`;
             }
 
             let rBox = document.getElementById('reviewBox');
@@ -815,7 +1116,7 @@
 
             let histories = JSON.parse(localStorage.getItem('geo_sys_histories') || '[]');
             histories.push({
-                name: currentUser.name, phone: currentUser.phone, mode: activeModeName,
+                name: currentUser.name, jshshr: currentUser.jshshr, mode: activeModeName,
                 score: correct, total: total, percent: percent, time: `${mins}m`, date: new Date().toLocaleDateString()
             });
             localStorage.setItem('geo_sys_histories', JSON.stringify(histories));
@@ -831,7 +1132,7 @@
             let avatarImg = currentUser.avatar || 'https://via.placeholder.com/80/3b82f6/ffffff?text=USER';
             document.getElementById('cabUserAvatar').src = avatarImg;
 
-            let h = JSON.parse(localStorage.getItem('geo_sys_histories') || '[]').filter(x => x.phone === currentUser.phone);
+            let h = JSON.parse(localStorage.getItem('geo_sys_histories') || '[]').filter(x => x.jshshr === currentUser.jshshr);
 
             document.getElementById('cabTotalTests').innerText = h.length;
             if (h.length > 0) {
@@ -860,7 +1161,7 @@
                     currentUser.avatar = base64Image;
                     
                     let users = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
-                    let idx = users.findIndex(u => u.login === currentUser.login);
+                    let idx = users.findIndex(u => u.jshshr === currentUser.jshshr);
                     if (idx !== -1) {
                         users[idx].avatar = base64Image;
                         localStorage.setItem('geo_sys_users', JSON.stringify(users));
@@ -880,7 +1181,7 @@
             let tbody = document.getElementById('ratingTable');
             tbody.innerHTML = '';
             h.forEach((x, i) => {
-                tbody.innerHTML += `<tr><td>${i+1}</td><td><strong>${x.name}</strong></td><td>${x.phone}</td><td>${x.score}/${x.total} (${x.percent}%)</td></tr>`;
+                tbody.innerHTML += `<tr><td>${i+1}</td><td><strong>${x.name}</strong></td><td style="font-family:monospace;">${x.jshshr}</td><td>${x.score}/${x.total} (${x.percent}%)</td></tr>`;
             });
         }
 
@@ -898,7 +1199,7 @@
                     let originalIndex = messages.length - 1 - idx;
                     msgTbody.innerHTML += `
                         <tr>
-                            <td><strong>${m.name}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${m.phone}</span></td>
+                            <td><strong>${m.name}</strong><br><span style="font-size:0.75rem; color:var(--text-muted); font-family:monospace;">${m.jshshr}</span></td>
                             <td><strong>${m.subject}:</strong> ${m.message}<br><span style="font-size:0.75rem; color:var(--amber-main);">Javob: ${m.reply || 'Hozircha yo\'q'}</span></td>
                             <td>
                                 <input type="text" id="replyInput_${originalIndex}" placeholder="Javob yozing..." style="padding:6px; font-size:0.8rem; width:130px; margin-bottom:4px;"><br>
@@ -917,8 +1218,8 @@
                 tbody.innerHTML += `
                     <tr>
                         <td><strong>${u.name}</strong></td>
+                        <td style="font-family:monospace; color:var(--blue-main);">${u.jshshr}</td>
                         <td>${u.phone}</td>
-                        <td>${u.login}</td>
                         <td style="color:var(--amber-main); font-weight:700;">${u.pass}</td>
                         <td>${u.role !== 'admin' ? `<button onclick="deleteUser(${i})" style="background:var(--rose-main); color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; font-weight:600;">O'chirish</button>` : 'Yaratuvchi'}</td>
                     </tr>
