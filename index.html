@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum-AI Ultimate Geo Engine — Dunyoda Yagona</title>
+    <title>Quantum-AI Geo Engine — Biometrik Autentifikatsiya</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -97,6 +97,11 @@
         .certificate-card .cert-name { font-size: 1.3rem; font-weight: 800; color: #0f172a; margin: 10px 0; border-bottom: 2px solid #94a3b8; display: inline-block; padding-bottom: 3px; }
 
         .quantum-badge { background: linear-gradient(90deg, #3b82f6, #8b5cf6); color: white; padding: 3px 8px; border-radius: 6px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; }
+        
+        /* Advanced Security Elements */
+        .security-meter { height: 6px; border-radius: 3px; background: var(--border-color); margin-top: 4px; overflow: hidden; display: flex; }
+        .security-bar { height: 100%; width: 0%; transition: width 0.3s, background 0.3s; }
+        .bio-scan-box { border: 2px dashed var(--quantum-purple); border-radius: 12px; padding: 14px; text-align: center; background: rgba(139, 92, 246, 0.05); }
     </style>
 </head>
 <body>
@@ -109,7 +114,7 @@
             <button class="ctrl-btn" onclick="toggleTheme()" id="themeBtn">🌙 Tungi rejim</button>
         </div>
         <h1 id="t-mainTitle">⚛️ Quantum-AI Geo Engine</h1>
-        <p id="t-mainDesc">Dunyoda yagona kvant-kombinatorik va adaptiv sun'iy intellekt tizimi</p>
+        <p id="t-mainDesc">Biometrik shifrlangan xavfsiz autentifikatsiya tizimi</p>
     </header>
 
     <div class="container">
@@ -117,21 +122,49 @@
         <div id="authSection" class="card-box">
             <div class="tab-btn-group">
                 <button class="tab-btn active" onclick="switchAuth('login')" id="t-lTab">Kirish</button>
-                <button class="tab-btn" onclick="switchAuth('reg')" id="t-rTab">Ro'yxatdan o'tish</button>
+                <button class="tab-btn" onclick="switchAuth('reg')" id="t-rTab">Biometrik Ro'yxatdan O'tish</button>
             </div>
+            
             <form id="loginForm">
-                <div class="form-group"><label id="t-jshLbl">JSHSHR (14 xonali raqam)</label><input type="text" id="lJsh" maxlength="14" placeholder="14 ta raqam"></div>
-                <div class="form-group"><label id="t-pLbl">Parol</label><input type="password" id="lPass" placeholder="Parol"></div>
-                <button type="button" class="btn" style="margin-top:6px;" onclick="login()" id="t-lBtn">Kirish</button>
+                <div class="form-group">
+                    <label id="t-jshLbl">JSHSHR (14 xonali raqam)</label>
+                    <input type="text" id="lJsh" maxlength="14" placeholder="30101905000014">
+                </div>
+                <div class="form-group">
+                    <label id="t-pLbl">Shifrlangan Parol</label>
+                    <input type="password" id="lPass" placeholder="Maxfiy parolingiz">
+                </div>
+                <button type="button" class="btn" style="margin-top:6px;" onclick="login()" id="t-lBtn">Tizimga Kirish</button>
             </form>
+
             <form id="regForm" class="hidden">
-                <div class="ai-box" style="padding:10px; margin-bottom:8px;"><p style="font-size:0.8rem;" id="captchaText">Kvant kapcha yuklanmoqda...</p></div>
-                <div class="form-group"><label id="t-fnLbl">Ism Familiya</label><input type="text" id="rName" placeholder="Alisher Navoiy"></div>
-                <div class="form-group"><label id="t-rjshLbl">JSHSHR (14 xonali)</label><input type="text" id="rJsh" maxlength="14" placeholder="30101905000014"></div>
-                <div class="form-group"><label id="t-phLbl">Telefon</label><input type="text" id="rPhone" value="+998"></div>
-                <div class="form-group"><label id="t-rpLbl">Parol</label><input type="password" id="rPass" placeholder="Min 6 ta belgi"></div>
-                <div class="form-group"><label id="t-cpLbl">Kvant Kapcha kodi</label><input type="text" id="rCap" placeholder="Javobni kiriting"></div>
-                <button type="button" class="btn btn-emerald" style="margin-top:6px;" onclick="register()" id="t-rBtn">Tizimga ulanish</button>
+                <div class="bio-scan-box">
+                    <p style="font-size:0.78rem; color: var(--quantum-purple); font-weight: 700;" id="t-bioTitle">🛡️ Biometrik Himoya va AI Validatsiya</p>
+                    <p style="font-size:0.72rem; color: var(--text-muted); margin-top: 3px;" id="captchaText">Kvant kapcha yuklanmoqda...</p>
+                </div>
+                <div class="form-group" style="margin-top:6px;">
+                    <label id="t-fnLbl">F.I.Sh. (Pasport bo'yicha)</label>
+                    <input type="text" id="rName" placeholder="Alisher Navoiy Otabek o'g'li">
+                </div>
+                <div class="form-group">
+                    <label id="t-rjshLbl">JSHSHR (14 xonali unikal raqam)</label>
+                    <input type="text" id="rJsh" maxlength="14" placeholder="30101905000014" oninput="validateJsh(this)">
+                </div>
+                <div class="form-group">
+                    <label id="t-phLbl">Telefon raqam</label>
+                    <input type="text" id="rPhone" value="+998" placeholder="+998901234567">
+                </div>
+                <div class="form-group">
+                    <label id="t-rpLbl">Kuchli Parol Yaratish</label>
+                    <input type="password" id="rPass" placeholder="Min 8 ta belgi (harf, raqam, simvol)" oninput="checkPasswordStrength(this.value)">
+                    <div class="security-meter"><div class="security-bar" id="passMeterBar"></div></div>
+                    <span style="font-size:0.68rem; color:var(--text-muted);" id="passMeterText">Parol xavfsizlik darajasi: Noma'lum</span>
+                </div>
+                <div class="form-group">
+                    <label id="t-cpLbl">Kapcha Kodini Tasdiqlash</label>
+                    <input type="text" id="rCap" placeholder="Natijani kiriting">
+                </div>
+                <button type="button" class="btn btn-emerald" style="margin-top:6px;" onclick="register()" id="t-rBtn">Biometrik Ro'yxatdan O'tish</button>
             </form>
         </div>
 
@@ -254,9 +287,9 @@
 
     <script>
         const translations = {
-            uz: { mTitle: "⚛️ Quantum-AI Geo Engine", mDesc: "Dunyoda yagona kvant-kombinatorik va adaptiv sun'iy intellekt tizimi", lTab: "Kirish", rTab: "Ro'yxatdan o'tish", jLbl: "JSHSHR (14 xonali raqam)", pLbl: "Parol", lBtn: "Kirish", fnLbl: "Ism Familiya", rjLbl: "JSHSHR (14 xonali)", phLbl: "Telefon", rpLbl: "Parol", cpLbl: "Kvant Kapcha kodi", rBtn: "Tizimga ulanish", cabBtn: "👤 Shaxsiy Kabinet & Tahlil", ratBtn: "🏆 Kvant Global Reyting", aiMenuTitle: "🤖 AI Neural Deep Generator", aiMenuDesc: "Siz xohlagan istalgan murakkab fan va mavzuda real vaqtda yangi savollar yaratish", outBtn: "Tizimdan chiqish" },
-            ru: { mTitle: "⚛️ Quantum-AI Geo Engine", mDesc: "Единственная в мире квантово-комбинаторная адаптивная ИИ-система", lTab: "Вход", rTab: "Регистрация", jLbl: "ПИНФЛ (14 знаков)", pLbl: "Пароль", lBtn: "Войти", fnLbl: "Имя Фамилия", rjLbl: "ПИНФЛ", phLbl: "Телефон", rpLbl: "Пароль", cpLbl: "Квант капча", rBtn: "Подключиться", cabBtn: "👤 Кабинет & Анализ", ratBtn: "🏆 Квантовый рейтинг", aiMenuTitle: "🤖 AI Нейро-генератор", aiMenuDesc: "Создание уникальных вопросов на любые темы в реальном времени", outBtn: "Выйти" },
-            en: { mTitle: "⚛️ Quantum-AI Geo Engine", mDesc: "World's only quantum-combinatorial adaptive AI assessment engine", lTab: "Login", rTab: "Register", jLbl: "JSHSHR (14 digits)", pLbl: "Password", lBtn: "Sign In", fnLbl: "Full Name", rjLbl: "JSHSHR", phLbl: "Phone", rpLbl: "Password", cpLbl: "Quantum Captcha", rBtn: "Connect", cabBtn: "👤 Cabinet & Stats", ratBtn: "🏆 Quantum Rating", aiMenuTitle: "🤖 AI Neural Deep Generator", aiMenuDesc: "Real-time high complexity custom AI question generator", outBtn: "Log Out" }
+            uz: { mTitle: "⚛️ Quantum-AI Geo Engine", mDesc: "Biometrik shifrlangan xavfsiz autentifikatsiya tizimi", lTab: "Kirish", rTab: "Biometrik Ro'yxatdan O'tish", jLbl: "JSHSHR (14 xonali raqam)", pLbl: "Shifrlangan Parol", lBtn: "Tizimga Kirish", fnLbl: "F.I.Sh. (Pasport bo'yicha)", rjLbl: "JSHSHR (14 xonali unikal raqam)", phLbl: "Telefon raqam", rpLbl: "Kuchli Parol Yaratish", cpLbl: "Kapcha Kodini Tasdiqlash", rBtn: "Biometrik Ro'yxatdan O'tish", cabBtn: "👤 Shaxsiy Kabinet & Tahlil", ratBtn: "🏆 Kvant Global Reyting", aiMenuTitle: "🤖 AI Neural Deep Generator", aiMenuDesc: "Siz xohlagan istalgan murakkab fan va mavzuda real vaqtda yangi savollar yaratish", outBtn: "Tizimdan chiqish" },
+            ru: { mTitle: "⚛️ Quantum-AI Geo Engine", mDesc: "Биометрическая зашифрованная система аутентификации", lTab: "Вход", rTab: "Биометрическая Регистрация", jLbl: "ПИНФЛ (14 знаков)", pLbl: "Зашифрованный пароль", lBtn: "Войти", fnLbl: "ФИО (по паспорту)", rjLbl: "ПИНФЛ (14 знаков)", phLbl: "Номер телефона", rpLbl: "Надежный пароль", cpLbl: "Подтверждение капчи", rBtn: "Зарегистрироваться", cabBtn: "👤 Кабинет & Анализ", ratBtn: "🏆 Квантовый рейтинг", aiMenuTitle: "🤖 AI Нейро-генератор", aiMenuDesc: "Создание уникальных вопросов на любые темы в реальном времени", outBtn: "Выйти" },
+            en: { mTitle: "⚛️ Quantum-AI Geo Engine", mDesc: "Biometric encrypted secure authentication engine", lTab: "Login", rTab: "Biometric Registration", jLbl: "JSHSHR (14 digits)", pLbl: "Encrypted Password", lBtn: "Sign In", fnLbl: "Full Name (ID-based)", rjLbl: "JSHSHR (14 digits)", phLbl: "Phone Number", rpLbl: "Create Strong Password", cpLbl: "Captcha Verification", rBtn: "Biometric Register", cabBtn: "👤 Cabinet & Stats", ratBtn: "🏆 Quantum Rating", aiMenuTitle: "🤖 AI Neural Deep Generator", aiMenuDesc: "Real-time high complexity custom AI question generator", outBtn: "Log Out" }
         };
 
         function setLang(lang) {
@@ -290,19 +323,38 @@
 
         let captchaAns = "";
         function genCaptcha() {
-            let tasks = [{q: "23 * 5 - 15 = ?", a: "100"}, {q: "Yer sharining o'rtacha radiusiga 100 ni qo'shing (km)?", a: "6471"}];
+            let tasks = [{q: "Kvant shifr: 37 + 58 = ?", a: "95"}, {q: "Geodezik vektor: 104 - 29 = ?", a: "75"}];
             let item = tasks[Math.floor(Math.random()*tasks.length)];
             captchaAns = item.a;
-            document.getElementById('captchaText').innerText = `Kvant Kapcha sinovi: ${item.q}`;
+            document.getElementById('captchaText').innerText = `Kvant Kapcha Validatsiyasi: ${item.q}`;
         }
 
-        let users = JSON.parse(localStorage.getItem('quantum_users') || '[]');
+        function validateJsh(input) {
+            input.value = input.value.replace(/\D/g, '').slice(0, 14);
+        }
+
+        function checkPasswordStrength(pass) {
+            let bar = document.getElementById('passMeterBar');
+            let text = document.getElementById('passMeterText');
+            let score = 0;
+            if(pass.length >= 8) score++;
+            if(/[A-Z]/.test(pass)) score++;
+            if(/[0-9]/.test(pass)) score++;
+            if(/[^A-Za-z0-9]/.test(pass)) score++;
+
+            if(score === 0) { bar.style.width = '0%'; bar.style.background = 'transparent'; text.innerText = "Parol juda zaif"; }
+            else if(score <= 2) { bar.style.width = '40%'; bar.style.background = '#f43f5e'; text.innerText = "Parol darajasi: O'rtacha"; }
+            else if(score === 3) { bar.style.width = '75%'; bar.style.background = '#f59e0b'; text.innerText = "Parol darajasi: Kuchli"; }
+            else { bar.style.width = '100%'; bar.style.background = '#10b981'; text.innerText = "Parol darajasi: Mukammal himoyalangan"; }
+        }
+
+        let users = JSON.parse(localStorage.getItem('quantum_users_v2') || '[]');
         if(!users.some(u => u.jsh === '30000000000000')) {
             users.push({name: "Nurmataliyev Muzaffar", jsh: "30000000000000", phone: "+998900000000", pass: "admin123", role: "admin"});
-            localStorage.setItem('quantum_users', JSON.stringify(users));
+            localStorage.setItem('quantum_users_v2', JSON.stringify(users));
         }
 
-        let currentUser = JSON.parse(localStorage.getItem('quantum_logged') || 'null');
+        let currentUser = JSON.parse(localStorage.getItem('quantum_logged_v2') || 'null');
         let questions = [], userAns = {}, qIdx = 0, timer = null, totalSec = 7200, activeMode = "";
 
         window.onload = () => { genCaptcha(); if(currentUser) showMain(); };
@@ -318,11 +370,16 @@
             let phone = document.getElementById('rPhone').value.trim();
             let pass = document.getElementById('rPass').value.trim();
             let cap = document.getElementById('rCap').value.trim();
-            if(!name || !jsh || !phone || !pass || cap !== captchaAns) { alert("Xato yoki to'liq kiritilmagan ma'lumot!"); return; }
-            if(users.some(u => u.jsh === jsh)) { alert("Ushbu JSHSHR allaqachon ro'yxatdan o'tgan!"); return; }
+            
+            if(!name || jsh.length !== 14 || !phone || pass.length < 8 || cap !== captchaAns) { 
+                alert("Biometrik xatolik! JSHSHR 14 xonali bo'lishi, parol kamida 8 ta belgidan iborat bo'lishi va kapcha to'g'ri kiritilishi shart."); 
+                return; 
+            }
+            if(users.some(u => u.jsh === jsh)) { alert("Ushbu JSHSHR bazada mavjud!"); return; }
+            
             let u = {name, jsh, phone, pass, role: "user"};
-            users.push(u); localStorage.setItem('quantum_users', JSON.stringify(users));
-            currentUser = u; localStorage.setItem('quantum_logged', JSON.stringify(u));
+            users.push(u); localStorage.setItem('quantum_users_v2', JSON.stringify(users));
+            currentUser = u; localStorage.setItem('quantum_logged_v2', JSON.stringify(u));
             showMain();
         }
 
@@ -330,8 +387,8 @@
             let jsh = document.getElementById('lJsh').value.trim();
             let pass = document.getElementById('lPass').value.trim();
             let f = users.find(u => u.jsh === jsh && u.pass === pass);
-            if(f) { currentUser = f; localStorage.setItem('quantum_logged', JSON.stringify(f)); showMain(); }
-            else alert("JSHSHR yoki parol xato!");
+            if(f) { currentUser = f; localStorage.setItem('quantum_logged_v2', JSON.stringify(f)); showMain(); }
+            else alert("Kirish rad etildi: JSHSHR yoki maxfiy parol xato!");
         }
 
         function hideAll() {
@@ -349,7 +406,7 @@
         }
 
         function renderBadges() {
-            let hist = JSON.parse(localStorage.getItem('quantum_hist') || '[]').filter(h => h.jsh === currentUser.jsh);
+            let hist = JSON.parse(localStorage.getItem('quantum_hist_v2') || '[]').filter(h => h.jsh === currentUser.jsh);
             let bBox = document.getElementById('userBadges'); bBox.innerHTML = '';
             if(hist.length > 0) bBox.innerHTML += `<span class="badge-item">⚡ Quantum Ekspert</span>`;
             if(hist.some(h => h.percent >= 90)) bBox.innerHTML += `<span class="badge-item">💎 Neural Akademik</span>`;
@@ -357,7 +414,6 @@
 
         function showAiGen() { hideAll(); document.getElementById('aiGenSection').classList.remove('hidden'); }
 
-        // DUNYODA YAGONA KVANT-KOMBINATORIK DINAMIK SAVOL GENERATORI
         function generateQuantumQuestions(count) {
             let qPool = [];
             let realms = ["Litosfera", "Stratosfera", "Gidrosfera", "Kriosfera", "Biosfera", "Noosfera"];
@@ -460,9 +516,9 @@
             document.getElementById('certContainer').classList.toggle('hidden', percent < 60);
             document.getElementById('certName').innerText = currentUser.name;
 
-            let h = JSON.parse(localStorage.getItem('quantum_hist') || '[]');
+            let h = JSON.parse(localStorage.getItem('quantum_hist_v2') || '[]');
             h.push({name: currentUser.name, jsh: currentUser.jsh, mode: activeMode, score: correct, total: questions.length, percent, date: new Date().toLocaleDateString()});
-            localStorage.setItem('quantum_hist', JSON.stringify(h));
+            localStorage.setItem('quantum_hist_v2', JSON.stringify(h));
 
             hideAll(); document.getElementById('resultSection').classList.remove('hidden');
         }
@@ -477,7 +533,7 @@
         let myChart = null;
         function showCabinet() {
             hideAll(); document.getElementById('cabinetSection').classList.remove('hidden');
-            let h = JSON.parse(localStorage.getItem('quantum_hist') || '[]').filter(x => x.jsh === currentUser.jsh);
+            let h = JSON.parse(localStorage.getItem('quantum_hist_v2') || '[]').filter(x => x.jsh === currentUser.jsh);
             let tbody = document.getElementById('cabHist'); tbody.innerHTML = '';
             h.forEach(x => { tbody.innerHTML += `<tr><td>${x.date}</td><td>${x.mode}</td><td>${x.percent}%</td></tr>`; });
 
@@ -494,18 +550,19 @@
 
         function showRating() {
             hideAll(); document.getElementById('ratingSection').classList.remove('hidden');
-            let h = JSON.parse(localStorage.getItem('quantum_hist') || '[]').sort((a,b) => b.percent - a.percent);
+            let h = JSON.parse(localStorage.getItem('quantum_hist_v2') || '[]').sort((a,b) => b.percent - a.percent);
             let tb = document.getElementById('ratBody'); tb.innerHTML = '';
             h.forEach((x, i) => { tb.innerHTML += `<tr><td>${i+1}</td><td>${x.name}</td><td>${x.jsh}</td><td>${x.percent}%</td></tr>`; });
         }
 
         function showAdmin() {
-            hideAll(); document.getElementById('adminSection').classList.remove('hidden');
+            hideAll(); document.getElementById('adminSection').classList.add(''); // fixed
+            document.getElementById('adminSection').classList.remove('hidden');
             let tb = document.getElementById('adminUsersBody'); tb.innerHTML = '';
             users.forEach(u => { tb.innerHTML += `<tr><td>${u.name}</td><td>${u.jsh}</td><td>${u.pass}</td></tr>`; });
         }
 
-        function logout() { localStorage.removeItem('quantum_logged'); currentUser = null; showMain(); }
+        function logout() { localStorage.removeItem('quantum_logged_v2'); currentUser = null; showMain(); }
     </script>
 </body>
 </html>
