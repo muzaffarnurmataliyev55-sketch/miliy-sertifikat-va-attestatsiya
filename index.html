@@ -37,6 +37,8 @@
         .form-group input:focus, .form-group textarea:focus { border-color: var(--blue-main); }
         
         .user-profile-card { background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; border-radius: 14px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .user-avatar-container { display: flex; align-items: center; gap: 12px; }
+        .user-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid white; background: #090d16; }
         .admin-badge { background-color: #fef08a; color: #854d0e; font-size: 0.75rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
         
         .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -135,9 +137,12 @@
         <!-- 2. MAIN MENU -->
         <div id="mainMenu" class="card-box hidden">
             <div class="user-profile-card">
-                <div>
-                    <div id="userNameDisplay" style="font-size:1.1rem; font-weight:700;">Foydalanuvchi</div>
-                    <div id="userPhoneDisplay" style="font-size:0.85rem; opacity:0.8;">📱 +998 -- --- -- --</div>
+                <div class="user-avatar-container">
+                    <img id="menuUserAvatar" class="user-avatar" src="" alt="Avatar" onerror="this.src='https://via.placeholder.com/50/3b82f6/ffffff?text=USER'">
+                    <div>
+                        <div id="userNameDisplay" style="font-size:1.1rem; font-weight:700;">Foydalanuvchi</div>
+                        <div id="userPhoneDisplay" style="font-size:0.85rem; opacity:0.8;">📱 +998 -- --- -- --</div>
+                    </div>
                 </div>
                 <span id="roleBadge" class="admin-badge hidden">Yaratuvchi</span>
             </div>
@@ -152,12 +157,17 @@
                 <div class="section-desc">Attestatsiya (50 ta) & Milliy Sertifikat (100 ta murakkab savol)</div>
             </div>
 
+            <div class="section-card" onclick="showBooksSection()" style="border-color: var(--emerald-main);">
+                <div class="section-title" style="color: var(--emerald-main);">📚 Geografiya Darsliklari va Qo'llanmalar</div>
+                <div class="section-desc">Maktab darsliklari, xaritalar va o'quv qo'llanmalar to'plami</div>
+            </div>
+
             <div class="section-card" onclick="showAiCreatorSection()" style="border-color: var(--purple-main);">
                 <div class="section-title" style="color: #c4b5fd;">🤖 AI Orqali Test Tuzish</div>
                 <div class="section-desc">Sun'iy intellekt yordamida istalgan mavzuda test savollarini yarating</div>
             </div>
 
-            <button id="adminBtn" class="btn btn-amber hidden" onclick="showAdminPanel()">⚡ Yaratuvchi (Admin) Boshqaruvi va Nazorati</button>
+            <button id="adminBtn" class="btn btn-amber hidden" onclick="showAdminPanel()">⚡ Yaratuvchi Boshqaruvi va Nazorati</button>
             <button class="btn btn-red" onclick="logout()">Tizimdan Chiqish</button>
         </div>
 
@@ -171,6 +181,28 @@
             <div class="section-card" onclick="startQuiz('Milliy Sertifikat', 100)">
                 <div class="section-title">📗 Milliy Sertifikat Bo'limi</div>
                 <div class="section-desc">100 ta o'ta murakkab savol • Vaqt: 120 Daqiqa</div>
+            </div>
+            <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
+        </div>
+
+        <!-- 3.0. BOOKS SECTION -->
+        <div id="booksSection" class="card-box hidden">
+            <h3 style="text-align: center; color: var(--emerald-main);">📚 Geografiya Darsliklari Kutubxonasi</h3>
+            <div class="section-card">
+                <div class="section-title">6-sinf Tabiiy Geografiya</div>
+                <div class="section-desc">Litosfera, gidrosfera, atmosfera va biosfera asoslari.</div>
+            </div>
+            <div class="section-card">
+                <div class="section-title">7-sinf Materiklar va Okeanlar Geografiyasi</div>
+                <div class="section-desc">Afrika, Avstraliya, Antarktida, Janubiy va Shimoliy Amerika, Yevroosiyo.</div>
+            </div>
+            <div class="section-card">
+                <div class="section-title">8-sinf O'zbekiston Respublikasi Geografiyasi</div>
+                <div class="section-desc">Tabiiy sharoit, relyef, iqlim va ichki suvlari.</div>
+            </div>
+            <div class="section-card">
+                <div class="section-title">9-sinf O'zbekiston Iqtisodiy va Sotsial Geografiyasi</div>
+                <div class="section-desc">Aholi, sanoat markazlari, qishloq xo'jaligi va transport.</div>
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
         </div>
@@ -230,6 +262,18 @@
         <!-- 6. CABINET -->
         <div id="cabinetSection" class="card-box hidden">
             <h2 style="font-size: 1.2rem; text-align: center;">👤 Shaxsiy Kabinet</h2>
+            
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 10px;">
+                <img id="cabUserAvatar" class="user-avatar" style="width: 80px; height: 80px;" src="" alt="Avatar" onerror="this.src='https://via.placeholder.com/80/3b82f6/ffffff?text=USER'">
+                <div class="form-group" style="width: 100%;">
+                    <label>Profil rasmini o'zgartirish (Rasm havolasini kiriting):</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="avatarUrlInput" placeholder="https://example.com/photo.jpg" style="flex: 1;">
+                        <button class="btn" style="width: auto; padding: 0 16px;" onclick="updateUserAvatar()">Saqlash</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="stats-grid">
                 <div class="stat-card"><div class="val" id="cabTotalTests">0</div><div class="lbl">Jami testlar</div></div>
                 <div class="stat-card"><div class="val" id="cabAvgScore">0%</div><div class="lbl">O'rtacha ko'rsatkich</div></div>
@@ -242,7 +286,7 @@
                     <tbody id="cabinetHistoryTable"></tbody>
                 </table>
             </div>
-            <button class="btn btn-gray" onclick="showMainMenu()">Orqaga</button>
+            <button class="btn btn-gray" onclick="showMainMenu()" style="margin-top:10px;">Orqaga</button>
         </div>
 
         <!-- 7. RATING -->
@@ -259,7 +303,7 @@
 
         <!-- 8. ADMIN (YARATUVCHI) PANEL -->
         <div id="adminSection" class="card-box hidden">
-            <h2 style="font-size: 1.2rem; text-align: center; color: var(--amber-main);">⚡ Yaratuvchi (Admin) Boshqaruvi va Nazorati</h2>
+            <h2 style="font-size: 1.2rem; text-align: center; color: var(--amber-main);">⚡ Yaratuvchi Boshqaruvi va Nazorati</h2>
             <p style="font-size: 0.8rem; color: var(--text-muted); text-align:center;">Foydalanuvchilar harakati, parollari va tizimdagi barcha natijalardan to'liq xabardor bo'lish paneli.</p>
             
             <h4 style="margin-top:10px;">Ro'yxatdan o'tgan foydalanuvchilar:</h4>
@@ -282,7 +326,7 @@
     </div>
 
     <footer>
-        Platforma Yaratuvchisi: <span>Islomjon Nurmatov</span>
+        Platforma Yaratuvchisi: <span>Nurmataliyev Muzaffar</span>
     </footer>
 
     <script>
@@ -329,7 +373,7 @@
 
         let appUsers = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
         if (!appUsers.some(u => u.login === 'admin')) {
-            appUsers.push({ name: "Islomjon Nurmatov", phone: "+998 90 000 00 00", login: "admin", pass: "admin123", role: "admin" });
+            appUsers.push({ name: "Nurmataliyev Muzaffar", phone: "+998 90 000 00 00", login: "admin", pass: "admin123", role: "admin", avatar: "" });
             localStorage.setItem('geo_sys_users', JSON.stringify(appUsers));
         }
 
@@ -366,7 +410,7 @@
                 return;
             }
 
-            const newUser = { name, phone, login, pass, role: "user" };
+            const newUser = { name, phone, login, pass, role: "user", avatar: "" };
             users.push(newUser);
             localStorage.setItem('geo_sys_users', JSON.stringify(users));
 
@@ -397,6 +441,9 @@
             document.getElementById('mainMenu').classList.remove('hidden');
             document.getElementById('userNameDisplay').innerText = currentUser.name;
             document.getElementById('userPhoneDisplay').innerText = `📱 ${currentUser.phone}`;
+            
+            let avatarImg = currentUser.avatar || 'https://via.placeholder.com/50/3b82f6/ffffff?text=USER';
+            document.getElementById('menuUserAvatar').src = avatarImg;
 
             if (currentUser.role === 'admin') {
                 document.getElementById('roleBadge').classList.remove('hidden');
@@ -408,7 +455,7 @@
         }
 
         function hideAll() {
-            ['authSection', 'mainMenu', 'modeSection', 'aiCreatorSection', 'quizSection', 'resultSection', 'cabinetSection', 'ratingSection', 'adminSection']
+            ['authSection', 'mainMenu', 'modeSection', 'booksSection', 'aiCreatorSection', 'quizSection', 'resultSection', 'cabinetSection', 'ratingSection', 'adminSection']
                 .forEach(id => document.getElementById(id).classList.add('hidden'));
             if (timerInterval) clearInterval(timerInterval);
         }
@@ -416,6 +463,11 @@
         function showModeSection() {
             hideAll();
             document.getElementById('modeSection').classList.remove('hidden');
+        }
+
+        function showBooksSection() {
+            hideAll();
+            document.getElementById('booksSection').classList.remove('hidden');
         }
 
         function showAiCreatorSection() {
@@ -595,6 +647,11 @@
         function showCabinet() {
             hideAll();
             document.getElementById('cabinetSection').classList.remove('hidden');
+            
+            let avatarImg = currentUser.avatar || 'https://via.placeholder.com/80/3b82f6/ffffff?text=USER';
+            document.getElementById('cabUserAvatar').src = avatarImg;
+            document.getElementById('avatarUrlInput').value = currentUser.avatar || '';
+
             let h = JSON.parse(localStorage.getItem('geo_sys_histories') || '[]').filter(x => x.phone === currentUser.phone);
 
             document.getElementById('cabTotalTests').innerText = h.length;
@@ -603,6 +660,9 @@
                 let max = Math.max(...h.map(x => x.score));
                 document.getElementById('cabAvgScore').innerText = `${avg}%`;
                 document.getElementById('cabBestScore').innerText = max;
+            } else {
+                document.getElementById('cabAvgScore').innerText = `0%`;
+                document.getElementById('cabBestScore').innerText = `0`;
             }
 
             let tbody = document.getElementById('cabinetHistoryTable');
@@ -610,6 +670,21 @@
             h.reverse().forEach(x => {
                 tbody.innerHTML += `<tr><td>${x.date}</td><td>${x.mode}</td><td>${x.score}/${x.total} (${x.percent}%)</td><td>${x.time}</td></tr>`;
             });
+        }
+
+        function updateUserAvatar() {
+            let url = document.getElementById('avatarUrlInput').value.trim();
+            currentUser.avatar = url;
+            
+            let users = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
+            let idx = users.findIndex(u => u.login === currentUser.login);
+            if (idx !== -1) {
+                users[idx].avatar = url;
+                localStorage.setItem('geo_sys_users', JSON.stringify(users));
+            }
+            localStorage.setItem('geo_sys_logged', JSON.stringify(currentUser));
+            document.getElementById('cabUserAvatar').src = url || 'https://via.placeholder.com/80/3b82f6/ffffff?text=USER';
+            alert("✅ Profil rasmi muvaffaqiyatli yangilandi!");
         }
 
         function showRating() {
