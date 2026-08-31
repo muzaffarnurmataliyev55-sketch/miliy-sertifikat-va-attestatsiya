@@ -115,13 +115,17 @@
             </form>
 
             <form id="registerForm" class="hidden">
+                <div class="ai-box" style="margin-top: 0; margin-bottom: 10px; padding: 10px;">
+                    <h4 style="font-size:0.85rem;">🤖 AI Xavfsizlik Nazorati:</h4>
+                    <p style="font-size: 0.78rem;" id="aiCaptchaText">AI tekshiruv savoli yuklanmoqda...</p>
+                </div>
                 <div class="form-group">
                     <label>Ism va Familiya</label>
                     <input type="text" id="regNameInput" placeholder="Masalan: Aziz Rahimov" required>
                 </div>
                 <div class="form-group">
-                    <label>Telefon Raqami</label>
-                    <input type="tel" id="regPhoneInput" placeholder="+998 90 123 45 67" required>
+                    <label>Telefon Raqami (+998 ...)</label>
+                    <input type="tel" id="regPhoneInput" placeholder="+998901234567" required>
                 </div>
                 <div class="form-group">
                     <label>Yangi Login</label>
@@ -130,6 +134,10 @@
                 <div class="form-group">
                     <label>Yangi Parol</label>
                     <input type="password" id="regPassInput" placeholder="Parol kiriting" required>
+                </div>
+                <div class="form-group">
+                    <label>AI Tekshiruv Javobi (Soxta profil bo'lmasligi uchun)</label>
+                    <input type="text" id="regCaptchaInput" placeholder="Yuqoridagi savol javobini yozing" required>
                 </div>
                 <button type="button" class="btn" style="margin-top: 10px; background-color: var(--emerald-main);" onclick="handleRegister()">Ro'yxatdan o'tish</button>
             </form>
@@ -159,8 +167,8 @@
             </div>
 
             <div class="section-card" onclick="showBooksSection()" style="border-color: var(--emerald-main);">
-                <div class="section-title" style="color: var(--emerald-main);">📚 PDF Geografiya Darsliklari va Qo'llanmalar</div>
-                <div class="section-desc">Yaratuvchi tomonidan yuklangan elektron darsliklar va materiallar</div>
+                <div class="section-title" style="color: var(--emerald-main);">📚 Yaratuvchi Fayllari va Materiallar</div>
+                <div class="section-desc">Faqat yaratuvchi tomonidan yuklangan elektron qo'llanmalar</div>
             </div>
 
             <div class="section-card" onclick="showSupportSection()" style="border-color: var(--amber-main);">
@@ -191,11 +199,11 @@
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
         </div>
 
-        <!-- 3.0. BOOKS SECTION (PDF) -->
+        <!-- 3.0. BOOKS SECTION (FILES) -->
         <div id="booksSection" class="card-box hidden">
-            <h3 style="text-align: center; color: var(--emerald-main);">📚 PDF Geografiya Darsliklari Kutubxonasi</h3>
+            <h3 style="text-align: center; color: var(--emerald-main);">📚 Yaratuvchi Yuklagan Fayllar</h3>
             <div id="dynamicBooksContainer" style="display: flex; flex-direction: column; gap: 10px; max-height: 350px; overflow-y: auto;">
-                <!-- Dinamik darsliklar shu yerga yuklanadi -->
+                <!-- Dinamik fayllar shu yerga yuklanadi -->
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
         </div>
@@ -317,20 +325,20 @@
         <div id="adminSection" class="card-box hidden">
             <h2 style="font-size: 1.2rem; text-align: center; color: var(--amber-main);">⚡ Yaratuvchi Boshqaruvi va Nazorati</h2>
             
-            <h4 style="margin-top:10px; color: var(--emerald-main);">📤 Yangi PDF Darslik yuklash:</h4>
+            <h4 style="margin-top:10px; color: var(--emerald-main);">📤 Yangi Fayl yuklash (Faqat Yaratuvchi):</h4>
             <div class="form-group" style="margin-top:6px;">
-                <label>Darslik nomi (Masalan: 6-sinf Geografiya):</label>
-                <input type="text" id="adminBookTitle" placeholder="Darslik nomini kiriting">
+                <label>Fayl nomi:</label>
+                <input type="text" id="adminBookTitle" placeholder="Masalan: Attestatsiya savollar to'plami">
             </div>
             <div class="form-group">
-                <label>Darslik qisqacha tavsifi:</label>
+                <label>Fayl qisqacha tavsifi:</label>
                 <input type="text" id="adminBookDesc" placeholder="Qisqacha mazmuni">
             </div>
             <div class="form-group">
-                <label>PDF faylni tanlang:</label>
-                <input type="file" id="adminBookFile" accept="application/pdf" style="background:#090d16; padding:8px;">
+                <label>Faylni tanlang (Istalgan format):</label>
+                <input type="file" id="adminBookFile" style="background:#090d16; padding:8px;">
             </div>
-            <button class="btn btn-emerald" onclick="uploadAdminBook()">Darslikni yuklash va qo'shish</button>
+            <button class="btn btn-emerald" onclick="uploadAdminBook()">Faylni yuklash va qo'shish</button>
 
             <h4 style="margin-top:15px; color: var(--amber-main);">📥 Kelib tushgan murojaatlar va javob berish:</h4>
             <div style="overflow-x:auto; max-height:220px; overflow-y:auto; margin-bottom:10px;">
@@ -392,6 +400,20 @@
             return res;
         }
 
+        // AI Captcha generator for registration security
+        let currentCaptchaAnswer = "";
+        function generateAiCaptcha() {
+            const tasks = [
+                { q: "12 + 8 nechiga teng?", ans: "20" },
+                { q: "7 * 6 nechiga teng?", ans: "42" },
+                { q: "O'zbekiston poytaxti qaysi shahar?", ans: "toshkent" },
+                { q: "15 - 5 nechiga teng?", ans: "10" }
+            ];
+            let rand = tasks[Math.floor(Math.random() * tasks.length)];
+            currentCaptchaAnswer = rand.ans.toLowerCase();
+            document.getElementById('aiCaptchaText').innerText = `AI Tekshiruv Savoli: ${rand.q}`;
+        }
+
         let appUsers = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
         if (!appUsers.some(u => u.login === 'admin')) {
             appUsers.push({ name: "Nurmataliyev Muzaffar", phone: "+998 90 000 00 00", login: "admin", pass: "admin123", role: "admin", avatar: "" });
@@ -401,9 +423,8 @@
         let appBooks = JSON.parse(localStorage.getItem('geo_sys_books') || 'null');
         if (!appBooks) {
             appBooks = [
-                { title: "6-sinf Tabiiy Geografiya (PDF)", desc: "Boshlang'ich geografiya kursi darsligi", url: "https://library.ziyonet.uz/uz/book/download/95311" },
-                { title: "7-sinf Materiklar va Okeanlar (PDF)", desc: "Qit'alar va okeanlar tabiati", url: "https://library.ziyonet.uz/uz/book/download/95312" },
-                { title: "8-sinf O'zbekiston Geografiyasi (PDF)", desc: "O'zbekiston Respublikasining tabiiy sharoiti", url: "https://library.ziyonet.uz/uz/book/download/95313" }
+                { title: "6-sinf Tabiiy Geografiya Qo'llanma", desc: "Yaratuvchi tomonidan joylangan material", url: "#" },
+                { title: "7-sinf Materiklar va Okeanlar", desc: "Qit'alar va okeanlar tabiati", url: "#" }
             ];
             localStorage.setItem('geo_sys_books', JSON.stringify(appBooks));
         }
@@ -413,6 +434,7 @@
         let timerInterval = null, totalSeconds = 0, spentSeconds = 0, activeModeName = '';
 
         window.onload = function() {
+            generateAiCaptcha();
             if (currentUser) showMainMenu();
             else switchAuthTab('login');
         };
@@ -422,6 +444,7 @@
             document.getElementById('tabRegBtn').className = `tab-btn ${tab === 'register' ? 'active' : ''}`;
             document.getElementById('loginForm').classList.toggle('hidden', tab !== 'login');
             document.getElementById('registerForm').classList.toggle('hidden', tab !== 'register');
+            if(tab === 'register') generateAiCaptcha();
         }
 
         function handleRegister() {
@@ -429,9 +452,17 @@
             const phone = document.getElementById('regPhoneInput').value.trim();
             const login = document.getElementById('regLoginInput').value.trim();
             const pass = document.getElementById('regPassInput').value.trim();
+            const captchaInput = document.getElementById('regCaptchaInput').value.trim().toLowerCase();
 
-            if (!name || !phone || !login || !pass) {
+            if (!name || !phone || !login || !pass || !captchaInput) {
                 alert("⚠️ Barcha maydonlarni to'ldirishingiz shart!");
+                return;
+            }
+
+            if (captchaInput !== currentCaptchaAnswer) {
+                alert("🤖 AI Xavfsizlik xatoligi: Soxta urinish yoki noto'g'ri captcha javobi! Qaytadan urinib ko'ring.");
+                generateAiCaptcha();
+                document.getElementById('regCaptchaInput').value = '';
                 return;
             }
 
@@ -447,7 +478,7 @@
 
             currentUser = newUser;
             localStorage.setItem('geo_sys_logged', JSON.stringify(currentUser));
-            alert("✅ Ro'yxatdan o'tdingiz!");
+            alert("✅ AI tekshiruvidan muvaffaqiyatli o'tdingiz va ro'yxatdan o'tdingiz!");
             showMainMenu();
         }
 
@@ -505,7 +536,7 @@
             books.forEach(b => {
                 container.innerHTML += `
                     <a href="${b.url}" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
-                        <div class="section-title">📄 ${b.title}</div>
+                        <div class="section-title">📂 ${b.title}</div>
                         <div class="section-desc">${b.desc}</div>
                     </a>
                 `;
@@ -518,18 +549,18 @@
             let fileInput = document.getElementById('adminBookFile');
 
             if (!title || !fileInput.files[0]) {
-                alert("Iltimos, darslik nomi va PDF faylini kiriting!");
+                alert("Iltimos, fayl nomi va faylni tanlang!");
                 return;
             }
 
             const file = fileInput.files[0];
             const reader = new FileReader();
             reader.onload = function(e) {
-                let base64Pdf = e.target.result;
+                let base64File = e.target.result;
                 let books = JSON.parse(localStorage.getItem('geo_sys_books') || '[]');
-                books.push({ title: title, desc: desc || "Yaratuvchi yuklagan PDF darslik", url: base64Pdf });
+                books.push({ title: title, desc: desc || "Yaratuvchi yuklagan fayl", url: base64File });
                 localStorage.setItem('geo_sys_books', JSON.stringify(books));
-                alert("✅ Yangi PDF darslik muvaffaqiyatli yuklandi!");
+                alert("✅ Yangi fayl muvaffaqiyatli yuklandi!");
                 document.getElementById('adminBookTitle').value = '';
                 document.getElementById('adminBookDesc').value = '';
                 fileInput.value = '';
