@@ -115,31 +115,31 @@
             </form>
 
             <form id="registerForm" class="hidden">
-                <div class="ai-box" style="margin-top: 0; margin-bottom: 10px; padding: 10px;">
-                    <h4 style="font-size:0.85rem;">🤖 AI Xavfsizlik Nazorati:</h4>
-                    <p style="font-size: 0.78rem;" id="aiCaptchaText">AI tekshiruv savoli yuklanmoqda...</p>
+                <div class="ai-box" style="margin-top: 0; margin-bottom: 10px; padding: 12px; border-color: var(--rose-main); background: rgba(244, 63, 94, 0.08);">
+                    <h4 style="font-size:0.88rem; color: var(--rose-main);">🛡️ O'ta Yuqori Xavfsizlik Nazorati (Botlarga qarshi):</h4>
+                    <p style="font-size: 0.8rem; color: #fecdd3; margin-top: 4px;" id="aiCaptchaText">Xavfsizlik sharti yuklanmoqda...</p>
                 </div>
                 <div class="form-group">
-                    <label>Ism va Familiya</label>
+                    <label>Ism va Familiya (Haqiqiy ism shart)</label>
                     <input type="text" id="regNameInput" placeholder="Masalan: Aziz Rahimov" required>
                 </div>
                 <div class="form-group">
-                    <label>Telefon Raqami (+998 ...)</label>
-                    <input type="tel" id="regPhoneInput" placeholder="+998901234567" required>
+                    <label>Telefon Raqami (+998 bilan boshlanishi shart)</label>
+                    <input type="tel" id="regPhoneInput" placeholder="+998901234567" value="+998" required>
                 </div>
                 <div class="form-group">
-                    <label>Yangi Login</label>
+                    <label>Yangi Login (Lotin harflari va raqamlar, min 4 ta belgi)</label>
                     <input type="text" id="regLoginInput" placeholder="Login o'ylab toping" required>
                 </div>
                 <div class="form-group">
-                    <label>Yangi Parol</label>
+                    <label>Yangi Parol (Min 6 ta belgi, harf va raqamli)</label>
                     <input type="password" id="regPassInput" placeholder="Parol kiriting" required>
                 </div>
                 <div class="form-group">
-                    <label>AI Tekshiruv Javobi (Soxta profil bo'lmasligi uchun)</label>
-                    <input type="text" id="regCaptchaInput" placeholder="Yuqoridagi savol javobini yozing" required>
+                    <label>Xavfsizlik Sharti Javobi (Soxta simvollarni bloklash uchun aniq javob)</label>
+                    <input type="text" id="regCaptchaInput" placeholder="Yuqoridagi savolning aniq javobini yozing" required>
                 </div>
-                <button type="button" class="btn" style="margin-top: 10px; background-color: var(--emerald-main);" onclick="handleRegister()">Ro'yxatdan o'tish</button>
+                <button type="button" class="btn" style="margin-top: 10px; background-color: var(--emerald-main);" onclick="handleRegister()">Ro'yxatdan o'tishni yakunlash</button>
             </form>
         </div>
 
@@ -168,7 +168,7 @@
 
             <div class="section-card" onclick="showBooksSection()" style="border-color: var(--emerald-main);">
                 <div class="section-title" style="color: var(--emerald-main);">📚 Yaratuvchi PDF Fayllari va Darsliklar</div>
-                <div class="section-desc">Faqat yaratuvchi yuklagan PDF materiallar (Yuklanmasa ko'rinmaydi)</div>
+                <div class="section-desc">Faqat yaratuvchi fayl yuklagandagina ko'rinadi (Hozircha yuklanmagan bo'lishi mumkin)</div>
             </div>
 
             <div class="section-card" onclick="showSupportSection()" style="border-color: var(--amber-main);">
@@ -203,7 +203,7 @@
         <div id="booksSection" class="card-box hidden">
             <h3 style="text-align: center; color: var(--emerald-main);">📚 Yaratuvchi PDF Fayllari va Darsliklar</h3>
             <div id="dynamicBooksContainer" style="display: flex; flex-direction: column; gap: 10px; max-height: 350px; overflow-y: auto;">
-                <!-- Dinamik PDF fayllar yaratuvchi yuklagandagina chiqadi -->
+                <!-- Dinamik PDF fayllar faqat yaratuvchi yuklagandagina chiqadi -->
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
         </div>
@@ -225,7 +225,6 @@
 
             <h4 style="font-size: 0.95rem; margin-top: 10px; color: var(--amber-main);">Sizning murojaatlaringiz va javoblar:</h4>
             <div id="userMessagesHistoryBox" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
-                <!-- Foydalanuvchi xabarlari va yaratuvchi javoblari -->
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga</button>
         </div>
@@ -364,7 +363,6 @@
     </footer>
 
     <script>
-        // Real so'nggi milliy sertifikat, attestatsiya savollari va geografik masalalar bazasi
         const baseQuestions = [
             { q: "1. [So'nggi Attestatsiya] O'zbekiston relyefining qaysi qismida karst g'orlari va chuqurliklari eng ko'p tarqalgan?", right: "Zarafshon va Hisor tizmalarining ohaktoshli qismlarida", wr: ["Qizilqum cho'l tekisliklarida", "Ustyurt platosining markaziy qismida", "Farg'ona vodiysi botig'ida"] },
             { q: "2. [Geografik masala] Toshkent shahri (70° sharqiy uzunlik) da vaqt 14:00 bo'lganda, 30° g'arbiy uzunlikdagi joyda mahalliy vaqt qanday bo'ladi?", right: "06:00 (8 soat ortda)", wr: ["22:00", "10:00", "04:00"] },
@@ -408,26 +406,28 @@
             return res;
         }
 
+        // O'ta yuqori xavfsizlik va randomizatsiyalanuvchi AI xavfsizlik sharti
         let currentCaptchaAnswer = "";
         function generateAiCaptcha() {
-            const tasks = [
-                { q: "12 + 8 nechiga teng?", ans: "20" },
-                { q: "7 * 6 nechiga teng?", ans: "42" },
-                { q: "O'zbekiston poytaxti qaysi shahar?", ans: "toshkent" },
-                { q: "15 - 5 nechiga teng?", ans: "10" }
+            const securityTasks = [
+                { q: "O'zbekistonda nechta viloyat bor? (raqamda yozing)", ans: "12" },
+                { q: "Yer yuzidagi eng baland cho'qqi (Everest) joylashgan qit'ani yozing", ans: "osiyo" },
+                { q: "18 + 22 yig'indisi nechiga teng?", ans: "40" },
+                { q: "Toshkent shahridan oqib o'tuvchi asosiy daryo nomini yozing", ans: "chirchiq" },
+                { q: "50 dan 15 ni ayiring:", ans: "35" }
             ];
-            let rand = tasks[Math.floor(Math.random() * tasks.length)];
+            let rand = securityTasks[Math.floor(Math.random() * securityTasks.length)];
             currentCaptchaAnswer = rand.ans.toLowerCase();
-            document.getElementById('aiCaptchaText').innerText = `AI Tekshiruv Savoli: ${rand.q}`;
+            document.getElementById('aiCaptchaText').innerText = `Xavfsizlik sharti: ${rand.q}`;
         }
 
         let appUsers = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
         if (!appUsers.some(u => u.login === 'admin')) {
-            appUsers.push({ name: "Nurmataliyev Muzaffar", phone: "+998 90 000 00 00", login: "admin", pass: "admin123", role: "admin", avatar: "" });
+            appUsers.push({ name: "Nurmataliyev Muzaffar", phone: "+998900000000", login: "admin", pass: "admin123", role: "admin", avatar: "" });
             localStorage.setItem('geo_sys_users', JSON.stringify(appUsers));
         }
 
-        // Boshlang'ichda darsliklar/fayllar BO'SH (yaratuvchi yuklamaguncha foydalanuvchiga ko'rinmaydi)
+        // Darsliklar boshlang'ichda to'liq bo'sh, faqat yaratuvchi yuklaganda ko'rinadi
         let appBooks = JSON.parse(localStorage.getItem('geo_sys_books') || '[]');
 
         let currentUser = JSON.parse(localStorage.getItem('geo_sys_logged') || 'null');
@@ -455,13 +455,32 @@
             const pass = document.getElementById('regPassInput').value.trim();
             const captchaInput = document.getElementById('regCaptchaInput').value.trim().toLowerCase();
 
+            // O'ta yuqori xavfsizlik tekshiruvlari (soxta simvollar va bo'shliqlarni bloklash)
             if (!name || !phone || !login || !pass || !captchaInput) {
-                alert("⚠️ Barcha maydonlarni to'ldirishingiz shart!");
+                alert("⚠️ Xavfsizlik qoidasi: Barcha maydonlarni to'liq va to'g'ri to'ldirishingiz shart!");
                 return;
             }
 
+            if (!phone.startsWith("+998") || phone.length !== 13) {
+                alert("⚠️ Xavfsizlik xatoligi: Telefon raqami +998 bilan boshlanishi va 13 ta belgidan iborat bo'lishi shart! (Masalan: +998901234567)");
+                return;
+            }
+
+            // Tasodifiy simvollar bilan kirishni bloklash (faqat lotin harflari va raqamlar)
+            const strictLoginRegex = /^[a-zA-Z0-9_]{4,}$/;
+            if (!strictLoginRegex.test(login)) {
+                alert("⚠️ Xavfsizlik xatoligi: Login faqat lotin harflari, raqamlar va pastki chiziqdan iborat bo'lishi va kamida 4 ta belgidan tashkil topishi kerak!");
+                return;
+            }
+
+            if (pass.length < 6) {
+                alert("⚠️ Xavfsizlik xatoligi: Parol kamida 6 ta belgidan iborat bo'lishi shart!");
+                return;
+            }
+
+            // AI/Mantiqiy xavfsizlik tekshiruvi (soxta belgilar yozib kirib ketishni oldini olish)
             if (captchaInput !== currentCaptchaAnswer) {
-                alert("🤖 AI Xavfsizlik xatoligi: Soxta urinish yoki noto'g'ri captcha javobi! Qaytadan urinib ko'ring.");
+                alert("🚨 O'ta yuqori xavfsizlik ogohlantirishi: Xavfsizlik sharti javobi xato! Soxta simvollar yoki botlar qat'iyan bloklanadi.");
                 generateAiCaptcha();
                 document.getElementById('regCaptchaInput').value = '';
                 return;
@@ -469,7 +488,7 @@
 
             let users = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
             if (users.some(u => u.login === login)) {
-                alert("❌ Bu login band!");
+                alert("❌ Bu login allaqachon band qilingan. Boshqa login kiriting!");
                 return;
             }
 
@@ -479,13 +498,18 @@
 
             currentUser = newUser;
             localStorage.setItem('geo_sys_logged', JSON.stringify(currentUser));
-            alert("✅ AI tekshiruvidan muvaffaqiyatli o'tdingiz va ro'yxatdan o'tdingiz!");
+            alert("✅ Xavfsizlik tekshiruvidan muvaffaqiyatli o'tdingiz va ro'yxatdan o'tdingiz!");
             showMainMenu();
         }
 
         function handleLogin() {
             const log = document.getElementById('loginInput').value.trim();
             const pas = document.getElementById('passwordInput').value.trim();
+
+            if (!log || !pas) {
+                alert("⚠️ Login va parolni kiriting!");
+                return;
+            }
 
             let users = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
             let found = users.find(u => u.login === log && u.pass === pas);
@@ -495,7 +519,7 @@
                 localStorage.setItem('geo_sys_logged', JSON.stringify(currentUser));
                 showMainMenu();
             } else {
-                alert("❌ Login yoki parol xato!");
+                alert("❌ Xavfsizlik xatoligi: Login yoki parol noto'g'ri!");
             }
         }
 
@@ -536,7 +560,7 @@
             container.innerHTML = '';
             
             if (books.length === 0) {
-                container.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 20px;">Hozircha yaratuvchi tomonidan hech qanday PDF darslik yoki fayl yuklanmagan. Yaratuvchi fayl yuklagach, shu yerda ko'rinadi.</div>`;
+                container.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 0.9rem; padding: 25px; line-height: 1.5;">🔒 Hozircha yaratuvchi tomonidan darsliklarga hech qanday PDF fayl yuklanmagan. Yaratuvchi fayl yuklagachgina ushbu bo'limda ko'rinadi.</div>`;
                 return;
             }
 
@@ -567,7 +591,7 @@
                 let books = JSON.parse(localStorage.getItem('geo_sys_books') || '[]');
                 books.push({ title: title, desc: desc || "Yaratuvchi tomonidan yuklangan PDF darslik", url: base64File });
                 localStorage.setItem('geo_sys_books', JSON.stringify(books));
-                alert("✅ Yangi PDF darslik muvaffaqiyatli yuklandi va foydalanuvchilarga ko'rinadigan bo'ldi!");
+                alert("✅ Yangi PDF darslik muvaffaqiyatli yuklandi va foydalanuvchilarga ochildi!");
                 document.getElementById('adminBookTitle').value = '';
                 document.getElementById('adminBookDesc').value = '';
                 fileInput.value = '';
