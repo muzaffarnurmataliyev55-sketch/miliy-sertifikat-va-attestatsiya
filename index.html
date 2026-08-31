@@ -3,376 +3,413 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attestatsiya Test Bot — Kvant Ekotizim</title>
+    <title>Mock Test Pro V2 — Attestatsiya Platformasi</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root[data-theme="dark"] {
-            --bg-color: #0b0f19;
-            --card-bg: #131b2e;
-            --text-light: #f1f5f9;
-            --text-muted: #64748b;
-            --border-color: #1e293b;
-            --neon-glow: rgba(99, 102, 241, 0.25);
+            --bg-color: #07090e;
+            --card-bg: #111827;
+            --text-light: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #1f2937;
+            --sidebar-bg: #0d1322;
         }
         :root[data-theme="light"] {
-            --bg-color: #f1f5f9;
+            --bg-color: #f8fafc;
             --card-bg: #ffffff;
             --text-light: #0f172a;
-            --text-muted: #475569;
-            --border-color: #cbd5e1;
-            --neon-glow: rgba(99, 102, 241, 0.15);
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --sidebar-bg: #f1f5f9;
         }
         :root {
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --emerald: #10b981;
-            --rose: #f43f5e;
-            --amber: #f59e0b;
-            --purple: #8b5cf6;
-            --cyan: #06b6d4;
-            --radius: 20px;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --emerald: #059669;
+            --rose: #dc2626;
+            --amber: #d97706;
+            --purple: #7c3aed;
+            --cyan: #0891b2;
+            --radius: 16px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.3s, color 0.3s; }
-        body { background-color: var(--bg-color); color: var(--text-light); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 16px 12px; }
-        
-        /* Telegram Mini App Banner Header */
-        .bot-header {
-            width: 100%;
-            max-width: 480px;
-            background: linear-gradient(135deg, #4f46e5, #8b5cf6, #ec4899);
-            border-radius: var(--radius);
-            padding: 24px 20px;
-            text-align: center;
-            color: white;
-            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .bot-header h1 { font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; }
-        .bot-header p { font-size: 0.82rem; opacity: 0.9; }
-        .bot-clipboard-icon { width: 44px; height: 44px; background: rgba(255,255,255,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 1.3rem; backdrop-filter: blur(5px); }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.2s, color 0.2s; }
+        body { background-color: var(--bg-color); color: var(--text-light); display: flex; height: 100vh; overflow: hidden; }
 
-        .container { width: 100%; max-width: 480px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
-        .card-box { background: var(--card-bg); border-radius: var(--radius); padding: 20px; border: 1.5px solid var(--border-color); display: flex; flex-direction: column; gap: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
-        
-        /* Menu Grid (The 6 Buttons from Screenshot) */
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .menu-btn { background: var(--card-bg); border: 1.5px solid var(--border-color); border-radius: 16px; padding: 18px 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; cursor: pointer; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-        .menu-btn:hover { border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 8px 20px var(--neon-glow); background: rgba(99, 102, 241, 0.03); }
-        .menu-icon { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; background: rgba(99, 102, 241, 0.1); }
-        .menu-label { font-size: 0.85rem; font-weight: 700; color: var(--text-light); }
+        /* Sidebar Navigation */
+        aside { width: 260px; background-color: var(--sidebar-bg); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; padding: 20px; justify-content: space-between; }
+        .sidebar-brand { font-size: 1.15rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+        .sidebar-menu { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+        .nav-link { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; font-size: 0.88rem; font-weight: 600; color: var(--text-muted); cursor: pointer; text-decoration: none; }
+        .nav-link:hover, .nav-link.active { background-color: rgba(37, 99, 235, 0.12); color: var(--primary); }
 
-        /* Form Controls */
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
-        .form-group input, .form-group textarea, .form-group select { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.9rem; outline: none; background: var(--bg-color); color: var(--text-light); }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); box-shadow: 0 0 10px var(--neon-glow); }
+        /* Main Workspace Layout */
+        main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; background-color: var(--bg-color); }
+        .top-navbar { height: 70px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; background-color: var(--card-bg); position: sticky; top: 0; z-index: 10; }
+        .workspace-content { padding: 24px 30px; max-width: 1400px; margin: 0 auto; width: 100%; flex: 1; display: flex; flex-direction: column; gap: 20px; }
+
+        /* Cards & Grids */
+        .card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 6px; }
+        .stat-card .val { font-size: 1.6rem; font-weight: 800; color: var(--primary); }
+        .stat-card .lbl { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
+
+        /* Login Screen Style (Matching Image V2) */
+        .login-wrapper { display: flex; align-items: center; justify-content: center; height: 100vh; width: 100vw; background: var(--bg-color); position: fixed; top: 0; left: 0; z-index: 100; }
+        .login-card { width: 100%; max-width: 480px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 36px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 20px; text-align: center; }
+        .login-card h1 { font-size: 1.6rem; font-weight: 800; color: var(--text-light); }
+        .login-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.4; }
+
+        /* Form elements */
+        .form-group { display: flex; flex-direction: column; gap: 6px; text-align: left; }
+        .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
+        .form-group input { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.92rem; background: var(--bg-color); color: var(--text-light); outline: none; }
+        .form-group input:focus { border-color: var(--primary); }
         
-        .btn { background-color: var(--primary); color: white; border: none; border-radius: 12px; padding: 12px; font-size: 0.9rem; font-weight: 700; cursor: pointer; width: 100%; text-align: center; }
+        .btn { background-color: var(--primary); color: white; border: none; border-radius: 12px; padding: 12px; font-size: 0.92rem; font-weight: 700; cursor: pointer; text-align: center; width: 100%; }
         .btn:hover { background-color: var(--primary-hover); }
-        .btn-gray { background-color: var(--border-color); color: var(--text-light); }
-        .btn-emerald { background-color: var(--emerald); color: white; }
-        .btn-rose { background-color: var(--rose); color: white; }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 6px; }
-        th, td { padding: 10px 8px; text-align: left; font-size: 0.82rem; border-bottom: 1px solid var(--border-color); }
+        /* Active Test Layout (Split Screen) */
+        .test-layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
+        .question-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+        .palette-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 14px; position: sticky; top: 90px; }
+        
+        .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+        .p-btn { aspect-ratio: 1; border: 1px solid var(--border-color); background: var(--bg-color); border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; color: var(--text-light); display: flex; align-items: center; justify-content: center; }
+        .p-btn.answered { background: rgba(5, 150, 105, 0.2); border-color: var(--emerald); color: var(--emerald); }
+        .p-btn.current { border-color: var(--primary); box-shadow: 0 0 8px rgba(37,99,235,0.4); }
+
+        .option-item { background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: 12px; padding: 14px; cursor: pointer; font-size: 0.9rem; display: flex; gap: 10px; align-items: center; }
+        .option-item.selected { border-color: var(--primary); background: rgba(37,99,235,0.08); font-weight: 700; color: var(--primary); }
+
+        /* Result Modal / Screen */
+        .result-hero { background: linear-gradient(135deg, #1e293b, #0f172a); color: white; border-radius: 20px; padding: 32px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+        .score-circle { width: 120px; height: 120px; border-radius: 50%; border: 6px solid var(--amber); display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 800; color: var(--amber); background: rgba(217, 119, 6, 0.1); }
+
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 14px; text-align: left; font-size: 0.88rem; border-bottom: 1px solid var(--border-color); }
         th { color: var(--text-muted); font-weight: 600; }
 
-        .timer-bar { background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: 12px; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
-        .timer-time { color: var(--rose); font-size: 1.1rem; font-family: monospace; }
-        
-        .option-btn { background: var(--bg-color); border: 1.5px solid var(--border-color); padding: 12px 14px; border-radius: 12px; margin-bottom: 8px; cursor: pointer; width: 100%; font-size: 0.88rem; display: flex; gap: 10px; color: var(--text-light); text-align: left; }
-        .option-btn.selected { background: rgba(99, 102, 241, 0.15); border-color: var(--primary); color: var(--primary); font-weight: 700; }
-
-        .profile-box { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 10px 0; }
-        .profile-avatar { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--purple)); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; font-weight: 800; margin-bottom: 4px; }
-
+        .badge { background: rgba(5, 150, 105, 0.15); color: var(--emerald); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
         .hidden { display: none !important; }
-        footer { margin-top: 14px; text-align: center; font-size: 0.75rem; color: var(--text-muted); padding-bottom: 10px; }
     </style>
 </head>
 <body>
 
-    <!-- TELEGRAM MINI APP BANNER -->
-    <div class="bot-header">
-        <div class="bot-clipboard-icon">📋</div>
-        <h1>Attestatsiya Test</h1>
-        <p id="welcomeUserText">Xush kelibsiz, Nurmataliyev Muzaffar!</p>
+    <!-- LOGIN SCREEN (Mock Test Pro V2 style) -->
+    <div id="loginScreen" class="login-wrapper">
+        <div class="login-card">
+            <div style="font-size:0.8rem; font-weight:800; color:var(--primary); text-transform:uppercase; letter-spacing:1px;">Mock Test Pro V2</div>
+            <h1>Tizimga kirish</h1>
+            <p>Attestatsiyaga tayyorlanish uchun samarali va zamonaviy platforma.</p>
+            <div class="form-group">
+                <label>Login / JSHSHR</label>
+                <input type="text" id="loginInput" placeholder="Loginingizni kiriting" value="Nurmataliyev Muzaffar">
+            </div>
+            <div class="form-group">
+                <label>Parol</label>
+                <input type="password" id="passInput" placeholder="Parolingizni kiriting" value="12345678">
+            </div>
+            <button class="btn" onclick="handleLogin()">Tizimga kirish</button>
+            <div style="font-size:0.75rem; color:var(--text-muted);">@PED_LIFE_UZ • Secure Auth Engine</div>
+        </div>
     </div>
 
-    <div class="container">
-        
-        <!-- 1. MAIN MENU (6 BUTTONS AS IN SCREENSHOT) -->
-        <div id="mainMenu" class="card-box" style="border:none; background:transparent; padding:0; box-shadow:none;">
-            <div class="menu-grid">
-                <div class="menu-btn" onclick="openCreateTest()">
-                    <div class="menu-icon" style="color: #f59e0b;">✏️</div>
-                    <div class="menu-label">Test yaratish</div>
+    <!-- SIDEBAR NAVIGATION -->
+    <aside id="appSidebar" class="hidden">
+        <div>
+            <div class="sidebar-brand">
+                <span>⚡ Mock Test Pro</span>
+            </div>
+            <div class="sidebar-menu">
+                <a class="nav-link active" onclick="switchTab('dashboard', this)">📊 Dashboard</a>
+                <a class="nav-link" onclick="switchTab('tests', this)">📝 Testlar</a>
+                <a class="nav-link" onclick="switchTab('results', this)">📈 Natijalarim</a>
+                <a class="nav-link" onclick="switchTab('profile', this)">👤 Profil</a>
+                <a class="nav-link" onclick="logout()" style="color:var(--rose);">🚪 Chiqish</a>
+            </div>
+        </div>
+        <div style="font-size:0.75rem; color:var(--text-muted); text-align:center;">@PED_LIFE_UZ</div>
+    </aside>
+
+    <!-- MAIN WORKSPACE -->
+    <main id="appMain" class="hidden">
+        <div class="top-navbar">
+            <div id="navTitle" style="font-weight: 700; font-size: 1.1rem;">Dashboard</div>
+            <div style="display:flex; align-items:center; gap:14px;">
+                <span id="headerUserName" style="font-size: 0.88rem; font-weight: 600; color: var(--text-muted);">Foydalanuvchi</span>
+                <button class="btn" style="width:auto; padding:8px 16px; font-size:0.8rem;" onclick="startNewTestModal()">+ Test boshlash</button>
+            </div>
+        </div>
+
+        <div class="workspace-content">
+            
+            <!-- 1. DASHBOARD TAB -->
+            <div id="tab-dashboard" class="tab-content">
+                <div class="stats-grid" style="margin-bottom: 20px;">
+                    <div class="stat-card"><span class="lbl">Ishlangan testlar</span><span class="val" id="statTotal">5</span></div>
+                    <div class="stat-card"><span class="lbl">O'rtacha foiz</span><span class="val" id="statAvg">68.4%</span></div>
+                    <div class="stat-card"><span class="lbl">Best Score</span><span class="val" id="statBest" style="color:var(--emerald);">86%</span></div>
+                    <div class="stat-card"><span class="lbl">Streak</span><span class="val" style="color:var(--amber);">🔥 12 kun</span></div>
                 </div>
-                <div class="menu-btn" onclick="openSendAnswerCode()">
-                    <div class="menu-icon" style="color: #3b82f6;">📝</div>
-                    <div class="menu-label">Javob yuborish</div>
-                </div>
-                <div class="menu-btn" onclick="openMyTests()">
-                    <div class="menu-icon" style="color: #10b981;">📁</div>
-                    <div class="menu-label">Mening testlarim</div>
-                </div>
-                <div class="menu-btn" onclick="openMyResults()">
-                    <div class="menu-icon" style="color: #8b5cf6;">📊</div>
-                    <div class="menu-label">Mening natijalarim</div>
-                </div>
-                <div class="menu-btn" onclick="openProfile()">
-                    <div class="menu-icon" style="color: #ec4899;">👤</div>
-                    <div class="menu-label">Profil</div>
-                </div>
-                <div class="menu-btn" onclick="openAboutBot()">
-                    <div class="menu-icon" style="color: #06b6d4;">ℹ️</div>
-                    <div class="menu-label">Bot haqida</div>
+                <div class="card">
+                    <h3 style="margin-bottom: 14px; font-size: 1.05rem;">So'nggi faollik va tahlillar</h3>
+                    <div style="height: 220px;"><canvas id="activityChart"></canvas></div>
                 </div>
             </div>
+
+            <!-- 2. TESTS TAB -->
+            <div id="tab-tests" class="tab-content hidden">
+                <div class="card">
+                    <h3 style="margin-bottom: 14px;">Mavjud Attestatsiya Testlari</h3>
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; padding:14px; border:1px solid var(--border-color); border-radius:12px; background:var(--bg-color);">
+                            <div>
+                                <div style="font-weight:700;">Geografiya fanidan malaka imtihoni</div>
+                                <div style="font-size:0.78rem; color:var(--text-muted);">35 ta savol • 45 daqiqa</div>
+                            </div>
+                            <button class="btn" style="width:auto; padding:8px 16px;" onclick="beginTestSession('Geografiya fanidan malaka imtihoni', 35)">Ishlash</button>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; padding:14px; border:1px solid var(--border-color); border-radius:12px; background:var(--bg-color);">
+                            <div>
+                                <div style="font-weight:700;">Pedagogik mahorat va psixologiya</div>
+                                <div style="font-size:0.78rem; color:var(--text-muted);">25 ta savol • 30 daqiqa</div>
+                            </div>
+                            <button class="btn" style="width:auto; padding:8px 16px;" onclick="beginTestSession('Pedagogik mahorat va psixologiya', 25)">Ishlash</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. RESULTS TAB -->
+            <div id="tab-results" class="tab-content hidden">
+                <div class="card">
+                    <h3 style="margin-bottom: 14px;">Barcha ishlangan testlar va yechimlar</h3>
+                    <table>
+                        <thead><tr><th>Test nomi</th><th>Natija</th><th>Foiz</th><th>Sana</th></tr></thead>
+                        <tbody id="resultsTableBody">
+                            <tr><td>Geografiya fanidan malaka imtihoni</td><td>30/35</td><td><span class="badge">86%</span></td><td>2026-03-26 18:01</td></tr>
+                            <tr><td>Pedagogik mahorat va psixologiya</td><td>21/25</td><td><span class="badge">84%</span></td><td>2026-03-25 14:20</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 4. PROFILE TAB -->
+            <div id="tab-profile" class="tab-content hidden">
+                <div class="card" style="display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center;">
+                    <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--purple)); color:white; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:800;">NM</div>
+                    <h2 id="profFullName">Nurmataliyev Muzaffar</h2>
+                    <p style="color:var(--text-muted); font-size:0.85rem;">Attestatsiya toifa talabgari • Oliy toifa</p>
+                    <button class="btn btn-rose" style="width:auto; padding:10px 20px;" onclick="logout()">Tizimdan chiqish</button>
+                </div>
+            </div>
+
+            <!-- 5. ACTIVE TEST RUNNER INTERFACE -->
+            <div id="activeTestWorkspace" class="tab-content hidden">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; background:var(--card-bg); padding:12px 20px; border-radius:12px; border:1px solid var(--border-color);">
+                    <div id="activeTestName" style="font-weight:700; color:var(--primary);">Test sinovi</div>
+                    <div style="font-family:monospace; font-size:1.1rem; font-weight:800; color:var(--rose);" id="testTimer">00:29:45</div>
+                </div>
+                
+                <div class="test-layout">
+                    <div class="question-box">
+                        <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:var(--text-muted);">
+                            <span>Savol <strong id="currQNum">1</strong> / <span id="totalQNum">35</span></span>
+                            <span>Attestatsiya Mock Test</span>
+                        </div>
+                        <div id="questionText" style="font-size:1rem; font-weight:700; line-height:1.5;">Savol matni yuklanmoqda...</div>
+                        <div id="optionsContainer" style="display:flex; flex-direction:column; gap:10px; margin-top:10px;"></div>
+                        
+                        <div style="display:flex; justify-content:space-between; margin-top:20px;">
+                            <button class="btn" style="width:auto; background:var(--border-color); color:var(--text-light);" onclick="prevQuestion()">&larr; Oldingi</button>
+                            <button class="btn" style="width:auto;" onclick="nextQuestion()">Keyingisi &rarr;</button>
+                        </div>
+                    </div>
+
+                    <div class="palette-box">
+                        <div style="font-size:0.85rem; font-weight:700;">Savollar jadvali</div>
+                        <div class="palette-grid" id="paletteGrid"></div>
+                        <button class="btn" style="background:var(--emerald); margin-top:10px;" onclick="finishTest()">Testni yakunlash</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. RESULT SUMMARY SCREEN -->
+            <div id="testResultWorkspace" class="tab-content hidden">
+                <div class="result-hero">
+                    <h2 style="text-transform: uppercase; font-size:1.2rem; letter-spacing:1px;">Mock testda ikkinchi toifa balini to'pladingiz</h2>
+                    <div class="score-circle">
+                        <span id="resScoreVal">74</span>
+                        <span style="font-size:0.7rem; font-weight:600;">BALL</span>
+                    </div>
+                    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; width:100%; max-width:400px; margin-top:10px;">
+                        <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px;"><div id="resCorrect" style="font-size:1.2rem; font-weight:800; color:var(--emerald);">37</div><div style="font-size:0.7rem;">TO'G'RI</div></div>
+                        <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px;"><div id="resWrong" style="font-size:1.2rem; font-weight:800; color:var(--rose);">1</div><div style="font-size:0.7rem;">XATO</div></div>
+                        <div style="background:rgba(255,255,255,0.05); padding:10px; border-radius:10px;"><div id="resQolgan" style="font-size:1.2rem; font-weight:800; color:var(--amber);">12</div><div style="font-size:0.7rem;">QOLGAN</div></div>
+                    </div>
+                    <button class="btn" style="max-width:300px; margin-top:10px;" onclick="switchTab('dashboard', document.querySelector('.sidebar-menu .nav-link'))">Asosiy panelga qaytish</button>
+                </div>
+            </div>
+
         </div>
-
-        <!-- 2. TEST YARATISH SECTION -->
-        <div id="createTestSection" class="card-box hidden">
-            <h3 style="color: var(--amber);">✏️ Yangi Test Yaratish</h3>
-            <div class="form-group">
-                <label>Test nomi / Fan nomi:</label>
-                <input type="text" id="newTestTitle" placeholder="Masalan: Geografiya - Attestatsiya 2026">
-            </div>
-            <div class="form-group">
-                <label>Savollar soni:</label>
-                <input type="number" id="newTestCount" value="10" min="5" max="50">
-            </div>
-            <button class="btn btn-emerald" onclick="saveNewTest()">Testni Saqlash va Kod Olish</button>
-            <button class="btn btn-gray" onclick="showMain()">Orqaga</button>
-        </div>
-
-        <!-- 3. JAVOB YUBORISH SECTION (TESTNI ISHLASH) -->
-        <div id="sendAnswerSection" class="card-box hidden">
-            <h3 style="color: var(--primary);">📝 Test Kodini Kiriting</h3>
-            <div class="form-group">
-                <label>Test ID / Kod:</label>
-                <input type="text" id="testCodeInput" placeholder="Masalan: 7771">
-            </div>
-            <button class="btn" onclick="startTestByCode()">Testni Boshlash</button>
-            <button class="btn btn-gray" onclick="showMain()">Orqaga</button>
-        </div>
-
-        <!-- ACTIVE QUIZ RUNNER -->
-        <div id="quizSection" class="card-box hidden">
-            <div class="timer-bar">
-                <span id="quizTitleHeader" style="color:var(--primary);">Attestatsiya Test</span>
-                <span class="timer-time" id="timerDisp">01:00:00</span>
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:0.85rem;">Savol: <strong id="qNum">1</strong>/<span id="qTot">10</span></span>
-                <button class="btn btn-rose" style="width:auto; padding:6px 12px; font-size:0.75rem;" onclick="finishActiveTest()">Yakunlash</button>
-            </div>
-            <div id="qText" style="font-size:0.95rem; font-weight:700; line-height:1.4;"></div>
-            <div id="optsBox"></div>
-            <div style="display:flex; gap:10px;">
-                <button class="btn btn-gray" style="flex:1;" onclick="prevQ()">&larr; Oldingi</button>
-                <button class="btn" style="flex:1;" onclick="nextQ()">Keyingi &rarr;</button>
-            </div>
-        </div>
-
-        <!-- 4. MENING TESTLARIM SECTION -->
-        <div id="myTestsSection" class="card-box hidden">
-            <h3 style="color: var(--emerald);">📁 Mening Yaratgan Testlarim</h3>
-            <div style="max-height:220px; overflow-y:auto;">
-                <table><thead><tr><th>Kod</th><th>Nomi</th><th>Savollar</th></tr></thead><tbody id="myTestsBody"></tbody></table>
-            </div>
-            <button class="btn btn-gray" onclick="showMain()" style="margin-top:6px;">Orqaga</button>
-        </div>
-
-        <!-- 5. MENING NATIJALARIM SECTION -->
-        <div id="myResultsSection" class="card-box hidden">
-            <h3 style="color: var(--purple);">📊 Mening Natijalarim</h3>
-            <div style="max-height:220px; overflow-y:auto;">
-                <table><thead><tr><th>Test</th><th>Natija</th><th>Sana</th></tr></thead><tbody id="myResultsBody"></tbody></table>
-            </div>
-            <button class="btn btn-gray" onclick="showMain()" style="margin-top:6px;">Orqaga</button>
-        </div>
-
-        <!-- 6. PROFIL SECTION -->
-        <div id="profileSection" class="card-box hidden">
-            <div class="profile-box">
-                <div class="profile-avatar">NM</div>
-                <h3 id="profName">Nurmataliyev Muzaffar</h3>
-                <p style="font-size:0.8rem; color:var(--text-muted);">Telegram ID: <code>@muzaffar_dev</code></p>
-            </div>
-            <div style="background:var(--bg-color); border-radius:12px; padding:12px; border:1px solid var(--border-color); font-size:0.85rem; display:flex; flex-direction:column; gap:6px;">
-                <div style="display:flex; justify-content:space-between;"><span>Jami ishlangan testlar:</span><strong id="statTotalTests">0</strong></div>
-                <div style="display:flex; justify-content:space-between;"><span>O'rtacha ko'rsatkich:</span><strong id="statAvgScore" style="color:var(--emerald);">0%</strong></div>
-            </div>
-            <button class="btn btn-gray" onclick="showMain()">Orqaga</button>
-        </div>
-
-        <!-- 7. BOT HAQIDA SECTION -->
-        <div id="aboutBotSection" class="card-box hidden">
-            <h3 style="color: var(--cyan);">ℹ️ Bot Haqida</h3>
-            <p style="font-size:0.85rem; line-height:1.4; color:var(--text-muted);">
-                <strong>Attestatsiya Test Bot</strong> — pedagoglar va o'quvchilar uchun bilim darajasini sinovdan o'tkazish, mustaqil testlar yaratish va ularga onlayn javob yuborish uchun mo'ljallangan zamonaviy platforma.
-            </p>
-            <div style="font-size:0.8rem; color:var(--primary); font-weight:700; text-align:center; margin-top:6px;">
-                Versiya: 3.5.0 (Quantum-AI Edition)
-            </div>
-            <button class="btn btn-gray" onclick="showMain()" style="margin-top:6px;">Orqaga</button>
-        </div>
-
-    </div>
-
-    <footer><span>Platforma Yaratuvchisi:</span> <strong>Nurmataliyev Muzaffar</strong> • 2026</footer>
+    </main>
 
     <script>
-        // LocalStorage Data Management
-        let dbTests = JSON.parse(localStorage.getItem('att_tests_v1') || JSON.stringify([
-            {code: "7771", title: "Geografiya va Litosfera asoslari", count: 5},
-            {code: "8882", title: "Pedagogik Mahorat va Metodika", count: 5}
-        ]));
-
-        let dbResults = JSON.parse(localStorage.getItem('att_results_v1') || '[]');
-
-        let activeTest = null;
-        let qIdx = 0;
-        let userAns = {};
+        let currentUser = JSON.parse(localStorage.getItem('mock_user_v2') || 'null');
+        let activeTestTitle = "";
+        let totalCount = 35;
+        let currentQIdx = 0;
+        let userAnswers = {};
         let timerInterval = null;
-        let timeLeft = 1800; // 30 mins
 
-        function hideAllSections() {
-            ['mainMenu', 'createTestSection', 'sendAnswerSection', 'quizSection', 'myTestsSection', 'myResultsSection', 'profileSection', 'aboutBotSection'].forEach(id => {
-                document.getElementById(id).classList.add('hidden');
-            });
-            if(timerInterval) clearInterval(timerInterval);
-        }
-
-        function showMain() {
-            hideAllSections();
-            document.getElementById('mainMenu').classList.remove('hidden');
-        }
-
-        function openCreateTest() { hideAllSections(); document.getElementById('createTestSection').classList.remove('hidden'); }
-        function openSendAnswerCode() { hideAllSections(); document.getElementById('sendAnswerSection').classList.remove('hidden'); }
-        
-        function openMyTests() {
-            hideAllSections();
-            document.getElementById('myTestsSection').classList.remove('hidden');
-            let tb = document.getElementById('myTestsBody'); tb.innerHTML = '';
-            dbTests.forEach(t => {
-                tb.innerHTML += `<tr><td><code>${t.code}</code></td><td>${t.title}</td><td>${t.count} ta</td></tr>`;
-            });
-        }
-
-        function openMyResults() {
-            hideAllSections();
-            document.getElementById('myResultsSection').classList.remove('hidden');
-            let tb = document.getElementById('myResultsBody'); tb.innerHTML = '';
-            if(dbResults.length === 0) {
-                tb.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">Hozircha natijalar yo'q</td></tr>`;
-                return;
+        window.onload = () => {
+            if(currentUser) {
+                showWorkspace();
             }
-            dbResults.forEach(r => {
-                tb.innerHTML += `<tr><td>${r.title}</td><td><strong style="color:var(--emerald);">${r.percent}%</strong> (${r.score}/${r.total})</td><td>${r.date}</td></tr>`;
-            });
+        };
+
+        function handleLogin() {
+            let name = document.getElementById('loginInput').value.trim();
+            if(!name) { alert("Ismingizni kiriting!"); return; }
+            currentUser = { name };
+            localStorage.setItem('mock_user_v2', JSON.stringify(currentUser));
+            showWorkspace();
         }
 
-        function openProfile() {
-            hideAllSections();
-            document.getElementById('profileSection').classList.remove('hidden');
-            document.getElementById('statTotalTests').innerText = dbResults.length;
-            let avg = dbResults.length > 0 ? Math.round(dbResults.reduce((a,b)=>a+b.percent,0)/dbResults.length) : 0;
-            document.getElementById('statAvgScore').innerText = avg + "%";
+        function showWorkspace() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('appSidebar').classList.remove('hidden');
+            document.getElementById('appMain').classList.remove('hidden');
+            document.getElementById('headerUserName').innerText = currentUser.name;
+            document.getElementById('profFullName').innerText = currentUser.name;
+            initChart();
         }
 
-        function openAboutBot() { hideAllSections(); document.getElementById('aboutBotSection').classList.remove('hidden'); }
-
-        function saveNewTest() {
-            let title = document.getElementById('newTestTitle').value.trim();
-            let count = parseInt(document.getElementById('newTestCount').value) || 10;
-            if(!title) { alert("Test nomini kiriting!"); return; }
-            let code = Math.floor(1000 + Math.random() * 9000).toString();
-            dbTests.push({code, title, count});
-            localStorage.setItem('att_tests_v1', JSON.stringify(dbTests));
-            alert(`Test muvaffaqiyatli yaratildi!\nTest kodi (ID): ${code}`);
-            showMain();
+        function logout() {
+            localStorage.removeItem('mock_user_v2');
+            location.reload();
         }
 
-        function startTestByCode() {
-            let code = document.getElementById('testCodeInput').value.trim();
-            let found = dbTests.find(t => t.code === code);
-            if(!found) { alert("Bunday kodli test topilmadi!"); return; }
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             
-            activeTest = found;
-            qIdx = 0;
-            userAns = {};
-            timeLeft = found.count * 120; // 2 mins per question
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            if(el) el.classList.add('active');
+            
+            let titles = {dashboard: "Dashboard", tests: "Testlar", results: "Mening natijalarim", profile: "Profil"};
+            document.getElementById('navTitle').innerText = titles[tabId] || "Mock Test Pro";
+        }
 
-            hideAllSections();
-            document.getElementById('quizSection').classList.remove('hidden');
-            document.getElementById('quizTitleHeader').innerText = found.title;
-            document.getElementById('qTot').innerText = found.count;
+        function beginTestSession(title, count) {
+            activeTestTitle = title;
+            totalCount = count;
+            currentQIdx = 0;
+            userAnswers = {};
 
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById('activeTestWorkspace').classList.remove('hidden');
+            document.getElementById('activeTestName').innerText = title;
+            document.getElementById('totalQNum').innerText = count;
+
+            buildPalette();
+            loadQuestion();
+
+            let timeLeft = count * 60;
+            if(timerInterval) clearInterval(timerInterval);
             timerInterval = setInterval(() => {
                 timeLeft--;
                 let m = Math.floor(timeLeft/60), s = timeLeft%60;
-                document.getElementById('timerDisp').innerText = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-                if(timeLeft <= 0) finishActiveTest();
+                document.getElementById('testTimer').innerText = `00:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+                if(timeLeft <= 0) finishTest();
             }, 1000);
-
-            loadQuizQuestion();
         }
 
-        function loadQuizQuestion() {
-            document.getElementById('qNum').innerText = qIdx + 1;
-            let count = activeTest.count;
-            // Generate dynamic mockup questions for the test
-            let qText = `[${activeTest.title}] - ${qIdx + 1}-savol: Ushbu fan bo'yicha to'g'ri ilmiy yechim yoki ta'rifni ko'rsatilgan variantlardan tanlang.`;
-            document.getElementById('qText').innerText = qText;
-
-            let opts = [
-                "A) Universal geofazoviy va statistik tahlil modeli",
-                "B) Nazariy jihatdan tasdiqlanmagan taxminiy yondashuv",
-                "C) Faqat lokal ma'lumotlarga asoslangan qism hisob-kitob",
-                "D) Muqobil tarmoqlararo standartlashtirilmagan usul"
-            ];
-            let b = document.getElementById('optsBox'); b.innerHTML = '';
-            opts.forEach((opt, idx) => {
-                let sel = userAns[qIdx] === idx ? 'selected' : '';
-                b.innerHTML += `<div class="option-btn ${sel}" onclick="userAns[qIdx]=${idx};loadQuizQuestion()">${opt}</div>`;
-            });
-        }
-
-        function nextQ() {
-            if(qIdx < activeTest.count - 1) { qIdx++; loadQuizQuestion(); }
-            else finishActiveTest();
-        }
-
-        function prevQ() {
-            if(qIdx > 0) { qIdx--; loadQuizQuestion(); }
-        }
-
-        function finishActiveTest() {
-            if(timerInterval) clearInterval(timerInterval);
-            let correct = 0;
-            for(let i=0; i<activeTest.count; i++) {
-                // Mock verification: index 0 is always correct for demo simulation
-                if(userAns[i] === 0) correct++;
+        function buildPalette() {
+            let grid = document.getElementById('paletteGrid');
+            grid.innerHTML = '';
+            for(let i=0; i<totalCount; i++) {
+                grid.innerHTML += `<button class="p-btn ${currentQIdx===i?'current':''} ${userAnswers[i]!==undefined?'answered':''}" onclick="goToQ(${i})">${i+1}</button>`;
             }
-            let percent = Math.round((correct / activeTest.count) * 100);
+        }
 
-            dbResults.push({
-                title: activeTest.title,
-                score: correct,
-                total: activeTest.count,
-                percent: percent,
-                date: new Date().toLocaleDateString()
+        function goToQ(idx) {
+            currentQIdx = idx;
+            loadQuestion();
+            buildPalette();
+        }
+
+        function loadQuestion() {
+            document.getElementById('currQNum').innerText = currentQIdx + 1;
+            document.getElementById('questionText').innerText = `[${activeTestTitle}] - ${currentQIdx + 1}-savol: Pedagogik faoliyat va zamonaviy yondashuvlarga oid to'g'ri ta'rifni toping.`;
+            
+            let opts = [
+                "A) O'quvchining shaxsiy rivojlanish trayektoriyasini qo'llab-quvvatlash",
+                "B) An'anaviy yod olish metodikasiga asoslangan yondashuv",
+                "C) Faqat nazariy bilimlarni baholash tizimi",
+                "D) Standartlashtirilmagan noaniq mezonlar majmui"
+            ];
+            
+            let box = document.getElementById('optionsContainer'); box.innerHTML = '';
+            opts.forEach((opt, idx) => {
+                let sel = userAnswers[currentQIdx] === idx ? 'selected' : '';
+                box.innerHTML += `<div class="option-item ${sel}" onclick="selectOpt(${idx})">${opt}</div>`;
             });
-            localStorage.setItem('att_results_v1', JSON.stringify(dbResults));
+        }
 
-            alert(`Test yakunlandi!\nNatijangiz: ${correct}/${activeTest.count} (${percent}%)`);
-            showMain();
+        function selectOpt(idx) {
+            userAnswers[currentQIdx] = idx;
+            buildPalette();
+            loadQuestion();
+        }
+
+        function nextQuestion() {
+            if(currentQIdx < totalCount - 1) { currentQIdx++; loadQuestion(); buildPalette(); }
+            else finishTest();
+        }
+
+        function prevQuestion() {
+            if(currentQIdx > 0) { currentQIdx--; loadQuestion(); buildPalette(); }
+        }
+
+        function finishTest() {
+            if(timerInterval) clearInterval(timerInterval);
+            let answeredCount = Object.keys(userAnswers).length;
+            let correct = Math.round(answeredCount * 0.85);
+            let percent = Math.round((correct / totalCount) * 100);
+
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById('testResultWorkspace').classList.remove('hidden');
+            document.getElementById('resScoreVal').innerText = percent;
+            document.getElementById('resCorrect').innerText = correct;
+            document.getElementById('resWrong').innerText = answeredCount - correct;
+            document.getElementById('resQolgan').innerText = totalCount - answeredCount;
+        }
+
+        function startNewTestModal() {
+            switchTab('tests', document.querySelectorAll('.nav-link')[1]);
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('activityChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Yan', 'Fev', 'Mart 1', 'Mart 2', 'Mart 3', 'Bugun'],
+                    datasets: [{
+                        label: 'Natijalar (%)',
+                        data: [60, 65, 72, 70, 78, 86],
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37,99,235,0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
         }
     </script>
 </body>
