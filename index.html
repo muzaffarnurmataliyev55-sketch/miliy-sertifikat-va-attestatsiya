@@ -160,12 +160,12 @@
 
             <div class="section-card" onclick="showBooksSection()" style="border-color: var(--emerald-main);">
                 <div class="section-title" style="color: var(--emerald-main);">📚 PDF Geografiya Darsliklari va Qo'llanmalar</div>
-                <div class="section-desc">6-s, 7-s, 8-s, 9-s, 10-s, 11-sinf darsliklari va elektron PDF materiallar</div>
+                <div class="section-desc">Yaratuvchi tomonidan yuklangan elektron darsliklar va materiallar</div>
             </div>
 
             <div class="section-card" onclick="showSupportSection()" style="border-color: var(--amber-main);">
-                <div class="section-title" style="color: var(--amber-main);">💬 Qo'llab-quvvatlash Markazi</div>
-                <div class="section-desc">Yaratuvchi Nurmataliyev Muzaffarga bevosita murojaat va xabar yuborish</div>
+                <div class="section-title" style="color: var(--amber-main);">💬 Qo'llab-quvvatlash Markazi va Javoblar</div>
+                <div class="section-desc">Yaratuvchi Nurmataliyev Muzaffardan kelgan javoblar va xabarlar</div>
             </div>
 
             <div class="section-card" onclick="showAiCreatorSection()" style="border-color: var(--purple-main);">
@@ -194,39 +194,16 @@
         <!-- 3.0. BOOKS SECTION (PDF) -->
         <div id="booksSection" class="card-box hidden">
             <h3 style="text-align: center; color: var(--emerald-main);">📚 PDF Geografiya Darsliklari Kutubxonasi</h3>
-            <div style="display: flex; flex-direction: column; gap: 10px; max-height: 350px; overflow-y: auto;">
-                <a href="https://library.ziyonet.uz/uz/book/download/95311" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
-                    <div class="section-title">📄 6-sinf Tabiiy Geografiya (PDF)</div>
-                    <div class="section-desc">Yuklab olish yoki onlayn o'qish uchun Ziyonet arxivi</div>
-                </a>
-                <a href="https://library.ziyonet.uz/uz/book/download/95312" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
-                    <div class="section-title">📄 7-sinf Materiklar va Okeanlar Geografiyasi (PDF)</div>
-                    <div class="section-desc">Jahon qit'alari va okeanlar atlasi darsligi</div>
-                </a>
-                <a href="https://library.ziyonet.uz/uz/book/download/95313" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
-                    <div class="section-title">📄 8-sinf O'zbekiston Respublikasi Geografiyasi (PDF)</div>
-                    <div class="section-desc">Tabiiy geografiya, relyef va iqlim sharoitlari</div>
-                </a>
-                <a href="https://library.ziyonet.uz/uz/book/download/95314" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
-                    <div class="section-title">📄 9-sinf O'zbekiston Iqtisodiy Geografiyasi (PDF)</div>
-                    <div class="section-desc">Sanoat markazlari, aholi va xo'jalik tarmoqlari</div>
-                </a>
-                <a href="https://library.ziyonet.uz/uz/book/download/95315" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
-                    <div class="section-title">📄 10-sinf Ijtimoiy-Iqtisodiy Geografiya (PDF)</div>
-                    <div class="section-desc">Jahon xo'jaligi va xalqaro munosabatlar</div>
-                </a>
-                <a href="https://library.ziyonet.uz/uz/book/download/95316" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
-                    <div class="section-title">📄 11-sinf Jahon Siyosiy Geografiyasi (PDF)</div>
-                    <div class="section-desc">Hozirgi zamon dunyosining siyosiy manzarasi</div>
-                </a>
+            <div id="dynamicBooksContainer" style="display: flex; flex-direction: column; gap: 10px; max-height: 350px; overflow-y: auto;">
+                <!-- Dinamik darsliklar shu yerga yuklanadi -->
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga qaytish</button>
         </div>
 
         <!-- 3.1. SUPPORT SECTION -->
         <div id="supportSection" class="card-box hidden">
-            <h3 style="text-align: center; color: var(--amber-main);">💬 Qo'llab-quvvatlash va Aloqa Markazi</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">Savollaringiz yoki takliflaringiz bo'lsa, yaratuvchi **Nurmataliyev Muzaffar**ga to'g'ridan-to'g'ri xabar yuboring.</p>
+            <h3 style="text-align: center; color: var(--amber-main);">💬 Qo'llab-quvvatlash va Murojaatlar</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">Yaratuvchi **Nurmataliyev Muzaffar**ga savol yuboring yoki uning javoblarini ko'ring.</p>
             
             <div class="form-group">
                 <label>Murojaat mavzusi:</label>
@@ -234,9 +211,14 @@
             </div>
             <div class="form-group">
                 <label>Xabaringiz matni:</label>
-                <textarea id="supportMessage" rows="4" placeholder="Muammo yoki taklifingizni batafsil yozing..."></textarea>
+                <textarea id="supportMessage" rows="3" placeholder="Muammo yoki taklifingizni yozing..."></textarea>
             </div>
             <button class="btn btn-amber" onclick="sendSupportMessage()">Xabarni yaratuvchiga yuborish</button>
+
+            <h4 style="font-size: 0.95rem; margin-top: 10px; color: var(--amber-main);">Sizning murojaatlaringiz va javoblar:</h4>
+            <div id="userMessagesHistoryBox" style="max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+                <!-- Foydalanuvchi xabarlari va yaratuvchi javoblari -->
+            </div>
             <button class="btn btn-gray" onclick="showMainMenu()">Orqaga</button>
         </div>
 
@@ -245,7 +227,7 @@
             <h3 style="text-align: center; color: var(--purple-main);">🤖 Sun'iy Intellekt Test Tuzuvchisi</h3>
             <div class="form-group">
                 <label>Test mavzusi yoki sharti:</label>
-                <textarea id="aiTopicInput" rows="3" placeholder="Masalan: O'zbekistonning iqtisodiy geografiyasi va sanoat markazlari..."></textarea>
+                <textarea id="aiTopicInput" rows="3" placeholder="Masalan: O'zbekistonning iqtisodiy geografiyasi..."></textarea>
             </div>
             <div class="form-group">
                 <label>Savollar soni:</label>
@@ -334,12 +316,26 @@
         <!-- 8. ADMIN (YARATUVCHI) PANEL -->
         <div id="adminSection" class="card-box hidden">
             <h2 style="font-size: 1.2rem; text-align: center; color: var(--amber-main);">⚡ Yaratuvchi Boshqaruvi va Nazorati</h2>
-            <p style="font-size: 0.8rem; color: var(--text-muted); text-align:center;">Foydalanuvchilar kelib tushgan murojaatlari va tizimdagi barcha natijalardan xabardor bo'lish paneli.</p>
             
-            <h4 style="margin-top:10px; color: var(--amber-main);">📥 Kelib tushgan foydalanuvchi xabarlari:</h4>
-            <div style="overflow-x:auto; max-height:180px; overflow-y:auto; margin-bottom:10px;">
+            <h4 style="margin-top:10px; color: var(--emerald-main);">📤 Yangi PDF Darslik yuklash:</h4>
+            <div class="form-group" style="margin-top:6px;">
+                <label>Darslik nomi (Masalan: 6-sinf Geografiya):</label>
+                <input type="text" id="adminBookTitle" placeholder="Darslik nomini kiriting">
+            </div>
+            <div class="form-group">
+                <label>Darslik qisqacha tavsifi:</label>
+                <input type="text" id="adminBookDesc" placeholder="Qisqacha mazmuni">
+            </div>
+            <div class="form-group">
+                <label>PDF faylni tanlang:</label>
+                <input type="file" id="adminBookFile" accept="application/pdf" style="background:#090d16; padding:8px;">
+            </div>
+            <button class="btn btn-emerald" onclick="uploadAdminBook()">Darslikni yuklash va qo'shish</button>
+
+            <h4 style="margin-top:15px; color: var(--amber-main);">📥 Kelib tushgan murojaatlar va javob berish:</h4>
+            <div style="overflow-x:auto; max-height:220px; overflow-y:auto; margin-bottom:10px;">
                 <table>
-                    <thead><tr><th>Kimdan</th><th>Mavzu</th><th>Xabar</th><th>Sana</th></tr></thead>
+                    <thead><tr><th>Kimdan</th><th>Mavzu va Xabar</th><th>Javob yozish</th></tr></thead>
                     <tbody id="adminSupportMessagesTable"></tbody>
                 </table>
             </div>
@@ -349,14 +345,6 @@
                 <table>
                     <thead><tr><th>Ism</th><th>Tel</th><th>Login</th><th>Parol</th><th>Amal</th></tr></thead>
                     <tbody id="adminUsersTable"></tbody>
-                </table>
-            </div>
-
-            <h4 style="margin-top:15px;">Barcha foydalanuvchilarning imtihon tarixi:</h4>
-            <div style="overflow-x:auto; max-height:150px; overflow-y:auto;">
-                <table>
-                    <thead><tr><th>Foydalanuvchi</th><th>Bo'lim</th><th>Natija</th><th>Sana</th></tr></thead>
-                    <tbody id="adminAllHistoriesTable"></tbody>
                 </table>
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()" style="margin-top:10px;">Orqaga</button>
@@ -373,12 +361,7 @@
             { q: "Quyosh radiatsiyasining yillik umumiy miqdori eng yuqori bo'lgan ma'muriy hudud:", right: "Surxondaryo viloyati (Termiz, Sherobod)", wr: ["Toshkent shahri va viloyati", "Qoraqalpog'iston Respublikasi (Nukus)", "Andijon viloyati"] },
             { q: "O'zbekistondagi eng past absolut balandlikka ega bo'lgan botiq va uning ko'rsatkichi:", right: "Mingbuloq botiq (-12 metr)", wr: ["Dengizko'l botig'i (-25 metr)", "Sariqamish ko'li (-5 metr)", "Aydarko'l botig'i (+247 metr)"] },
             { q: "Dunyodagi eng uzun tog' tizmasi bo'lmish And tog'lari qaysi materikda joylashgan?", right: "Janubiy Amerika", wr: ["Shimoliy Amerika", "Yevroosiyo", "Afrika"] },
-            { q: "Afrika qit'asining eng baland nuqtasi hisoblangan Kilimanjaro vulqoni qaysi davlatda?", right: "Tanzaniya", wr: ["Keniya", "Efiopiya", "Janubiy Afrika Respublikasi"] },
-            { q: "Yer yuzidagi eng chuqur tektonik ko'sh, dunyo chuchuk suv zaxirasining katta qismi joylashgan ko'l:", right: "Baykal ko'li", wr: ["Kaspiy dengizi", "Tanganika ko'li", "Yuqori ko'l"] },
-            { q: "O'zbekistondagi eng yirik muzlik hisoblangan Seversov muzligi qaysi tog' tizmasida joylashgan?", right: "Tiyon-Shon (Talas Olatovi)", wr: ["Hisor tizmasi", "Zarafshon tizmasi", "Pomir-Oloy"] },
-            { q: "Dunyodagi eng katta orol bo'lgan Grenlandiya qaysi davlat tarkibiga kiradi?", right: "Daniya (muxtor hudud)", wr: ["Kanada", "Norvegiya", "Buyuk Britaniya"] },
-            { q: "Xalqaro vaqt mintaqalari tizimiga ko'ra Yer sharida nechta asosiy vaqt mintaqasi mavjud?", right: "24 ta", wr: ["12 ta", "36 ta", "18 ta"] },
-            { q: "O'zbekiston Respublikasining umumiy maydoni ma'lumotlarga ko'ra qanchaga teng?", right: "448.9 ming kvadrat kilometr", wr: ["500.5 ming kv.km", "410.2 ming kv.km", "380.0 ming kv.km"] }
+            { q: "Afrika qit'asining eng baland nuqtasi hisoblangan Kilimanjaro vulqoni qaysi davlatda?", right: "Tanzaniya", wr: ["Keniya", "Efiopiya", "Janubiy Afrika Respublikasi"] }
         ];
 
         function generateCustomQuiz(count) {
@@ -415,6 +398,16 @@
             localStorage.setItem('geo_sys_users', JSON.stringify(appUsers));
         }
 
+        let appBooks = JSON.parse(localStorage.getItem('geo_sys_books') || 'null');
+        if (!appBooks) {
+            appBooks = [
+                { title: "6-sinf Tabiiy Geografiya (PDF)", desc: "Boshlang'ich geografiya kursi darsligi", url: "https://library.ziyonet.uz/uz/book/download/95311" },
+                { title: "7-sinf Materiklar va Okeanlar (PDF)", desc: "Qit'alar va okeanlar tabiati", url: "https://library.ziyonet.uz/uz/book/download/95312" },
+                { title: "8-sinf O'zbekiston Geografiyasi (PDF)", desc: "O'zbekiston Respublikasining tabiiy sharoiti", url: "https://library.ziyonet.uz/uz/book/download/95313" }
+            ];
+            localStorage.setItem('geo_sys_books', JSON.stringify(appBooks));
+        }
+
         let currentUser = JSON.parse(localStorage.getItem('geo_sys_logged') || 'null');
         let currentQuizQuestions = [], userAnswers = {}, currentQIndex = 0;
         let timerInterval = null, totalSeconds = 0, spentSeconds = 0, activeModeName = '';
@@ -444,7 +437,7 @@
 
             let users = JSON.parse(localStorage.getItem('geo_sys_users') || '[]');
             if (users.some(u => u.login === login)) {
-                alert("❌ Bu login band! Boshqa login kiriting.");
+                alert("❌ Bu login band!");
                 return;
             }
 
@@ -454,7 +447,7 @@
 
             currentUser = newUser;
             localStorage.setItem('geo_sys_logged', JSON.stringify(currentUser));
-            alert("✅ Ro'yxatdan muvaffaqiyatli o'tdingiz!");
+            alert("✅ Ro'yxatdan o'tdingiz!");
             showMainMenu();
         }
 
@@ -506,34 +499,93 @@
         function showBooksSection() {
             hideAll();
             document.getElementById('booksSection').classList.remove('hidden');
+            let books = JSON.parse(localStorage.getItem('geo_sys_books') || '[]');
+            let container = document.getElementById('dynamicBooksContainer');
+            container.innerHTML = '';
+            books.forEach(b => {
+                container.innerHTML += `
+                    <a href="${b.url}" target="_blank" class="section-card" style="border-color: var(--emerald-main);">
+                        <div class="section-title">📄 ${b.title}</div>
+                        <div class="section-desc">${b.desc}</div>
+                    </a>
+                `;
+            });
+        }
+
+        function uploadAdminBook() {
+            let title = document.getElementById('adminBookTitle').value.trim();
+            let desc = document.getElementById('adminBookDesc').value.trim();
+            let fileInput = document.getElementById('adminBookFile');
+
+            if (!title || !fileInput.files[0]) {
+                alert("Iltimos, darslik nomi va PDF faylini kiriting!");
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                let base64Pdf = e.target.result;
+                let books = JSON.parse(localStorage.getItem('geo_sys_books') || '[]');
+                books.push({ title: title, desc: desc || "Yaratuvchi yuklagan PDF darslik", url: base64Pdf });
+                localStorage.setItem('geo_sys_books', JSON.stringify(books));
+                alert("✅ Yangi PDF darslik muvaffaqiyatli yuklandi!");
+                document.getElementById('adminBookTitle').value = '';
+                document.getElementById('adminBookDesc').value = '';
+                fileInput.value = '';
+                showAdminPanel();
+            };
+            reader.readAsDataURL(file);
         }
 
         function showSupportSection() {
             hideAll();
             document.getElementById('supportSection').classList.remove('hidden');
+            renderUserMessages();
         }
 
         function sendSupportMessage() {
             let subj = document.getElementById('supportSubject').value.trim();
             let msg = document.getElementById('supportMessage').value.trim();
             if (!subj || !msg) {
-                alert("Iltimos, mavzu va xabar matnini to'liq kiriting!");
+                alert("Iltimos, mavzu va xabarni to'ldiring!");
                 return;
             }
 
             let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]');
             messages.push({
+                id: Date.now(),
                 name: currentUser.name,
                 phone: currentUser.phone,
                 subject: subj,
                 message: msg,
+                reply: "",
                 date: new Date().toLocaleDateString() + ' ' + new Date().toLocaleTimeString()
             });
             localStorage.setItem('geo_sys_messages', JSON.stringify(messages));
-            alert("✅ Xabaringiz muvaffaqiyatli ravishda yaratuvchi Nurmataliyev Muzaffarga yuborildi!");
+            alert("✅ Xabaringiz yaratuvchiga yuborildi!");
             document.getElementById('supportSubject').value = '';
             document.getElementById('supportMessage').value = '';
-            showMainMenu();
+            renderUserMessages();
+        }
+
+        function renderUserMessages() {
+            let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]').filter(m => m.phone === currentUser.phone);
+            let box = document.getElementById('userMessagesHistoryBox');
+            box.innerHTML = '';
+            if (messages.length === 0) {
+                box.innerHTML = `<div style="font-size:0.82rem; color:var(--text-muted); text-align:center;">Hozircha xabarlaringiz yo'q</div>`;
+                return;
+            }
+            messages.reverse().forEach(m => {
+                box.innerHTML += `
+                    <div style="background:#090d16; border:1px solid var(--border-color); border-radius:10px; padding:10px;">
+                        <div style="font-size:0.8rem; color:var(--text-muted);">Mavzu: <strong>${m.subject}</strong> (${m.date})</div>
+                        <div style="font-size:0.88rem; margin-top:2px;">Siz: ${m.message}</div>
+                        ${m.reply ? `<div style="margin-top:6px; background:rgba(245, 158, 11, 0.1); border-left:3px solid var(--amber-main); padding:6px; font-size:0.85rem; color:#fde047;"><strong>Yaratuvchi (Nurmataliyev Muzaffar) javobi:</strong> ${m.reply}</div>` : `<div style="margin-top:4px; font-size:0.75rem; color:var(--rose-main);">Hozircha javob berilmadi...</div>`}
+                    </div>
+                `;
+            });
         }
 
         function showAiCreatorSection() {
@@ -545,7 +597,7 @@
             let topic = document.getElementById('aiTopicInput').value.trim();
             let count = parseInt(document.getElementById('aiCountInput').value) || 5;
             if (!topic) {
-                alert("Iltimos, mavzu yoki shart kiriting!");
+                alert("Iltimos, mavzu kiriting!");
                 return;
             }
             activeModeName = `AI Test: ${topic.substring(0, 20)}...`;
@@ -778,10 +830,20 @@
             let msgTbody = document.getElementById('adminSupportMessagesTable');
             msgTbody.innerHTML = '';
             if(messages.length === 0) {
-                msgTbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:var(--text-muted);">Hozircha xabarlar yo'q</td></tr>`;
+                msgTbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted);">Hozircha murojaatlar yo'q</td></tr>`;
             } else {
-                messages.reverse().forEach(m => {
-                    msgTbody.innerHTML += `<tr><td><strong>${m.name}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${m.phone}</span></td><td>${m.subject}</td><td>${m.message}</td><td>${m.date}</td></tr>`;
+                messages.reverse().forEach((m, idx) => {
+                    let originalIndex = messages.length - 1 - idx;
+                    msgTbody.innerHTML += `
+                        <tr>
+                            <td><strong>${m.name}</strong><br><span style="font-size:0.75rem; color:var(--text-muted);">${m.phone}</span></td>
+                            <td><strong>${m.subject}:</strong> ${m.message}<br><span style="font-size:0.75rem; color:var(--amber-main);">Javob: ${m.reply || 'Hozircha yo\'q'}</span></td>
+                            <td>
+                                <input type="text" id="replyInput_${originalIndex}" placeholder="Javob yozing..." style="padding:6px; font-size:0.8rem; width:130px; margin-bottom:4px;"><br>
+                                <button onclick="sendAdminReply(${originalIndex})" style="background:var(--emerald-main); color:white; border:none; padding:4px 8px; border-radius:6px; cursor:pointer; font-weight:600; font-size:0.78rem;">Javob yuborish</button>
+                            </td>
+                        </tr>
+                    `;
                 });
             }
 
@@ -800,13 +862,19 @@
                     </tr>
                 `;
             });
+        }
 
-            let histories = JSON.parse(localStorage.getItem('geo_sys_histories') || '[]');
-            let hTbody = document.getElementById('adminAllHistoriesTable');
-            hTbody.innerHTML = '';
-            histories.reverse().forEach(x => {
-                hTbody.innerHTML += `<tr><td><strong>${x.name}</strong></td><td>${x.mode}</td><td>${x.score}/${x.total} (${x.percent}%)</td><td>${x.date}</td></tr>`;
-            });
+        function sendAdminReply(msgIndex) {
+            let replyText = document.getElementById(`replyInput_${msgIndex}`).value.trim();
+            if (!replyText) {
+                alert("Iltimos, javob matnini kiriting!");
+                return;
+            }
+            let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]');
+            messages[msgIndex].reply = replyText;
+            localStorage.setItem('geo_sys_messages', JSON.stringify(messages));
+            alert("✅ Murojaatga javob muvaffaqiyatli yuborildi!");
+            showAdminPanel();
         }
 
         function deleteUser(index) {
