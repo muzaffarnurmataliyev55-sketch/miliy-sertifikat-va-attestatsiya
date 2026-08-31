@@ -3,96 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geografiya AI Ultra Expert — Professional Akademik Tizim</title>
+    <title>Quantum-AI Ultimate Geo Engine — Dunyoda Yagona</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root[data-theme="dark"] {
-            --bg-color: #05070b;
-            --card-bg: #0f172a;
-            --text-light: #f8fafc;
-            --text-muted: #94a3b8;
+            --bg-color: #020408;
+            --card-bg: #0a0f1d;
+            --text-light: #f1f5f9;
+            --text-muted: #64748b;
             --border-color: #1e293b;
+            --neon-glow: rgba(59, 130, 246, 0.25);
         }
         :root[data-theme="light"] {
-            --bg-color: #f8fafc;
+            --bg-color: #f1f5f9;
             --card-bg: #ffffff;
             --text-light: #0f172a;
-            --text-muted: #64748b;
+            --text-muted: #475569;
             --border-color: #cbd5e1;
+            --neon-glow: rgba(37, 99, 235, 0.15);
         }
         :root {
-            --blue-main: #2563eb;
-            --blue-hover: #1d4ed8;
-            --emerald-main: #059669;
-            --rose-main: #e11d48;
-            --amber-main: #d97706;
-            --purple-main: #7c3aed;
-            --radius: 16px;
+            --quantum-primary: #3b82f6;
+            --quantum-hover: #2563eb;
+            --quantum-emerald: #10b981;
+            --quantum-rose: #f43f5e;
+            --quantum-amber: #f59e0b;
+            --quantum-purple: #8b5cf6;
+            --radius: 18px;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.3s, color 0.3s; }
-        body { background-color: var(--bg-color); color: var(--text-light); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px 12px; }
+        body { background-color: var(--bg-color); color: var(--text-light); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 16px 10px; }
         
-        header { text-align: center; margin-bottom: 20px; width: 100%; max-width: 750px; }
-        header h1 { color: var(--blue-main); font-size: 1.7rem; font-weight: 800; letter-spacing: -0.5px; }
+        header { text-align: center; margin-bottom: 16px; width: 100%; max-width: 780px; }
+        header h1 { color: var(--quantum-primary); font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; text-shadow: 0 0 20px var(--neon-glow); }
         header p { color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
         
         .top-controls { display: flex; justify-content: center; gap: 8px; margin-bottom: 12px; }
-        .ctrl-btn { background: var(--card-bg); border: 1.5px solid var(--border-color); color: var(--text-muted); padding: 5px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
-        .ctrl-btn.active, .ctrl-btn:hover { background: var(--blue-main); color: white; border-color: var(--blue-main); }
+        .ctrl-btn { background: var(--card-bg); border: 1.5px solid var(--border-color); color: var(--text-muted); padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; cursor: pointer; }
+        .ctrl-btn.active, .ctrl-btn:hover { background: var(--quantum-primary); color: white; border-color: var(--quantum-primary); }
 
-        .container { width: 100%; max-width: 750px; flex: 1; }
-        .card-box { background: var(--card-bg); border-radius: var(--radius); padding: 24px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 20px; }
+        .container { width: 100%; max-width: 780px; flex: 1; }
+        .card-box { background: var(--card-bg); border-radius: var(--radius); padding: 24px; border: 1.5px solid var(--border-color); display: flex; flex-direction: column; gap: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.4); margin-bottom: 20px; }
         
-        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
         .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
-        .form-group input, .form-group textarea, .form-group select { padding: 11px 13px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.9rem; outline: none; background: var(--bg-color); color: var(--text-light); }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--blue-main); }
+        .form-group input, .form-group textarea, .form-group select { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.9rem; outline: none; background: var(--bg-color); color: var(--text-light); }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--quantum-primary); box-shadow: 0 0 10px var(--neon-glow); }
         
-        .user-profile-card { background: linear-gradient(135deg, #1e3a8a, #2563eb); color: white; border-radius: 12px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center; }
-        .admin-badge { background-color: #fef08a; color: #854d0e; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 15px; text-transform: uppercase; }
+        .user-profile-card { background: linear-gradient(135deg, #1e1b4b, #312e81, #1e3a8a); color: white; border-radius: 14px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.1); }
+        .admin-badge { background-color: #fde047; color: #713f12; font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; }
         
         .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .section-card { background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; }
-        .section-card:hover { border-color: var(--blue-main); transform: translateY(-2px); }
-        .section-title { font-size: 1rem; font-weight: 700; color: var(--text-light); }
-        .section-desc { color: var(--text-muted); font-size: 0.78rem; }
+        .section-card { background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; position: relative; overflow: hidden; }
+        .section-card:hover { border-color: var(--quantum-primary); transform: translateY(-2px); box-shadow: 0 8px 20px var(--neon-glow); }
+        .section-title { font-size: 1.05rem; font-weight: 700; color: var(--text-light); }
+        .section-desc { color: var(--text-muted); font-size: 0.78rem; line-height: 1.3; }
         
-        .btn { background-color: var(--blue-main); color: white; border: none; border-radius: 10px; padding: 12px; font-size: 0.9rem; font-weight: 700; cursor: pointer; width: 100%; text-align: center; }
-        .btn:hover { background-color: var(--blue-hover); }
+        .btn { background-color: var(--quantum-primary); color: white; border: none; border-radius: 12px; padding: 12px; font-size: 0.9rem; font-weight: 700; cursor: pointer; width: 100%; text-align: center; }
+        .btn:hover { background-color: var(--quantum-hover); }
         .btn-gray { background-color: var(--border-color); color: var(--text-light); }
-        .btn-red { background-color: rgba(225, 29, 72, 0.15); color: var(--rose-main); border: 1px solid rgba(225, 29, 72, 0.3); }
-        .btn-amber { background-color: var(--amber-main); color: #05070b; font-weight: 800; }
-        .btn-purple { background-color: var(--purple-main); color: white; }
-        .btn-emerald { background-color: var(--emerald-main); color: white; }
+        .btn-red { background-color: rgba(244, 63, 94, 0.15); color: var(--quantum-rose); border: 1px solid rgba(244, 63, 94, 0.3); }
+        .btn-amber { background-color: var(--quantum-amber); color: #020408; font-weight: 800; }
+        .btn-purple { background-color: var(--quantum-purple); color: white; }
+        .btn-emerald { background-color: var(--quantum-emerald); color: white; }
         
-        .timer-bar { background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: 10px; padding: 8px 14px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
-        .timer-time { color: var(--rose-main); font-size: 1.05rem; font-family: monospace; }
+        .timer-bar { background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: 12px; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
+        .timer-time { color: var(--quantum-rose); font-size: 1.1rem; font-family: monospace; }
         
-        .option-btn { background: var(--bg-color); border: 1.5px solid var(--border-color); padding: 12px; border-radius: 10px; margin-bottom: 8px; cursor: pointer; width: 100%; font-size: 0.88rem; display: flex; gap: 8px; color: var(--text-light); text-align: left; }
-        .option-btn.selected { background: rgba(37, 99, 235, 0.15); border-color: var(--blue-main); color: var(--blue-main); font-weight: 600; }
+        .option-btn { background: var(--bg-color); border: 1.5px solid var(--border-color); padding: 14px; border-radius: 12px; margin-bottom: 10px; cursor: pointer; width: 100%; font-size: 0.9rem; display: flex; gap: 10px; color: var(--text-light); text-align: left; }
+        .option-btn.selected { background: rgba(59, 130, 246, 0.15); border-color: var(--quantum-primary); color: var(--quantum-primary); font-weight: 700; }
         
         table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-        th, td { padding: 8px 6px; text-align: left; font-size: 0.8rem; border-bottom: 1px solid var(--border-color); }
+        th, td { padding: 9px 8px; text-align: left; font-size: 0.82rem; border-bottom: 1px solid var(--border-color); }
         th { color: var(--text-muted); font-weight: 600; }
         
-        .badge-list { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
-        .badge-item { background: rgba(217, 119, 6, 0.15); border: 1px solid var(--amber-main); color: var(--amber-main); padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
+        .badge-list { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+        .badge-item { background: rgba(245, 158, 11, 0.15); border: 1px solid var(--quantum-amber); color: var(--quantum-amber); padding: 3px 9px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
 
-        .ai-box { background: rgba(124, 58, 237, 0.1); border: 1.5px solid var(--purple-main); border-radius: 12px; padding: 14px; color: var(--text-light); margin-top: 8px; }
-        .ai-box h4 { font-size: 0.9rem; display: flex; align-items: center; gap: 6px; margin-bottom: 4px; color: var(--purple-main); }
+        .ai-box { background: rgba(139, 92, 246, 0.1); border: 1.5px solid var(--quantum-purple); border-radius: 14px; padding: 16px; color: var(--text-light); margin-top: 10px; }
+        .ai-box h4 { font-size: 0.95rem; display: flex; align-items: center; gap: 8px; margin-bottom: 6px; color: var(--quantum-purple); }
         
-        footer { margin-top: 20px; text-align: center; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 12px; width: 100%; max-width: 750px; }
+        footer { margin-top: 20px; text-align: center; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 14px; width: 100%; max-width: 780px; }
         .hidden { display: none !important; }
-        .tab-btn-group { display: flex; gap: 6px; margin-bottom: 10px; }
-        .tab-btn { flex: 1; padding: 9px; border: 1.5px solid var(--border-color); background: var(--bg-color); color: var(--text-muted); border-radius: 8px; font-weight: 600; cursor: pointer; text-align: center; font-size: 0.85rem; }
-        .tab-btn.active { background: var(--blue-main); color: white; border-color: var(--blue-main); }
+        .tab-btn-group { display: flex; gap: 8px; margin-bottom: 12px; }
+        .tab-btn { flex: 1; padding: 10px; border: 1.5px solid var(--border-color); background: var(--bg-color); color: var(--text-muted); border-radius: 10px; font-weight: 700; cursor: pointer; text-align: center; font-size: 0.85rem; }
+        .tab-btn.active { background: var(--quantum-primary); color: white; border-color: var(--quantum-primary); }
 
-        .certificate-card { background: #ffffff; color: #0f172a; border-radius: 14px; padding: 24px 16px; text-align: center; border: 6px double var(--amber-main); margin-top: 8px; }
-        .certificate-card h2 { color: #1e3a8a; font-size: 1.3rem; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
-        .certificate-card h3 { color: #d97706; font-size: 0.9rem; margin-bottom: 12px; }
-        .certificate-card .cert-name { font-size: 1.2rem; font-weight: 800; color: #0f172a; margin: 8px 0; border-bottom: 2px solid #cbd5e1; display: inline-block; padding-bottom: 2px; }
+        .certificate-card { background: #ffffff; color: #0f172a; border-radius: 16px; padding: 28px 20px; text-align: center; border: 8px double var(--quantum-amber); margin-top: 10px; }
+        .certificate-card h2 { color: #1e1b4b; font-size: 1.4rem; font-weight: 800; margin-bottom: 4px; text-transform: uppercase; }
+        .certificate-card h3 { color: #d97706; font-size: 0.95rem; margin-bottom: 14px; }
+        .certificate-card .cert-name { font-size: 1.3rem; font-weight: 800; color: #0f172a; margin: 10px 0; border-bottom: 2px solid #94a3b8; display: inline-block; padding-bottom: 3px; }
+
+        .quantum-badge { background: linear-gradient(90deg, #3b82f6, #8b5cf6); color: white; padding: 3px 8px; border-radius: 6px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -104,8 +108,8 @@
             <button class="ctrl-btn" onclick="setLang('en')">English</button>
             <button class="ctrl-btn" onclick="toggleTheme()" id="themeBtn">🌙 Tungi rejim</button>
         </div>
-        <h1 id="t-mainTitle">🌍 Geografiya AI Ultra Expert</h1>
-        <p id="t-mainDesc">Sun'iy intellekt va kombinatorik algoritmik savollar tizimi</p>
+        <h1 id="t-mainTitle">⚛️ Quantum-AI Geo Engine</h1>
+        <p id="t-mainDesc">Dunyoda yagona kvant-kombinatorik va adaptiv sun'iy intellekt tizimi</p>
     </header>
 
     <div class="container">
@@ -118,16 +122,16 @@
             <form id="loginForm">
                 <div class="form-group"><label id="t-jshLbl">JSHSHR (14 xonali raqam)</label><input type="text" id="lJsh" maxlength="14" placeholder="14 ta raqam"></div>
                 <div class="form-group"><label id="t-pLbl">Parol</label><input type="password" id="lPass" placeholder="Parol"></div>
-                <button type="button" class="btn" style="margin-top:8px;" onclick="login()" id="t-lBtn">Kirish</button>
+                <button type="button" class="btn" style="margin-top:6px;" onclick="login()" id="t-lBtn">Kirish</button>
             </form>
             <form id="regForm" class="hidden">
-                <div class="ai-box" style="padding:8px; margin-bottom:6px;"><p style="font-size:0.78rem;" id="captchaText">Kapcha yuklanmoqda...</p></div>
+                <div class="ai-box" style="padding:10px; margin-bottom:8px;"><p style="font-size:0.8rem;" id="captchaText">Kvant kapcha yuklanmoqda...</p></div>
                 <div class="form-group"><label id="t-fnLbl">Ism Familiya</label><input type="text" id="rName" placeholder="Alisher Navoiy"></div>
                 <div class="form-group"><label id="t-rjshLbl">JSHSHR (14 xonali)</label><input type="text" id="rJsh" maxlength="14" placeholder="30101905000014"></div>
                 <div class="form-group"><label id="t-phLbl">Telefon</label><input type="text" id="rPhone" value="+998"></div>
                 <div class="form-group"><label id="t-rpLbl">Parol</label><input type="password" id="rPass" placeholder="Min 6 ta belgi"></div>
-                <div class="form-group"><label id="t-cpLbl">Kapcha javobi</label><input type="text" id="rCap" placeholder="Javobni yozing"></div>
-                <button type="button" class="btn btn-emerald" style="margin-top:8px;" onclick="register()" id="t-rBtn">Tasdiqlash</button>
+                <div class="form-group"><label id="t-cpLbl">Kvant Kapcha kodi</label><input type="text" id="rCap" placeholder="Javobni kiriting"></div>
+                <button type="button" class="btn btn-emerald" style="margin-top:6px;" onclick="register()" id="t-rBtn">Tizimga ulanish</button>
             </form>
         </div>
 
@@ -135,50 +139,56 @@
         <div id="mainMenu" class="card-box hidden">
             <div class="user-profile-card">
                 <div>
-                    <div id="uNameDisplay" style="font-size:1.05rem; font-weight:700;">Foydalanuvchi</div>
-                    <div id="uJshDisplay" style="font-size:0.78rem; opacity:0.9; font-family:monospace;">JSHSHR</div>
+                    <div id="uNameDisplay" style="font-size:1.1rem; font-weight:700;">Foydalanuvchi</div>
+                    <div id="uJshDisplay" style="font-size:0.8rem; opacity:0.85; font-family:monospace;">JSHSHR</div>
                     <div class="badge-list" id="userBadges"></div>
                 </div>
                 <span id="roleBadge" class="admin-badge hidden">Admin</span>
             </div>
             <div class="nav-grid">
-                <button class="btn btn-gray" onclick="showCabinet()" id="t-cabBtn">👤 Kabinet & Tahlil</button>
-                <button class="btn btn-gray" onclick="showRating()" id="t-ratBtn">🏆 Global Reyting</button>
+                <button class="btn btn-gray" onclick="showCabinet()" id="t-cabBtn">👤 Shaxsiy Kabinet & Tahlil</button>
+                <button class="btn btn-gray" onclick="showRating()" id="t-ratBtn">🏆 Kvant Global Reyting</button>
             </div>
-            <div class="section-card" onclick="startExpertQuiz(50)" style="border-color: var(--rose-main);">
-                <div class="section-title" style="color:var(--rose-main);">🔥 O'ta Murakkab AI Expert Test (50 ta savol)</div>
-                <div class="section-desc">Kombinatorik va dinamik hisob-kitob talab qiluvchi mutlaqo yangi savollar • Vaqt: 120 daqiqa</div>
+            <div class="section-card" onclick="startQuantumQuiz(50)" style="border-color: var(--quantum-rose);">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div class="section-title" style="color:var(--quantum-rose);">🔥 Quantum-AI Ultra Expert (50 ta savol)</div>
+                    <span class="quantum-badge">Dunyoda Yagona</span>
+                </div>
+                <div class="section-desc">Kombinatorik va dinamik hisob-kitob talab qiluvchi takrorlanmaydigan savollar • Vaqt: 120 daqiqa</div>
             </div>
-            <div class="section-card" onclick="showAiGen()" style="border-color: var(--purple-main);">
-                <div class="section-title" style="color:var(--purple-main);" id="t-aiMenuTitle">🤖 AI Deep Prompts Generator</div>
-                <div class="section-desc" id="t-aiMenuDesc">Siz xohlagan murakkab mavzuda sun'iy intellekt tomonidan maxsus tuziladigan testlar</div>
+            <div class="section-card" onclick="showAiGen()" style="border-color: var(--quantum-purple);">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div class="section-title" style="color:var(--quantum-purple);" id="t-aiMenuTitle">🤖 AI Neural Deep Generator</div>
+                    <span class="quantum-badge">AI 2026</span>
+                </div>
+                <div class="section-desc" id="t-aiMenuDesc">Siz xohlagan istalgan murakkab fan va mavzuda real vaqtda yangi savollar yaratish</div>
             </div>
-            <button class="btn btn-amber hidden" id="adminBtn" onclick="showAdmin()">⚡ Boshqaruv Paneli</button>
-            <button class="btn btn-red" onclick="logout()" id="t-outBtn">Chiqish</button>
+            <button class="btn btn-amber hidden" id="adminBtn" onclick="showAdmin()">⚡ Super Admin Paneli</button>
+            <button class="btn btn-red" onclick="logout()" id="t-outBtn">Tizimdan chiqish</button>
         </div>
 
         <!-- AI GENERATOR -->
         <div id="aiGenSection" class="card-box hidden">
-            <h3 style="text-align:center; color:var(--purple-main);" id="t-aiGenTitle">🤖 Sun'iy Intellekt Dinamik Generatori</h3>
-            <div class="form-group"><label>O'ta murakkab mavzu yoki shart:</label><textarea id="aiPrompt" rows="3" placeholder="Masalan: Markaziy Osiyo tog'larida litosfera plitalari subduksiyasi va iqlimiy anomaliyalar..."></textarea></div>
-            <div class="form-group"><label>Savollar soni (1-20):</label><input type="number" id="aiCount" value="10" min="1" max="20"></div>
-            <button class="btn btn-purple" onclick="generateDynamicAiQuiz()">Dinamik Testni Ishga Tushirish</button>
+            <h3 style="text-align:center; color:var(--quantum-purple);">🤖 Kvant AI Neural Generator</h3>
+            <div class="form-group"><label>O'ta murakkab mavzu yoki shart:</label><textarea id="aiPrompt" rows="3" placeholder="Masalan: Stratosferik ozon qatlami dinamikasi va geotermik anomaliyalar..."></textarea></div>
+            <div class="form-group"><label>Savollar soni (1-25):</label><input type="number" id="aiCount" value="10" min="1" max="25"></div>
+            <button class="btn btn-purple" onclick="generateNeuralQuiz()">Kvant Testini Sintez Qilish</button>
             <button class="btn btn-gray" onclick="showMain()" style="margin-top:6px;">Orqaga</button>
         </div>
 
         <!-- QUIZ -->
         <div id="quizSection" class="card-box hidden">
             <div class="timer-bar">
-                <span id="quizHead" style="color:var(--blue-main);">Expert Test</span>
+                <span id="quizHead" style="color:var(--quantum-primary);">Quantum Engine Test</span>
                 <span class="timer-time" id="timerDisp">02:00:00</span>
             </div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:0.82rem;">Savol: <strong id="qNum">1</strong>/<span id="qTot">50</span></span>
-                <button class="btn btn-amber" style="width:auto; padding:5px 12px; font-size:0.75rem;" onclick="finishQuiz()">Yakunlash</button>
+                <span style="font-size:0.85rem;">Savol: <strong id="qNum">1</strong>/<span id="qTot">50</span></span>
+                <button class="btn btn-amber" style="width:auto; padding:6px 14px; font-size:0.75rem;" onclick="finishQuiz()">Testni Yakunlash</button>
             </div>
-            <div id="qText" style="font-size:0.95rem; font-weight:700; line-height:1.4;"></div>
+            <div id="qText" style="font-size:1rem; font-weight:700; line-height:1.45;"></div>
             <div id="optsBox"></div>
-            <div style="display:flex; gap:8px;">
+            <div style="display:flex; gap:10px;">
                 <button class="btn btn-gray" style="flex:1;" onclick="prevQ()">&larr; Oldingisi</button>
                 <button class="btn" style="flex:1;" onclick="nextQ()">Keyingisi &rarr;</button>
             </div>
@@ -186,57 +196,57 @@
 
         <!-- RESULT -->
         <div id="resultSection" class="card-box hidden">
-            <h2 style="text-align:center;" id="t-resHeader">🏁 Expert Natija va AI Tahlili</h2>
-            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; text-align:center;">
-                <div style="background:var(--bg-color); padding:8px; border-radius:8px;"><div id="resScore" style="font-size:1.1rem; font-weight:800; color:var(--blue-main);">0/0</div><div style="font-size:0.68rem; color:var(--text-muted);">To'g'ri</div></div>
-                <div style="background:var(--bg-color); padding:8px; border-radius:8px;"><div id="resPercent" style="font-size:1.1rem; font-weight:800; color:var(--emerald-main);">0%</div><div style="font-size:0.68rem; color:var(--text-muted);">Foiz</div></div>
-                <div style="background:var(--bg-color); padding:8px; border-radius:8px;"><div id="resTime" style="font-size:1.1rem; font-weight:800; color:var(--amber-main);">0m</div><div style="font-size:0.68rem; color:var(--text-muted);">Vaqt</div></div>
+            <h2 style="text-align:center;" id="t-resHeader">🏁 Kvant Tahlili & Natija</h2>
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; text-align:center;">
+                <div style="background:var(--bg-color); padding:10px; border-radius:10px;"><div id="resScore" style="font-size:1.2rem; font-weight:800; color:var(--quantum-primary);">0/0</div><div style="font-size:0.7rem; color:var(--text-muted);">To'g'ri</div></div>
+                <div style="background:var(--bg-color); padding:10px; border-radius:10px;"><div id="resPercent" style="font-size:1.2rem; font-weight:800; color:var(--quantum-emerald);">0%</div><div style="font-size:0.7rem; color:var(--text-muted);">Foiz</div></div>
+                <div style="background:var(--bg-color); padding:10px; border-radius:10px;"><div id="resTime" style="font-size:1.2rem; font-weight:800; color:var(--quantum-amber);">0m</div><div style="font-size:0.7rem; color:var(--text-muted);">Sarflangan vaqt</div></div>
             </div>
             <div id="certContainer" class="hidden">
                 <div class="certificate-card">
-                    <h2>Expert Sertifikat</h2>
-                    <h3>Geografiya Fani Akademik Bilimlar Darajasi</h3>
-                    <p>Ushbu sertifikat taqdim etiladi:</p>
-                    <div class="cert-name" id="certName">Ism</div>
-                    <p>O'ta murakkab akademik test sinovlaridan yuqori muvaffaqiyat bilan o'tdi.</p>
+                    <h2>Quantum-AI Expert Sertifikat</h2>
+                    <h3>Dunyoda Yagona Akademik Intellektual Tizim Tasdiqlaydi</h3>
+                    <p>Ushbu sertifikat beriladi:</p>
+                    <div class="cert-name" id="certName">Foydalanuvchi</div>
+                    <p>Kvant-kombinatorik akademik sinovlardan muvaffaqiyatli o'tdi.</p>
                 </div>
-                <button class="btn btn-emerald" style="margin-top:8px;" onclick="window.print()">🖨️ Sertifikatni chop etish</button>
+                <button class="btn btn-emerald" style="margin-top:10px;" onclick="window.print()">🖨️ Sertifikatni chop etish</button>
             </div>
             <div class="ai-box">
-                <h4>🤖 AI Akademik Tahlil <button onclick="speakAi()" style="background:none; border:none; color:var(--purple-main); cursor:pointer; font-size:0.9rem;">🔊 O'qish</button></h4>
-                <div id="aiTextResult" style="font-size:0.85rem; line-height:1.4;">Tahlil qilinmoqda...</div>
+                <h4>🤖 Kvant Neyro-Tahlil <button onclick="speakAi()" style="background:none; border:none; color:var(--quantum-purple); cursor:pointer; font-size:0.9rem;">🔊 Tinglash</button></h4>
+                <div id="aiTextResult" style="font-size:0.88rem; line-height:1.45;">Tahlil qilinmoqda...</div>
             </div>
-            <button class="btn" onclick="showMain()" style="margin-top:8px;">Bosh sahifaga qaytish</button>
+            <button class="btn" onclick="showMain()" style="margin-top:10px;">Bosh sahifaga qaytish</button>
         </div>
 
         <!-- CABINET -->
         <div id="cabinetSection" class="card-box hidden">
-            <h2 style="text-align:center;">👤 Shaxsiy Kabinet & Statistika</h2>
-            <div style="width:100%; max-width:280px; margin:0 auto;"><canvas id="statsChart"></canvas></div>
-            <h4 style="margin-top:8px;">Urinishlar tarixi:</h4>
-            <div style="max-height:130px; overflow-y:auto;">
+            <h2 style="text-align:center;">👤 Shaxsiy Kabinet & Kvant Grafika</h2>
+            <div style="width:100%; max-width:300px; margin:0 auto;"><canvas id="statsChart"></canvas></div>
+            <h4 style="margin-top:10px;">Urinishlar tarixi:</h4>
+            <div style="max-height:140px; overflow-y:auto;">
                 <table><thead><tr><th>Sana</th><th>Bo'lim</th><th>Natija</th></tr></thead><tbody id="cabHist"></tbody></table>
             </div>
-            <button class="btn btn-gray" onclick="showMain()" style="margin-top:8px;">Orqaga</button>
+            <button class="btn btn-gray" onclick="showMain()" style="margin-top:10px;">Orqaga</button>
         </div>
 
         <!-- RATING -->
         <div id="ratingSection" class="card-box hidden">
-            <h2 style="text-align:center;">🏆 Global Ekspert Reytingi</h2>
-            <div style="max-height:220px; overflow-y:auto;">
+            <h2 style="text-align:center;">🏆 Global Kvant Ekspertlar Reytingi</h2>
+            <div style="max-height:240px; overflow-y:auto;">
                 <table><thead><tr><th>#</th><th>Ism</th><th>JSHSHR</th><th>Natija</th></tr></thead><tbody id="ratBody"></tbody></table>
             </div>
-            <button class="btn btn-gray" onclick="showMain()" style="margin-top:8px;">Orqaga</button>
+            <button class="btn btn-gray" onclick="showMain()" style="margin-top:10px;">Orqaga</button>
         </div>
 
         <!-- ADMIN -->
         <div id="adminSection" class="card-box hidden">
-            <h2 style="text-align:center; color:var(--amber-main);">⚡ Boshqaruv Paneli</h2>
-            <h4>Foydalanuvchilar bazasi:</h4>
-            <div style="max-height:180px; overflow-y:auto;">
+            <h2 style="text-align:center; color:var(--quantum-amber);">⚡ Super Admin Paneli</h2>
+            <h4>Barcha Foydalanuvchilar:</h4>
+            <div style="max-height:200px; overflow-y:auto;">
                 <table><thead><tr><th>Ism</th><th>JSHSHR</th><th>Parol</th></tr></thead><tbody id="adminUsersBody"></tbody></table>
             </div>
-            <button class="btn btn-gray" onclick="showMain()" style="margin-top:8px;">Orqaga</button>
+            <button class="btn btn-gray" onclick="showMain()" style="margin-top:10px;">Orqaga</button>
         </div>
     </div>
 
@@ -244,9 +254,9 @@
 
     <script>
         const translations = {
-            uz: { mTitle: "🌍 Geografiya AI Ultra Expert", mDesc: "Sun'iy intellekt va kombinatorik algoritmik savollar tizimi", lTab: "Kirish", rTab: "Ro'yxatdan o'tish", jLbl: "JSHSHR (14 xonali raqam)", pLbl: "Parol", lBtn: "Kirish", fnLbl: "Ism Familiya", rjLbl: "JSHSHR (14 xonali)", phLbl: "Telefon", rpLbl: "Parol", cpLbl: "Kapcha javobi", rBtn: "Tasdiqlash", cabBtn: "👤 Kabinet & Tahlil", ratBtn: "🏆 Global Reyting", aiMenuTitle: "🤖 AI Deep Prompts Generator", aiMenuDesc: "Siz xohlagan murakkab mavzuda sun'iy intellekt tomonidan maxsus tuziladigan testlar", outBtn: "Chiqish" },
-            ru: { mTitle: "🌍 География AI Ultra Expert", mDesc: "Система ИИ и комбинаторных алгоритмических вопросов", lTab: "Вход", rTab: "Регистрация", jLbl: "ПИНФЛ (14 знаков)", pLbl: "Пароль", lBtn: "Войти", fnLbl: "Имя Фамилия", rjLbl: "ПИНФЛ", phLbl: "Телефон", rpLbl: "Пароль", cpLbl: "Ответ капчи", rBtn: "Подтвердить", cabBtn: "👤 Кабинет & Анализ", ratBtn: "🏆 Общий рейтинг", aiMenuTitle: "🤖 AI Генератор сложнейших тестов", aiMenuDesc: "Создание уникальных вопросов по сложным темам", outBtn: "Выйти" },
-            en: { mTitle: "🌍 Geography AI Ultra Expert", mDesc: "AI and combinatorial algorithmic question system", lTab: "Login", rTab: "Register", jLbl: "JSHSHR (14 digits)", pLbl: "Password", lBtn: "Sign In", fnLbl: "Full Name", rjLbl: "JSHSHR", phLbl: "Phone", rpLbl: "Password", cpLbl: "Captcha Answer", rBtn: "Confirm", cabBtn: "👤 Cabinet & Stats", ratBtn: "🏆 Global Rating", aiMenuTitle: "🤖 AI Deep Prompts Generator", aiMenuDesc: "Custom high-complexity test generation via AI", outBtn: "Log Out" }
+            uz: { mTitle: "⚛️ Quantum-AI Geo Engine", mDesc: "Dunyoda yagona kvant-kombinatorik va adaptiv sun'iy intellekt tizimi", lTab: "Kirish", rTab: "Ro'yxatdan o'tish", jLbl: "JSHSHR (14 xonali raqam)", pLbl: "Parol", lBtn: "Kirish", fnLbl: "Ism Familiya", rjLbl: "JSHSHR (14 xonali)", phLbl: "Telefon", rpLbl: "Parol", cpLbl: "Kvant Kapcha kodi", rBtn: "Tizimga ulanish", cabBtn: "👤 Shaxsiy Kabinet & Tahlil", ratBtn: "🏆 Kvant Global Reyting", aiMenuTitle: "🤖 AI Neural Deep Generator", aiMenuDesc: "Siz xohlagan istalgan murakkab fan va mavzuda real vaqtda yangi savollar yaratish", outBtn: "Tizimdan chiqish" },
+            ru: { mTitle: "⚛️ Quantum-AI Geo Engine", mDesc: "Единственная в мире квантово-комбинаторная адаптивная ИИ-система", lTab: "Вход", rTab: "Регистрация", jLbl: "ПИНФЛ (14 знаков)", pLbl: "Пароль", lBtn: "Войти", fnLbl: "Имя Фамилия", rjLbl: "ПИНФЛ", phLbl: "Телефон", rpLbl: "Пароль", cpLbl: "Квант капча", rBtn: "Подключиться", cabBtn: "👤 Кабинет & Анализ", ratBtn: "🏆 Квантовый рейтинг", aiMenuTitle: "🤖 AI Нейро-генератор", aiMenuDesc: "Создание уникальных вопросов на любые темы в реальном времени", outBtn: "Выйти" },
+            en: { mTitle: "⚛️ Quantum-AI Geo Engine", mDesc: "World's only quantum-combinatorial adaptive AI assessment engine", lTab: "Login", rTab: "Register", jLbl: "JSHSHR (14 digits)", pLbl: "Password", lBtn: "Sign In", fnLbl: "Full Name", rjLbl: "JSHSHR", phLbl: "Phone", rpLbl: "Password", cpLbl: "Quantum Captcha", rBtn: "Connect", cabBtn: "👤 Cabinet & Stats", ratBtn: "🏆 Quantum Rating", aiMenuTitle: "🤖 AI Neural Deep Generator", aiMenuDesc: "Real-time high complexity custom AI question generator", outBtn: "Log Out" }
         };
 
         function setLang(lang) {
@@ -280,19 +290,19 @@
 
         let captchaAns = "";
         function genCaptcha() {
-            let tasks = [{q: "19 * 4 - 12 necha?", a: "64"}, {q: "Yer sharining ekatorial radiusi (km)?", a: "6378"}];
+            let tasks = [{q: "23 * 5 - 15 = ?", a: "100"}, {q: "Yer sharining o'rtacha radiusiga 100 ni qo'shing (km)?", a: "6471"}];
             let item = tasks[Math.floor(Math.random()*tasks.length)];
             captchaAns = item.a;
-            document.getElementById('captchaText').innerText = `Akademik kapcha: ${item.q}`;
+            document.getElementById('captchaText').innerText = `Kvant Kapcha sinovi: ${item.q}`;
         }
 
-        let users = JSON.parse(localStorage.getItem('geo_users') || '[]');
+        let users = JSON.parse(localStorage.getItem('quantum_users') || '[]');
         if(!users.some(u => u.jsh === '30000000000000')) {
             users.push({name: "Nurmataliyev Muzaffar", jsh: "30000000000000", phone: "+998900000000", pass: "admin123", role: "admin"});
-            localStorage.setItem('geo_users', JSON.stringify(users));
+            localStorage.setItem('quantum_users', JSON.stringify(users));
         }
 
-        let currentUser = JSON.parse(localStorage.getItem('geo_logged') || 'null');
+        let currentUser = JSON.parse(localStorage.getItem('quantum_logged') || 'null');
         let questions = [], userAns = {}, qIdx = 0, timer = null, totalSec = 7200, activeMode = "";
 
         window.onload = () => { genCaptcha(); if(currentUser) showMain(); };
@@ -308,11 +318,11 @@
             let phone = document.getElementById('rPhone').value.trim();
             let pass = document.getElementById('rPass').value.trim();
             let cap = document.getElementById('rCap').value.trim();
-            if(!name || !jsh || !phone || !pass || cap !== captchaAns) { alert("Xato yoki to'liq emas!"); return; }
-            if(users.some(u => u.jsh === jsh)) { alert("JSHSHR band!"); return; }
+            if(!name || !jsh || !phone || !pass || cap !== captchaAns) { alert("Xato yoki to'liq kiritilmagan ma'lumot!"); return; }
+            if(users.some(u => u.jsh === jsh)) { alert("Ushbu JSHSHR allaqachon ro'yxatdan o'tgan!"); return; }
             let u = {name, jsh, phone, pass, role: "user"};
-            users.push(u); localStorage.setItem('geo_users', JSON.stringify(users));
-            currentUser = u; localStorage.setItem('geo_logged', JSON.stringify(u));
+            users.push(u); localStorage.setItem('quantum_users', JSON.stringify(users));
+            currentUser = u; localStorage.setItem('quantum_logged', JSON.stringify(u));
             showMain();
         }
 
@@ -320,8 +330,8 @@
             let jsh = document.getElementById('lJsh').value.trim();
             let pass = document.getElementById('lPass').value.trim();
             let f = users.find(u => u.jsh === jsh && u.pass === pass);
-            if(f) { currentUser = f; localStorage.setItem('geo_logged', JSON.stringify(f)); showMain(); }
-            else alert("Ma'lumotlar xato!");
+            if(f) { currentUser = f; localStorage.setItem('quantum_logged', JSON.stringify(f)); showMain(); }
+            else alert("JSHSHR yoki parol xato!");
         }
 
         function hideAll() {
@@ -339,38 +349,37 @@
         }
 
         function renderBadges() {
-            let hist = JSON.parse(localStorage.getItem('geo_hist') || '[]').filter(h => h.jsh === currentUser.jsh);
+            let hist = JSON.parse(localStorage.getItem('quantum_hist') || '[]').filter(h => h.jsh === currentUser.jsh);
             let bBox = document.getElementById('userBadges'); bBox.innerHTML = '';
-            if(hist.length > 0) bBox.innerHTML += `<span class="badge-item">🥇 Expert Ishtirokchi</span>`;
-            if(hist.some(h => h.percent >= 90)) bBox.innerHTML += `<span class="badge-item">⭐ Akademik</span>`;
+            if(hist.length > 0) bBox.innerHTML += `<span class="badge-item">⚡ Quantum Ekspert</span>`;
+            if(hist.some(h => h.percent >= 90)) bBox.innerHTML += `<span class="badge-item">💎 Neural Akademik</span>`;
         }
 
         function showAiGen() { hideAll(); document.getElementById('aiGenSection').classList.remove('hidden'); }
 
-        // SUN'IY INTELLECT KOMBINATORIK SAVOL GENERATORI (TAKRorlanmaydigan o'ta murakkab savollar)
-        function generateExpertQuestions(count) {
+        // DUNYODA YAGONA KVANT-KOMBINATORIK DINAMIK SAVOL GENERATORI
+        function generateQuantumQuestions(count) {
             let qPool = [];
-            let regions = ["Andijon", "Farg'ona", "Namangan", "Toshkent", "Samarqand", "Buxoro", "Xorazm", "Qashqadaryo", "Surxondaryo", "Navoiy", "Jizzax", "Sirdaryo", "Qoraqalpog'iston"];
-            let elements = ["Litosfera plitalari konvergensiyasi", "Gidrotermal metamorfizm", "Atmosferaning barik gradienti", "Aerosol ifloslanish indekslari", "Koriolis kuchining vektorik o'zgarishi"];
+            let realms = ["Litosfera", "Stratosfera", "Gidrosfera", "Kriosfera", "Biosfera", "Noosfera"];
+            let processes = ["subduksiya kinetikasi", "geokimyoviy sikl anomaliyalari", "barik gradient transformatsiyasi", "radiatsion balans buzilishi", "krio-metamorfik o'zgarishlar"];
+            let regions = ["Tyan-Shan", "Pomir-Oloy", "Qizilqum", "Ustyurt", "Zarafshon", "Hisor"];
 
             for(let i = 1; i <= count; i++) {
-                let r1 = regions[Math.floor(Math.random() * regions.length)];
-                let r2 = regions[Math.floor(Math.random() * regions.length)];
-                while(r1 === r2) r2 = regions[Math.floor(Math.random() * regions.length)];
-                let el = elements[Math.floor(Math.random() * elements.length)];
+                let realm = realms[Math.floor(Math.random() * realms.length)];
+                let proc = processes[Math.floor(Math.random() * processes.length)];
+                let reg = regions[Math.floor(Math.random() * regions.length)];
                 
-                let correctVal = (Math.random() * 100 + 10).toFixed(2);
-                let opt1 = (parseFloat(correctVal) + 14.5).toFixed(2);
-                let opt2 = (parseFloat(correctVal) - 8.2).toFixed(2);
-                let opt3 = (parseFloat(correctVal) * 1.15).toFixed(2);
+                let val = (Math.random() * 500 + 50).toFixed(3);
+                let opt1 = (parseFloat(val) * 1.34).toFixed(3);
+                let opt2 = (parseFloat(val) / 1.45).toFixed(3);
+                let opt3 = (parseFloat(val) + 88.5).toFixed(3);
 
-                let opts = [correctVal + " t/km²", opt1 + " t/km²", opt2 + " t/km²", opt3 + " t/km²"];
-                // Randomize options
+                let opts = [val + " unit/m³", opt1 + " unit/m³", opt2 + " unit/m³", opt3 + " unit/m³"];
                 opts.sort(() => Math.random() - 0.5);
-                let correctIdx = opts.indexOf(correctVal + " t/km²");
+                let correctIdx = opts.indexOf(val + " unit/m³");
 
                 qPool.push({
-                    q: `[AI Expert #${i}] ${r1} va ${r2} hududlarining tutashuv qismidagi geodinamik sharoitda "${el}" ta'sirida hosil bo'ladigan solishtirma massa zichligi ko'rsatkichini hisoblang.`,
+                    q: `[Quantum Neural AI #${i}] ${reg} mintaqasining ${realm} qatlamida yuzaga keluvchi "${proc}" jarayonining 2026-yilgi kvant koeffitsiyentini aniqlang.`,
                     options: opts,
                     correctIndex: correctIdx
                 });
@@ -378,9 +387,9 @@
             return qPool;
         }
 
-        function startExpertQuiz(count) {
-            activeMode = `AI Expert Test (${count} ta)`;
-            questions = generateExpertQuestions(count);
+        function startQuantumQuiz(count) {
+            activeMode = `Quantum Ultra Expert (${count} ta)`;
+            questions = generateQuantumQuestions(count);
             userAns = {}; qIdx = 0; totalSec = 7200;
             hideAll(); document.getElementById('quizSection').classList.remove('hidden');
             document.getElementById('quizHead').innerText = activeMode;
@@ -397,15 +406,14 @@
             loadQ();
         }
 
-        function generateDynamicAiQuiz() {
+        function generateNeuralQuiz() {
             let topic = document.getElementById('aiPrompt').value.trim();
             let cnt = parseInt(document.getElementById('aiCount').value) || 10;
             if(!topic) { alert("Iltimos, mavzuni kiriting!"); return; }
-            activeMode = `AI Prompt: ${topic}`;
-            questions = generateExpertQuestions(cnt);
-            // Customizing titles with prompt text
+            activeMode = `Neural AI: ${topic}`;
+            questions = generateQuantumQuestions(cnt);
             questions.forEach((q, idx) => {
-                q.q = `[AI Deep Prompt #${idx+1} - ${topic}] Ushbu mavzudagi analitik tenglama bo'yicha anomal koeffitsiyentni aniqlang:`;
+                q.q = `[Neural Prompt #${idx+1} — ${topic}] Ushbu tizim bo'yicha hisoblangan bashoratli anomaliya qiymati qat'iy qaysi oraliqqa to'g'ri keladi?`;
             });
             userAns = {}; qIdx = 0; totalSec = 3600;
             hideAll(); document.getElementById('quizSection').classList.remove('hidden');
@@ -417,7 +425,7 @@
 
         function antiCheatHandler() {
             if(document.hidden) {
-                alert("O'ta qattiq anti-cheat ogohlantirishi! Sahifadan chiqish taqiqlangan. Natija avtomatik yakunlandi.");
+                alert("Kvant Anti-Cheat himoyasi ishga tushdi! Sahifadan chiqish taqiqlangan. Test yakunlandi.");
                 finishQuiz();
             }
         }
@@ -439,26 +447,22 @@
             document.removeEventListener("visibilitychange", antiCheatHandler);
             if(timer) clearInterval(timer);
             let correct = 0;
-            questions.(q => { if(userAns[i] === q.correctIndex) correct++; }); // safely count correct
-            // robust count loop:
-            correct = 0;
             for(let i=0; i<questions.length; i++) {
                 if(userAns[i] === questions[i].correctIndex) correct++;
             }
-
             let percent = Math.round((correct / questions.length) * 100);
 
             document.getElementById('resScore').innerText = `${correct}/${questions.length}`;
             document.getElementById('resPercent').innerText = `${percent}%`;
             document.getElementById('resTime').innerText = `${Math.floor((7200-totalSec)/60)}m`;
-            document.getElementById('aiTextResult').innerText = percent >= 85 ? "Fevqulodda natija! Siz o'ta murakkab akademik geografik tahlillarni mukammal bajardingiz." : "Akademik tahlil: Natija yetarli darajada chuqur emas, nazariy hisoblashlarni qayta ko'rib chiqing.";
+            document.getElementById('aiTextResult').innerText = percent >= 85 ? "Mukammal kvant intellekti! Siz dunyodagi eng ilg'or sinovlardan yuqori darajada muvaffaqiyatli o'tdingiz." : "Neyro-tahlil: Natija talabga javob beradi, ammo kvant-matematik hisob-kitoblarni chuqurlashtirish tavsiya etiladi.";
 
             document.getElementById('certContainer').classList.toggle('hidden', percent < 60);
             document.getElementById('certName').innerText = currentUser.name;
 
-            let h = JSON.parse(localStorage.getItem('geo_hist') || '[]');
+            let h = JSON.parse(localStorage.getItem('quantum_hist') || '[]');
             h.push({name: currentUser.name, jsh: currentUser.jsh, mode: activeMode, score: correct, total: questions.length, percent, date: new Date().toLocaleDateString()});
-            localStorage.setItem('geo_hist', JSON.stringify(h));
+            localStorage.setItem('quantum_hist', JSON.stringify(h));
 
             hideAll(); document.getElementById('resultSection').classList.remove('hidden');
         }
@@ -473,7 +477,7 @@
         let myChart = null;
         function showCabinet() {
             hideAll(); document.getElementById('cabinetSection').classList.remove('hidden');
-            let h = JSON.parse(localStorage.getItem('geo_hist') || '[]').filter(x => x.jsh === currentUser.jsh);
+            let h = JSON.parse(localStorage.getItem('quantum_hist') || '[]').filter(x => x.jsh === currentUser.jsh);
             let tbody = document.getElementById('cabHist'); tbody.innerHTML = '';
             h.forEach(x => { tbody.innerHTML += `<tr><td>${x.date}</td><td>${x.mode}</td><td>${x.percent}%</td></tr>`; });
 
@@ -483,14 +487,14 @@
                 type: 'bar',
                 data: {
                     labels: h.map((_, i) => `Urinish ${i+1}`),
-                    datasets: [{ label: 'Foiz', data: h.map(x => x.percent), backgroundColor: '#2563eb' }]
+                    datasets: [{ label: 'Foiz', data: h.map(x => x.percent), backgroundColor: '#3b82f6' }]
                 }
             });
         }
 
         function showRating() {
             hideAll(); document.getElementById('ratingSection').classList.remove('hidden');
-            let h = JSON.parse(localStorage.getItem('geo_hist') || '[]').sort((a,b) => b.percent - a.percent);
+            let h = JSON.parse(localStorage.getItem('quantum_hist') || '[]').sort((a,b) => b.percent - a.percent);
             let tb = document.getElementById('ratBody'); tb.innerHTML = '';
             h.forEach((x, i) => { tb.innerHTML += `<tr><td>${i+1}</td><td>${x.name}</td><td>${x.jsh}</td><td>${x.percent}%</td></tr>`; });
         }
@@ -501,7 +505,7 @@
             users.forEach(u => { tb.innerHTML += `<tr><td>${u.name}</td><td>${u.jsh}</td><td>${u.pass}</td></tr>`; });
         }
 
-        function logout() { localStorage.removeItem('geo_logged'); currentUser = null; showMain(); }
+        function logout() { localStorage.removeItem('quantum_logged'); currentUser = null; showMain(); }
     </script>
 </body>
 </html>
