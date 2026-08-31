@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="t-title">Geografiya AI — Professional Attestatsiya va Sertifikat Tizimi</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-    <!-- Chart.js va jsPDF kutubxonalari qo'shildi -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
             --bg-color: #090d16;
@@ -277,7 +273,7 @@
 
             <!-- SERTIFIKAT QISMI -->
             <div id="certificateContainer" class="hidden">
-                <div class="certificate-card" id="pdfCertificateArea">
+                <div class="certificate-card">
                     <h2>Sertifikat</h2>
                     <h3>Geografiya Fani Bilimlar Sifatini Baholash Tizimi</h3>
                     <p>Ushbu sertifikat quyidagi shaxsga beriladi:</p>
@@ -289,7 +285,7 @@
                         <span>Yaratuvchi: <strong>Nurmataliyev M.</strong></span>
                     </div>
                 </div>
-                <button class="btn btn-emerald" style="margin-top: 12px;" onclick="downloadPdfCertificate()">📥 Sertifikatni PDF formatida yuklab olish</button>
+                <button class="btn btn-emerald" style="margin-top: 12px;" onclick="window.print()">🖨️ Sertifikatni yuklab olish / Chop etish</button>
             </div>
 
             <div class="ai-box">
@@ -308,10 +304,6 @@
                 <div class="stat-card"><div class="val" id="cabTotalTests">0</div><div class="lbl" id="t-cabTotalTestsLbl">Jami testlar</div></div>
                 <div class="stat-card"><div class="val" id="cabAvgScore">0%</div><div class="lbl" id="t-cabAvgLbl">O'rtacha</div></div>
                 <div class="stat-card"><div class="val" id="cabBestScore">0</div><div class="lbl" id="t-cabBestLbl">Eng yuqori</div></div>
-            </div>
-            <!-- Chart.js Diagramma Qismi -->
-            <div style="background:#090d16; padding:12px; border-radius:12px; border:1px solid var(--border-color); margin-top:15px;">
-                <canvas id="userProgressChart" height="110"></canvas>
             </div>
             <h4 style="font-size: 0.95rem; margin-top: 10px;" id="t-cabHistoryTitle">Topshirilgan testlar tarixi:</h4>
             <div style="overflow-x:auto;">
@@ -338,31 +330,18 @@
         <!-- 8. ADMIN PANEL -->
         <div id="adminSection" class="card-box hidden">
             <h2 style="font-size: 1.2rem; text-align: center; color: var(--amber-main);" id="t-adminHeader">⚡ Yaratuvchi Boshqaruvi</h2>
-            
-            <!-- Yangi test qo'shish bloki -->
-            <div style="background:#090d16; border:1px solid var(--border-color); padding:12px; border-radius:12px; margin-top:10px;">
-                <h4 style="color:var(--blue-main); font-size:0.9rem; margin-bottom:8px;">➕ Yangi Test Qo'shish</h4>
-                <div class="form-group" style="margin-bottom:6px;"><input type="text" id="newAdminQ" placeholder="Savol matni..."></div>
-                <div class="form-group" style="margin-bottom:6px;"><input type="text" id="newAdminA" placeholder="A variant..."></div>
-                <div class="form-group" style="margin-bottom:6px;"><input type="text" id="newAdminB" placeholder="B variant..."></div>
-                <div class="form-group" style="margin-bottom:6px;"><input type="text" id="newAdminC" placeholder="C variant..."></div>
-                <div class="form-group" style="margin-bottom:6px;"><input type="text" id="newAdminD" placeholder="D variant..."></div>
-                <div class="form-group" style="margin-bottom:8px;">
-                    <select id="newAdminCorrect">
-                        <option value="0">To'g'ri javob: A</option>
-                        <option value="1">To'g'ri javob: B</option>
-                        <option value="2">To'g'ri javob: C</option>
-                        <option value="3">To'g'ri javob: D</option>
-                    </select>
-                </div>
-                <button class="btn btn-emerald" style="padding:8px;" onclick="addNewAdminQuestion()">Bazaga qo'shish</button>
-            </div>
-
             <h4 style="margin-top:15px; color: var(--amber-main);" id="t-adminMsgsHeader">📥 Murojaatlar va javob berish:</h4>
-            <div style="overflow-x:auto; max-height:180px; overflow-y:auto; margin-bottom:10px;">
+            <div style="overflow-x:auto; max-height:220px; overflow-y:auto; margin-bottom:10px;">
                 <table>
                     <thead><tr><th id="th-from">Kimdan</th><th id="th-msg">Xabar</th><th id="th-action">Javob yozish</th></tr></thead>
                     <tbody id="adminSupportMessagesTable"></tbody>
+                </table>
+            </div>
+            <h4 style="margin-top:10px;" id="t-adminUsersHeader">Foydalanuvchilar:</h4>
+            <div style="overflow-x:auto; max-height:150px; overflow-y:auto;">
+                <table>
+                    <thead><tr><th id="th-uName">Ism</th><th>JSHSHR</th><th id="th-uTel">Tel</th><th id="th-uPass">Parol</th><th id="th-uAct">Amal</th></tr></thead>
+                    <tbody id="adminUsersTable"></tbody>
                 </table>
             </div>
             <button class="btn btn-gray" onclick="showMainMenu()" style="margin-top:10px;" id="t-backBtn7">Orqaga</button>
@@ -642,29 +621,826 @@
             document.getElementById('t-backBtn6').innerText = t.backBtn;
             document.getElementById('t-adminHeader').innerText = t.adminHeader;
             document.getElementById('t-adminMsgsHeader').innerText = t.adminMsgsHeader;
+            document.getElementById('t-adminUsersHeader').innerText = t.adminUsersHeader;
             document.getElementById('t-backBtn7').innerText = t.backBtn;
             document.getElementById('t-footerText').innerText = t.footerText;
         }
 
-        // Test bazalarini localStorage orqali boshqarish (Admin qo'shganlar qo'shilib boradi)
-        let chapter1Questions = JSON.parse(localStorage.getItem('geo_ch1_tests')) || [
+        // 7-sinf Geografiya I-bob to'liq test bazasi (Muallif: Qambarov O.X.)
+        const chapter1Questions = [
             {
                 q: "1. «Geografiya» atamasi qaysi tilidan olingan va uning lug'aviy ma'nosi to'g'ri ko'rsatilgan qatorni toping?",
-                options: ["yunoncha «ge» - Yer, «grafo» - yozaman", "lotincha «geo» - Yer, «grafo» - yozaman", "lotincha «ge» - Yer, «grafo» - tasvirlayman", "yunoncha «geo» - Yer, «grafo» - tasvirlayman"],
+                options: [
+                    "yunoncha «ge» - Yer, «grafo» - yozaman",
+                    "lotincha «geo» - Yer, «grafo» - yozaman",
+                    "lotincha «ge» - Yer, «grafo» - tasvirlayman",
+                    "yunoncha «geo» - Yer, «grafo» - tasvirlayman"
+                ],
                 correctIndex: 3
             },
             {
                 q: "2. 1492-yilda X. Kolumb boshchiligidagi ekspeditsiya, qayerga dengiz orqali yo'l topish maqsadida sayohatga chiqadi?",
                 options: ["Xitoyga", "Amerikaga", "Hindistonga", "Afrikaga"],
                 correctIndex: 2
+            },
+            {
+                q: "3. Geografiya fani rivojlanib borgan sari unda nechta asosiy yo'nalish vujudga keldi?",
+                options: ["uchta", "ikkita", "to'rtta", "beshta"],
+                correctIndex: 1
+            },
+            {
+                q: "4. Kimlarning xaritasida \"Xorazm eli\" (I) va \"Xazaron\" (II) aks etgan?",
+                options: [
+                    "I - Beruniy, II - Xorazmiy",
+                    "I - N. Xisrav, II - Xorazmiy",
+                    "I - Beruniy, II - N. Xisrav",
+                    "I - Xorazmiy, II - Beruniy"
+                ],
+                correctIndex: 3
+            },
+            {
+                q: "5. Tabiatning nima sababdan xilma-xil ekanligi sabablarini tushuntirish bilan shug'ullanuvchi fan nomini belgilang?",
+                options: ["Iqlimshunoslik", "Geomorfologiya", "Tabiiy geografiya", "Geologiya"],
+                correctIndex: 2
+            },
+            {
+                q: "6. F. Magellan boshchiligidagi ispan ekspeditsiyasi nechanchi yillarda, dunyoni g'arbdan sharqqa tomon aylanib chiqdi?",
+                options: ["1499-1504-yillar", "1519-1522-yillar", "1519-1521-yillar", "1512-1515-yillar"],
+                correctIndex: 2
+            },
+            {
+                q: "7. Eratosfen tuzgan dunyo xaritasida tasvirlangan hududni toping.",
+                options: ["Xitoy", "Ariana", "Andalus", "Efiopiya"],
+                correctIndex: 1
+            },
+            {
+                q: "8. N. Xisrav sayohatlari aks etgan xaritadagi shaharlarni aniqlang.",
+                options: ["Bobil, Molton, Loxur", "Siyena, Asvon, Mag'rib", "Xoʻjand, Qavzin, Quddus", "Quddus, Nishopur, Bayrut"],
+                correctIndex: 3
+            },
+            {
+                q: "9. Ptolemey tuzgan xaritada daraja to'ri nechanchi graduslargacha tasvirlangan?",
+                options: [
+                    "50° shimoliy kenglikdan 20° shimoliy kenglikkacha va to'liq sharqiy yarimshar",
+                    "60° shimoliy kenglikdan 20° janubiy kenglikkacha va to'liq g'arbiy yarimshar",
+                    "50° shimoliy kenglikdan 20° shimoliy kenglikkacha va to'liq g'arbiy yarimshar",
+                    "60° shimoliy kenglikdan 20° janubiy kenglikkacha va to'liq sharqiy yarimshar"
+                ],
+                correctIndex: 3
+            },
+            {
+                q: "10. Ushbu belgi qaysi ob-havo hodisasini bildiradi?",
+                options: ["quyun", "tuman", "yomg'ir", "qat-qat bulut"],
+                correctIndex: 1
+            },
+            {
+                q: "11. Qadimgi dunyoda Yerning shakli haqidagi dastlabki tasavvurlar qanday bo'lgan?",
+                options: [
+                    "Karsimon tekislik",
+                    "Uch fil ustida turgan yassi disk shaklida",
+                    "Mukammal shar shaklida",
+                    " ellipsoid shaklida"
+                ],
+                correctIndex: 1
+            },
+            {
+                q: "12. Buyuk geografik kashfiyotlar davri qaysi asrlarni o'z ichiga oladi?",
+                options: [
+                    "XV asr o'rtalari – XVII asr o'rtalari",
+                    "XIV asr oxiri – XVI asr boshi",
+                    "XVI asr boshlari – XVIII asr oxirlari",
+                    "XIII asr – XIV asrlar"
+                ],
+                correctIndex: 0
+            },
+            {
+                q: "13. Afrikaning janubiy chekka burnini birinchi bo'lib kashf etgan dengizchi kim?",
+                options: ["Vasko da Gama", "Bartolomeu Diash", "Xristofor Kolumb", "Amerigo Vespucci"],
+                correctIndex: 1
+            },
+            {
+                q: "14. Hindistonga dengiz yo'lini ochgan portugaliyalik sayohatchini toping.",
+                options: ["Ferdinand Magellan", "Vasko da Gama", "Peskash", "Mark Polo"],
+                correctIndex: 1
+            },
+            {
+                q: "15. Okeanlarni o'rganishda qaysi xalqqa mansub dengizchilar Buyuk geografik kashfiyotlar davridan oldin ham ulkan muvaffaqiyatlarga erishgan?",
+                options: ["Rimliklar", "Finikiyaliklar", "Grekiyaliklar", "Misrliklar"],
+                correctIndex: 1
+            },
+            {
+                q: "16. Abu Rayhon Beruniy o'zining qaysi mashhur asarida Yerning radiusini aniq hisoblab chiqqan?",
+                options: ["«Qonuni Ma'sudiy»", "«Al-Qonun fi ttibb»", "«Kitob al-hind»", "«Sayohatnoma»"],
+                correctIndex: 0
+            },
+            {
+                q: "17. Dengiz sathidan balandlik ortib borgan sari havo harorati qanday o'zgaradi?",
+                options: [
+                    "Har 100 metrda 0,6°C ga pasayadi",
+                    "Har 1000 metrda 1°C ga ko'tariladi",
+                    "O'zgarmas qoladi",
+                    "Har 1 kilometrda 6°C ga ko'tariladi"
+                ],
+                correctIndex: 0
+            },
+            {
+                q: "18. Atmosfera bosimini o'lchovchi asbob qanday nomlanadi?",
+                options: ["Gigrometr", "Barometr", "Termometr", "Anemometr"],
+                correctIndex: 1
+            },
+            {
+                q: "19. Shamol yo'nalishini va tezligini aniqlashda qaysi qurilmadan foydalaniladi?",
+                options: ["Fluger", "Kompas", "Seysmograf", "Eholot"],
+                correctIndex: 0
+            },
+            {
+                q: "20. Litosfera plitalari nazariyasiga ko'ra, qit'alarning harakatlanishiga nima sabab bo'ladi?",
+                options: [
+                    "Yer osti suvlari oqimi",
+                    "Mantiya moddalarining konveksion oqimlari",
+                    "Oyding tortish kuchi",
+                    "Atmosfera bosimining o'zgarishi"
+                ],
+                correctIndex: 1
+            },
+            {
+                q: "21. Yer yuzidagi eng chuqur botqoqlik yoki okean chuqurligi qaysi?",
+                options: [" Mariana botig'i (Challenger chuqurligi)", "Sond chuqurligi", "Puerto-Riko", "Philippin chuqurligi"],
+                correctIndex: 0
+            },
+            {
+                q: "22. Dunyo okeanining asosiy qismlarini ko'rsating.",
+                options: [
+                    "Okeanlar, dengizlar, qo'ltiqlar, bo'g'ozlar",
+                    "Ko'llar, daryolar, suv omborlari",
+                    "Atmosfera, biosfera, litosfera",
+                    "Materiklar va orollar"
+                ],
+                correctIndex: 0
+            },
+            {
+                q: "23. Qaysi oqim Yer yuzidagi eng yirik sovuq oqim hisoblanadi?",
+                options: ["Golsftrim", "G'arbiy Shamollar oqimi", "Kurosio", "Gulfstrim"],
+                correctIndex: 1
+            },
+            {
+                q: "24. Yer sharining eng issiq mintaqasi qaysi?",
+                options: ["Tropik mintaqa", "Ekvatorial mintaqa", "Mo'tadil mintaqa", "Qutb mintaqasi"],
+                correctIndex: 1
+            },
+            {
+                q: "25. Shaharlar va geografik ob'ektlarning xaritadagi o'rnini topish uchun nima ishlatiladi?",
+                options: ["Geografik koordinatalar (kenglik va uzunlik)", "Absolyut balandlik", "Atmosfera bosimi", "Selsiy shkalasi"],
+                correctIndex: 0
+            },
+            {
+                q: "26. O'zbekiston hududi qaysi soat mintaqasida joylashgan?",
+                options: ["2-soat mintaqasi", "4-soat mintaqasi", "5-soat mintaqasi", "6-soat mintaqasi"],
+                correctIndex: 2
+            },
+            {
+                q: "27. Qaysi olim ilk bor Yerning sharsimon ekanligini ilmiy asoslab bergan?",
+                options: ["Pifagor", "Aristotel", "Eratosfen", "Ptolemey"],
+                correctIndex: 1
+            },
+            {
+                q: "28. Xarita masshtabi qanday turlarga bo'linadi?",
+                options: ["Raqamli, nomli, chiziqli", "Katta, o'rta, kichik", "Asosiy va yordamchi", "Geografik va geometrik"],
+                correctIndex: 0
+            },
+            {
+                q: "29. Litosfera plitalarining to'qnashgan chegaralarida nima hosil bo'ladi?",
+                options: ["Tog' tizmalari va chuqur botiqlar", "Tekisliklar va platformalar", "Daryo o'zanlari", "Quruq cho'llar"],
+                correctIndex: 0
+            },
+            {
+                q: "30. Qaysi sayohatchi birinchi bo'lib Tinch okeani orqali suzib o'tib, unga «Tinch okean» nomini bergan?",
+                options: ["Ferdinand Magellan", "Xristofor Kolumb", "Jeyms Kuk", "Vasko da Gama"],
+                correctIndex: 0
             }
         ];
 
-        let chapter2Questions = JSON.parse(localStorage.getItem('geo_ch2_tests')) || [
+        // 7-sinf II-bob to'liq test bazasi (Yangi qo'shilgan PDF dan:[span_0](start_span)[span_0](end_span))
+        const chapter2Questions = [
             {
                 q: "1. Yerga eng yaqin bo'lgan qizib yotgan yulduz nima deb ataladi?",
                 options: ["Sirius", "Oy", "Quyosh", "Qutb yulduzi"],
                 correctIndex: 2
+            },
+            {
+                q: "2. Shimoliy yarimsharda qishki Quyosh turishi kuni qachon bo'ladi?",
+                options: ["23-dekabr", "1-yanvar", "21-dekabr", "22-dekabr"],
+                correctIndex: 3
+            },
+            {
+                q: "3. Sayyoralarning yulduzlardan farqi nimada?",
+                options: ["Nur sochmasligida", "Hayotning mavjudligida", "Quyoshdan tushgan nurni qaytarishida", "A va C"],
+                correctIndex: 3
+            },
+            {
+                q: "4. Yer o'qi yo'nalishi bilan orbita tekisligi orasida hosil bo'lgan burchakni toping.",
+                options: ["66°30'", "60°33'", "66°33'", "60°30'"],
+                correctIndex: 2
+            },
+            {
+                q: "5. Oy, Yer va Quyosh osmonda bir chiziqqa kelganda qanday hodisa ro'y beradi?",
+                options: ["Quyosh tutiladi", "Oy tutiladi", "Yulduz tutiladi", "To'lin Oy bo'ladi"],
+                correctIndex: 0
+            },
+            {
+                q: "6. Yo'ldoshlari soni 67 ta bo'lgan sayyorani toping.",
+                options: ["Neptun", "Saturn", "Uran", "Yupiter"],
+                correctIndex: 3
+            },
+            {
+                q: "7. Yer yuzida ekvatordan bir xil uzoqlikda o'tgan aylana chiziqlar nima deb ataladi?",
+                options: ["meridianlar", "ekvator", "parallellar", "tropik chiziqlar"],
+                correctIndex: 2
+            },
+            {
+                q: "8. Oriyentirlash - bu...",
+                options: ["Yulduzlarni kuzatish", "Osmonda yulduzlarning o'rnini aniqlash", "O'zi turgan joyni yulduzlarga nisbatan aniqlash", "O'zi turgan joyni ufq tomonlariga nisbatan aniqlash"],
+                correctIndex: 3
+            },
+            {
+                q: "9. 21 km qaysi javobga mos keladi?",
+                options: [
+                    "Yerning qutb radiusi ekvator radiusidan 21 km ga katta",
+                    "Yerning ekvator radiusi qutb radiusidan 21 km ga katta",
+                    "Yerning markaziy radiusi qutb radiusidan 21 km ga kichik",
+                    "Bosh meridian bilan ekvator orasidagi masofa 21 km"
+                ],
+                correctIndex: 1
+            },
+            {
+                q: "10. Yevropada birinchi globusni qaysi olim yasagan?",
+                options: ["Aristotel", "M. Bexaym", "Strabon", "Ptolemey"],
+                correctIndex: 1
+            },
+            {
+                q: "11. Bugungi kunduz davomiyligi kechagidan qisqaroq va ertaga ham yana qisqaroq bo'ladi. Kunduz eng uzun bo'ladigan sana qaysi?",
+                options: ["21-iyun", "23-sentyabr", "22-iyun", "22-dekabr"],
+                correctIndex: 0
+            },
+            {
+                q: "12. Quyosh atrofida nechta sayyora aylanadi?",
+                options: ["8 ta", "9 ta", "10 ta", "7 ta"],
+                correctIndex: 0
+            },
+            {
+                q: "13. Yo'ldoshlari mavjud bo'lmagan sayyoralarni belgilang.",
+                options: ["Yupiter va Saturn", "Saturn va Mars", "Mars va Neptun", "Venera va Merkuriy"],
+                correctIndex: 3
+            },
+            {
+                q: "14. Yerning o'z joyida aylanadigan ikki nuqtasi nima deb ataladi?",
+                options: ["yer qutblari", "yerning o'qlari", "parallellar", "ekvator"],
+                correctIndex: 0
+            },
+            {
+                q: "15. Quyosh o'z o'qi atrofida necha Yer sutkasida bir marta aylanib chiqadi?",
+                options: ["28", "27", "31", "30"],
+                correctIndex: 1
+            },
+            {
+                q: "16. Bir sutka qancha vaqtni tashkil qiladi?",
+                options: ["23 soat 56 daqiqa 4 soniya", "23 soat 44 daqiqa 4 soniya", "23 soat 54 daqiqa 6 soniya", "24 soat"],
+                correctIndex: 0
+            },
+            {
+                q: "17. Nihoyatda qizib yotgan va Yerdan juda uzoqda joylashgan osmon yoritgichlari qanday nomlanadi?",
+                options: ["meteor jismlar", "kometalar", "asteroidlar", "yulduzlar"],
+                correctIndex: 3
+            },
+            {
+                q: "18. 22-iyun kuni 23,5° shimoliy kenglikda turgan insonning tush paytidagi soyasi necha daraja burchak ostida tushadi?",
+                options: ["45°", "0°", "23,5°", "90°"],
+                correctIndex: 1
+            },
+            {
+                q: "19. Yangi Oy ufqning qaysi tomonida ko'rinadi?",
+                options: [
+                    "Kechqurun, Quyosh botganda g'arb tomondan",
+                    "Kechqurun, Quyosh botganda sharq tomondan",
+                    "Ertalab, Quyosh chiqmasdan sharq tomondan",
+                    "Ertalab, Quyosh chiqmasdan g'arb tomondan"
+                ],
+                correctIndex: 0
+            },
+            {
+                q: "20. Yerning markazidan Yer yuzasigacha bo'lgan masofa ekvatorda qancha?",
+                options: ["6357 km", "6352 km", "6378 km", "6363 km"],
+                correctIndex: 2
+            },
+            {
+                q: "21. Qadimda qaysi xalq vakillari Yer yassi, gumbazsimon shaklda bo'lib, uning atrofini ulkan daryo yoki okean o'rab turadi deb tasavvur qilishgan?",
+                options: ["hindlar", "arablar", "forslar", "yunonlar"],
+                correctIndex: 0
+            },
+            {
+                q: "22. 66,5° shimoliy va 66,5° janubiy kengliklardan o'tuvchi parallel chiziqlar nima deb ataladi?",
+                options: ["qutbiy doiralar", "shimoliy tropik", "janubiy tropik", "meridianlar"],
+                correctIndex: 0
+            },
+            {
+                q: "23. Saturn sayyorasining yo'ldoshlari soni nechta?",
+                options: ["14", "67", "62", "27"],
+                correctIndex: 2
+            },
+            {
+                q: "24. Yerning tabiiy yo'ldoshi - Oy...",
+                options: ["O'zidan nur sochadi", "Quyoshdan tushgan nurni qaytaradi", "O'z o'rnini o'zgartirmaydi", "Yerga nisbatan kattaroq"],
+                correctIndex: 1
+            },
+            {
+                q: "25. Quyoshning diametri Yer diametridan necha marta katta?",
+                options: ["109 marta", "332 marta", "209 marta", "322 marta"],
+                correctIndex: 0
+            },
+            {
+                q: "26. Bugungi kunduz davomiyligi kechagidan uzunroq, ammo ertaga yana qisqaroq bo'ladi. Bugungi kunni aniqlang.",
+                options: ["23-sentyabr", "22-dekabr", "21-iyun", "21-dekabr"],
+                correctIndex: 2
+            },
+            {
+                q: "27. M. Bexaym globusida tasvirlangan materiklarni toping.",
+                options: ["Yevrosiyo va Avstraliya", "Amerika va Yevrosiyo", "Afrika va Yevrosiyo", "Avstraliya va Amerika"],
+                correctIndex: 2
+            },
+            {
+                q: "28. Suvning ko'tarilib qaytishiga Oy tortish kuchiga nisbatan Quyosh tortish kuchi qanday ta'sir qiladi?",
+                options: ["2 marta kuchli boʻladi", "o'zgarmaydi", "2 marta kuchsiz bo'ladi", "4 marta kuchli bo'ladi"],
+                correctIndex: 2
+            },
+            {
+                q: "29. Umumiy yo'ldoshlari soni 27 ta bo'lgan sayyorani toping.",
+                options: ["Uran", "Yupiter", "Mars", "Saturn"],
+                correctIndex: 0
+            },
+            {
+                q: "30. Yer ekvatorining uzunligi taxminan qancha?",
+                options: ["4000 km", "40 000 km", "39 000 km", "41 000 km"],
+                correctIndex: 1
+            },
+            {
+                q: "31. Yer uchun yorug'lik va issiqlik manbai nima?",
+                options: ["Quyosh", "Oy", "Yulduzlar", "Yer atmosferasi"],
+                correctIndex: 0
+            },
+            {
+                q: "32. Odatda kabisa yili qachon keladi?",
+                options: ["har yilda", "har 3 yilda", "har 4 yilda", "har 5 yilda"],
+                correctIndex: 2
+            },
+            {
+                q: "33. Aristotel geografiya fani rivojiga qanday hissa qo'shgan?",
+                options: [
+                    "Yerning o'lchamlarini nazariy jihatdan aniqlagan",
+                    "Olam markazida Yer turadi degan geotsentrik nazariyani ilgari surgan",
+                    "Yerning Quyosh atrofida aylanishini isbotlagan",
+                    "Yerning geografik koordinatalarini aniqlagan"
+                ],
+                correctIndex: 1
+            },
+            {
+                q: "34. 23.5° shimoliy va 23.5° janubiy kengliklardan o'tuvchi chiziqlar nima deb ataladi?",
+                options: ["izochiziqlar", "izotermalar", "qutbiy chiziqlar", "tropik chiziqlar"],
+                correctIndex: 3
+            },
+            {
+                q: "35. Oltinqoziq yulduzini topish uchun Katta Ayiq yulduz turkumidagi cho'michning chekkasidagi ikki yulduz oralig'idagi masofani necha marta qo'yib chiqish kerak bo'ladi?",
+                options: ["3", "6", "5", "4"],
+                correctIndex: 2
+            },
+            {
+                q: "36. Bosh meridian sifatida qabul qilingan meridian qaysi obyektdan o'tgan?",
+                options: ["London shahridagi Grinvich rasadxonasi", "Moskva shahridagi Kreml maydoni", "Istanbul shahridagi Sofiya ibodatxonasi", "Parij shahridagi Eyfel minorasi"],
+                correctIndex: 0
+            },
+            {
+                q: "37. Neptun sayyorasining yo'ldoshlari soni nechta?",
+                options: ["62", "12", "27", "14"],
+                correctIndex: 3
+            },
+            {
+                q: "38. Yangi Oy qanday shaklda bo'ladi?",
+                options: ["cho'michsimon", "o'roq", "yarimoy", "ovalsimon"],
+                correctIndex: 1
+            },
+            {
+                q: "39. M. Bexaym yasagan globusda nechta qit'a ko'rsatilmagan?",
+                options: ["4", "2", "3", "1"],
+                correctIndex: 1
+            },
+            {
+                q: "40. \"Oriyentirlash\" so'zi qanday ma'noni bildiradi?",
+                options: ["sharqlash", "aniqlash", "kuzatish", "chegaralayman"],
+                correctIndex: 0
+            },
+            {
+                q: "41. Yer sharida meridianlar 180°, parallellar esa 90° bilan chegaralanishining asosiy sababi qaysi javobda to'g'ri izohlangan?",
+                options: [
+                    "Yer shar shakliga ega bo'lgani uchun meridianlar qutblarni tutashtiruvchi yarim doira, parallellar esa ekvatordan qutblargacha bo'lgan masofani ifodalaydi",
+                    "Yer shar shakliga ega bo'lib, qutblar orqali o'tuvchi chiziqlar 180° ga, ekvatordan qutblargacha bo'lgan masala esa 90° ga teng bo'lgani uchun",
+                    "Meridianlar faqat shimoliy yarimsharda, parallellar esa janubiy yarimsharda joylashgani uchun",
+                    "Geografik koordinatalar tizimida uzunlik 90° gacha, kenglik esa 180° bilan chegaralangani uchun"
+                ],
+                correctIndex: 0
+            },
+            {
+                q: "42. Quyidagilardan qaysi biri yulduz turkumi hisoblanmaydi?",
+                options: ["Oltinqoziq", "Chayon", "Kichik Ayiq", "Katta Ayiq"],
+                correctIndex: 0
+            },
+            {
+                q: "43. Quruqlikdagi eng baland tog' cho'qqisini toping.",
+                options: ["Jamolungma", "Kilimanjaro", "Akonkagua", "Denali"],
+                correctIndex: 0
+            },
+            {
+                q: "44. Yerning tabiiy yo'ldoshi nima?",
+                options: ["Oy", "Quyosh", "Mars", "Oltinqoziq"],
+                correctIndex: 0
+            },
+            {
+                q: "45. Umumiy yo'ldoshlari soni 2 ta bo'lgan sayyorani toping.",
+                options: ["Venera", "Merkuriy", "Mars", "Yer"],
+                correctIndex: 2
+            },
+            {
+                q: "46. 23-sentyabr kuni ekvatorda turgan insonning tush paytidagi soyasi qanday holatda bo'ladi?",
+                options: ["45° burchak ostida", "soya bo'lmaydi", "23,5° burchak ostida", "juda uzun bo'ladi"],
+                correctIndex: 1
+            },
+            {
+                q: "47. Ufqning nechta asosiy va oraliq tomoni mavjud?",
+                options: ["4 ta", "16 ta", "12 ta", "8 ta"],
+                correctIndex: 3
+            },
+            {
+                q: "48. Yerning qutblarini tutashtiruvchi va Yer markazidan o'tuvchi to'g'ri chiziq nima deb ataladi?",
+                options: ["parallellar", "meridianlar", "yer o'qi", "ekvator"],
+                correctIndex: 2
+            },
+            {
+                q: "49. Oyning qaysi kunlari to'lin Oy davri hisoblanadi?",
+                options: ["14-15-kunlari", "12-13-kunlari", "13-14-kunlari", "15-16-kunlari"],
+                correctIndex: 0
+            },
+            {
+                q: "50. Bahorgi va kuzgi tengkunliklar qachon bo'ladi?",
+                options: ["23-mart va 21-sentyabr", "21-mart va 23-sentyabr", "22-mart va 22-sentyabr", "21-mart va 21-sentyabr"],
+                correctIndex: 1
+            },
+            {
+                q: "51. Yerning sharsimon ekanligini birinchi bo'lib qaysi olim isbotlagan?",
+                options: ["Gomer", "Eratosfen", "Strabon", "Aristotel"],
+                correctIndex: 3
+            },
+            {
+                q: "52. Yer sharida meridian bo'ylab 1º yoyning uzunligi qancha?",
+                options: ["109,3 km", "111,1 km", "109 km", "109,1 km"],
+                correctIndex: 1
+            },
+            {
+                q: "53. Yer sayyorasi o'rtacha diametriga, ya'ni kattaligiga eng yaqin va o'xshash sayyora qaysi?",
+                options: ["Mars", "Merkuriy", "Neptun", "Venera"],
+                correctIndex: 3
+            },
+            {
+                q: "54. Agar Oy doira shaklida ko'rinsa, u qanday ataladi?",
+                options: ["to'lgan Oy", "to'lin Oy", "to'liq Oy", "tugayotgan Oy"],
+                correctIndex: 1
+            },
+            {
+                q: "55. Globusda meridianlarning ekvator yonida yozib qo'yilgan darajalari yordamida nimani aniqlash mumkin?",
+                options: ["geografik uzunlikni", "masshtabni", "geografik kenglikni", "mutlaq balandlikni"],
+                correctIndex: 0
+            },
+            {
+                q: "56. Agar old tomoningiz bilan g'arbga qarab turgan bo'lsangiz, o'ng qo'lingiz ufqning qaysi tomonini ko'rsatadi?",
+                options: ["g'arb", "janub", "shimol", "sharq"],
+                correctIndex: 2
+            },
+            {
+                q: "57. Yerning qutb radiusi ekvator radiusidan necha kilometr qisqa?",
+                options: ["20 km", "21 km", "22 km", "19 km"],
+                correctIndex: 1
+            },
+            {
+                q: "58. Doim yerdagi kuzatuvchiga Oy qanday ko'rinadi?",
+                options: ["barcha qismi ko'rinadi", "yarim qismi ko'rinadi", "chorak qismi ko'rinadi", "Quyosh nuri bilan yoritilgan qismi ko'rinadi"],
+                correctIndex: 3
+            },
+            {
+                q: "59. \"Toshkent globusi\" qayerda saqlanadi?",
+                options: ["O'zbekiston Fanlar akademiyasida", "O'zbekiston Milliy universitetida", "O'zbekiston tarixi davlat muzeyida", "Samarqand davlat universitetida"],
+                correctIndex: 2
+            },
+            {
+                q: "60. Quyidagilar ichidan xato fikrni toping.",
+                options: [
+                    "Yulduzlarning sayyoralardan farqi shuki, ular o'z o'rinlarini ancha o'zgartirib turadi.",
+                    "Sayyoralar va ularning yo'ldoshlari, asosan, bir xil moddalardan tuzilgan.",
+                    "Oy Yer atrofini deyarli bir oyda bir marta aylanib chiqadi.",
+                    "Yangi Oy kechqurun Quyosh botganda, g'arb tomonda ko'rinadi"
+                ],
+                correctIndex: 0
+            },
+            {
+                q: "61. Bugun kunduz va tun davomiyligi teng. Ertadan boshlab tun kunduzdan uzun bo'la boshlaydi. Bugungi sanani toping.",
+                options: ["22-dekabr", "22-iyun", "23-sentyabr", "22-semtabr"],
+                correctIndex: 2
+            },
+            {
+                q: "62. Oy tutilishi qaysi davrda sodir bo'ladi?",
+                options: ["yangi oy davrida", "to'lin oy davrida", "eski oy davrida", "tugayotgan oy davrida"],
+                correctIndex: 1
+            },
+            {
+                q: "63. Yer va Merkuriy sayyoralari orasidagi o'rtacha masofani toping.",
+                options: ["98 mln km", "48 mln km", "92 mln km", "42 mln km"],
+                correctIndex: 1
+            },
+            {
+                q: "64. Yer o'z o'qi atrofida qanday yo'nalishda aylanadi?",
+                options: ["Sharqdan g'arbga tomon", "G'arbdan sharqqa tomon", "Shimoldan janubga tomon", "Janubdan shimolga tomon"],
+                correctIndex: 1
+            },
+            {
+                q: "65. Yerning kichraytirilgan shakli nima deb ataladi?",
+                options: ["Globus", "Xarita", "Joy plani", "Atlas"],
+                correctIndex: 0
+            },
+            {
+                q: "66. Ekvatordan qutblarga tomon borgan sari parallellarning uzunligi qanday o'zgaradi?",
+                options: ["saqlanadi", "o'zgarmaydi", "qisqaradi", "kengayadi"],
+                correctIndex: 2
+            },
+            {
+                q: "67. Yerning o'rtacha diametridan taxminan ikki marotaba kichikroq bo'lgan sayyorani toping.",
+                options: ["Merkuriy", "Mars", "Venera", "Neptun"],
+                correctIndex: 0
+            },
+            {
+                q: "68. Soatiga 500 km tezlikda uchadigan samolyot Yerdan Quyoshgacha qanchada yetib boradi?",
+                options: ["17 yil", "8,5 yil", "5 oy", "34 yil"],
+                correctIndex: 0
+            },
+            {
+                q: "69. 22-dekabr kuni 23.5° janubiy kenglikda turgan insonning tush paytidagi soyasi necha daraja burchak ostida tushadi?",
+                options: ["23.5°", "0°", "45°", "90°"],
+                correctIndex: 1
+            },
+            {
+                q: "70. Quyosh yuzasidagi o'rtacha harorat qancha?",
+                options: ["+8000°C", "+6000°C", "+2000°C", "+4000°C"],
+                correctIndex: 1
+            },
+            {
+                q: "71. Yer yuzining umumiy maydoni qancha?",
+                options: ["561 mln km²", "361 mln km²", "480 mln km²", "510 mln km²"],
+                correctIndex: 3
+            },
+            {
+                q: "72. Neptun sayyorasi bilan Quyosh o'rtasidagi masofa qancha?",
+                options: ["4 504 mln km", "2 871 mln km", "4 405 mln km", "1 428 mln km"],
+                correctIndex: 0
+            },
+            {
+                q: "73. O'rtacha diametri 4 878 km bo'lgan sayyorani toping.",
+                options: ["Mars", "Venera", "Yer", "Merkuriy"],
+                correctIndex: 3
+            },
+            {
+                q: "74. Har doim deyarli bir joyda, ya'ni Shimoliy qutb ustida joylashgan yulduzni toping.",
+                options: ["Quyosh", "Kichik Ayiq", "Oltinqoziq", "Katta Ayiq"],
+                correctIndex: 2
+            },
+            {
+                q: "75. Yer ekvatori bilan orbita tekisligi orasida hosil bo'lgan burchakni toping.",
+                options: ["23°27'", "30°27'", "66°33'", "66° 30'"],
+                correctIndex: 0
+            },
+            {
+                q: "76. Aristotel Yerning sharsimonligini asoslash uchun qanday dalillar keltirgan?\n1. Dengizda qirg'oqqa yaqinlashib kelayotgan kemaning avval machtalari, keyin korpusining suvdan ko'tarilib chiqishi.\n2. Oy tutilishi vaqtida Yer soyasining Oy yuzasida doira shaklida ko'rinishi.\n3. Tekis va ochiq joyda balandlik oshgani sari ko'rinadigan ufqning kengayib borishi.\n4. Ko'plab yirik osmon jismlarining sharsimon shaklda bo'lishi.",
+                options: ["1, 2", "1, 2, 3, 4", "3, 4", "2, 3"],
+                correctIndex: 1
+            },
+            {
+                q: "77. Oy Yer atrofini qancha vaqtda bir marta aylanib chiqadi?",
+                options: ["bir oyda", "14-15 kunda", "bir sutkada", "bir haftada"],
+                correctIndex: 0
+            },
+            {
+                q: "78. Yer yuzida qutblardan barobar uzoqlikda joylashgan katta aylana chiziq nima deyiladi?",
+                options: ["meridianlar", "ekvator", "parallellar", "tropik chiziqlar"],
+                correctIndex: 1
+            },
+            {
+                q: "79. Qadimda Hindistonda yashagan odamlar Yerni nima ko'tarib turadi deb tasavvur qilishgan?",
+                options: ["yo'lbarslar", "nahang baliqlar", "fillar", "ho'kizlar"],
+                correctIndex: 2
+            },
+            {
+                q: "80. 66.5° shimoliy va 66.5° janubiy kengliklardan o'tuvchi chiziqlar nima deb ataladi?",
+                options: ["qutbiy doiralar", "shimoliy tropik", "qutbiy chiziq", "janubiy tropik"],
+                correctIndex: 0
+            },
+            {
+                q: "81. Quyoshdan 778 mln km uzoqlikda joylashgan sayyorani toping.",
+                options: ["Uran", "Mars", "Saturn", "Yupiter"],
+                correctIndex: 3
+            },
+            {
+                q: "82. Quyosh, Oy va Yer osmonda bir chiziqqa to'g'ri kelganda qanday hodisa ro'y beradi?",
+                options: ["Quyosh tutiladi", "Oy tutiladi", "Yulduz tutiladi", "To'lin Oy bo'ladi"],
+                correctIndex: 0
+            },
+            {
+                q: "83. Yerning markazidan Yer yuzasigacha bo'lgan masofa qutblarda qancha?",
+                options: ["6357 km", "6378 km", "6366 km", "6350 km"],
+                correctIndex: 0
+            },
+            {
+                q: "84. Quyosh sistemasidagi sayyoralar Quyoshdan uzoqlikdan yaqinlikka ko'ra to'g'ri tartibda joylashtirilgan javobni toping: 1) Yer; 2) Venera; 3) Merkuriy; 4) Yupiter; 5) Uran; 6) Neptun; 7) Mars; 8) Saturn.",
+                options: ["6, 5, 8, 4, 7, 1, 2, 3", "8, 7, 6, 5, 4, 3, 2, 1", "6, 8, 5, 4, 7, 1, 2, 3", "1, 2, 3, 4, 5, 6, 7, 8"],
+                correctIndex: 0
+            },
+            {
+                q: "85. Bugungi kunduz davomiyligi kechagidan qisqaroq, lekin ertaga undan uzunroq bo'ladi. Bugungi kunni aniqlang.",
+                options: ["21-mart", "21-dekabr", "21-iyun", "23-sentyabr"],
+                correctIndex: 1
+            },
+            {
+                q: "86. Quyoshning massasi Yer massasidan necha marta katta?",
+                options: ["332 ming", "109 ming", "270 ming", "450 ming"],
+                correctIndex: 0
+            },
+            {
+                q: "87. Yupiter sayyorasining o'rtacha diametri qancha?",
+                options: ["142 796 km", "120 000 km", "142 756 km", "140 000 km"],
+                correctIndex: 2
+            },
+            {
+                q: "88. \"Toshkent globusi\"ning o'lchamlarini aniqlang.",
+                options: [
+                    "Bo'yi 3 m, diametri 5 m, aylanasi 6 m, og'irligi 500 kg",
+                    "Bo'yi 2,5 m, diametri 3 m, aylanasi 6 m, og'irligi 490 kg",
+                    "Bo'yi 2 m, diametri 4 m, aylanasi 5 m, og'irligi 490 kg",
+                    "Bo'yi 2,5 m, diametri 2 m, aylanasi 6 m, og'irligi 490 kg"
+                ],
+                correctIndex: 3
+            },
+            {
+                q: "89. Yer sayyorasining o'rtacha diametri necha km?",
+                options: ["12 104 km", "12 576 km", "12 756 km", "12 657 km"],
+                correctIndex: 2
+            },
+            {
+                q: "90. Hozirgi vaqtda olimlar yulduzlarning kattaligi, harorati, harakati va modda tarkibini qayerda o'rganmoqda?",
+                options: ["gidrometeorologiya stansiyasida", "astronomik markazda", "observatoriyada", "meteorologiya stansiyasida"],
+                correctIndex: 2
+            },
+            {
+                q: "91. Okeandagi eng chuqur botiq nomini toping.",
+                options: ["Mariana", "Zond", "Karmadek", "Puerto-Riko"],
+                correctIndex: 0
+            },
+            {
+                q: "92. Yer sharsimon, dumaloq degan dastlabki tasavvur paydo bo'lganiga qancha vaqt bo'lgan?",
+                options: ["3500 yil", "7000 yil", "2400 yil", "3000 yil"],
+                correctIndex: 1
+            },
+            {
+                q: "93. Yer sharining ekvatorida parallel bo'ylab 1° yoyning uzunligi qancha?",
+                options: ["109,6 km", "111,1 km", "109 km", "111,3 km"],
+                correctIndex: 3
+            },
+            {
+                q: "94. Osmon yoritgichlari harakat yo'lining aylana emasligini kim birinchi bo'lib aniqlagan?",
+                options: ["Muso al-Xorazmiy", "Abu Nasr Forobiy", "Abu Rayhon Beruniy", "Ahmad al-Farg'oniy"],
+                correctIndex: 2
+            },
+            {
+                q: "95. O'rtacha diametri 52 400 km bo'lgan sayyorani toping.",
+                options: ["Saturn", "Neptun", "Uran", "Yupiter"],
+                correctIndex: 2
+            },
+            {
+                q: "96. Yer yuzida Shimoliy va Janubiy qutblarni tutashtiruvchi, Yer yuzasidan o'tgan yarim aylana chiziqlar nima deb ataladi?",
+                options: ["meridianlar", "ekvator", "parallellar", "tropik chiziqlar"],
+                correctIndex: 0
+            },
+            {
+                q: "97. Eski Oy ufqning qaysi tomonida ko'rinadi?",
+                options: [
+                    "Erta tongda, Quyosh chiqmasdan sharq tomondan",
+                    "Erta tongda, Quyosh chiqmasdan g'arb tomondan",
+                    "Kechqurun, Quyosh botganda g'arb tomondan",
+                    "Kechqurun, Quyosh botganda sharq tomondan"
+                ],
+                correctIndex: 0
+            },
+            {
+                q: "98. 21-mart kuni ekvatorda turgan insonning tush paytidagi soyasi qanday bo'ladi?",
+                options: ["Uzun soya tushadi", "23.5° burchak ostida tushadi", "Soya bo'lmaydi", "45° burchak ostida tushadi"],
+                correctIndex: 2
+            },
+            {
+                q: "99. Katta Ayiq yulduz turkumi xayolan tutashtirilsa, qanday predmetga o'xshaydi?",
+                options: ["o'roq", "qoshiq", "cho'mich", "bolta"],
+                correctIndex: 2
+            },
+            {
+                q: "100. Kimning rahbarligida ulkan \"Toshkent globusi\" yasalgan?",
+                options: ["H. Hasanov", "K. Zokirov", "I. Oshev", "H. Hay'atiy"],
+                correctIndex: 0
+            },
+            {
+                q: "101. Qadimda O'rta Osiyo xalqlari Yerni nima ko'tarib turadi deb tasavvur qilishgan?",
+                options: ["toshbaqa", "yo'lbarslar", "nahang baliqlar", "ho'kizlar"],
+                correctIndex: 3
+            },
+            {
+                q: "102. Yer Quyosh atrofini qancha vaqtda to'liq bir marta aylanib chiqadi?",
+                options: ["365 sutka 6 soat", "365 sutka", "365 sutka 5 soat", "366 sutka"],
+                correctIndex: 0
+            },
+            {
+                q: "103. Qadimda jangchilarning ko'zi o'tkirligi qaysi yulduzni ko'ra olishiga qarab aniqlangan. Ushbu yulduz qaysi yulduz turkumiga mansub?",
+                options: ["Chayon", "Katta Ayiq", "Kichik Ayiq", "Tarozu"],
+                correctIndex: 1
+            },
+            {
+                q: "104. Yerda nechta issiqlik mintaqasi mavjud?",
+                options: ["5 ta", "3 ta", "11 ta", "13 ta"],
+                correctIndex: 0
+            },
+            {
+                q: "105. M. Bexaym globusni qachon yasagan?",
+                options: ["1492-yilda", "1494-yilda", "1498-yilda", "1488-yilda"],
+                correctIndex: 0
+            },
+            {
+                q: "106. M. Bexaym globusida qaysi qit'alar tasvirlanmagan?",
+                options: ["Amerika", "barchasi tasvirlangan", "Avstraliya", "A va C"],
+                correctIndex: 3
+            },
+            {
+                q: "107. Oyning nechta asosiy ko'rinishi mavjud?",
+                options: ["8", "7", "6", "5"],
+                correctIndex: 0
+            },
+            {
+                q: "108. Globusda parallellarga bosh meridian yonida yozib qo'yilgan darajalar yordamida nimani aniqlash mumkin?",
+                options: ["geografik kenglikni", "mutlaq balandlikni", "masshtabni", "geografik uzunlikni"],
+                correctIndex: 3
+            },
+            {
+                q: "109. Shimoliy yarimsharda yozgi Quyosh turishi kuni qachon bo'ladi?",
+                options: ["21-iyun", "22-iyun", "21-iyul", "22-iyul"],
+                correctIndex: 1
+            },
+            {
+                q: "110. M. Bexaym Germaniyaning qaysi shahrida tug'ilgan?",
+                options: ["Berlin", "Myunxen", "Nyurnberg", "Gamburg"],
+                correctIndex: 2
+            },
+            {
+                q: "111. Aristotelning geografiya fani rivojiga qo'shgan asosiy hissasini aniqlang.",
+                options: [
+                    "Yerning sharsimonligini mantiqiy jihatdan isbotlagan",
+                    "Yerning geografik koordinatalarini aniqlagan",
+                    "Yerning Quyosh atrofida aylanishini isbotlagan",
+                    "Yerning o'lchamlarini nazariy jihatdan aniqlagan"
+                ],
+                correctIndex: 0
+            },
+            {
+                q: "112. Kunduzi ufq tomonlarini nimaga qarab aniqlash mumkin?",
+                options: ["Quyoshga", "Yulduzlarga", "Oyga", "Aniqlab bo'lmaydi"],
+                correctIndex: 0
+            },
+            {
+                q: "113. Yerning haqiqiy shaklini nima deb atash mumkin?",
+                options: ["geoid", "ellipsoid", "sferoid", "shar"],
+                correctIndex: 0
+            },
+            {
+                q: "114. Bugun kunduz va tun davomiyligi teng. Ertadan boshlab kunduz tunlardan uzun bo'la boshlaydi. Bugungi kunni aniqlang.",
+                options: ["21-mart", "23-sentyabr", "21-iyun", "22-mart"],
+                correctIndex: 0
+            },
+            {
+                q: "115. Quyosh va Yer orasidagi o'rtacha masofa qancha?",
+                options: ["250 mln km", "200 mln km", "150 mln km", "100 mln km"],
+                correctIndex: 2
+            },
+            {
+                q: "116. Yer qaysi faslda Quyoshga eng yaqin keladi?",
+                options: ["bahor", "yoz", "kuz", "qish"],
+                correctIndex: 3
             }
         ];
 
@@ -690,47 +1466,9 @@
         let currentUser = JSON.parse(localStorage.getItem('geo_sys_logged') || 'null');
         let currentQuizQuestions = [], userAnswers = {}, currentQIndex = 0;
         let timerInterval = null, totalSeconds = 0, spentSeconds = 0, activeModeName = '';
-        let progressChartInstance = null;
 
         window.onload = function() {
             generateAiCaptcha();
-            
-            // Telegram WebApp tekshiruvi va avtomatik kirish
-            if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe && window.Telegram.WebApp.initDataUnsafe.user) {
-                let tgUser = window.Telegram.WebApp.initDataUnsafe.user;
-                let tgJshshr = "99" + String(tgUser.id).padEnd(12, '0');
-                let foundTg = appUsers.find(u => u.jshshr === tgJshshr);
-                if (!foundTg) {
-                    foundTg = { name: (tgUser.first_name + " " + (tgUser.last_name || "")).trim(), jshshr: tgJshshr, phone: "+998901111111", pass: "tguser", role: "user" };
-                    appUsers.push(foundTg);
-                    localStorage.setItem('geo_sys_users', JSON.stringify(appUsers));
-                }
-                currentUser = foundTg;
-                localStorage.setItem('geo_sys_logged', JSON.stringify(currentUser));
-            }
-
-            // Test holatini tiklash (Localstorage timer va javoblar)
-            let savedState = JSON.parse(localStorage.getItem('geo_active_quiz_state'));
-            if (savedState && currentUser && savedState.jshshr === currentUser.jshshr) {
-                if (confirm("Sizda tugallanmagan test seans mavjud. Uni davom ettirasizmi?")) {
-                    currentQuizQuestions = savedState.questions;
-                    userAnswers = savedState.userAnswers;
-                    currentQIndex = savedState.currentQIndex;
-                    totalSeconds = savedState.totalSeconds;
-                    spentSeconds = savedState.spentSeconds;
-                    activeModeName = savedState.activeModeName;
-                    hideAll();
-                    document.getElementById('quizSection').classList.remove('hidden');
-                    document.getElementById('quizHead').innerText = activeModeName;
-                    document.getElementById('qTotal').innerText = currentQuizQuestions.length;
-                    runTimer();
-                    loadQuestion();
-                    return;
-                } else {
-                    localStorage.removeItem('geo_active_quiz_state');
-                }
-            }
-
             if (currentUser) showMainMenu();
             else switchAuthTab('login');
         };
@@ -851,7 +1589,7 @@
                     correctIndex: 0
                 });
             }
-            startQuizEngine(count, 3600);
+            startQuizEngine(count, 3600); // 1 soat = 3600 soniya
         }
 
         function startQuiz(modeName, count) {
@@ -861,7 +1599,7 @@
             } else {
                 currentQuizQuestions = [...chapter1Questions].slice(0, count);
             }
-            startQuizEngine(currentQuizQuestions.length, 3600);
+            startQuizEngine(currentQuizQuestions.length, 3600); // Har ikki rejim uchun ham 1 soat (3600 soniya)
         }
 
         function startQuizEngine(count, timeSec) {
@@ -883,22 +1621,8 @@
                 totalSeconds--;
                 spentSeconds++;
                 updateTimerText();
-                saveQuizStateToStorage();
-                if (totalSeconds <= 0) { clearInterval(timerInterval); localStorage.removeItem('geo_active_quiz_state'); finishQuiz(); }
+                if (totalSeconds <= 0) { clearInterval(timerInterval); finishQuiz(); }
             }, 1000);
-        }
-
-        function saveQuizStateToStorage() {
-            let state = {
-                jshshr: currentUser.jshshr,
-                questions: currentQuizQuestions,
-                userAnswers,
-                currentQIndex,
-                totalSeconds,
-                spentSeconds,
-                activeModeName
-            };
-            localStorage.setItem('geo_active_quiz_state', JSON.stringify(state));
         }
 
         function updateTimerText() {
@@ -914,7 +1638,7 @@
             let box = document.getElementById('optsBox');
             box.innerHTML = '';
             q.options.forEach((opt, idx) => {
-                box.innerHTML += `<div class="option-btn ${userAnswers[currentQIndex] === idx ? 'selected' : ''}" onclick="userAnswers[currentQIndex]=${idx};saveQuizStateToStorage();loadQuestion()"><strong>${['A','B','C','D'][idx]})</strong> <span>${opt}</span></div>`;
+                box.innerHTML += `<div class="option-btn ${userAnswers[currentQIndex] === idx ? 'selected' : ''}" onclick="userAnswers[currentQIndex]=${idx};loadQuestion()"><strong>${['A','B','C','D'][idx]})</strong> <span>${opt}</span></div>`;
             });
             document.getElementById('prevBtn').disabled = (currentQIndex === 0);
         }
@@ -923,7 +1647,7 @@
             if (currentQIndex < currentQuizQuestions.length - 1) { currentQIndex++; loadQuestion(); } else { confirmFinishQuiz(); }
         }
         function prevQ() { if (currentQIndex > 0) { currentQIndex--; loadQuestion(); } }
-        function confirmFinishQuiz() { if (confirm("Yakunlaysizmi?")) { localStorage.removeItem('geo_active_quiz_state'); finishQuiz(); } }
+        function confirmFinishQuiz() { if (confirm("Yakunlaysizmi?")) finishQuiz(); }
 
         function finishQuiz() {
             if (timerInterval) clearInterval(timerInterval);
@@ -962,45 +1686,6 @@
             document.getElementById('resultSection').classList.remove('hidden');
         }
 
-        // jsPDF yordamida sertifikatni PDF shaklida yuklab olish
-        function downloadPdfCertificate() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-            doc.setFillColor(245, 247, 250);
-            doc.rect(0, 0, 297, 210, "fill");
-            doc.setDrawColor(245, 158, 11);
-            doc.setLineWidth(2);
-            doc.rect(10, 10, 277, 190);
-
-            doc.setFont("Helvetica", "bold");
-            doc.setFontSize(24);
-            doc.setTextColor(30, 64, 175);
-            doc.text("SERTIFIKAT", 148, 35, { align: "center" });
-
-            doc.setFontSize(14);
-            doc.setTextColor(217, 119, 6);
-            doc.text("Geografiya Fani Bilimlar Sifatini Baholash Tizimi", 148, 48, { align: "center" });
-
-            doc.setFontSize(12);
-            doc.setTextColor(71, 85, 105);
-            doc.text("Ushbu sertifikat quyidagi shaxsga beriladi:", 148, 75, { align: "center" });
-
-            doc.setFontSize(20);
-            doc.setTextColor(15, 23, 42);
-            doc.text(currentUser.name, 148, 92, { align: "center" });
-
-            doc.setFontSize(12);
-            doc.setTextColor(71, 85, 105);
-            doc.text("7-10 sinflar testi sinovlarida muvaffaqiyatli qatnashib, yuqori natija ko'rsatgani uchun berildi.", 148, 112, { align: "center" });
-
-            doc.setFontSize(11);
-            doc.setTextColor(51, 65, 85);
-            doc.text(`Sana: ${new Date().toLocaleDateString()}`, 30, 170);
-            doc.text("Yaratuvchi: Nurmataliyev M.", 210, 170);
-
-            doc.save(`Sertifikat_${currentUser.name}.pdf`);
-        }
-
         function showCabinet() {
             hideAll();
             document.getElementById('cabinetSection').classList.remove('hidden');
@@ -1008,36 +1693,9 @@
             document.getElementById('cabTotalTests').innerText = h.length;
             document.getElementById('cabAvgScore').innerText = h.length ? Math.round(h.reduce((a,b)=>a+b.percent,0)/h.length) + '%' : '0%';
             document.getElementById('cabBestScore').innerText = h.length ? Math.max(...h.map(x=>x.score)) : 0;
-            
             let tbody = document.getElementById('cabinetHistoryTable');
             tbody.innerHTML = '';
             h.forEach(x => { tbody.innerHTML += `<tr><td>${x.date}</td><td>${x.mode}</td><td>${x.score}/${x.total} (${x.percent}%)</td><td>${x.time}</td></tr>`; });
-
-            // Chart.js Diagrammasini chizish
-            let ctx = document.getElementById('userProgressChart').getContext('2d');
-            if (progressChartInstance) progressChartInstance.destroy();
-            progressChartInstance = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: h.map((_, i) => `Test ${i+1}`),
-                    datasets: [{
-                        label: 'O'zlashtirish foizi (%)',
-                        data: h.map(x => x.percent),
-                        borderColor: '#3b82f6',
-                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                        fill: true,
-                        tension: 0.3
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: { legend: { labels: { color: '#94a3b8' } } },
-                    scales: {
-                        y: { beginAtZero: true, max: 100, ticks: { color: '#94a3b8' } },
-                        x: { ticks: { color: '#94a3b8' } }
-                    }
-                }
-            });
         }
 
         function showRating() {
@@ -1060,36 +1718,6 @@
             });
         }
 
-        // Admin tomonidan yangi test qo'shish funksiyasi
-        function addNewAdminQuestion() {
-            let qText = document.getElementById('newAdminQ').value.trim();
-            let optA = document.getElementById('newAdminA').value.trim();
-            let optB = document.getElementById('newAdminB').value.trim();
-            let optC = document.getElementById('newAdminC').value.trim();
-            let optD = document.getElementById('newAdminD').value.trim();
-            let correct = parseInt(document.getElementById('newAdminCorrect').value);
-
-            if(!qText || !optA || !optB || !optC || !optD) {
-                alert("Barcha maydonlarni to'ldiring!");
-                return;
-            }
-
-            let newObj = {
-                q: `${chapter1Questions.length + 1}. ${qText}`,
-                options: [optA, optB, optC, optD],
-                correctIndex: correct
-            };
-
-            chapter1Questions.push(newObj);
-            localStorage.setItem('geo_ch1_tests', JSON.stringify(chapter1Questions));
-            alert("Yangi test bazaga muvaffaqiyatli qo'shildi!");
-            document.getElementById('newAdminQ').value = '';
-            document.getElementById('newAdminA').value = '';
-            document.getElementById('newAdminB').value = '';
-            document.getElementById('newAdminC').value = '';
-            document.getElementById('newAdminD').value = '';
-        }
-
         function replyMsg(idx) {
             let txt = document.getElementById(`rep_${idx}`).value;
             let messages = JSON.parse(localStorage.getItem('geo_sys_messages') || '[]');
@@ -1101,7 +1729,6 @@
 
         function logout() {
             localStorage.removeItem('geo_sys_logged');
-            localStorage.removeItem('geo_active_quiz_state');
             currentUser = null;
             hideAll();
             document.getElementById('authSection').classList.remove('hidden');
