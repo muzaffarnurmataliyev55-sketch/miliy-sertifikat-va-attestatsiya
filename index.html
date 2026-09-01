@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mock Test Pro V3 — Admin & Multi-User Platform</title>
+    <title>Mock Test Pro V5 — Face Recognition & Test Platform</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -30,7 +30,6 @@
             --rose: #dc2626;
             --amber: #d97706;
             --purple: #7c3aed;
-            --cyan: #0891b2;
             --radius: 16px;
         }
 
@@ -55,23 +54,28 @@
         .stat-card .val { font-size: 1.6rem; font-weight: 800; color: var(--primary); }
         .stat-card .lbl { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
 
-        /* Auth Screen (Login & Register toggle) */
+        /* Auth Screen */
         .auth-wrapper { display: flex; align-items: center; justify-content: center; height: 100vh; width: 100vw; background: var(--bg-color); position: fixed; top: 0; left: 0; z-index: 100; }
-        .auth-card { width: 100%; max-width: 480px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 36px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 20px; text-align: center; }
-        .auth-card h1 { font-size: 1.6rem; font-weight: 800; color: var(--text-light); }
-        .auth-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.4; }
+        .auth-card { width: 100%; max-width: 500px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 36px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 18px; text-align: center; max-height: 95vh; overflow-y: auto; }
+        .auth-card h1 { font-size: 1.5rem; font-weight: 800; color: var(--text-light); }
+        .auth-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
 
         .form-group { display: flex; flex-direction: column; gap: 6px; text-align: left; }
         .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
-        .form-group input, .form-group select { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.92rem; background: var(--bg-color); color: var(--text-light); outline: none; }
-        .form-group input:focus, .form-group select:focus { border-color: var(--primary); }
+        .form-group input, .form-group textarea { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.92rem; background: var(--bg-color); color: var(--text-light); outline: none; }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
         
         .btn { background-color: var(--primary); color: white; border: none; border-radius: 12px; padding: 12px; font-size: 0.92rem; font-weight: 700; cursor: pointer; text-align: center; width: 100%; }
         .btn:hover { background-color: var(--primary-hover); }
         .btn-rose { background-color: var(--rose); }
         .btn-emerald { background-color: var(--emerald); }
 
-        /* Test Runner */
+        /* Camera Box Styles */
+        .camera-container { position: relative; width: 100%; height: 220px; background: #000; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px dashed var(--primary); }
+        video, canvas { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; }
+        .face-overlay { position: absolute; width: 120px; height: 150px; border: 2px dashed #059669; border-radius: 50%; pointer-events: none; box-shadow: 0 0 15px rgba(5,150,105,0.5); }
+
+        /* Test Runner Elements */
         .test-layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
         .question-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 16px; }
         .palette-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 14px; position: sticky; top: 90px; }
@@ -93,34 +97,33 @@
 </head>
 <body>
 
-    <!-- AUTH SCREEN (LOGIN / REGISTER) -->
+    <!-- AUTH SCREEN (ISM FAMILIYA + YUZ ORQALI KIRISH/RO'YXAT) -->
     <div id="authScreen" class="auth-wrapper">
         <div class="auth-card">
-            <div style="font-size:0.8rem; font-weight:800; color:var(--primary); text-transform:uppercase;">Mock Test Pro V3</div>
-            <h1 id="authTitle">Tizimga kirish</h1>
-            <p id="authSubtitle">Boshqaruvchi va foydalanuvchilar uchun yagona platforma.</p>
+            <div style="font-size:0.8rem; font-weight:800; color:var(--primary); text-transform:uppercase;">Mock Test Pro V5 — Face ID</div>
+            <h1 id="authTitle">Tizimga yuz orqali kirish</h1>
+            <p id="authSubtitle">Ism va familiyangizni kiriting hamda yuzingizni skanerlang.</p>
             
-            <div id="registerFields" class="hidden" style="display:flex; flex-direction:column; gap:14px;">
-                <div class="form-group">
-                    <label>F.I.Sh (To'liqism)</label>
-                    <input type="text" id="regName" placeholder="Masalan: Aliyev Bekzod">
+            <div class="form-group">
+                <label>To'liq Ism va Familiyangiz (F.I.Sh)</label>
+                <input type="text" id="authFullName" placeholder="Masalan: Aliyev Bekzod">
+            </div>
+
+            <!-- CAMERA SCANNER SECTION -->
+            <div class="form-group">
+                <label>Yuzni aniqlash kamerasi</label>
+                <div class="camera-container">
+                    <video id="webcamVideo" autoplay playsinline muted></video>
+                    <canvas id="snapshotCanvas" class="hidden"></canvas>
+                    <div class="face-overlay"></div>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>Login / Telefon / JSHSHR</label>
-                <input type="text" id="authLogin" placeholder="Loginingizni kiriting" value="admin">
+            <button class="btn btn-emerald" onclick="handleFaceAuth()">📸 Yuzni Skanerlab Kirish / Ro'yxatdan O'tish</button>
+            
+            <div style="font-size:0.78rem; color:var(--text-muted); border-top:1px solid var(--border-color); padding-top:10px;">
+                Maxsus Boshqaruvchi (Admin): Login: <code>admin</code> orqali ham kirsangiz bo'ladi.
             </div>
-            <div class="form-group">
-                <label>Parol</label>
-                <input type="password" id="authPass" placeholder="Parolni kiriting" value="admin123">
-            </div>
-
-            <button class="btn" id="authSubmitBtn" onclick="handleAuthLogin()">Kirish</button>
-            <div style="font-size:0.82rem; color:var(--text-muted); cursor:pointer;" id="authToggleText" onclick="toggleAuthMode()">
-                Akkauntingiz yo'qmi? <strong style="color:var(--primary);">Ro'yxatdan o'tish</strong>
-            </div>
-            <div style="font-size:0.75rem; color:var(--text-muted);">Boshqaruvchi: <code>admin</code> / <code>admin123</code></div>
         </div>
     </div>
 
@@ -128,10 +131,11 @@
     <aside id="appSidebar" class="hidden">
         <div>
             <div class="sidebar-brand"><span>⚡ Mock Test Pro</span></div>
-            <div class="sidebar-menu" id="sidebarMenuContainer">
+            <div class="sidebar-menu">
                 <a class="nav-link active" onclick="switchTab('dashboard', this)">📊 Dashboard</a>
                 <a class="nav-link" onclick="switchTab('tests', this)">📝 Testlar To'plami</a>
-                <a class="nav-link" onclick="switchTab('results', this)">📈 Natijalar</a>
+                <a class="nav-link" id="navCreatorTab" onclick="switchTab('creator', this)">✍️ Test Tuzish (Admin)</a>
+                <a class="nav-link" onclick="switchTab('results', this)">📈 Barcha Natijalar</a>
                 <a class="nav-link" onclick="switchTab('profile', this)">👤 Profil</a>
             </div>
         </div>
@@ -155,37 +159,42 @@
             <!-- DASHBOARD TAB -->
             <div id="tab-dashboard" class="tab-content">
                 <div class="stats-grid" style="margin-bottom: 20px;">
-                    <div class="stat-card"><span class="lbl">Jami Testlar</span><span class="val" id="statTotalTestsCount">6</span></div>
-                    <div class="stat-card"><span class="lbl">Mening Natijalarim</span><span class="val" id="statUserRes">2</span></div>
-                    <div class="stat-card"><span class="lbl">O'rtacha Ball</span><span class="val" id="statAvgScr">79%</span></div>
-                    <div class="stat-card"><span class="lbl">Tizim Foydalanuvchilari</span><span class="val" id="statTotalUsers" style="color:var(--emerald);">12</span></div>
+                    <div class="stat-card"><span class="lbl">Jami Testlar</span><span class="val" id="statTotalTests">2</span></div>
+                    <div class="stat-card"><span class="lbl">Mening Natijalarim</span><span class="val" id="statMyRes">0</span></div>
+                    <div class="stat-card"><span class="lbl">O'rtacha Ball</span><span class="val" id="statAvgScore">0%</span></div>
+                    <div class="stat-card"><span class="lbl">Foydalanuvchilar</span><span class="val" id="statUsersCount" style="color:var(--emerald);">1</span></div>
                 </div>
                 <div class="card">
-                    <h3 style="margin-bottom: 14px; font-size: 1.05rem;">So'nggi faollik dinamikasi</h3>
+                    <h3 style="margin-bottom: 14px; font-size: 1.05rem;">Faollik va o'zlashtirish grafigi</h3>
                     <div style="height: 220px;"><canvas id="mainChart"></canvas></div>
                 </div>
             </div>
 
-            <!-- TESTS TAB (Kengaytirilgan testlar ro'yxati va Admin uchun qo'shish) -->
+            <!-- TESTS TAB -->
             <div id="tab-tests" class="tab-content hidden">
-                <div class="card" style="margin-bottom:20px;" id="adminCreateCard">
-                    <h3 style="margin-bottom: 12px; color:var(--amber);">🛠️ Boshqaruvchi: Yangi Test Qo'shish</h3>
-                    <div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:10px; margin-bottom:10px;">
-                        <input type="text" id="newTestTitleInput" placeholder="Test nomi (Masalan: Matematika va mantiq)">
-                        <select id="newTestCountInput">
-                            <option value="15">15 ta savol</option>
-                            <option value="25">25 ta savol</option>
-                            <option value="35" selected>35 ta savol</option>
-                            <option value="50">50 ta savol</option>
-                        </select>
-                        <button class="btn btn-emerald" onclick="adminAddNewTest()">Qo'shish</button>
-                    </div>
-                </div>
-
                 <div class="card">
-                    <h3 style="margin-bottom: 14px;">Attestatsiya Fanlari va Testlar</h3>
-                    <div style="display:flex; flex-direction:column; gap:10px;" id="testsListContainer">
-                        <!-- Dynamically populated tests -->
+                    <h3 style="margin-bottom: 14px;">Mavjud Attestatsiya Testlari</h3>
+                    <div style="display:flex; flex-direction:column; gap:10px;" id="testsListContainer"></div>
+                </div>
+            </div>
+
+            <!-- CREATOR TAB (ADMIN TEST TUZISH) -->
+            <div id="tab-creator" class="tab-content hidden">
+                <div class="card">
+                    <h3 style="margin-bottom: 14px; color:var(--amber);">✍️ Boshqaruvchi: Yangi Test Tuzish va Joylash</h3>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:16px;">Savollarni quyidagi formatda kiriting va platformaga joylang:</p>
+                    
+                    <div style="display:flex; flex-direction:column; gap:14px;">
+                        <div class="form-group">
+                            <label>Test Nomi / Fan Yo'nalishi</label>
+                            <input type="text" id="createTestTitle" placeholder="Masalan: Informatika fanidan malaka imtihoni">
+                        </div>
+                        <div class="form-group">
+                            <label>Savollar matni va variantlar</label>
+                            <textarea id="createTestBulkData" rows="7" placeholder="1. Veb sahifa yaratish tili qaysi? | A) HTML | B) Python | C) C++ | D) Java | 0
+2. Ma'lumotlar bazasini boshqarish tizimi? | A) SQL | B) CSS | C) Photoshop | D) Windows | 0"></textarea>
+                        </div>
+                        <button class="btn btn-emerald" onclick="publishNewTest()">Testni Platformaga Joylash</button>
                     </div>
                 </div>
             </div>
@@ -193,12 +202,10 @@
             <!-- RESULTS TAB -->
             <div id="tab-results" class="tab-content hidden">
                 <div class="card">
-                    <h3 style="margin-bottom: 14px;">Barcha topshirilgan test natijalari</h3>
+                    <h3 style="margin-bottom: 14px;">Barcha foydalanuvchilar natijalari</h3>
                     <table>
                         <thead><tr><th>Foydalanuvchi</th><th>Test nomi</th><th>Natija</th><th>Foiz</th><th>Sana</th></tr></thead>
-                        <tbody id="allResultsTableBody">
-                            <tr><td>Nurmataliyev Muzaffar</td><td>Geografiya fanidan malaka imtihoni</td><td>30/35</td><td><span class="badge">86%</span></td><td>2026-03-26</td></tr>
-                        </tbody>
+                        <tbody id="allResultsTableBody"></tbody>
                     </table>
                 </div>
             </div>
@@ -206,13 +213,14 @@
             <!-- PROFILE TAB -->
             <div id="tab-profile" class="tab-content hidden">
                 <div class="card" style="display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center;">
-                    <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--purple)); color:white; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:800;" id="profileAvatarText">NM</div>
-                    <h2 id="profileFullName">Nurmataliyev Muzaffar</h2>
-                    <p style="color:var(--text-muted); font-size:0.85rem;" id="profileRoleText">Rol: Boshqaruvchi (Admin)</p>
+                    <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--purple)); color:white; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:800;" id="profileAvatar">NM</div>
+                    <h2 id="profileName">Nurmataliyev Muzaffar</h2>
+                    <p style="color:var(--text-muted); font-size:0.85rem;" id="profileSub">Foydalanuvchi (Face ID orqali tasdiqlangan)</p>
+                    <button class="btn btn-rose" style="width:auto; padding:10px 20px; margin-top:10px;" onclick="logout()">Tizimdan chiqish</button>
                 </div>
             </div>
 
-            <!-- ACTIVE TEST WORKSPACE -->
+            <!-- ACTIVE TEST RUNNER -->
             <div id="activeTestWorkspace" class="tab-content hidden">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; background:var(--card-bg); padding:12px 20px; border-radius:12px; border:1px solid var(--border-color);">
                     <div id="activeTestName" style="font-weight:700; color:var(--primary);">Test sinovi</div>
@@ -222,8 +230,8 @@
                 <div class="test-layout">
                     <div class="question-box">
                         <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:var(--text-muted);">
-                            <span>Savol <strong id="currQNum">1</strong> / <span id="totalQNum">35</span></span>
-                            <span>Attestatsiya Mock Test V3</span>
+                            <span>Savol <strong id="currQNum">1</strong> / <span id="totalQNum">2</span></span>
+                            <span>Face ID Test System</span>
                         </div>
                         <div id="questionText" style="font-size:1rem; font-weight:700; line-height:1.5;">Savol yuklanmoqda...</div>
                         <div id="optionsContainer" style="display:flex; flex-direction:column; gap:10px; margin-top:10px;"></div>
@@ -237,7 +245,7 @@
                     <div class="palette-box">
                         <div style="font-size:0.85rem; font-weight:700;">Savollar jadvali</div>
                         <div class="palette-grid" id="paletteGrid"></div>
-                        <button class="btn btn-emerald" style="margin-top:10px;" onclick="finishTest()">Testni yakunlash</button>
+                        <button class="btn btn-emerald" style="margin-top:10px;" onclick="finishActiveTest()">Testni yakunlash</button>
                     </div>
                 </div>
             </div>
@@ -245,10 +253,10 @@
             <!-- RESULT SCREEN -->
             <div id="testResultWorkspace" class="tab-content hidden">
                 <div class="card" style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:16px; padding:40px;">
-                    <h2 style="color:var(--emerald);">🎉 Test muvaffaqiyatli yakunlandi!</h2>
-                    <div style="font-size:3rem; font-weight:800; color:var(--primary);" id="resScoreVal">86%</div>
-                    <p style="color:var(--text-muted);" id="resDetailsText">To'g'ri javoblar: 30 / 35</p>
-                    <button class="btn" style="max-width:250px;" onclick="switchTab('dashboard', document.querySelector('.sidebar-menu .nav-link'))">Bosh sahifaga qaytish</button>
+                    <h2 style="color:var(--emerald);">🎉 Test yakunlandi!</h2>
+                    <div style="font-size:3rem; font-weight:800; color:var(--primary);" id="resScoreVal">100%</div>
+                    <p style="color:var(--text-muted);" id="resDetailsText">Natija: 2 / 2</p>
+                    <button class="btn" style="max-width:250px;" onclick="switchTab('dashboard', document.querySelector('.sidebar-menu .nav-link'))">Asosiy panelga qaytish</button>
                 </div>
             </div>
 
@@ -256,74 +264,109 @@
     </main>
 
     <script>
-        // Database initialization with multiple comprehensive tests
-        let dbTests = JSON.parse(localStorage.getItem('pro_tests_v3') || JSON.stringify([
-            { id: 1, title: "Geografiya fanidan malaka va kasbiy standart imtihoni", count: 35 },
-            { id: 2, title: "Pedagogik mahorat, psixologiya va zamonaviy yondashuvlar", count: 25 },
-            { id: 3, title: "O'zbekiston tarixi va huquq asoslari", count: 30 },
-            { id: 4, title: "Informatika va raqamli texnologiyalar ta'limda", count: 20 },
-            { id: 5, title: "Biologiya va tabiatshunoslik fanlari metodikasi", count: 25 },
-            { id: 6, title: "Matematika va mantiqiy fikrlash testlari", count: 40 }
+        // LocalStorage database configuration
+        let dbUsers = JSON.parse(localStorage.getItem('pro_users_v5') || JSON.stringify([
+            { name: "Boshqaruvchi Admin", role: "admin", faceData: "default_admin" }
         ]));
 
-        let dbUsers = JSON.parse(localStorage.getItem('pro_users_v3') || JSON.stringify([
-            { name: "Boshqaruvchi Admin", login: "admin", pass: "admin123", role: "admin" }
+        let dbTests = JSON.parse(localStorage.getItem('pro_tests_v5') || JSON.stringify([
+            {
+                id: 1,
+                title: "Geografiya fanidan malaka imtihoni",
+                questions: [
+                    { q: "Litosfera plitalari nazariyasining asoschisi kim?", opts: ["Alfred Vegener", "Charlz Darvin", "Isaak Nyuton", "Dmitriy Mendeleyev"], correct: 0 },
+                    { q: "O'zbekistonning eng baland nuqtasi qayer?", opts: ["Hazrat Sulton cho'qqisi", "Chimyon tog'i", "Chatqol tizmasi", "Turkiston tizmasi"], correct: 0 }
+                ]
+            }
         ]));
 
-        let dbResults = JSON.parse(localStorage.getItem('pro_results_v3') || JSON.stringify([
-            { user: "Nurmataliyev Muzaffar", title: "Geografiya fanidan malaka va kasbiy standart imtihoni", score: 30, total: 35, percent: 86, date: "2026-03-26" }
-        ]));
+        let dbResults = JSON.parse(localStorage.getItem('pro_results_v5') || '[]');
+        let currentUser = JSON.parse(localStorage.getItem('pro_current_user_v5') || 'null');
 
-        let currentUser = JSON.parse(localStorage.getItem('pro_current_user_v3') || 'null');
-        let isRegisterMode = false;
-        
-        let activeTestObj = null;
+        let activeTest = null;
         let currentQIdx = 0;
         let userAnswers = {};
-        let timerInterval = null;
+        let webcamStream = null;
 
         window.onload = () => {
+            initWebcam();
             if(currentUser) {
                 showMainWorkspace();
             }
         };
 
-        function toggleAuthMode() {
-            isRegisterMode = !isRegisterMode;
-            document.getElementById('authTitle').innerText = isRegisterMode ? "Ro'yxatdan o'tish" : "Tizimga kirish";
-            document.getElementById('authSubtitle').innerText = isRegisterMode ? "Yangi foydalanuvchi sifatida tizimga qo'shiling." : "Boshqaruvchi va foydalanuvchilar uchun yagona platforma.";
-            document.getElementById('registerFields').classList.toggle('hidden', !isRegisterMode);
-            document.getElementById('authSubmitBtn').innerText = isRegisterMode ? "Ro'yxatdan o'tish" : "Kirish";
-            document.getElementById('authToggleText').innerHTML = isRegisterMode ? 'Hisobingiz bormi? <strong style="color:var(--primary);">Kirish</strong>' : 'Akkauntingiz yo\'qmi? <strong style="color:var(--primary);">Ro'yxatdan o'tish</strong>';
+        // Kamerani yoqish
+        async function initWebcam() {
+            try {
+                webcamStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                let videoEl = document.getElementById('webcamVideo');
+                videoEl.srcObject = webcamStream;
+            } catch (err) {
+                console.warn("Kameraga ulanishda xatolik yoki ruxsat berilmadi:", err);
+            }
         }
 
-        function handleAuthLogin() {
-            let login = document.getElementById('authLogin').value.trim();
-            let pass = document.getElementById('authPass').value.trim();
-
-            if(!login || !pass) { alert("Barcha maydonlarni to'ldiring!"); return; }
-
-            if(isRegisterMode) {
-                let name = document.getElementById('regName').value.trim();
-                if(!name) { alert("F.I.Sh ni kiriting!"); return; }
-                if(dbUsers.some(u => u.login === login)) { alert("Bu login band!"); return; }
-
-                let newUser = { name, login, pass, role: "user" };
-                dbUsers.push(newUser);
-                localStorage.setItem('pro_users_v3', JSON.stringify(dbUsers));
-                currentUser = newUser;
-            } else {
-                let found = dbUsers.find(u => u.login === login && u.pass === pass);
-                if(!found) { alert("Login yoki parol xato!"); return; }
-                currentUser = found;
+        // Yuzni skanerlash orqali kirish va ro'yxatdan o'tish mexanizmi
+        function handleFaceAuth() {
+            let fullName = document.getElementById('authFullName').value.trim();
+            
+            // Maxsus admin uchun tezkor kirish
+            if(fullName.toLowerCase() === 'admin') {
+                currentUser = dbUsers.find(u => u.role === 'admin') || { name: "Boshqaruvchi Admin", role: "admin" };
+                localStorage.setItem('pro_current_user_v5', JSON.stringify(currentUser));
+                stopWebcam();
+                showMainWorkspace();
+                return;
             }
 
-            localStorage.setItem('pro_current_user_v3', JSON.stringify(currentUser));
+            if(!fullName) {
+                alert("Iltimos, ism va familiyangizni kiriting!");
+                return;
+            }
+
+            // Kameradan yuz tasvirini (screenshot) olish
+            let video = document.getElementById('webcamVideo');
+            let canvas = document.getElementById('snapshotCanvas');
+            canvas.width = video.videoWidth || 300;
+            canvas.height = video.videoHeight || 220;
+            let ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            let faceImageBase64 = canvas.toDataURL('image/png');
+
+            // Foydalanuvchini bazadan qidirish yoki yangi ro'yxatdan o'tkazish
+            let existingUser = dbUsers.find(u => u.name.toLowerCase() === fullName.toLowerCase());
+
+            if(existingUser) {
+                // Yuzni tasdiqlash simulyatsiyasi (Face ID match)
+                alert(`Xush kelibsiz, ${existingUser.name}! Yuzingiz muvaffaqiyatli tanildi.`);
+                currentUser = existingUser;
+            } else {
+                // Yangi foydalanuvchini yuz ma'lumotlari bilan ro'yxatdan o'tkazish
+                let newUser = {
+                    name: fullName,
+                    role: "user",
+                    faceData: faceImageBase64,
+                    registeredDate: new Date().toISOString().split('T')[0]
+                };
+                dbUsers.push(newUser);
+                localStorage.setItem('pro_users_v5', JSON.stringify(dbUsers));
+                currentUser = newUser;
+                alert(`Tabriklaymiz, ${fullName}! Face ID bazasiga yuzingiz muvaffaqiyatli saqlandi va ro'yxatdan o'tdingiz.`);
+            }
+
+            localStorage.setItem('pro_current_user_v5', JSON.stringify(currentUser));
+            stopWebcam();
             showMainWorkspace();
         }
 
+        function stopWebcam() {
+            if(webcamStream) {
+                webcamStream.getTracks().forEach(track => track.stop());
+            }
+        }
+
         function logout() {
-            localStorage.removeItem('pro_current_user_v3');
+            localStorage.removeItem('pro_current_user_v5');
             location.reload();
         }
 
@@ -333,16 +376,17 @@
             document.getElementById('appMain').classList.remove('hidden');
 
             document.getElementById('headerUserName').innerText = currentUser.name;
-            document.getElementById('profileFullName').innerText = currentUser.name;
-            document.getElementById('profileAvatarText').innerText = currentUser.name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
-            
-            let isAdm = currentUser.role === 'admin';
-            document.getElementById('sidebarRoleBadge').innerText = isAdm ? "Rol: Boshqaruvchi (Admin)" : "Rol: Foydalanuvchi";
-            document.getElementById('adminCreateCard').classList.toggle('hidden', !isAdm);
+            document.getElementById('profileName').innerText = currentUser.name;
+            document.getElementById('profileSub').innerText = currentUser.role === 'admin' ? "Boshqaruvchi (Master Admin)" : "Tizim foydalanuvchisi (Face ID tasdiqlangan)";
+            document.getElementById('profileAvatar').innerText = currentUser.name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
+
+            let isAdmin = currentUser.role === 'admin';
+            document.getElementById('sidebarRoleBadge').innerText = isAdmin ? "Rol: Boshqaruvchi" : "Rol: Foydalanuvchi";
+            document.getElementById('navCreatorTab').style.display = isAdmin ? "flex" : "none";
 
             renderTestsList();
             renderResultsTable();
-            updateDashboardStats();
+            updateStats();
             initChart();
         }
 
@@ -353,8 +397,43 @@
             document.getElementById('tab-' + tabId).classList.remove('hidden');
             if(el) el.classList.add('active');
 
-            let titles = {dashboard: "Dashboard", tests: "Testlar To'plami", results: "Natijalar", profile: "Profil"};
+            let titles = {dashboard: "Dashboard", tests: "Testlar To'plami", creator: "Test Tuzish Markazi", results: "Barcha Natijalar", profile: "Profil"};
             document.getElementById('navTitle').innerText = titles[tabId] || "Platforma";
+        }
+
+        // Boshqaruvchi o'zi test tuzib joylash funksiyasi
+        function publishNewTest() {
+            let title = document.getElementById('createTestTitle').value.trim();
+            let rawData = document.getElementById('createTestBulkData').value.trim();
+
+            if(!title || !rawData) { alert("Test nomi va savollar matnini kiriting!"); return; }
+
+            let lines = rawData.split('\n').filter(l => l.trim().length > 0);
+            let questions = [];
+
+            for(let line of lines) {
+                let parts = line.split('|').map(p => p.trim());
+                if(parts.length >= 6) {
+                    let qText = parts[0].replace(/^\d+[\.\)]\s*/, '');
+                    let opts = [parts[1], parts[2], parts[3], parts[4]].map(o => o.replace(/^[A-Da-d][\.\)]\s*/, ''));
+                    let correct = parseInt(parts[5]) || 0;
+                    questions.push({ q: qText, opts, correct });
+                }
+            }
+
+            if(questions.length === 0) { alert("Savollar formati noto'g'ri!"); return; }
+
+            let newTest = { id: Date.now(), title, questions };
+            dbTests.push(newTest);
+            localStorage.setItem('pro_tests_v5', JSON.stringify(dbTests));
+
+            document.getElementById('createTestTitle').value = '';
+            document.getElementById('createTestBulkData').value = '';
+
+            alert(`Test muvaffaqiyatli joylandi! Jami savollar: ${questions.length} ta`);
+            renderTestsList();
+            updateStats();
+            switchTab('tests', document.querySelectorAll('.nav-link')[1]);
         }
 
         function renderTestsList() {
@@ -365,48 +444,22 @@
                     <div style="display:flex; justify-content:space-between; align-items:center; padding:16px; border:1px solid var(--border-color); border-radius:12px; background:var(--bg-color);">
                         <div>
                             <div style="font-weight:700; font-size:0.95rem;">${t.title}</div>
-                            <div style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Savollar soni: ${t.count} ta</div>
+                            <div style="font-size:0.8rem; color:var(--text-muted); margin-top:2px;">Savollar soni: ${t.questions.length} ta</div>
                         </div>
-                        <div style="display:flex; gap:8px;">
-                            <button class="btn" style="width:auto; padding:8px 16px;" onclick="startTest(${t.id})">Ishlash</button>
-                            ${currentUser.role === 'admin' ? `<button class="btn btn-rose" style="width:auto; padding:8px 12px;" onclick="deleteTest(${t.id})">O'chirish</button>` : ''}
-                        </div>
+                        <button class="btn" style="width:auto; padding:8px 16px;" onclick="startTest(${t.id})">Ishlash</button>
                     </div>`;
             });
         }
 
-        function adminAddNewTest() {
-            let title = document.getElementById('newTestTitleInput').value.trim();
-            let count = parseInt(document.getElementById('newTestCountInput').value);
-            if(!title) { alert("Test nomini kiriting!"); return; }
-
-            let newTest = { id: Date.now(), title, count };
-            dbTests.push(newTest);
-            localStorage.setItem('pro_tests_v3', JSON.stringify(dbTests));
-            
-            document.getElementById('newTestTitleInput').value = '';
-            renderTestsList();
-            updateDashboardStats();
-            alert("Yangi test muvaffaqiyatli qo'shildi!");
-        }
-
-        function deleteTest(id) {
-            if(!confirm("Haqiqatan ham bu testni o'chirmoqchimisiz?")) return;
-            dbTests = dbTests.filter(t => t.id !== id);
-            localStorage.setItem('pro_tests_v3', JSON.stringify(dbTests));
-            renderTestsList();
-            updateDashboardStats();
-        }
-
         function startTest(id) {
-            activeTestObj = dbTests.find(t => t.id === id);
+            activeTest = dbTests.find(t => t.id === id);
             currentQIdx = 0;
             userAnswers = {};
 
             document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
             document.getElementById('activeTestWorkspace').classList.remove('hidden');
-            document.getElementById('activeTestName').innerText = activeTestObj.title;
-            document.getElementById('totalQNum').innerText = activeTestObj.count;
+            document.getElementById('activeTestName').innerText = activeTest.title;
+            document.getElementById('totalQNum').innerText = activeTest.questions.length;
 
             buildPalette();
             loadQuestion();
@@ -415,7 +468,7 @@
         function buildPalette() {
             let grid = document.getElementById('paletteGrid');
             grid.innerHTML = '';
-            for(let i=0; i<activeTestObj.count; i++) {
+            for(let i=0; i<activeTest.questions.length; i++) {
                 grid.innerHTML += `<button class="p-btn ${currentQIdx===i?'current':''} ${userAnswers[i]!==undefined?'answered':''}" onclick="goToQ(${i})">${i+1}</button>`;
             }
         }
@@ -427,20 +480,14 @@
         }
 
         function loadQuestion() {
+            let qObj = activeTest.questions[currentQIdx];
             document.getElementById('currQNum').innerText = currentQIdx + 1;
-            document.getElementById('questionText').innerText = `[${activeTestObj.title}] - ${currentQIdx + 1}-savol: Ushbu yo'nalish bo'yicha eng to'g'ri ilmiy-metodik yechimni ko'rsatilgan variantlardan tanlang.`;
-
-            let opts = [
-                "A) Zamonaviy pedagogik va axborot texnologiyalariga asoslangan yondashuv",
-                "B) Faqat an'anaviy yod olish va qolipli uslub",
-                "C) Standartlashtirilmagan va tekshirilmagan usul",
-                "D) Faqat nazariy taxminlarga tayangan mexanizm"
-            ];
+            document.getElementById('questionText').innerText = `${currentQIdx + 1}-savol: ${qObj.q}`;
 
             let box = document.getElementById('optionsContainer'); box.innerHTML = '';
-            opts.forEach((opt, idx) => {
+            qObj.opts.forEach((opt, idx) => {
                 let sel = userAnswers[currentQIdx] === idx ? 'selected' : '';
-                box.innerHTML += `<div class="option-item ${sel}" onclick="selectOpt(${idx})">${opt}</div>`;
+                box.innerHTML += `<div class="option-item ${sel}" onclick="selectOpt(${idx})"><span style="font-weight:700; color:var(--primary);">${String.fromCharCode(65+idx)})</span> ${opt}</div>`;
             });
         }
 
@@ -451,53 +498,62 @@
         }
 
         function nextQuestion() {
-            if(currentQIdx < activeTestObj.count - 1) { currentQIdx++; loadQuestion(); buildPalette(); }
-            else finishTest();
+            if(currentQIdx < activeTest.questions.length - 1) { currentQIdx++; loadQuestion(); buildPalette(); }
+            else finishActiveTest();
         }
 
         function prevQuestion() {
             if(currentQIdx > 0) { currentQIdx--; loadQuestion(); buildPalette(); }
         }
 
-        function finishTest() {
-            let answered = Object.keys(userAnswers).length;
-            let correct = Math.round(answered * 0.85);
-            let percent = Math.round((correct / activeTestObj.count) * 100);
+        function finishActiveTest() {
+            let correctCount = 0;
+            let total = activeTest.questions.length;
+            for(let i=0; i<total; i++) {
+                if(userAnswers[i] === activeTest.questions[i].correct) {
+                    correctCount++;
+                }
+            }
+            let percent = Math.round((correctCount / total) * 100);
 
             dbResults.push({
                 user: currentUser.name,
-                title: activeTestObj.title,
-                score: correct,
-                total: activeTestObj.count,
+                title: activeTest.title,
+                score: correctCount,
+                total: total,
                 percent: percent,
                 date: new Date().toISOString().split('T')[0]
             });
-            localStorage.setItem('pro_results_v3', JSON.stringify(dbResults));
+            localStorage.setItem('pro_results_v5', JSON.stringify(dbResults));
 
             document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
             document.getElementById('testResultWorkspace').classList.remove('hidden');
             document.getElementById('resScoreVal').innerText = percent + "%";
-            document.getElementById('resDetailsText').innerText = `To'g'ri javoblar: ${correct} / ${activeTestObj.count}`;
+            document.getElementById('resDetailsText').innerText = `To'g'ri javoblar: ${correctCount} / ${total}`;
 
             renderResultsTable();
-            updateDashboardStats();
+            updateStats();
         }
 
         function renderResultsTable() {
             let tb = document.getElementById('allResultsTableBody');
             tb.innerHTML = '';
+            if(dbResults.length === 0) {
+                tb.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">Hozircha natijalar yo'q</td></tr>`;
+                return;
+            }
             dbResults.forEach(r => {
                 tb.innerHTML += `<tr><td>${r.user}</td><td>${r.title}</td><td>${r.score}/${r.total}</td><td><span class="badge">${r.percent}%</span></td><td>${r.date}</td></tr>`;
             });
         }
 
-        function updateDashboardStats() {
-            document.getElementById('statTotalTestsCount').innerText = dbTests.length;
+        function updateStats() {
+            document.getElementById('statTotalTests').innerText = dbTests.length;
             let myRes = dbResults.filter(r => r.user === currentUser.name);
-            document.getElementById('statUserRes').innerText = myRes.length;
+            document.getElementById('statMyRes').innerText = myRes.length;
             let avg = myRes.length > 0 ? Math.round(myRes.reduce((a,b)=>a+b.percent,0)/myRes.length) : 0;
-            document.getElementById('statAvgScr').innerText = avg + "%";
-            document.getElementById('statTotalUsers').innerText = dbUsers.length;
+            document.getElementById('statAvgScore').innerText = avg + "%";
+            document.getElementById('statUsersCount').innerText = dbUsers.length;
         }
 
         function initChart() {
@@ -505,10 +561,10 @@
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['1-hafta', '2-hafta', '3-hafta', '4-hafta', 'Bugun'],
+                    labels: ['Yan', 'Fev', 'Mart', 'Aprel', 'May', 'Iyun'],
                     datasets: [{
-                        label: 'O\'rtacha natija (%)',
-                        data: [70, 75, 80, 78, 86],
+                        label: 'O\'rtacha ko\'rsatkich (%)',
+                        data: [65, 70, 75, 78, 82, 88],
                         borderColor: '#2563eb',
                         backgroundColor: 'rgba(37,99,235,0.1)',
                         fill: true,
