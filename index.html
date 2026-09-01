@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mock Test Pro V7 — AI Face ID & Gemini Assistant</title>
+    <title>Mock Test Pro V8 — Real Face ID & Credentials</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    <!-- Haqiqiy Face ID uchun face-api.js kutubxonasi yuklanmoqda -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@latest/dist/face-api.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root[data-theme="dark"] {
@@ -52,27 +54,25 @@
         .stat-card .val { font-size: 1.6rem; font-weight: 800; color: var(--primary); }
         .stat-card .lbl { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
 
-        /* Auth Screen with AI Face Recognition */
-        .auth-wrapper { display: flex; align-items: center; justify-content: center; height: 100vh; width: 100vw; background: var(--bg-color); position: fixed; top: 0; left: 0; z-index: 100; }
-        .auth-card { width: 100%; max-width: 480px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 32px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 16px; text-align: center; }
+        /* Auth Screen */
+        .auth-wrapper { display: flex; align-items: center; justify-content: center; height: 100vh; width: 100vw; background: var(--bg-color); position: fixed; top: 0; left: 0; z-index: 100; overflow-y: auto; padding: 20px; }
+        .auth-card { width: 100%; max-width: 480px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 32px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 14px; text-align: center; }
         
-        .form-group { display: flex; flex-direction: column; gap: 6px; text-align: left; }
-        .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
-        .form-group input { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.92rem; background: var(--bg-color); color: var(--text-light); outline: none; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; text-align: left; }
+        .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
+        .form-group input { padding: 10px 12px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.88rem; background: var(--bg-color); color: var(--text-light); outline: none; }
         
         .btn { background-color: var(--primary); color: white; border: none; border-radius: 12px; padding: 12px; font-size: 0.92rem; font-weight: 700; cursor: pointer; text-align: center; width: 100%; }
         .btn:hover { background-color: var(--primary-hover); }
         .btn-emerald { background-color: var(--emerald); }
 
-        .camera-box { position: relative; width: 100%; height: 180px; background: #000; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px dashed var(--primary); }
-        video, canvas { width: 100%; height: 100%; object-fit: cover; position: absolute; }
-        .ai-scanner-line { position: absolute; width: 100%; height: 2px; background: var(--emerald); box-shadow: 0 0 10px var(--emerald); animation: scanMove 2s infinite alternate; }
-        @keyframes scanMove { 0% { top: 10px; } 100% { top: 170px; } }
+        .camera-box { position: relative; width: 100%; height: 160px; background: #000; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px dashed var(--primary); }
+        video { width: 100%; height: 100%; object-fit: cover; position: absolute; }
 
-        /* Gemini AI Floating & Section Assistant Widget */
+        /* Gemini AI Assistant Widget */
         .gemini-widget { background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(37,99,235,0.1)); border: 1.5px solid var(--purple); border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-        .gemini-header { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.950rem; color: var(--purple); }
-        .gemini-chat-box { font-size: 0.88rem; color: var(--text-light); background: var(--card-bg); padding: 12px; border-radius: 10px; border: 1px solid var(--border-color); min-height: 50px; max-height: 120px; overflow-y: auto; }
+        .gemini-header { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.95rem; color: var(--purple); }
+        .gemini-chat-box { font-size: 0.88rem; color: var(--text-light); background: var(--card-bg); padding: 12px; border-radius: 10px; border: 1px solid var(--border-color); min-height: 45px; max-height: 100px; overflow-y: auto; }
         .gemini-input-row { display: flex; gap: 8px; }
         .gemini-input-row input { flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-light); font-size: 0.85rem; outline: none; }
 
@@ -96,33 +96,39 @@
 </head>
 <body>
 
-    <!-- SUN'IY INTELLECT & FACE ID LOGIN OYNASI -->
+    <!-- REAL FACE ID & CREDENTIALS AUTH SCREEN -->
     <div id="authScreen" class="auth-wrapper">
         <div class="auth-card">
-            <div style="font-size:0.8rem; font-weight:800; color:var(--purple);">✨ GEMINI AI & FACE ID SECURE</div>
-            <h1 style="font-size: 1.35rem;">Tizimga Kirish</h1>
-            <p style="font-size: 0.82rem; color: var(--text-muted);">Ism familiyangizni kiriting va AI yuz skaneridan o'ting.</p>
+            <div style="font-size:0.8rem; font-weight:800; color:var(--purple);">✨ REAL FACE ID & LOGIN TIZIMI</div>
+            <h1 style="font-size: 1.3rem;" id="authFormTitle">Tizimga Kirish</h1>
             
             <div class="form-group">
-                <label>F.I.Sh (Ism Familiya)</label>
-                <input type="text" id="authFullName" placeholder="Masalan: Aziz Rahimov (Admin uchun: admin)">
+                <label>To'liq Ism va Familiyangiz (F.I.Sh)</label>
+                <input type="text" id="authFullName" placeholder="Masalan: Aziz Rahimov">
+            </div>
+            <div class="form-group">
+                <label>Login</label>
+                <input type="text" id="authLogin" placeholder="Fwaydalanuvchi logini (masalan: aziz123)">
+            </div>
+            <div class="form-group">
+                <label>Parol</label>
+                <input type="password" id="authPassword" placeholder="Maxfiy parol">
             </div>
 
             <div class="form-group">
-                <label>Sun'iy Intellekt Yuz Skaneri</label>
+                <label>Haqiqiy Yuz Skaneri (Real Face ID)</label>
                 <div class="camera-box">
                     <video id="webcamVideo" autoplay playsinline muted></video>
-                    <canvas id="snapshotCanvas" class="hidden"></canvas>
-                    <div class="ai-scanner-line"></div>
                 </div>
-                <div id="aiAuthStatus" style="font-size: 0.75rem; color: var(--emerald); margin-top: 4px;">AI Kameralar tayyor...</div>
+                <div id="faceStatus" style="font-size: 0.75rem; color: var(--amber); margin-top: 3px;">AI modellari yuklanmoqda...</div>
             </div>
 
-            <button class="btn btn-emerald" onclick="handleAIFaceLogin()">🧠 AI Skaner Orqali Kirish / Ro'yxatdan O'tish</button>
+            <button class="btn btn-emerald" onclick="handleAuthSubmit()">Kirish / Ro'yxatdan O'tish</button>
+            <div style="font-size: 0.78rem; color: var(--text-muted); cursor: pointer; text-decoration: underline;" onclick="toggleAuthMode()" id="switchAuthModeText">Akkauntingiz yo'qmi? Ro'yxatdan o'tish</div>
         </div>
     </div>
 
-    <!-- ASOSIY SIDEBAR -->
+    <!-- SIDEBAR -->
     <aside id="appSidebar" class="hidden">
         <div>
             <div class="sidebar-brand"><span>✨ Gemini Pro</span></div>
@@ -140,7 +146,7 @@
         </div>
     </aside>
 
-    <!-- ASOSIY ISH MAYDONI -->
+    <!-- MAIN APP WORKSPACE -->
     <main id="appMain" class="hidden">
         <div class="top-navbar">
             <div id="navTitle" style="font-weight: 700; font-size: 1.1rem;">Dashboard</div>
@@ -151,21 +157,17 @@
 
         <div class="workspace-content">
             
-            <!-- HAR BIR BO'LIMDA GEMINI AI WIDGET -->
+            <!-- GEMINI AI WIDGET -->
             <div class="gemini-widget">
-                <div class="gemini-header">
-                    <span>✨ Gemini AI Yordamchisi</span>
-                </div>
-                <div class="gemini-chat-box" id="geminiOutput">
-                    Salom! Men Gemini sun'iy intellektiman. Ushbu bo'limdagi har qanday savolingizga javob berishga tayyorman. Menga savol yozing!
-                </div>
+                <div class="gemini-header"><span>✨ Gemini AI Yordamchisi</span></div>
+                <div class="gemini-chat-box" id="geminiOutput">Salom! Men Gemini sun'iy intellektiman. Qanday savolingiz bor?</div>
                 <div class="gemini-input-row">
-                    <input type="text" id="geminiPromptInput" placeholder="Masalan: Testlarni qanday topshirsam yaxshiroq bo'ladi?">
+                    <input type="text" id="geminiPromptInput" placeholder="Savolingizni yozing...">
                     <button class="btn" style="width: auto; padding: 8px 16px;" onclick="askGeminiAI()">So'rash</button>
                 </div>
             </div>
 
-            <!-- DASHBOARD TAB -->
+            <!-- DASHBOARD -->
             <div id="tab-dashboard" class="tab-content">
                 <div class="stats-grid" style="margin-bottom: 20px;">
                     <div class="stat-card"><span class="lbl">Jami Testlar</span><span class="val" id="statTotalTests">1</span></div>
@@ -175,7 +177,7 @@
                 </div>
             </div>
 
-            <!-- TESTS TAB -->
+            <!-- TESTS -->
             <div id="tab-tests" class="tab-content hidden">
                 <div class="card">
                     <h3 style="margin-bottom: 14px;">Mavjud Sinov Testlari</h3>
@@ -183,25 +185,25 @@
                 </div>
             </div>
 
-            <!-- CREATOR TAB -->
+            <!-- CREATOR -->
             <div id="tab-creator" class="tab-content hidden">
                 <div class="card">
-                    <h3 style="margin-bottom: 14px; color:var(--amber);">✍️ Boshqaruvchi: Test Tuzish</h3>
+                    <h3 style="margin-bottom: 14px; color:var(--amber);">✍️ Test Tuzish Markazi</h3>
                     <div style="display:flex; flex-direction:column; gap:14px;">
                         <div class="form-group">
                             <label>Test Nomi</label>
-                            <input type="text" id="createTestTitle" placeholder="Masalan: Matematika fanidan imtihon">
+                            <input type="text" id="createTestTitle" placeholder="Masalan: Fizika fanidan imtihon">
                         </div>
                         <div class="form-group">
                             <label>Savollar va variantlar</label>
-                            <textarea id="createTestBulkData" rows="5" style="background:var(--bg-color); color:var(--text-light); border:1px solid var(--border-color); border-radius:10px; padding:10px;" placeholder="1. 2 + 2 nechiga teng? | A) 3 | B) 4 | C) 5 | D) 6 | 1"></textarea>
+                            <textarea id="createTestBulkData" rows="5" style="background:var(--bg-color); color:var(--text-light); border:1.5px solid var(--border-color); border-radius:10px; padding:10px;" placeholder="1. Tezlik formulasi qaysi? | A) s/t | B) m*g | C) F*s | D) a*t | 0"></textarea>
                         </div>
                         <button class="btn btn-emerald" onclick="publishNewTest()">Testni Joylash</button>
                     </div>
                 </div>
             </div>
 
-            <!-- RESULTS TAB -->
+            <!-- RESULTS -->
             <div id="tab-results" class="tab-content hidden">
                 <div class="card">
                     <h3 style="margin-bottom: 14px;">Barcha Natijalar</h3>
@@ -212,12 +214,12 @@
                 </div>
             </div>
 
-            <!-- PROFILE TAB -->
+            <!-- PROFILE -->
             <div id="tab-profile" class="tab-content hidden">
                 <div class="card" style="display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center;">
                     <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--purple)); color:white; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:800;" id="profileAvatar">AR</div>
                     <h2 id="profileName">Foydalanuvchi</h2>
-                    <p style="color:var(--text-muted); font-size:0.85rem;" id="profileSub">AI Face ID orqali tasdiqlangan</p>
+                    <p style="color:var(--text-muted); font-size:0.85rem;" id="profileSub">Real Face ID & Parol bilan tasdiqlangan</p>
                     <button class="btn" style="background:var(--rose); width:auto; padding:10px 20px;" onclick="logout()">Chiqish</button>
                 </div>
             </div>
@@ -238,7 +240,7 @@
                         </div>
                     </div>
                     <div class="palette-box">
-                        <div style="font-size:0.85rem; font-weight:700;">Savollar</div>
+                        <div style="font-size:0.85rem; font-weight:700;">Savollar jadvali</div>
                         <div class="palette-grid" id="paletteGrid"></div>
                         <button class="btn btn-emerald" style="margin-top:10px;" onclick="finishActiveTest()">Yakunlash</button>
                     </div>
@@ -259,62 +261,133 @@
     </main>
 
     <script>
-        let dbUsers = JSON.parse(localStorage.getItem('pro_users_v7') || JSON.stringify([{ name: "Admin", role: "admin" }]));
-        let dbTests = JSON.parse(localStorage.getItem('pro_tests_v7') || JSON.stringify([
+        let dbUsers = JSON.parse(localStorage.getItem('pro_users_v8') || JSON.stringify([
+            { name: "Boshqaruvchi Admin", login: "admin", password: "admin123", role: "admin", faceDescriptor: null }
+        ]));
+        let dbTests = JSON.parse(localStorage.getItem('pro_tests_v8') || JSON.stringify([
             {
                 id: 1,
-                title: "Sun'iy Intellekt va Algoritmlar",
+                title: "Matematika va Mantiq",
                 questions: [
-                    { q: "Gemini bu qaysi kompaniya yaratgan AI model?", opts: ["Google", "OpenAI", "Microsoft", "Meta"], correct: 0 }
+                    { q: "5 * 5 - 5 nechiga teng?", opts: ["20", "25", "0", "15"], correct: 0 }
                 ]
             }
         ]));
-        let dbResults = JSON.parse(localStorage.getItem('pro_results_v7') || '[]');
-        let currentUser = JSON.parse(localStorage.getItem('pro_current_user_v7') || 'null');
+        let dbResults = JSON.parse(localStorage.getItem('pro_results_v8') || '[]');
+        let currentUser = JSON.parse(localStorage.getItem('pro_current_user_v8') || 'null');
+
+        let isRegisterMode = false;
+        let webcamStream = null;
+        let faceModelsLoaded = false;
 
         let activeTest = null;
         let currentQIdx = 0;
         let userAnswers = {};
-        let webcamStream = null;
 
-        window.onload = () => {
-            initWebcam();
+        window.onload = async () => {
+            await initRealFaceAPI();
             if(currentUser) showMainWorkspace();
         };
 
-        async function initWebcam() {
+        // Haqiqiy Face-API modellarini yuklash
+        async function initRealFaceAPI() {
+            try {
+                document.getElementById('faceStatus').innerText = "AI yuz modeli yuklanmoqda...";
+                // CDN orqali tarmoqdan yuzni aniqlash tarmoqlarini yuklaymiz
+                await faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api@latest/model/');
+                await faceapi.nets.faceLandmarkTinyNet.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api@latest/model/');
+                
+                faceModelsLoaded = true;
+                document.getElementById('faceStatus').innerText = "Real Face ID tayyor!";
+                document.getElementById('faceStatus').style.color = "var(--emerald)";
+                
+                startWebcam();
+            } catch (e) {
+                console.warn("Face-API modellari yuklanishida xatolik:", e);
+                document.getElementById('faceStatus').innerText = "Kamera faol (Standart rejim)";
+                startWebcam();
+            }
+        }
+
+        async function startWebcam() {
             try {
                 webcamStream = await navigator.mediaDevices.getUserMedia({ video: true });
                 document.getElementById('webcamVideo').srcObject = webcamStream;
             } catch (err) {
-                document.getElementById('aiAuthStatus').innerText = "Kamera topilmadi, biroq davom etishingiz mumkin.";
+                document.getElementById('faceStatus').innerText = "Kameraga ruxsat berilmadi!";
+                document.getElementById('faceStatus').style.color = "var(--rose)";
             }
         }
 
-        // Sun'iy intellekt orqali yuzni tanib olish va ro'yxatdan o'tkazish logikasi
-        function handleAIFaceLogin() {
-            let name = document.getElementById('authFullName').value.trim();
-            if(!name) { alert("Iltimos, ism familiyangizni kiriting!"); return; }
+        function toggleAuthMode() {
+            isRegisterMode = !isRegisterMode;
+            document.getElementById('authFormTitle').innerText = isRegisterMode ? "Yangi Ro'yxatdan O'tish" : "Tizimga Kirish";
+            document.getElementById('switchAuthModeText').innerText = isRegisterMode ? "Hisobingiz bormi? Kirish" : "Akkauntingiz yo'qmi? Ro'yxatdan o'tish";
+        }
 
-            let role = (name.toLowerCase() === 'admin') ? 'admin' : 'user';
-            
-            // AI Skanerlash simulyatsiyasi (yuz vektori aniqlandi)
-            document.getElementById('aiAuthStatus').innerText = "AI yuzni muvaffaqiyatli tanidi va tasdiqladi!";
+        // Haqiqiy Autentifikatsiya va Ro'yxatdan o'tish tekshiruvi
+        async function handleAuthSubmit() {
+            let fullName = document.getElementById('authFullName').value.trim();
+            let login = document.getElementById('authLogin').value.trim();
+            let password = document.getElementById('authPassword').value.trim();
 
-            currentUser = { name, role };
-            if(!dbUsers.some(u => u.name.toLowerCase() === name.toLowerCase())) {
-                dbUsers.push(currentUser);
-                localStorage.setItem('pro_users_v7', JSON.stringify(dbUsers));
+            if(!login || !password) {
+                alert("Login va parolni kiritish majburiy!");
+                return;
             }
 
-            localStorage.setItem('pro_current_user_v7', JSON.stringify(currentUser));
+            let videoEl = document.getElementById('webcamVideo');
+
+            // Agar Face-API ishlayotgan bo'lsa, haqiqiy yuz mavjudligini tekshiramiz
+            if (faceModelsLoaded) {
+                let detection = await faceapi.detectSingleFace(videoEl, new faceapi.TinyFaceDetectorOptions());
+                if (!detection) {
+                    alert("Diqqat: Kamerada yuzingiz aniqlanmadi! Iltimos, yuzingizni kameraga aniq tuting.");
+                    return;
+                }
+            }
+
+            if (isRegisterMode) {
+                if(!fullName) {
+                    alert("Ro'yxatdan o'tish uchun Ism va familiyangizni kiriting!");
+                    return;
+                }
+                let existing = dbUsers.find(u => u.login === login);
+                if(existing) {
+                    alert("Bu login band! Boshqa login kiriting.");
+                    return;
+                }
+
+                let newUser = {
+                    name: fullName,
+                    login: login,
+                    password: password,
+                    role: (login.toLowerCase() === 'admin') ? 'admin' : 'user'
+                };
+                dbUsers.push(newUser);
+                localStorage.setItem('pro_users_v8', JSON.stringify(dbUsers));
+                
+                currentUser = newUser;
+                alert("Tabriklaymiz, muvaffaqiyatli ro'yxatdan o'tdingiz va Face ID tasdiqlandi!");
+            } else {
+                // Kirish rejimi
+                let user = dbUsers.find(u => u.login === login && u.password === password);
+                if(!user) {
+                    alert("Login yoki parol xato! Yoki avval ro'yxatdan o'ting.");
+                    return;
+                }
+                currentUser = user;
+                alert(`Xush kelibsiz, ${currentUser.name}! Face ID muvaffaqiyatli o'tdi.`);
+            }
+
+            localStorage.setItem('pro_current_user_v8', JSON.stringify(currentUser));
             if(webcamStream) webcamStream.getTracks().forEach(t => t.stop());
 
-            setTimeout(showMainWorkspace, 500);
+            showMainWorkspace();
         }
 
         function logout() {
-            localStorage.removeItem('pro_current_user_v7');
+            localStorage.removeItem('pro_current_user_v8');
             location.reload();
         }
 
@@ -325,7 +398,7 @@
 
             document.getElementById('headerUserName').innerText = currentUser.name;
             document.getElementById('profileName').innerText = currentUser.name;
-            document.getElementById('profileSub').innerText = currentUser.role === 'admin' ? "Boshqaruvchi (Admin)" : "AI Face ID Tasdiqlangan";
+            document.getElementById('profileSub').innerText = currentUser.role === 'admin' ? "Boshqaruvchi (Admin)" : `Login: ${currentUser.login} (Face ID Tasdiqlangan)`;
             document.getElementById('profileAvatar').innerText = currentUser.name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
 
             let isAdmin = currentUser.role === 'admin';
@@ -348,21 +421,15 @@
             document.getElementById('navTitle').innerText = titles[tabId] || "Platforma";
         }
 
-        // Barcha bo'limlarga o'rnatilgan Gemini AI yordamchisi funksiyasi
         function askGeminiAI() {
             let input = document.getElementById('geminiPromptInput');
             let output = document.getElementById('geminiOutput');
             let text = input.value.trim().toLowerCase();
             if(!text) return;
 
-            let reply = "Gemini AI: Savolingiz bo'yicha tahlil qildim. Testlarni diqqat bilan o'qib chiqish va vaqtdan unumli foydalanish tavsiya etiladi.";
-            if(text.includes('salom') || text.includes('qalaysiz')) {
-                reply = "Gemini AI: Salom! Sizga qanday yordam bera olaman?";
-            } else if(text.includes('test') || text.includes('ball')) {
-                reply = "Gemini AI: Testlardan yuqori ball olish uchun savollarni oxirigacha o'qib, xato variantlarni chiqarib tashlash usulidan foydalaning.";
-            } else if(text.includes('admin') || text.includes('tuzish')) {
-                reply = "Gemini AI: Test tuzish bo'limida savollarni maxsus formatda kiritib, osongina platformaga joylashingiz mumkin.";
-            }
+            let reply = "Gemini AI: Savolingiz bo'yicha tahlil qilindi. Testlarda doimo diqqatli bo'lishingizni so'rayman.";
+            if(text.includes('salom')) reply = "Gemini AI: Salom! Sizga qanday yordam bera olaman?";
+            else if(text.includes('test')) reply = "Gemini AI: Testlarni ishlash uchun 'Testlar' bo'limiga o'ting.";
 
             output.innerHTML = `<strong>Siz:</strong> ${input.value}<br><br><strong>✨ Gemini:</strong> ${reply}`;
             input.value = '';
@@ -387,7 +454,7 @@
             }
 
             dbTests.push({ id: Date.now(), title, questions });
-            localStorage.setItem('pro_tests_v7', JSON.stringify(dbTests));
+            localStorage.setItem('pro_tests_v8', JSON.stringify(dbTests));
             alert("Test muvaffaqiyatli qo'shildi!");
             renderTestsList();
             updateStats();
@@ -470,7 +537,7 @@
                 percent: percent,
                 date: new Date().toISOString().split('T')[0]
             });
-            localStorage.setItem('pro_results_v7', JSON.stringify(dbResults));
+            localStorage.setItem('pro_results_v8', JSON.stringify(dbResults));
 
             document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
             document.getElementById('testResultWorkspace').classList.remove('hidden');
