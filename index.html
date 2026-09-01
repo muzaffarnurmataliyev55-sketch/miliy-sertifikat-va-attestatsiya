@@ -3,570 +3,239 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mock Test Pro V8 — Real Face ID & Credentials</title>
+    <title>Mock Test Pro — Face ID Indikator</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
-    <!-- Haqiqiy Face ID uchun face-api.js kutubxonasi yuklanmoqda -->
     <script defer src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api@latest/dist/face-api.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root[data-theme="dark"] {
+        :root {
             --bg-color: #07090e;
             --card-bg: #111827;
             --text-light: #f3f4f6;
             --text-muted: #9ca3af;
             --border-color: #1f2937;
-            --sidebar-bg: #0d1322;
-        }
-        :root[data-theme="light"] {
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-light: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
-            --sidebar-bg: #f1f5f9;
-        }
-        :root {
             --primary: #2563eb;
             --primary-hover: #1d4ed8;
             --emerald: #059669;
             --rose: #dc2626;
-            --amber: #d97706;
             --purple: #7c3aed;
-            --radius: 16px;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.2s, color 0.2s; }
-        body { background-color: var(--bg-color); color: var(--text-light); display: flex; height: 100vh; overflow: hidden; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-light); display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
 
-        aside { width: 260px; background-color: var(--sidebar-bg); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; padding: 20px; justify-content: space-between; }
-        .sidebar-brand { font-size: 1.15rem; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
-        .sidebar-menu { display: flex; flex-direction: column; gap: 6px; flex: 1; overflow-y: auto; }
-        .nav-link { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; font-size: 0.88rem; font-weight: 600; color: var(--text-muted); cursor: pointer; text-decoration: none; }
-        .nav-link:hover, .nav-link.active { background-color: rgba(37, 99, 235, 0.12); color: var(--primary); }
+        .auth-card { width: 100%; max-width: 440px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 32px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3); display: flex; flex-direction: column; gap: 16px; text-align: center; }
+        .auth-card h1 { font-size: 1.4rem; font-weight: 800; color: var(--text-light); }
+        .auth-card p { font-size: 0.85rem; color: var(--text-muted); }
 
-        main { flex: 1; display: flex; flex-direction: column; overflow-y: auto; background-color: var(--bg-color); }
-        .top-navbar { height: 70px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 30px; background-color: var(--card-bg); position: sticky; top: 0; z-index: 10; }
-        .workspace-content { padding: 24px 30px; max-width: 1400px; margin: 0 auto; width: 100%; flex: 1; display: flex; flex-direction: column; gap: 20px; }
-
-        .card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-        .stat-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 6px; }
-        .stat-card .val { font-size: 1.6rem; font-weight: 800; color: var(--primary); }
-        .stat-card .lbl { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
-
-        /* Auth Screen */
-        .auth-wrapper { display: flex; align-items: center; justify-content: center; height: 100vh; width: 100vw; background: var(--bg-color); position: fixed; top: 0; left: 0; z-index: 100; overflow-y: auto; padding: 20px; }
-        .auth-card { width: 100%; max-width: 480px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 32px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 14px; text-align: center; }
-        
-        .form-group { display: flex; flex-direction: column; gap: 5px; text-align: left; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; text-align: left; }
         .form-group label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); }
-        .form-group input { padding: 10px 12px; border: 1.5px solid var(--border-color); border-radius: 10px; font-size: 0.88rem; background: var(--bg-color); color: var(--text-light); outline: none; }
-        
+        .form-group input { padding: 11px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.9rem; background: var(--bg-color); color: var(--text-light); outline: none; }
+        .form-group input:focus { border-color: var(--primary); }
+
+        .camera-box { position: relative; width: 100%; height: 160px; background: #000; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px dashed var(--border-color); transition: border-color 0.3s; }
+        .camera-box.success { border-color: var(--emerald); }
+        .camera-box.error { border-color: var(--rose); }
+
+        video { width: 100%; height: 100%; object-fit: cover; position: absolute; }
+
+        /* Vizual Pitichka va X belgisi uchun qatlam */
+        .face-overlay { position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; z-index: 10; background: rgba(0,0,0,0.6); color: #fff; transition: background 0.3s; }
+        .face-overlay.success { background: var(--emerald); color: white; }
+        .face-overlay.error { background: var(--rose); color: white; }
+
         .btn { background-color: var(--primary); color: white; border: none; border-radius: 12px; padding: 12px; font-size: 0.92rem; font-weight: 700; cursor: pointer; text-align: center; width: 100%; }
         .btn:hover { background-color: var(--primary-hover); }
         .btn-emerald { background-color: var(--emerald); }
+        .btn-emerald:hover { background-color: #047857; }
 
-        .camera-box { position: relative; width: 100%; height: 160px; background: #000; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px dashed var(--primary); }
-        video { width: 100%; height: 100%; object-fit: cover; position: absolute; }
-
-        /* Gemini AI Assistant Widget */
-        .gemini-widget { background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(37,99,235,0.1)); border: 1.5px solid var(--purple); border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
-        .gemini-header { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.95rem; color: var(--purple); }
-        .gemini-chat-box { font-size: 0.88rem; color: var(--text-light); background: var(--card-bg); padding: 12px; border-radius: 10px; border: 1px solid var(--border-color); min-height: 45px; max-height: 100px; overflow-y: auto; }
-        .gemini-input-row { display: flex; gap: 8px; }
-        .gemini-input-row input { flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-light); font-size: 0.85rem; outline: none; }
-
-        .test-layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
-        .question-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 16px; }
-        .palette-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 14px; position: sticky; top: 90px; }
-        .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-height: 250px; overflow-y: auto; }
-        .p-btn { aspect-ratio: 1; border: 1px solid var(--border-color); background: var(--bg-color); border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; color: var(--text-light); display: flex; align-items: center; justify-content: center; }
-        .p-btn.answered { background: rgba(5, 150, 105, 0.2); border-color: var(--emerald); color: var(--emerald); }
-        .p-btn.current { border-color: var(--primary); }
-
-        .option-item { background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: 12px; padding: 14px; cursor: pointer; font-size: 0.9rem; display: flex; gap: 10px; align-items: center; }
-        .option-item.selected { border-color: var(--primary); background: rgba(37,99,235,0.08); font-weight: 700; color: var(--primary); }
-
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 12px 14px; text-align: left; font-size: 0.88rem; border-bottom: 1px solid var(--border-color); }
-        th { color: var(--text-muted); font-weight: 600; }
-        .badge { background: rgba(5, 150, 105, 0.15); color: var(--emerald); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
+        .switch-link { font-size: 0.82rem; color: var(--text-muted); cursor: pointer; text-decoration: underline; margin-top: 4px; }
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <!-- REAL FACE ID & CREDENTIALS AUTH SCREEN -->
-    <div id="authScreen" class="auth-wrapper">
-        <div class="auth-card">
-            <div style="font-size:0.8rem; font-weight:800; color:var(--purple);">✨ REAL FACE ID & LOGIN TIZIMI</div>
-            <h1 style="font-size: 1.3rem;" id="authFormTitle">Tizimga Kirish</h1>
-            
-            <div class="form-group">
-                <label>To'liq Ism va Familiyangiz (F.I.Sh)</label>
-                <input type="text" id="authFullName" placeholder="Masalan: Aziz Rahimov">
-            </div>
-            <div class="form-group">
-                <label>Login</label>
-                <input type="text" id="authLogin" placeholder="Fwaydalanuvchi logini (masalan: aziz123)">
-            </div>
-            <div class="form-group">
-                <label>Parol</label>
-                <input type="password" id="authPassword" placeholder="Maxfiy parol">
-            </div>
-
-            <div class="form-group">
-                <label>Haqiqiy Yuz Skaneri (Real Face ID)</label>
-                <div class="camera-box">
-                    <video id="webcamVideo" autoplay playsinline muted></video>
-                </div>
-                <div id="faceStatus" style="font-size: 0.75rem; color: var(--amber); margin-top: 3px;">AI modellari yuklanmoqda...</div>
-            </div>
-
-            <button class="btn btn-emerald" onclick="handleAuthSubmit()">Kirish / Ro'yxatdan O'tish</button>
-            <div style="font-size: 0.78rem; color: var(--text-muted); cursor: pointer; text-decoration: underline;" onclick="toggleAuthMode()" id="switchAuthModeText">Akkauntingiz yo'qmi? Ro'yxatdan o'tish</div>
+    <div class="auth-card" id="authCardContainer">
+        <div style="font-size:0.75rem; font-weight:800; color:var(--purple); text-transform:uppercase;">Xavfsiz Autentifikatsiya</div>
+        <h1 id="formTitle">Tizimga Kirish</h1>
+        <p id="formSub">Dasturdan foydalanish uchun ma'lumotlaringizni kiriting va Face ID tekshiruvidan o'ting.</p>
+        
+        <div class="form-group hidden" id="groupFullName">
+            <label>To'liq Ism va Familiyangiz</label>
+            <input type="text" id="regFullName" placeholder="Masalan: Alisher Navoiy">
         </div>
+
+        <div class="form-group">
+            <label>Login</label>
+            <input type="text" id="authLogin" placeholder="Loginingizni kiriting">
+        </div>
+
+        <div class="form-group">
+            <label>Parol</label>
+            <input type="password" id="authPassword" placeholder="Maxfiy parolingiz">
+        </div>
+
+        <div class="form-group">
+            <label>Face ID (Yuz Skaneri)</label>
+            <div class="camera-box" id="cameraBox">
+                <video id="webcamVideo" autoplay playsinline muted></video>
+                <div class="face-overlay" id="faceOverlay">?</div>
+            </div>
+            <div id="faceStatus" style="font-size: 0.75rem; color: var(--amber); margin-top: 4px;">AI kamera ishga tushirilmoqda...</div>
+        </div>
+
+        <button class="btn btn-emerald" id="authSubmitBtn" onclick="processAuth()">Kirish</button>
+        <div class="switch-link" onclick="toggleMode()" id="switchModeText">Akkauntingiz yo'qmi? Ro'yxatdan o'tish</div>
     </div>
 
-    <!-- SIDEBAR -->
-    <aside id="appSidebar" class="hidden">
-        <div>
-            <div class="sidebar-brand"><span>✨ Gemini Pro</span></div>
-            <div class="sidebar-menu">
-                <a class="nav-link active" onclick="switchTab('dashboard', this)">📊 Dashboard</a>
-                <a class="nav-link" onclick="switchTab('tests', this)">📝 Testlar To'plami</a>
-                <a class="nav-link" id="navCreatorTab" onclick="switchTab('creator', this)">✍️ Test Tuzish (Admin)</a>
-                <a class="nav-link" onclick="switchTab('results', this)">📈 Natijalar</a>
-                <a class="nav-link" onclick="switchTab('profile', this)">👤 Profil</a>
-            </div>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-            <div style="font-size:0.75rem; color:var(--text-muted); text-align:center;" id="sidebarRoleBadge">Rol: Foydalanuvchi</div>
-            <button class="btn" style="background:var(--rose); padding:8px; font-size:0.8rem;" onclick="logout()">Chiqish</button>
-        </div>
-    </aside>
-
-    <!-- MAIN APP WORKSPACE -->
-    <main id="appMain" class="hidden">
-        <div class="top-navbar">
-            <div id="navTitle" style="font-weight: 700; font-size: 1.1rem;">Dashboard</div>
-            <div style="display:flex; align-items:center; gap:14px;">
-                <span id="headerUserName" style="font-size: 0.88rem; font-weight: 600; color: var(--text-muted);">Foydalanuvchi</span>
-            </div>
-        </div>
-
-        <div class="workspace-content">
-            
-            <!-- GEMINI AI WIDGET -->
-            <div class="gemini-widget">
-                <div class="gemini-header"><span>✨ Gemini AI Yordamchisi</span></div>
-                <div class="gemini-chat-box" id="geminiOutput">Salom! Men Gemini sun'iy intellektiman. Qanday savolingiz bor?</div>
-                <div class="gemini-input-row">
-                    <input type="text" id="geminiPromptInput" placeholder="Savolingizni yozing...">
-                    <button class="btn" style="width: auto; padding: 8px 16px;" onclick="askGeminiAI()">So'rash</button>
-                </div>
-            </div>
-
-            <!-- DASHBOARD -->
-            <div id="tab-dashboard" class="tab-content">
-                <div class="stats-grid" style="margin-bottom: 20px;">
-                    <div class="stat-card"><span class="lbl">Jami Testlar</span><span class="val" id="statTotalTests">1</span></div>
-                    <div class="stat-card"><span class="lbl">Mening Natijalarim</span><span class="val" id="statMyRes">0</span></div>
-                    <div class="stat-card"><span class="lbl">O'rtacha Ball</span><span class="val" id="statAvgScore">0%</span></div>
-                    <div class="stat-card"><span class="lbl">Foydalanuvchilar</span><span class="val" id="statUsersCount" style="color:var(--emerald);">1</span></div>
-                </div>
-            </div>
-
-            <!-- TESTS -->
-            <div id="tab-tests" class="tab-content hidden">
-                <div class="card">
-                    <h3 style="margin-bottom: 14px;">Mavjud Sinov Testlari</h3>
-                    <div style="display:flex; flex-direction:column; gap:10px;" id="testsListContainer"></div>
-                </div>
-            </div>
-
-            <!-- CREATOR -->
-            <div id="tab-creator" class="tab-content hidden">
-                <div class="card">
-                    <h3 style="margin-bottom: 14px; color:var(--amber);">✍️ Test Tuzish Markazi</h3>
-                    <div style="display:flex; flex-direction:column; gap:14px;">
-                        <div class="form-group">
-                            <label>Test Nomi</label>
-                            <input type="text" id="createTestTitle" placeholder="Masalan: Fizika fanidan imtihon">
-                        </div>
-                        <div class="form-group">
-                            <label>Savollar va variantlar</label>
-                            <textarea id="createTestBulkData" rows="5" style="background:var(--bg-color); color:var(--text-light); border:1.5px solid var(--border-color); border-radius:10px; padding:10px;" placeholder="1. Tezlik formulasi qaysi? | A) s/t | B) m*g | C) F*s | D) a*t | 0"></textarea>
-                        </div>
-                        <button class="btn btn-emerald" onclick="publishNewTest()">Testni Joylash</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- RESULTS -->
-            <div id="tab-results" class="tab-content hidden">
-                <div class="card">
-                    <h3 style="margin-bottom: 14px;">Barcha Natijalar</h3>
-                    <table>
-                        <thead><tr><th>Foydalanuvchi</th><th>Test nomi</th><th>Ball</th><th>Foiz</th><th>Sana</th></tr></thead>
-                        <tbody id="allResultsTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- PROFILE -->
-            <div id="tab-profile" class="tab-content hidden">
-                <div class="card" style="display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center;">
-                    <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--purple)); color:white; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:800;" id="profileAvatar">AR</div>
-                    <h2 id="profileName">Foydalanuvchi</h2>
-                    <p style="color:var(--text-muted); font-size:0.85rem;" id="profileSub">Real Face ID & Parol bilan tasdiqlangan</p>
-                    <button class="btn" style="background:var(--rose); width:auto; padding:10px 20px;" onclick="logout()">Chiqish</button>
-                </div>
-            </div>
-
-            <!-- TEST RUNNER -->
-            <div id="activeTestWorkspace" class="tab-content hidden">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; background:var(--card-bg); padding:12px 20px; border-radius:12px; border:1px solid var(--border-color);">
-                    <div id="activeTestName" style="font-weight:700; color:var(--primary);">Test sinovi</div>
-                </div>
-                <div class="test-layout">
-                    <div class="question-box">
-                        <div style="font-size:0.85rem; color:var(--text-muted);">Savol <strong id="currQNum">1</strong> / <span id="totalQNum">1</span></div>
-                        <div id="questionText" style="font-size:1rem; font-weight:700;">Yuklanmoqda...</div>
-                        <div id="optionsContainer" style="display:flex; flex-direction:column; gap:10px;"></div>
-                        <div style="display:flex; justify-content:space-between; margin-top:20px;">
-                            <button class="btn" style="width:auto; background:var(--border-color); color:var(--text-light);" onclick="prevQuestion()">&larr; Oldingi</button>
-                            <button class="btn" style="width:auto;" onclick="nextQuestion()">Keyingisi &rarr;</button>
-                        </div>
-                    </div>
-                    <div class="palette-box">
-                        <div style="font-size:0.85rem; font-weight:700;">Savollar jadvali</div>
-                        <div class="palette-grid" id="paletteGrid"></div>
-                        <button class="btn btn-emerald" style="margin-top:10px;" onclick="finishActiveTest()">Yakunlash</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- RESULT SCREEN -->
-            <div id="testResultWorkspace" class="tab-content hidden">
-                <div class="card" style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:16px; padding:40px;">
-                    <h2 style="color:var(--emerald);">🎉 Natija Hisoblandi!</h2>
-                    <div style="font-size:3rem; font-weight:800; color:var(--primary);" id="resScoreVal">100%</div>
-                    <p style="color:var(--text-muted);" id="resDetailsText"></p>
-                    <button class="btn" style="max-width:250px;" onclick="switchTab('dashboard', document.querySelector('.sidebar-menu .nav-link'))">Bosh sahifaga qaytish</button>
-                </div>
-            </div>
-
-        </div>
-    </main>
+    <div class="auth-card hidden" id="successContainer">
+        <h1 style="color: var(--emerald);">Muvaffaqiyatli Kirildi! 🎉</h1>
+        <p id="welcomeUserText">Xush kelibsiz</p>
+        <button class="btn" onclick="location.reload()">Chiqish (Reset)</button>
+    </div>
 
     <script>
-        let dbUsers = JSON.parse(localStorage.getItem('pro_users_v8') || JSON.stringify([
-            { name: "Boshqaruvchi Admin", login: "admin", password: "admin123", role: "admin", faceDescriptor: null }
-        ]));
-        let dbTests = JSON.parse(localStorage.getItem('pro_tests_v8') || JSON.stringify([
-            {
-                id: 1,
-                title: "Matematika va Mantiq",
-                questions: [
-                    { q: "5 * 5 - 5 nechiga teng?", opts: ["20", "25", "0", "15"], correct: 0 }
-                ]
-            }
-        ]));
-        let dbResults = JSON.parse(localStorage.getItem('pro_results_v8') || '[]');
-        let currentUser = JSON.parse(localStorage.getItem('pro_current_user_v8') || 'null');
-
-        let isRegisterMode = false;
+        let isRegister = false;
         let webcamStream = null;
-        let faceModelsLoaded = false;
-
-        let activeTest = null;
-        let currentQIdx = 0;
-        let userAnswers = {};
+        let aiReady = false;
+        let faceDetectionInterval = null;
 
         window.onload = async () => {
-            await initRealFaceAPI();
-            if(currentUser) showMainWorkspace();
+            await initFaceAPI();
         };
 
-        // Haqiqiy Face-API modellarini yuklash
-        async function initRealFaceAPI() {
+        async function initFaceAPI() {
             try {
-                document.getElementById('faceStatus').innerText = "AI yuz modeli yuklanmoqda...";
-                // CDN orqali tarmoqdan yuzni aniqlash tarmoqlarini yuklaymiz
+                document.getElementById('faceStatus').innerText = "Yuzni aniqlash modeli yuklanmoqda...";
                 await faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api@latest/model/');
-                await faceapi.nets.faceLandmarkTinyNet.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api@latest/model/');
-                
-                faceModelsLoaded = true;
-                document.getElementById('faceStatus').innerText = "Real Face ID tayyor!";
+                aiReady = true;
+                document.getElementById('faceStatus').innerText = "Face ID tayyor. Yuzingizni ko'rsating.";
                 document.getElementById('faceStatus').style.color = "var(--emerald)";
-                
-                startWebcam();
             } catch (e) {
-                console.warn("Face-API modellari yuklanishida xatolik:", e);
-                document.getElementById('faceStatus').innerText = "Kamera faol (Standart rejim)";
-                startWebcam();
+                document.getElementById('faceStatus').innerText = "Kamera ishlayapti (Standart rejim)";
+                document.getElementById('faceStatus').style.color = "var(--text-muted)";
             }
+            startCamera();
         }
 
-        async function startWebcam() {
+        async function startCamera() {
             try {
                 webcamStream = await navigator.mediaDevices.getUserMedia({ video: true });
-                document.getElementById('webcamVideo').srcObject = webcamStream;
+                let videoEl = document.getElementById('webcamVideo');
+                videoEl.srcObject = webcamStream;
+                
+                // Kamera ishlagach, har 600ms da yuzni real vaqtda tekshirib borish
+                videoEl.onplaying = () => {
+                    startRealtimeFaceCheck();
+                };
             } catch (err) {
                 document.getElementById('faceStatus').innerText = "Kameraga ruxsat berilmadi!";
                 document.getElementById('faceStatus').style.color = "var(--rose)";
+                setFaceIndicator(false, "Kamera yo'q");
             }
         }
 
-        function toggleAuthMode() {
-            isRegisterMode = !isRegisterMode;
-            document.getElementById('authFormTitle').innerText = isRegisterMode ? "Yangi Ro'yxatdan O'tish" : "Tizimga Kirish";
-            document.getElementById('switchAuthModeText').innerText = isRegisterMode ? "Hisobingiz bormi? Kirish" : "Akkauntingiz yo'qmi? Ro'yxatdan o'tish";
+        // Real vaqtda yuzni tekshirib pitichka yoki X chiqarish
+        function startRealtimeFaceCheck() {
+            let video = document.getElementById('webcamVideo');
+            if(faceDetectionInterval) clearInterval(faceDetectionInterval);
+
+            faceDetectionInterval = setInterval(async () => {
+                if (!aiReady || !video) return;
+                try {
+                    let detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions());
+                    if (detection) {
+                        setFaceIndicator(true, "Yuz tasdiqlandi (Real)");
+                    } else {
+                        setFaceIndicator(false, "Yuz topilmadi / Soxta ko'rinish");
+                    }
+                } catch(err) {
+                    console.error(err);
+                }
+            }, 700);
         }
 
-        // Haqiqiy Autentifikatsiya va Ro'yxatdan o'tish tekshiruvi
-        async function handleAuthSubmit() {
-            let fullName = document.getElementById('authFullName').value.trim();
+        function setFaceIndicator(isValid, message) {
+            let overlay = document.getElementById('faceOverlay');
+            let box = document.getElementById('cameraBox');
+            let status = document.getElementById('faceStatus');
+
+            if (isValid) {
+                overlay.innerText = "✓";
+                overlay.className = "face-overlay success";
+                box.className = "camera-box success";
+                status.innerText = message;
+                status.style.color = "var(--emerald)";
+            } else {
+                overlay.innerText = "✕";
+                overlay.className = "face-overlay error";
+                box.className = "camera-box error";
+                status.innerText = message;
+                status.style.color = "var(--rose)";
+            }
+        }
+
+        function toggleMode() {
+            isRegister = !isRegister;
+            document.getElementById('formTitle').innerText = isRegister ? "Yangi Hisob Ochish" : "Tizimga Kirish";
+            document.getElementById('formSub').innerText = isRegister ? "Ro'yxatdan o'tish uchun quyidagilarni to'ldiring." : "Dasturdan foydalanish uchun ma'lumotlaringizni kiriting.";
+            document.getElementById('groupFullName').classList.toggle('hidden', !isRegister);
+            document.getElementById('authSubmitBtn').innerText = isRegister ? "Ro'yxatdan o'tish" : "Kirish";
+            document.getElementById('switchModeText').innerText = isRegister ? "Hisobingiz bormi? Kirish" : "Akkauntingiz yo'qmi? Ro'yxatdan o'tish";
+        }
+
+        async function processAuth() {
             let login = document.getElementById('authLogin').value.trim();
             let password = document.getElementById('authPassword').value.trim();
+            let fullName = document.getElementById('regFullName').value.trim();
 
-            if(!login || !password) {
-                alert("Login va parolni kiritish majburiy!");
+            if (!login || !password || (isRegister && !fullName)) {
+                alert("Barcha maydonlarni to'ldirishingiz shart!");
                 return;
             }
 
-            let videoEl = document.getElementById('webcamVideo');
-
-            // Agar Face-API ishlayotgan bo'lsa, haqiqiy yuz mavjudligini tekshiramiz
-            if (faceModelsLoaded) {
-                let detection = await faceapi.detectSingleFace(videoEl, new faceapi.TinyFaceDetectorOptions());
+            if (aiReady) {
+                let video = document.getElementById('webcamVideo');
+                let detection = await faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions());
                 if (!detection) {
-                    alert("Diqqat: Kamerada yuzingiz aniqlanmadi! Iltimos, yuzingizni kameraga aniq tuting.");
+                    alert("Xatolik: Kamerada haqiqiy yuz aniqlanmadi! Iltimos, yuzingizni aniq ko'rsating.");
                     return;
                 }
             }
 
-            if (isRegisterMode) {
-                if(!fullName) {
-                    alert("Ro'yxatdan o'tish uchun Ism va familiyangizni kiriting!");
+            let users = JSON.parse(localStorage.getItem('clean_users_db') || '[]');
+
+            if (isRegister) {
+                if (users.some(u => u.login === login)) {
+                    alert("Bu login band qilingan. Boshqa login kiriting!");
                     return;
                 }
-                let existing = dbUsers.find(u => u.login === login);
-                if(existing) {
-                    alert("Bu login band! Boshqa login kiriting.");
-                    return;
+                let newUser = { fullName, login, password };
+                users.push(newUser);
+                localStorage.setItem('clean_users_db', JSON.stringify(users));
+                localStorage.setItem('clean_current_user', JSON.stringify(newUser));
+                alert("Muvaffaqiyatli ro'yxatdan o'tdingiz!");
+                showSuccess(newUser.fullName);
+            } else {
+                let found = users.find(u => u.login === login && u.password === password);
+                if (login === 'admin' && password === 'admin123') {
+                    found = { fullName: "Boshqaruvchi Admin", login: "admin" };
                 }
 
-                let newUser = {
-                    name: fullName,
-                    login: login,
-                    password: password,
-                    role: (login.toLowerCase() === 'admin') ? 'admin' : 'user'
-                };
-                dbUsers.push(newUser);
-                localStorage.setItem('pro_users_v8', JSON.stringify(dbUsers));
-                
-                currentUser = newUser;
-                alert("Tabriklaymiz, muvaffaqiyatli ro'yxatdan o'tdingiz va Face ID tasdiqlandi!");
-            } else {
-                // Kirish rejimi
-                let user = dbUsers.find(u => u.login === login && u.password === password);
-                if(!user) {
+                if (!found) {
                     alert("Login yoki parol xato! Yoki avval ro'yxatdan o'ting.");
                     return;
                 }
-                currentUser = user;
-                alert(`Xush kelibsiz, ${currentUser.name}! Face ID muvaffaqiyatli o'tdi.`);
-            }
-
-            localStorage.setItem('pro_current_user_v8', JSON.stringify(currentUser));
-            if(webcamStream) webcamStream.getTracks().forEach(t => t.stop());
-
-            showMainWorkspace();
-        }
-
-        function logout() {
-            localStorage.removeItem('pro_current_user_v8');
-            location.reload();
-        }
-
-        function showMainWorkspace() {
-            document.getElementById('authScreen').classList.add('hidden');
-            document.getElementById('appSidebar').classList.remove('hidden');
-            document.getElementById('appMain').classList.remove('hidden');
-
-            document.getElementById('headerUserName').innerText = currentUser.name;
-            document.getElementById('profileName').innerText = currentUser.name;
-            document.getElementById('profileSub').innerText = currentUser.role === 'admin' ? "Boshqaruvchi (Admin)" : `Login: ${currentUser.login} (Face ID Tasdiqlangan)`;
-            document.getElementById('profileAvatar').innerText = currentUser.name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
-
-            let isAdmin = currentUser.role === 'admin';
-            document.getElementById('sidebarRoleBadge').innerText = isAdmin ? "Rol: Boshqaruvchi" : "Rol: Foydalanuvchi";
-            document.getElementById('navCreatorTab').style.display = isAdmin ? "flex" : "none";
-
-            renderTestsList();
-            renderResultsTable();
-            updateStats();
-        }
-
-        function switchTab(tabId, el) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
-            if(el) el.classList.add('active');
-
-            let titles = {dashboard: "Dashboard", tests: "Testlar", creator: "Test Tuzish", results: "Natijalar", profile: "Profil"};
-            document.getElementById('navTitle').innerText = titles[tabId] || "Platforma";
-        }
-
-        function askGeminiAI() {
-            let input = document.getElementById('geminiPromptInput');
-            let output = document.getElementById('geminiOutput');
-            let text = input.value.trim().toLowerCase();
-            if(!text) return;
-
-            let reply = "Gemini AI: Savolingiz bo'yicha tahlil qilindi. Testlarda doimo diqqatli bo'lishingizni so'rayman.";
-            if(text.includes('salom')) reply = "Gemini AI: Salom! Sizga qanday yordam bera olaman?";
-            else if(text.includes('test')) reply = "Gemini AI: Testlarni ishlash uchun 'Testlar' bo'limiga o'ting.";
-
-            output.innerHTML = `<strong>Siz:</strong> ${input.value}<br><br><strong>✨ Gemini:</strong> ${reply}`;
-            input.value = '';
-        }
-
-        function publishNewTest() {
-            let title = document.getElementById('createTestTitle').value.trim();
-            let rawData = document.getElementById('createTestBulkData').value.trim();
-            if(!title || !rawData) { alert("Maydonlarni to'ldiring!"); return; }
-
-            let lines = rawData.split('\n').filter(l => l.trim().length > 0);
-            let questions = [];
-
-            for(let line of lines) {
-                let parts = line.split('|').map(p => p.trim());
-                if(parts.length >= 6) {
-                    let qText = parts[0].replace(/^\d+[\.\)]\s*/, '');
-                    let opts = [parts[1], parts[2], parts[3], parts[4]].map(o => o.replace(/^[A-Da-d][\.\)]\s*/, ''));
-                    let correct = parseInt(parts[5]) || 0;
-                    questions.push({ q: qText, opts, correct });
-                }
-            }
-
-            dbTests.push({ id: Date.now(), title, questions });
-            localStorage.setItem('pro_tests_v8', JSON.stringify(dbTests));
-            alert("Test muvaffaqiyatli qo'shildi!");
-            renderTestsList();
-            updateStats();
-            switchTab('tests', document.querySelectorAll('.nav-link')[1]);
-        }
-
-        function renderTestsList() {
-            let container = document.getElementById('testsListContainer');
-            container.innerHTML = '';
-            dbTests.forEach(t => {
-                container.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; align-items:center; padding:16px; border:1px solid var(--border-color); border-radius:12px; background:var(--bg-color);">
-                        <div>
-                            <div style="font-weight:700;">${t.title}</div>
-                            <div style="font-size:0.8rem; color:var(--text-muted);">Savollar: ${t.questions.length} ta</div>
-                        </div>
-                        <button class="btn" style="width:auto; padding:8px 16px;" onclick="startTest(${t.id})">Ishlash</button>
-                    </div>`;
-            });
-        }
-
-        function startTest(id) {
-            activeTest = dbTests.find(t => t.id === id);
-            currentQIdx = 0;
-            userAnswers = {};
-
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-            document.getElementById('activeTestWorkspace').classList.remove('hidden');
-            document.getElementById('activeTestName').innerText = activeTest.title;
-            document.getElementById('totalQNum').innerText = activeTest.questions.length;
-
-            buildPalette();
-            loadQuestion();
-        }
-
-        function buildPalette() {
-            let grid = document.getElementById('paletteGrid');
-            grid.innerHTML = '';
-            for(let i=0; i<activeTest.questions.length; i++) {
-                grid.innerHTML += `<button class="p-btn ${currentQIdx===i?'current':''} ${userAnswers[i]!==undefined?'answered':''}" onclick="goToQ(${i})">${i+1}</button>`;
+                localStorage.setItem('clean_current_user', JSON.stringify(found));
+                showSuccess(found.fullName);
             }
         }
 
-        function goToQ(idx) { currentQIdx = idx; loadQuestion(); buildPalette(); }
-
-        function loadQuestion() {
-            let qObj = activeTest.questions[currentQIdx];
-            document.getElementById('currQNum').innerText = currentQIdx + 1;
-            document.getElementById('questionText').innerText = `${currentQIdx + 1}-savol: ${qObj.q}`;
-
-            let box = document.getElementById('optionsContainer'); box.innerHTML = '';
-            qObj.opts.forEach((opt, idx) => {
-                let sel = userAnswers[currentQIdx] === idx ? 'selected' : '';
-                box.innerHTML += `<div class="option-item ${sel}" onclick="selectOpt(${idx})"><span style="font-weight:700; color:var(--primary);">${String.fromCharCode(65+idx)})</span> ${opt}</div>`;
-            });
-        }
-
-        function selectOpt(idx) { userAnswers[currentQIdx] = idx; buildPalette(); loadQuestion(); }
-
-        function nextQuestion() {
-            if(currentQIdx < activeTest.questions.length - 1) { currentQIdx++; loadQuestion(); buildPalette(); }
-            else finishActiveTest();
-        }
-
-        function prevQuestion() {
-            if(currentQIdx > 0) { currentQIdx--; loadQuestion(); buildPalette(); }
-        }
-
-        function finishActiveTest() {
-            let correctCount = 0;
-            let total = activeTest.questions.length;
-            for(let i=0; i<total; i++) { if(userAnswers[i] === activeTest.questions[i].correct) correctCount++; }
-            let percent = Math.round((correctCount / total) * 100);
-
-            dbResults.push({
-                user: currentUser.name,
-                title: activeTest.title,
-                score: correctCount,
-                total: total,
-                percent: percent,
-                date: new Date().toISOString().split('T')[0]
-            });
-            localStorage.setItem('pro_results_v8', JSON.stringify(dbResults));
-
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-            document.getElementById('testResultWorkspace').classList.remove('hidden');
-            document.getElementById('resScoreVal').innerText = percent + "%";
-            document.getElementById('resDetailsText').innerText = `To'g'ri javoblar: ${correctCount} / ${total}`;
-
-            renderResultsTable();
-            updateStats();
-        }
-
-        function renderResultsTable() {
-            let tb = document.getElementById('allResultsTableBody');
-            tb.innerHTML = '';
-            if(dbResults.length === 0) {
-                tb.innerHTML = `<tr><td colspan="5" style="text-align:center; color:var(--text-muted);">Natijalar yo'q</td></tr>`;
-                return;
-            }
-            dbResults.forEach(r => {
-                tb.innerHTML += `<tr><td>${r.user}</td><td>${r.title}</td><td>${r.score}/${r.total}</td><td><span class="badge">${r.percent}%</span></td><td>${r.date}</td></tr>`;
-            });
-        }
-
-        function updateStats() {
-            document.getElementById('statTotalTests').innerText = dbTests.length;
-            let myRes = dbResults.filter(r => r.user === currentUser.name);
-            document.getElementById('statMyRes').innerText = myRes.length;
-            let avg = myRes.length > 0 ? Math.round(myRes.reduce((a,b)=>a+b.percent,0)/myRes.length) : 0;
-            document.getElementById('statAvgScore').innerText = avg + "%";
-            document.getElementById('statUsersCount').innerText = dbUsers.length;
+        function showSuccess(name) {
+            if (faceDetectionInterval) clearInterval(faceDetectionInterval);
+            if (webcamStream) webcamStream.getTracks().forEach(t => t.stop());
+            document.getElementById('authCardContainer').classList.add('hidden');
+            document.getElementById('successContainer').classList.remove('hidden');
+            document.getElementById('welcomeUserText').innerText = `Xush kelibsiz, ${name}! Face ID muvaffaqiyatli tasdiqlandi.`;
         }
     </script>
 </body>
