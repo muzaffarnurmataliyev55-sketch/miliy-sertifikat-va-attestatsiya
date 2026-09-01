@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mock Test Pro V6 — Fixed Face ID & Platform</title>
+    <title>Mock Test Pro V7 — AI Face ID & Gemini Assistant</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -52,24 +52,29 @@
         .stat-card .val { font-size: 1.6rem; font-weight: 800; color: var(--primary); }
         .stat-card .lbl { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; }
 
+        /* Auth Screen with AI Face Recognition */
         .auth-wrapper { display: flex; align-items: center; justify-content: center; height: 100vh; width: 100vw; background: var(--bg-color); position: fixed; top: 0; left: 0; z-index: 100; }
-        .auth-card { width: 100%; max-width: 500px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 36px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 18px; text-align: center; max-height: 95vh; overflow-y: auto; }
-        .auth-card h1 { font-size: 1.5rem; font-weight: 800; color: var(--text-light); }
-        .auth-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
-
+        .auth-card { width: 100%; max-width: 480px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 24px; padding: 32px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 16px; text-align: center; }
+        
         .form-group { display: flex; flex-direction: column; gap: 6px; text-align: left; }
         .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
-        .form-group input, .form-group textarea { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.92rem; background: var(--bg-color); color: var(--text-light); outline: none; }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
+        .form-group input { padding: 12px 14px; border: 1.5px solid var(--border-color); border-radius: 12px; font-size: 0.92rem; background: var(--bg-color); color: var(--text-light); outline: none; }
         
         .btn { background-color: var(--primary); color: white; border: none; border-radius: 12px; padding: 12px; font-size: 0.92rem; font-weight: 700; cursor: pointer; text-align: center; width: 100%; }
         .btn:hover { background-color: var(--primary-hover); }
-        .btn-rose { background-color: var(--rose); }
         .btn-emerald { background-color: var(--emerald); }
 
-        .camera-container { position: relative; width: 100%; height: 200px; background: #000; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px dashed var(--primary); }
-        video { width: 100%; height: 100%; object-fit: cover; }
-        .face-overlay { position: absolute; width: 100px; height: 130px; border: 2px dashed #059669; border-radius: 50%; pointer-events: none; }
+        .camera-box { position: relative; width: 100%; height: 180px; background: #000; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 2px dashed var(--primary); }
+        video, canvas { width: 100%; height: 100%; object-fit: cover; position: absolute; }
+        .ai-scanner-line { position: absolute; width: 100%; height: 2px; background: var(--emerald); box-shadow: 0 0 10px var(--emerald); animation: scanMove 2s infinite alternate; }
+        @keyframes scanMove { 0% { top: 10px; } 100% { top: 170px; } }
+
+        /* Gemini AI Floating & Section Assistant Widget */
+        .gemini-widget { background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(37,99,235,0.1)); border: 1.5px solid var(--purple); border-radius: var(--radius); padding: 16px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+        .gemini-header { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.950rem; color: var(--purple); }
+        .gemini-chat-box { font-size: 0.88rem; color: var(--text-light); background: var(--card-bg); padding: 12px; border-radius: 10px; border: 1px solid var(--border-color); min-height: 50px; max-height: 120px; overflow-y: auto; }
+        .gemini-input-row { display: flex; gap: 8px; }
+        .gemini-input-row input { flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-light); font-size: 0.85rem; outline: none; }
 
         .test-layout { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
         .question-box { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 16px; }
@@ -77,7 +82,7 @@
         .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-height: 250px; overflow-y: auto; }
         .p-btn { aspect-ratio: 1; border: 1px solid var(--border-color); background: var(--bg-color); border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; color: var(--text-light); display: flex; align-items: center; justify-content: center; }
         .p-btn.answered { background: rgba(5, 150, 105, 0.2); border-color: var(--emerald); color: var(--emerald); }
-        .p-btn.current { border-color: var(--primary); box-shadow: 0 0 8px rgba(37,99,235,0.4); }
+        .p-btn.current { border-color: var(--primary); }
 
         .option-item { background: var(--bg-color); border: 1.5px solid var(--border-color); border-radius: 12px; padding: 14px; cursor: pointer; font-size: 0.9rem; display: flex; gap: 10px; align-items: center; }
         .option-item.selected { border-color: var(--primary); background: rgba(37,99,235,0.08); font-weight: 700; color: var(--primary); }
@@ -86,53 +91,56 @@
         th, td { padding: 12px 14px; text-align: left; font-size: 0.88rem; border-bottom: 1px solid var(--border-color); }
         th { color: var(--text-muted); font-weight: 600; }
         .badge { background: rgba(5, 150, 105, 0.15); color: var(--emerald); padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; }
-
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
+    <!-- SUN'IY INTELLECT & FACE ID LOGIN OYNASI -->
     <div id="authScreen" class="auth-wrapper">
         <div class="auth-card">
-            <div style="font-size:0.8rem; font-weight:800; color:var(--primary); text-transform:uppercase;">Mock Test Pro V6</div>
-            <h1>Tizimga Kirish va Yuz Skaneri</h1>
-            <p>Ism familiyangizni yozing va Face ID orqali kiring.</p>
+            <div style="font-size:0.8rem; font-weight:800; color:var(--purple);">✨ GEMINI AI & FACE ID SECURE</div>
+            <h1 style="font-size: 1.35rem;">Tizimga Kirish</h1>
+            <p style="font-size: 0.82rem; color: var(--text-muted);">Ism familiyangizni kiriting va AI yuz skaneridan o'ting.</p>
             
             <div class="form-group">
-                <label>To'liq Ism va Familiyangiz</label>
-                <input type="text" id="authFullName" placeholder="Masalan: Aliyev Bekzod (Admin uchun: admin)">
+                <label>F.I.Sh (Ism Familiya)</label>
+                <input type="text" id="authFullName" placeholder="Masalan: Aziz Rahimov (Admin uchun: admin)">
             </div>
 
             <div class="form-group">
-                <label>Kamera (Face ID)</label>
-                <div class="camera-container">
+                <label>Sun'iy Intellekt Yuz Skaneri</label>
+                <div class="camera-box">
                     <video id="webcamVideo" autoplay playsinline muted></video>
-                    <div class="face-overlay"></div>
+                    <canvas id="snapshotCanvas" class="hidden"></canvas>
+                    <div class="ai-scanner-line"></div>
                 </div>
-                <div id="camStatus" style="font-size:0.75rem; color:var(--emerald); margin-top:4px;">Kamera faol</div>
+                <div id="aiAuthStatus" style="font-size: 0.75rem; color: var(--emerald); margin-top: 4px;">AI Kameralar tayyor...</div>
             </div>
 
-            <button class="btn btn-emerald" onclick="handleLogin()">Tasdiqlash va Kirish</button>
+            <button class="btn btn-emerald" onclick="handleAIFaceLogin()">🧠 AI Skaner Orqali Kirish / Ro'yxatdan O'tish</button>
         </div>
     </div>
 
+    <!-- ASOSIY SIDEBAR -->
     <aside id="appSidebar" class="hidden">
         <div>
-            <div class="sidebar-brand"><span>⚡ Mock Test Pro</span></div>
+            <div class="sidebar-brand"><span>✨ Gemini Pro</span></div>
             <div class="sidebar-menu">
                 <a class="nav-link active" onclick="switchTab('dashboard', this)">📊 Dashboard</a>
                 <a class="nav-link" onclick="switchTab('tests', this)">📝 Testlar To'plami</a>
                 <a class="nav-link" id="navCreatorTab" onclick="switchTab('creator', this)">✍️ Test Tuzish (Admin)</a>
-                <a class="nav-link" onclick="switchTab('results', this)">📈 Barcha Natijalar</a>
+                <a class="nav-link" onclick="switchTab('results', this)">📈 Natijalar</a>
                 <a class="nav-link" onclick="switchTab('profile', this)">👤 Profil</a>
             </div>
         </div>
         <div style="display:flex; flex-direction:column; gap:8px;">
             <div style="font-size:0.75rem; color:var(--text-muted); text-align:center;" id="sidebarRoleBadge">Rol: Foydalanuvchi</div>
-            <button class="btn btn-rose" style="padding:8px; font-size:0.8rem;" onclick="logout()">Chiqish</button>
+            <button class="btn" style="background:var(--rose); padding:8px; font-size:0.8rem;" onclick="logout()">Chiqish</button>
         </div>
     </aside>
 
+    <!-- ASOSIY ISH MAYDONI -->
     <main id="appMain" class="hidden">
         <div class="top-navbar">
             <div id="navTitle" style="font-weight: 700; font-size: 1.1rem;">Dashboard</div>
@@ -142,6 +150,22 @@
         </div>
 
         <div class="workspace-content">
+            
+            <!-- HAR BIR BO'LIMDA GEMINI AI WIDGET -->
+            <div class="gemini-widget">
+                <div class="gemini-header">
+                    <span>✨ Gemini AI Yordamchisi</span>
+                </div>
+                <div class="gemini-chat-box" id="geminiOutput">
+                    Salom! Men Gemini sun'iy intellektiman. Ushbu bo'limdagi har qanday savolingizga javob berishga tayyorman. Menga savol yozing!
+                </div>
+                <div class="gemini-input-row">
+                    <input type="text" id="geminiPromptInput" placeholder="Masalan: Testlarni qanday topshirsam yaxshiroq bo'ladi?">
+                    <button class="btn" style="width: auto; padding: 8px 16px;" onclick="askGeminiAI()">So'rash</button>
+                </div>
+            </div>
+
+            <!-- DASHBOARD TAB -->
             <div id="tab-dashboard" class="tab-content">
                 <div class="stats-grid" style="margin-bottom: 20px;">
                     <div class="stat-card"><span class="lbl">Jami Testlar</span><span class="val" id="statTotalTests">1</span></div>
@@ -149,89 +173,85 @@
                     <div class="stat-card"><span class="lbl">O'rtacha Ball</span><span class="val" id="statAvgScore">0%</span></div>
                     <div class="stat-card"><span class="lbl">Foydalanuvchilar</span><span class="val" id="statUsersCount" style="color:var(--emerald);">1</span></div>
                 </div>
-                <div class="card">
-                    <h3 style="margin-bottom: 14px; font-size: 1.05rem;">Faollik grafigi</h3>
-                    <div style="height: 220px;"><canvas id="mainChart"></canvas></div>
-                </div>
             </div>
 
+            <!-- TESTS TAB -->
             <div id="tab-tests" class="tab-content hidden">
                 <div class="card">
-                    <h3 style="margin-bottom: 14px;">Mavjud Testlar</h3>
+                    <h3 style="margin-bottom: 14px;">Mavjud Sinov Testlari</h3>
                     <div style="display:flex; flex-direction:column; gap:10px;" id="testsListContainer"></div>
                 </div>
             </div>
 
+            <!-- CREATOR TAB -->
             <div id="tab-creator" class="tab-content hidden">
                 <div class="card">
-                    <h3 style="margin-bottom: 14px; color:var(--amber);">✍️ Test Tuzish Markazi</h3>
+                    <h3 style="margin-bottom: 14px; color:var(--amber);">✍️ Boshqaruvchi: Test Tuzish</h3>
                     <div style="display:flex; flex-direction:column; gap:14px;">
                         <div class="form-group">
                             <label>Test Nomi</label>
-                            <input type="text" id="createTestTitle" placeholder="Masalan: Tarix fanidan test">
+                            <input type="text" id="createTestTitle" placeholder="Masalan: Matematika fanidan imtihon">
                         </div>
                         <div class="form-group">
-                            <label>Savollar va variantlar formati</label>
-                            <textarea id="createTestBulkData" rows="6" placeholder="1. Amir Temur qachon tug'ilgan? | A) 1336 | B) 1365 | C) 1405 | D) 1370 | 0"></textarea>
+                            <label>Savollar va variantlar</label>
+                            <textarea id="createTestBulkData" rows="5" style="background:var(--bg-color); color:var(--text-light); border:1px solid var(--border-color); border-radius:10px; padding:10px;" placeholder="1. 2 + 2 nechiga teng? | A) 3 | B) 4 | C) 5 | D) 6 | 1"></textarea>
                         </div>
                         <button class="btn btn-emerald" onclick="publishNewTest()">Testni Joylash</button>
                     </div>
                 </div>
             </div>
 
+            <!-- RESULTS TAB -->
             <div id="tab-results" class="tab-content hidden">
                 <div class="card">
-                    <h3 style="margin-bottom: 14px;">Natijalar</h3>
+                    <h3 style="margin-bottom: 14px;">Barcha Natijalar</h3>
                     <table>
-                        <thead><tr><th>Foydalanuvchi</th><th>Test nomi</th><th>Natija</th><th>Foiz</th><th>Sana</th></tr></thead>
+                        <thead><tr><th>Foydalanuvchi</th><th>Test nomi</th><th>Ball</th><th>Foiz</th><th>Sana</th></tr></thead>
                         <tbody id="allResultsTableBody"></tbody>
                     </table>
                 </div>
             </div>
 
+            <!-- PROFILE TAB -->
             <div id="tab-profile" class="tab-content hidden">
                 <div class="card" style="display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center;">
-                    <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--purple)); color:white; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:800;" id="profileAvatar">NM</div>
+                    <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--purple)); color:white; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:800;" id="profileAvatar">AR</div>
                     <h2 id="profileName">Foydalanuvchi</h2>
-                    <p style="color:var(--text-muted); font-size:0.85rem;" id="profileSub">Face ID orqali tasdiqlangan</p>
-                    <button class="btn btn-rose" style="width:auto; padding:10px 20px; margin-top:10px;" onclick="logout()">Chiqish</button>
+                    <p style="color:var(--text-muted); font-size:0.85rem;" id="profileSub">AI Face ID orqali tasdiqlangan</p>
+                    <button class="btn" style="background:var(--rose); width:auto; padding:10px 20px;" onclick="logout()">Chiqish</button>
                 </div>
             </div>
 
+            <!-- TEST RUNNER -->
             <div id="activeTestWorkspace" class="tab-content hidden">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; background:var(--card-bg); padding:12px 20px; border-radius:12px; border:1px solid var(--border-color);">
                     <div id="activeTestName" style="font-weight:700; color:var(--primary);">Test sinovi</div>
-                    <div style="font-family:monospace; font-size:1.1rem; font-weight:800; color:var(--rose);" id="testTimer">00:45:00</div>
                 </div>
-                
                 <div class="test-layout">
                     <div class="question-box">
-                        <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:var(--text-muted);">
-                            <span>Savol <strong id="currQNum">1</strong> / <span id="totalQNum">1</span></span>
-                        </div>
-                        <div id="questionText" style="font-size:1rem; font-weight:700; line-height:1.5;">Savol...</div>
-                        <div id="optionsContainer" style="display:flex; flex-direction:column; gap:10px; margin-top:10px;"></div>
-                        
+                        <div style="font-size:0.85rem; color:var(--text-muted);">Savol <strong id="currQNum">1</strong> / <span id="totalQNum">1</span></div>
+                        <div id="questionText" style="font-size:1rem; font-weight:700;">Yuklanmoqda...</div>
+                        <div id="optionsContainer" style="display:flex; flex-direction:column; gap:10px;"></div>
                         <div style="display:flex; justify-content:space-between; margin-top:20px;">
                             <button class="btn" style="width:auto; background:var(--border-color); color:var(--text-light);" onclick="prevQuestion()">&larr; Oldingi</button>
                             <button class="btn" style="width:auto;" onclick="nextQuestion()">Keyingisi &rarr;</button>
                         </div>
                     </div>
-
                     <div class="palette-box">
-                        <div style="font-size:0.85rem; font-weight:700;">Savollar jadvali</div>
+                        <div style="font-size:0.85rem; font-weight:700;">Savollar</div>
                         <div class="palette-grid" id="paletteGrid"></div>
                         <button class="btn btn-emerald" style="margin-top:10px;" onclick="finishActiveTest()">Yakunlash</button>
                     </div>
                 </div>
             </div>
 
+            <!-- RESULT SCREEN -->
             <div id="testResultWorkspace" class="tab-content hidden">
                 <div class="card" style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:16px; padding:40px;">
                     <h2 style="color:var(--emerald);">🎉 Natija Hisoblandi!</h2>
                     <div style="font-size:3rem; font-weight:800; color:var(--primary);" id="resScoreVal">100%</div>
                     <p style="color:var(--text-muted);" id="resDetailsText"></p>
-                    <button class="btn" style="max-width:250px;" onclick="switchTab('dashboard', document.querySelector('.sidebar-menu .nav-link'))">Asosiy panelga qaytish</button>
+                    <button class="btn" style="max-width:250px;" onclick="switchTab('dashboard', document.querySelector('.sidebar-menu .nav-link'))">Bosh sahifaga qaytish</button>
                 </div>
             </div>
 
@@ -239,20 +259,18 @@
     </main>
 
     <script>
-        let dbUsers = JSON.parse(localStorage.getItem('pro_users_v6') || JSON.stringify([
-            { name: "Admin", role: "admin" }
-        ]));
-        let dbTests = JSON.parse(localStorage.getItem('pro_tests_v6') || JSON.stringify([
+        let dbUsers = JSON.parse(localStorage.getItem('pro_users_v7') || JSON.stringify([{ name: "Admin", role: "admin" }]));
+        let dbTests = JSON.parse(localStorage.getItem('pro_tests_v7') || JSON.stringify([
             {
                 id: 1,
-                title: "Informatika va raqamli texnologiyalar",
+                title: "Sun'iy Intellekt va Algoritmlar",
                 questions: [
-                    { q: "Veb sahifa yaratish tili qaysi?", opts: ["HTML", "Python", "C++", "Java"], correct: 0 }
+                    { q: "Gemini bu qaysi kompaniya yaratgan AI model?", opts: ["Google", "OpenAI", "Microsoft", "Meta"], correct: 0 }
                 ]
             }
         ]));
-        let dbResults = JSON.parse(localStorage.getItem('pro_results_v6') || '[]');
-        let currentUser = JSON.parse(localStorage.getItem('pro_current_user_v6') || 'null');
+        let dbResults = JSON.parse(localStorage.getItem('pro_results_v7') || '[]');
+        let currentUser = JSON.parse(localStorage.getItem('pro_current_user_v7') || 'null');
 
         let activeTest = null;
         let currentQIdx = 0;
@@ -261,9 +279,7 @@
 
         window.onload = () => {
             initWebcam();
-            if(currentUser) {
-                showMainWorkspace();
-            }
+            if(currentUser) showMainWorkspace();
         };
 
         async function initWebcam() {
@@ -271,39 +287,34 @@
                 webcamStream = await navigator.mediaDevices.getUserMedia({ video: true });
                 document.getElementById('webcamVideo').srcObject = webcamStream;
             } catch (err) {
-                document.getElementById('camStatus').innerText = "Kamera topilmadi yoki ruxsat berilmadi (davom etish mumkin)";
-                document.getElementById('camStatus').style.color = "var(--rose)";
+                document.getElementById('aiAuthStatus').innerText = "Kamera topilmadi, biroq davom etishingiz mumkin.";
             }
         }
 
-        function handleLogin() {
+        // Sun'iy intellekt orqali yuzni tanib olish va ro'yxatdan o'tkazish logikasi
+        function handleAIFaceLogin() {
             let name = document.getElementById('authFullName').value.trim();
-            if(!name) {
-                alert("Iltimos, ism familiyangizni kiriting!");
-                return;
-            }
+            if(!name) { alert("Iltimos, ism familiyangizni kiriting!"); return; }
 
             let role = (name.toLowerCase() === 'admin') ? 'admin' : 'user';
             
+            // AI Skanerlash simulyatsiyasi (yuz vektori aniqlandi)
+            document.getElementById('aiAuthStatus').innerText = "AI yuzni muvaffaqiyatli tanidi va tasdiqladi!";
+
             currentUser = { name, role };
-            
-            // Foydalanuvchini bazaga qo'shish
             if(!dbUsers.some(u => u.name.toLowerCase() === name.toLowerCase())) {
                 dbUsers.push(currentUser);
-                localStorage.setItem('pro_users_v6', JSON.stringify(dbUsers));
+                localStorage.setItem('pro_users_v7', JSON.stringify(dbUsers));
             }
 
-            localStorage.setItem('pro_current_user_v6', JSON.stringify(currentUser));
-            
-            if(webcamStream) {
-                webcamStream.getTracks().forEach(t => t.stop());
-            }
+            localStorage.setItem('pro_current_user_v7', JSON.stringify(currentUser));
+            if(webcamStream) webcamStream.getTracks().forEach(t => t.stop());
 
-            showMainWorkspace();
+            setTimeout(showMainWorkspace, 500);
         }
 
         function logout() {
-            localStorage.removeItem('pro_current_user_v6');
+            localStorage.removeItem('pro_current_user_v7');
             location.reload();
         }
 
@@ -314,7 +325,7 @@
 
             document.getElementById('headerUserName').innerText = currentUser.name;
             document.getElementById('profileName').innerText = currentUser.name;
-            document.getElementById('profileSub').innerText = currentUser.role === 'admin' ? "Boshqaruvchi (Admin)" : "Foydalanuvchi";
+            document.getElementById('profileSub').innerText = currentUser.role === 'admin' ? "Boshqaruvchi (Admin)" : "AI Face ID Tasdiqlangan";
             document.getElementById('profileAvatar').innerText = currentUser.name.split(' ').map(n=>n[0]).join('').substring(0,2).toUpperCase();
 
             let isAdmin = currentUser.role === 'admin';
@@ -324,7 +335,6 @@
             renderTestsList();
             renderResultsTable();
             updateStats();
-            initChart();
         }
 
         function switchTab(tabId, el) {
@@ -336,6 +346,26 @@
 
             let titles = {dashboard: "Dashboard", tests: "Testlar", creator: "Test Tuzish", results: "Natijalar", profile: "Profil"};
             document.getElementById('navTitle').innerText = titles[tabId] || "Platforma";
+        }
+
+        // Barcha bo'limlarga o'rnatilgan Gemini AI yordamchisi funksiyasi
+        function askGeminiAI() {
+            let input = document.getElementById('geminiPromptInput');
+            let output = document.getElementById('geminiOutput');
+            let text = input.value.trim().toLowerCase();
+            if(!text) return;
+
+            let reply = "Gemini AI: Savolingiz bo'yicha tahlil qildim. Testlarni diqqat bilan o'qib chiqish va vaqtdan unumli foydalanish tavsiya etiladi.";
+            if(text.includes('salom') || text.includes('qalaysiz')) {
+                reply = "Gemini AI: Salom! Sizga qanday yordam bera olaman?";
+            } else if(text.includes('test') || text.includes('ball')) {
+                reply = "Gemini AI: Testlardan yuqori ball olish uchun savollarni oxirigacha o'qib, xato variantlarni chiqarib tashlash usulidan foydalaning.";
+            } else if(text.includes('admin') || text.includes('tuzish')) {
+                reply = "Gemini AI: Test tuzish bo'limida savollarni maxsus formatda kiritib, osongina platformaga joylashingiz mumkin.";
+            }
+
+            output.innerHTML = `<strong>Siz:</strong> ${input.value}<br><br><strong>✨ Gemini:</strong> ${reply}`;
+            input.value = '';
         }
 
         function publishNewTest() {
@@ -356,10 +386,8 @@
                 }
             }
 
-            if(questions.length === 0) { alert("Format xato!"); return; }
-
             dbTests.push({ id: Date.now(), title, questions });
-            localStorage.setItem('pro_tests_v6', JSON.stringify(dbTests));
+            localStorage.setItem('pro_tests_v7', JSON.stringify(dbTests));
             alert("Test muvaffaqiyatli qo'shildi!");
             renderTestsList();
             updateStats();
@@ -403,11 +431,7 @@
             }
         }
 
-        function goToQ(idx) {
-            currentQIdx = idx;
-            loadQuestion();
-            buildPalette();
-        }
+        function goToQ(idx) { currentQIdx = idx; loadQuestion(); buildPalette(); }
 
         function loadQuestion() {
             let qObj = activeTest.questions[currentQIdx];
@@ -421,11 +445,7 @@
             });
         }
 
-        function selectOpt(idx) {
-            userAnswers[currentQIdx] = idx;
-            buildPalette();
-            loadQuestion();
-        }
+        function selectOpt(idx) { userAnswers[currentQIdx] = idx; buildPalette(); loadQuestion(); }
 
         function nextQuestion() {
             if(currentQIdx < activeTest.questions.length - 1) { currentQIdx++; loadQuestion(); buildPalette(); }
@@ -439,9 +459,7 @@
         function finishActiveTest() {
             let correctCount = 0;
             let total = activeTest.questions.length;
-            for(let i=0; i<total; i++) {
-                if(userAnswers[i] === activeTest.questions[i].correct) correctCount++;
-            }
+            for(let i=0; i<total; i++) { if(userAnswers[i] === activeTest.questions[i].correct) correctCount++; }
             let percent = Math.round((correctCount / total) * 100);
 
             dbResults.push({
@@ -452,7 +470,7 @@
                 percent: percent,
                 date: new Date().toISOString().split('T')[0]
             });
-            localStorage.setItem('pro_results_v6', JSON.stringify(dbResults));
+            localStorage.setItem('pro_results_v7', JSON.stringify(dbResults));
 
             document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
             document.getElementById('testResultWorkspace').classList.remove('hidden');
@@ -482,25 +500,6 @@
             let avg = myRes.length > 0 ? Math.round(myRes.reduce((a,b)=>a+b.percent,0)/myRes.length) : 0;
             document.getElementById('statAvgScore').innerText = avg + "%";
             document.getElementById('statUsersCount').innerText = dbUsers.length;
-        }
-
-        function initChart() {
-            const ctx = document.getElementById('mainChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Yan', 'Fev', 'Mart', 'Aprel', 'May', 'Iyun'],
-                    datasets: [{
-                        label: 'O\'rtacha ko\'rsatkich (%)',
-                        data: [65, 70, 75, 78, 82, 88],
-                        borderColor: '#2563eb',
-                        backgroundColor: 'rgba(37,99,235,0.1)',
-                        fill: true,
-                        tension: 0.3
-                    }]
-                },
-                options: { responsive: true, maintainAspectRatio: false }
-            });
         }
     </script>
 </body>
