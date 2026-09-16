@@ -1,543 +1,939 @@
--- =========================================
--- MILLiy SERTIFIKAT / ATTESTATSIYA QUIZ DB
--- =========================================
-
-create extension if not exists pgcrypto;
-
--- PROFILES
-create table if not exists public.profiles (
-  id uuid primary key references auth.users(id) on delete cascade,
-  full_name text not null default '',
-  region text default '',
-  district text default '',
-  phone text default '',
-  created_at timestamptz not null default now()
-);
-
--- QUIZZES
-create table if not exists public.quizzes (
-  id uuid primary key default gen_random_uuid(),
-  owner_id uuid not null references auth.users(id) on delete cascade,
-  title text not null,
-  subject text not null default 'Geografiya',
-  description text default '',
-  is_public boolean not null default true,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
-);
-
--- QUESTIONS
-create table if not exists public.questions (
-  id uuid primary key default gen_random_uuid(),
-  quiz_id uuid not null references public.quizzes(id) on delete cascade,
-  question_text text not null,
-  option_a text not null,
-  option_b text not null,
-  option_c text not null,
-  option_d text not null,
-  correct_answer text not null check (
-    correct_answer in ('A','B','C','D')
-  ),
-  explanation text default '',
-  sort_order integer not null default 0,
-  created_at timestamptz not null default now()
-);
-
--- RESULTS
-create table if not exists public.quiz_results (
-  id uuid primary key default gen_random_uuid(),
-  quiz_id uuid not null references public.quizzes(id) on delete cascade,
-  user_id uuid references auth.users(id) on delete set null,
-  score integer not null default 0,
-  total integer not null default 0,
-  percent numeric(5,2) not null default 0,
-  created_at timestamptz not null default now()
-);
-
--- ADMIN
-create table if not exists public.admins (
-  user_id uuid primary key references auth.users(id) on delete cascade
-);
-
--- INDEXLAR
-create index if not exists quizzes_owner_idx
-on public.quizzes(owner_id);
-
-create index if not exists questions_quiz_idx
-on public.questions(quiz_id);
-
-create index if not exists results_quiz_idx
-on public.quiz_results(quiz_id);
-
-create index if not exists results_user_idx
-on public.quiz_results(user_id);
-
-
--- =========================================
--- RLS
--- =========================================
-
-alter table public.profiles enable row level security;
-alter table public.quizzes enable row level security;
-alter table public.questions enable row level security;
-alter table public.quiz_results enable row level security;
-alter table public.admins enable row level security;
-
-
--- PROFILES
-create policy "profiles_select_own"
-on public.profiles
-for select
-to authenticated
-using ((select auth.uid()) = id);
-
-create policy "profiles_insert_own"
-on public.profiles
-for insert
-to authenticated
-with check ((select auth.uid()) = id);
-
-create policy "profiles_update_own"
-on public.profiles
-for update
-to authenticated
-using ((select auth.uid()) = id)
-with check ((select auth.uid()) = id);
-
-
--- QUIZZES
-create policy "public_can_read_public_quizzes"
-on public.quizzes
-for select
-to anon, authenticated
-using (
-  is_public = true
-  or owner_id = (select auth.uid())
-);
-
-create policy "users_create_own_quizzes"
-on public.quizzes
-for insert
-to authenticated
-with check (
-  owner_id = (select auth.uid())
-);
-
-create policy "users_update_own_quizzes"
-on public.quizzes
-for update
-to authenticated
-using (
-  owner_id = (select auth.uid())
-)
-with check (
-  owner_id = (select auth.uid())
-);
-
-create policy "users_delete_own_quizzes"
-on public.quizzes
-for delete
-to authenticated
-using (
-  owner_id = (select auth.uid())
-);
-
-
--- QUESTIONS
-create policy "public_read_questions_of_public_quizzes"
-on public.questions
-for select
-to anon, authenticated
-using (
-  exists (
-    select 1
-    from public.quizzes q
-    where q.id = questions.quiz_id
-    and (
-      q.is_public = true
-      or q.owner_id = (select auth.uid())
-    )
-  )
-);
-
-create policy "owners_create_questions"
-on public.questions
-for insert
-to authenticated
-with check (
-  exists (
-    select 1
-    from public.quizzes q
-    where q.id = quiz_id
-    and q.owner_id = (select auth.uid())
-  )
-);
-
-create policy "owners_update_questions"
-on public.questions
-for update
-to authenticated
-using (
-  exists (
-    select 1
-    from public.quizzes q
-    where q.id = questions.quiz_id
-    and q.owner_id = (select auth.uid())
-  )
-)
-with check (
-  exists (
-    select 1
-    from public.quizzes q
-    where q.id = questions.quiz_id
-    and q.owner_id = (select auth.uid())
-  )
-);
-
-create policy "owners_delete_questions"
-on public.questions
-for delete
-to authenticated
-using (
-  exists (
-    select 1
-    from public.quizzes q
-    where q.id = questions.quiz_id
-    and q.owner_id = (select auth.uid())
-  )
-);
-
-
--- RESULTS
-create policy "users_insert_results"
-on public.quiz_results
-for insert
-to authenticated
-with check (
-  user_id = (select auth.uid())
-);
-
-create policy "users_read_own_results"
-on public.quiz_results
-for select
-to authenticated
-using (
-  user_id = (select auth.uid())
-);
-
-
--- ADMIN
-create policy "admin_read_admin_table"
-on public.admins
-for select
-to authenticated
-using (
-  user_id = (select auth.uid())
-);
-
-
--- GRANTS
-grant select on public.quizzes to anon;
-grant select on public.questions to anon;
-
-grant select, insert, update on public.profiles to authenticated;
-
-grant select, insert, update, delete
-on public.quizzes to authenticated;
-
-grant select, insert, update, delete
-on public.questions to authenticated;
-
-grant select, insert
-on public.quiz_results to authenticated;
-
-grant select
-on public.admins to authenticated;
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Milliy Sertifikat va Attestatsiya</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>📚 Milliy Sertifikat va Attestatsiya</title>
 
-  <link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}
+
+:root{
+ --bg:#0d0f12;
+ --card:#181a20;
+ --card2:#20232a;
+ --line:#30343d;
+ --text:#f5f7fa;
+ --muted:#9da4b0;
+ --blue:#2563eb;
+ --green:#16a34a;
+ --red:#dc2626;
+ --yellow:#d97706;
+}
+
+body{
+ margin:0;
+ font-family:Arial,Helvetica,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+}
+
+button,input,select,textarea{
+ font:inherit;
+}
+
+button{
+ border:1px solid var(--line);
+ background:var(--card2);
+ color:white;
+ padding:11px 15px;
+ border-radius:10px;
+ cursor:pointer;
+ transition:.2s;
+}
+
+button:hover{
+ transform:translateY(-1px);
+ opacity:.9;
+}
+
+button:disabled{
+ opacity:.5;
+ cursor:not-allowed;
+}
+
+.primary{
+ background:var(--blue);
+ border-color:var(--blue);
+}
+
+.success{
+ background:var(--green);
+ border-color:var(--green);
+}
+
+.danger{
+ background:var(--red);
+ border-color:var(--red);
+}
+
+.warning{
+ background:var(--yellow);
+ border-color:var(--yellow);
+}
+
+header{
+ position:sticky;
+ top:0;
+ z-index:100;
+ background:#14161b;
+ border-bottom:1px solid var(--line);
+ padding:12px 4%;
+ display:flex;
+ align-items:center;
+ gap:15px;
+ flex-wrap:wrap;
+}
+
+.logo{
+ font-size:20px;
+ font-weight:800;
+ margin-right:auto;
+}
+
+nav{
+ display:flex;
+ gap:6px;
+ flex-wrap:wrap;
+}
+
+nav button{
+ padding:8px 11px;
+ font-size:13px;
+}
+
+.userBox{
+ display:flex;
+ gap:7px;
+ align-items:center;
+}
+
+main{
+ max-width:1150px;
+ margin:auto;
+ padding:25px 16px 80px;
+}
+
+.page{
+ display:none;
+}
+
+.page.active{
+ display:block;
+}
+
+.hero{
+ text-align:center;
+ padding:65px 15px;
+}
+
+.badge{
+ display:inline-block;
+ border:1px solid #374151;
+ background:#1d2433;
+ padding:7px 13px;
+ border-radius:30px;
+ font-size:12px;
+ letter-spacing:.5px;
+}
+
+.hero h1{
+ font-size:48px;
+ line-height:1.1;
+ margin:22px 0 15px;
+}
+
+.hero p{
+ color:var(--muted);
+ font-size:18px;
+ max-width:700px;
+ margin:auto;
+}
+
+.actions{
+ display:flex;
+ justify-content:center;
+ gap:10px;
+ flex-wrap:wrap;
+ margin-top:28px;
+}
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:14px;
+ margin-top:20px;
+}
+
+.stat{
+ background:var(--card);
+ border:1px solid var(--line);
+ border-radius:17px;
+ padding:23px;
+ text-align:center;
+}
+
+.stat b{
+ display:block;
+ font-size:30px;
+ margin-bottom:6px;
+}
+
+.stat span{
+ color:var(--muted);
+ font-size:13px;
+}
+
+.card{
+ background:var(--card);
+ border:1px solid var(--line);
+ border-radius:17px;
+ padding:22px;
+ margin-bottom:18px;
+}
+
+.narrow{
+ max-width:480px;
+ margin:40px auto;
+}
+
+h2{
+ margin-top:0;
+}
+
+input,select,textarea{
+ width:100%;
+ padding:13px;
+ margin:6px 0;
+ border-radius:10px;
+ border:1px solid var(--line);
+ background:#0f1115;
+ color:white;
+ outline:none;
+}
+
+textarea{
+ min-height:100px;
+ resize:vertical;
+}
+
+input:focus,select:focus,textarea:focus{
+ border-color:var(--blue);
+}
+
+.formRow{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px;
+}
+
+.sectionHead{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+ margin-bottom:18px;
+}
+
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+ gap:15px;
+}
+
+.quizCard{
+ background:var(--card);
+ border:1px solid var(--line);
+ border-radius:17px;
+ padding:20px;
+}
+
+.quizCard h3{
+ margin-top:0;
+}
+
+.muted{
+ color:var(--muted);
+}
+
+.quizActions{
+ display:flex;
+ gap:7px;
+ flex-wrap:wrap;
+ margin-top:15px;
+}
+
+.questionItem{
+ background:#111318;
+ border:1px solid var(--line);
+ border-radius:14px;
+ padding:17px;
+ margin-bottom:12px;
+}
+
+.option{
+ background:#16191f;
+ border:1px solid #30343d;
+ border-radius:9px;
+ padding:12px;
+ margin:6px 0;
+}
+
+.correct{
+ border-color:var(--green);
+}
+
+.playerOption{
+ width:100%;
+ text-align:left;
+ margin:6px 0;
+}
+
+.playerOption.selected{
+ border-color:var(--blue);
+ background:#182b55;
+}
+
+.progress{
+ width:100%;
+ height:9px;
+ background:#272b32;
+ border-radius:10px;
+ overflow:hidden;
+ margin:12px 0 20px;
+}
+
+.progressBar{
+ height:100%;
+ background:var(--blue);
+ width:0;
+ transition:.3s;
+}
+
+.timer{
+ font-weight:bold;
+ font-size:20px;
+}
+
+.timer.dangerTimer{
+ color:#ef4444;
+}
+
+.resultBig{
+ text-align:center;
+ font-size:55px;
+ font-weight:900;
+ margin:20px 0;
+}
+
+.tableWrap{
+ overflow:auto;
+}
+
+table{
+ width:100%;
+ border-collapse:collapse;
+}
+
+th,td{
+ padding:11px;
+ border-bottom:1px solid var(--line);
+ text-align:left;
+ white-space:nowrap;
+}
+
+th{
+ color:#b8bec8;
+}
+
+.empty{
+ text-align:center;
+ color:var(--muted);
+ padding:30px;
+}
+
+.hidden{
+ display:none!important;
+}
+
+.check{
+ display:flex;
+ align-items:center;
+ gap:8px;
+ margin:10px 0;
+}
+
+.check input{
+ width:auto;
+ margin:0;
+}
+
+.modal{
+ position:fixed;
+ inset:0;
+ background:rgba(0,0,0,.7);
+ display:none;
+ align-items:center;
+ justify-content:center;
+ z-index:500;
+ padding:15px;
+}
+
+.modal.show{
+ display:flex;
+}
+
+.modalBox{
+ background:var(--card);
+ border:1px solid var(--line);
+ border-radius:18px;
+ width:min(600px,100%);
+ max-height:90vh;
+ overflow:auto;
+ padding:22px;
+}
+
+.toast{
+ position:fixed;
+ right:18px;
+ bottom:18px;
+ background:#20232a;
+ border:1px solid var(--line);
+ padding:13px 17px;
+ border-radius:10px;
+ display:none;
+ z-index:999;
+}
+
+.toast.show{
+ display:block;
+}
+
+footer{
+ border-top:1px solid var(--line);
+ color:#777;
+ text-align:center;
+ padding:25px;
+}
+
+@media(max-width:800px){
+ .stats{
+  grid-template-columns:1fr 1fr;
+ }
+
+ .hero h1{
+  font-size:36px;
+ }
+
+ header{
+  position:relative;
+ }
+
+ nav{
+  width:100%;
+ }
+
+ nav button{
+  flex:1;
+ }
+}
+
+@media(max-width:550px){
+ .stats{
+  grid-template-columns:1fr;
+ }
+
+ .formRow{
+  grid-template-columns:1fr;
+ }
+
+ .hero{
+  padding:40px 10px;
+ }
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">📚 Milliy Sertifikat</div>
 
-  <nav>
-    <button onclick="showPage('home')">Bosh sahifa</button>
-    <button onclick="showPage('quizzes')">Quizlar</button>
-    <button onclick="showPage('myQuizzes')">Mening quizlarim</button>
-    <button onclick="showPage('createQuiz')">+ Quiz yaratish</button>
-    <button onclick="showPage('admin')">🔐 Admin</button>
-  </nav>
+ <div class="logo">
+  📚 Milliy Sertifikat
+ </div>
 
-  <div id="userBox"></div>
+ <nav>
+  <button onclick="page('home')">🏠 Bosh sahifa</button>
+  <button onclick="page('quizzes')">📝 Quizlar</button>
+  <button onclick="page('my')">📂 Mening quizlarim</button>
+  <button onclick="page('create')">➕ Quiz yaratish</button>
+  <button onclick="page('ranking')">🏆 Reyting</button>
+  <button onclick="page('admin')">🔐 Admin</button>
+ </nav>
+
+ <div id="userBox" class="userBox"></div>
+
 </header>
 
 
 <main>
 
 <!-- HOME -->
+
 <section id="home" class="page active">
 
-  <div class="hero">
-    <div class="badge">YUQORI DARAJADAGI TAYYORGARLIK</div>
+ <div class="hero">
 
-    <h1>📚 Milliy Sertifikat<br>va Attestatsiya</h1>
-
-    <p>
-      Test ishlang, quiz yarating va o'z testlaringizni boshqaring.
-    </p>
-
-    <div class="heroButtons">
-      <button class="primary" onclick="showPage('quizzes')">
-        📝 Quizlarni boshlash
-      </button>
-
-      <button onclick="showPage('createQuiz')">
-        ➕ Quiz yaratish
-      </button>
-    </div>
+  <div class="badge">
+   YUQORI DARAJADAGI TAYYORGARLIK
   </div>
 
-  <div class="stats">
-    <div>
-      <b id="quizCount">0</b>
-      <span>Quizlar</span>
-    </div>
+  <h1>
+   📚 Milliy Sertifikat<br>
+   va Attestatsiya
+  </h1>
 
-    <div>
-      <b id="questionCount">0</b>
-      <span>Savollar</span>
-    </div>
+  <p>
+   Test ishlang, o‘z testingizni yarating,
+   savollar qo‘shing va natijalaringizni kuzating.
+  </p>
 
-    <div>
-      <b>∞</b>
-      <span>Kengaytiriladigan baza</span>
-    </div>
+  <div class="actions">
+
+   <button class="primary"
+           onclick="page('quizzes')">
+    📝 Quiz boshlash
+   </button>
+
+   <button onclick="page('create')">
+    ➕ Quiz yaratish
+   </button>
+
+   <button onclick="page('auth')">
+    👤 Kirish / Ro‘yxatdan o‘tish
+   </button>
+
   </div>
+
+ </div>
+
+
+ <div class="stats">
+
+  <div class="stat">
+   <b id="statUsers">0</b>
+   <span>Foydalanuvchilar</span>
+  </div>
+
+  <div class="stat">
+   <b id="statQuizzes">0</b>
+   <span>Quizlar</span>
+  </div>
+
+  <div class="stat">
+   <b id="statQuestions">0</b>
+   <span>Savollar</span>
+  </div>
+
+  <div class="stat">
+   <b>∞</b>
+   <span>Kengaytiriladigan baza</span>
+  </div>
+
+ </div>
 
 </section>
 
 
-<!-- LOGIN -->
+<!-- AUTH -->
+
 <section id="auth" class="page">
 
-  <div class="card authCard">
+ <div class="card narrow">
 
-    <h2 id="authTitle">Kirish</h2>
+  <h2 id="authTitle">👤 Kirish</h2>
 
-    <input id="authEmail" type="email" placeholder="Email">
+  <input id="email"
+         type="email"
+         placeholder="Email">
 
-    <input id="authPassword"
-           type="password"
-           placeholder="Parol">
+  <input id="password"
+         type="password"
+         placeholder="Parol">
 
-    <button class="primary" onclick="login()">
-      Kirish
-    </button>
+  <input id="fullName"
+         class="hidden"
+         placeholder="F.I.Sh.">
 
-    <button onclick="register()">
-      Ro'yxatdan o'tish
-    </button>
+  <input id="region"
+         class="hidden"
+         placeholder="Viloyat">
 
-    <p id="authMessage"></p>
+  <input id="district"
+         class="hidden"
+         placeholder="Tuman / shahar">
 
-  </div>
+  <input id="phone"
+         class="hidden"
+         placeholder="Telefon">
+
+  <button id="authButton"
+          class="primary"
+          style="width:100%"
+          onclick="authAction()">
+   Kirish
+  </button>
+
+  <button style="width:100%;margin-top:8px"
+          onclick="toggleAuth()">
+   Ro‘yxatdan o‘tish
+  </button>
+
+  <p id="authMsg" class="muted"></p>
+
+ </div>
 
 </section>
 
 
 <!-- QUIZZES -->
+
 <section id="quizzes" class="page">
 
-  <div class="sectionTitle">
-    <h2>🌍 Barcha quizlar</h2>
-    <button onclick="loadPublicQuizzes()">Yangilash</button>
+ <div class="sectionHead">
+
+  <div>
+   <h2>🌍 Barcha Quizlar</h2>
+   <span class="muted">
+    Ommaga ochiq testlar
+   </span>
   </div>
 
-  <div id="quizList" class="grid"></div>
+  <button onclick="loadPublicQuizzes()">
+   🔄 Yangilash
+  </button>
+
+ </div>
+
+ <div id="publicQuizList" class="grid"></div>
 
 </section>
 
 
-<!-- MY QUIZZES -->
-<section id="myQuizzes" class="page">
+<!-- MY -->
 
-  <div class="sectionTitle">
-    <h2>📂 Mening quizlarim</h2>
+<section id="my" class="page">
 
-    <button class="primary"
-            onclick="showPage('createQuiz')">
-      + Yangi quiz
-    </button>
+ <div class="sectionHead">
+
+  <div>
+   <h2>📂 Mening Quizlarim</h2>
   </div>
 
-  <div id="myQuizList" class="grid"></div>
+  <button class="primary"
+          onclick="page('create')">
+   ➕ Yangi quiz
+  </button>
+
+ </div>
+
+ <div id="myQuizList" class="grid"></div>
 
 </section>
 
 
 <!-- CREATE -->
-<section id="createQuiz" class="page">
 
-  <div class="card">
+<section id="create" class="page">
 
-    <h2>➕ Quiz yaratish</h2>
+ <div class="card">
 
-    <input id="quizTitle"
-           placeholder="Quiz nomi">
+  <h2>➕ Yangi Quiz yaratish</h2>
 
-    <select id="quizSubject">
-      <option>Geografiya</option>
-      <option>Matematika</option>
-      <option>Biologiya</option>
-      <option>Kimyo</option>
-      <option>Fizika</option>
-      <option>Tarix</option>
-      <option>Ona tili va adabiyot</option>
-    </select>
+  <input id="newTitle"
+         placeholder="Quiz nomi">
 
-    <textarea id="quizDescription"
-              placeholder="Quiz haqida qisqacha ma'lumot"></textarea>
+  <select id="newSubject">
 
-    <label class="switchRow">
-      <input id="quizPublic"
-             type="checkbox"
-             checked>
-      Ommaga ochiq
-    </label>
+   <option>Geografiya</option>
+   <option>Matematika</option>
+   <option>Biologiya</option>
+   <option>Kimyo</option>
+   <option>Fizika</option>
+   <option>Tarix</option>
+   <option>Ona tili va adabiyot</option>
 
-    <button class="primary"
-            onclick="createQuiz()">
-      Quizni yaratish
-    </button>
+  </select>
 
-  </div>
+  <textarea id="newDescription"
+            placeholder="Quiz haqida ma'lumot"></textarea>
+
+  <label class="check">
+
+   <input id="newPublic"
+          type="checkbox"
+          checked>
+
+   Quiz ommaga ko‘rinsin
+
+  </label>
+
+  <button class="primary"
+          onclick="createQuiz()">
+   💾 Quiz yaratish
+  </button>
+
+ </div>
 
 </section>
 
 
 <!-- EDITOR -->
+
 <section id="editor" class="page">
 
-  <div class="sectionTitle">
-    <div>
-      <h2 id="editorTitle">Quiz tahrirlash</h2>
-      <small id="editorInfo"></small>
-    </div>
+ <div class="sectionHead">
 
-    <button onclick="showPage('myQuizzes')">
-      ← Orqaga
-    </button>
+  <div>
+   <h2 id="editorName">
+    Quiz
+   </h2>
+
+   <div id="editorSubject"
+        class="muted"></div>
   </div>
 
-  <div id="questionForm" class="card">
+  <button onclick="page('my')">
+   ← Orqaga
+  </button>
 
-    <h3>Yangi savol</h3>
+ </div>
 
-    <textarea id="qText"
-              placeholder="Savolni yozing"></textarea>
 
-    <input id="optA" placeholder="A) Variant">
-    <input id="optB" placeholder="B) Variant">
-    <input id="optC" placeholder="C) Variant">
-    <input id="optD" placeholder="D) Variant">
+ <div class="card">
 
-    <select id="correctAnswer">
-      <option value="A">A — to'g'ri</option>
-      <option value="B">B — to'g'ri</option>
-      <option value="C">C — to'g'ri</option>
-      <option value="D">D — to'g'ri</option>
-    </select>
+  <h3>⚙️ Quiz sozlamalari</h3>
 
-    <textarea id="explanation"
-              placeholder="Izoh (ixtiyoriy)"></textarea>
+  <input id="editQuizTitle"
+         placeholder="Quiz nomi">
 
-    <button class="primary"
-            onclick="saveQuestion()">
-      💾 Savolni saqlash
-    </button>
+  <textarea id="editQuizDescription"
+            placeholder="Tavsif"></textarea>
 
-    <button id="cancelEdit"
-            class="hidden"
-            onclick="cancelQuestionEdit()">
-      Bekor qilish
-    </button>
+  <label class="check">
+
+   <input id="editQuizPublic"
+          type="checkbox">
+
+   Ommaga ochiq
+
+  </label>
+
+  <button class="primary"
+          onclick="updateQuiz()">
+   💾 Sozlamalarni saqlash
+  </button>
+
+ </div>
+
+
+ <div class="card">
+
+  <h3 id="questionFormTitle">
+   ➕ Savol qo‘shish
+  </h3>
+
+  <textarea id="qText"
+            placeholder="Savol matni"></textarea>
+
+  <div class="formRow">
+
+   <input id="qA"
+          placeholder="A) Variant">
+
+   <input id="qB"
+          placeholder="B) Variant">
 
   </div>
 
-  <div id="questionList"></div>
+  <div class="formRow">
+
+   <input id="qC"
+          placeholder="C) Variant">
+
+   <input id="qD"
+          placeholder="D) Variant">
+
+  </div>
+
+  <select id="qCorrect">
+
+   <option value="A">A — To‘g‘ri javob</option>
+   <option value="B">B — To‘g‘ri javob</option>
+   <option value="C">C — To‘g‘ri javob</option>
+   <option value="D">D — To‘g‘ri javob</option>
+
+  </select>
+
+  <textarea id="qExplanation"
+            placeholder="Javob izohi (ixtiyoriy)"></textarea>
+
+  <button class="primary"
+          onclick="saveQuestion()">
+   💾 Savolni saqlash
+  </button>
+
+  <button id="cancelQuestion"
+          class="hidden"
+          onclick="cancelQuestionEdit()">
+   Bekor qilish
+  </button>
+
+ </div>
+
+
+ <h3>📚 Savollar</h3>
+
+ <div id="editorQuestions"></div>
 
 </section>
 
 
 <!-- PLAYER -->
+
 <section id="player" class="page">
 
-  <div class="card">
+ <div class="card">
 
+  <div class="sectionHead">
+
+   <div>
     <h2 id="playerTitle"></h2>
+    <div id="playerCounter"
+         class="muted"></div>
+   </div>
 
-    <div id="questionNumber"></div>
-
-    <h3 id="playerQuestion"></h3>
-
-    <div id="playerOptions"></div>
-
-    <button id="nextQuestion"
-            class="primary"
-            onclick="nextQuestion()">
-      Keyingi →
-    </button>
+   <div id="timer"
+        class="timer">
+    30:00
+   </div>
 
   </div>
+
+  <div class="progress">
+   <div id="progressBar"
+        class="progressBar"></div>
+  </div>
+
+  <h3 id="playerQuestion"></h3>
+
+  <div id="playerOptions"></div>
+
+  <button id="nextBtn"
+          class="primary"
+          style="width:100%;margin-top:15px"
+          disabled
+          onclick="nextQuestion()">
+   Keyingi →
+  </button>
+
+ </div>
 
 </section>
 
 
 <!-- RESULT -->
+
 <section id="result" class="page">
 
-  <div class="card resultCard">
+ <div class="card">
 
-    <h2>🎉 Natija</h2>
+  <h2 style="text-align:center">
+   🎉 Test yakunlandi
+  </h2>
 
-    <div id="resultScore"></div>
+  <div id="resultBig"
+       class="resultBig">
+  </div>
 
-    <button class="primary"
-            onclick="showPage('quizzes')">
-      Quizlarga qaytish
-    </button>
+  <div id="resultDetails"
+       style="text-align:center"
+       class="muted">
+  </div>
+
+  <div class="actions">
+
+   <button class="primary"
+           onclick="page('quizzes')">
+    📝 Boshqa quiz
+   </button>
+
+   <button onclick="page('home')">
+    🏠 Bosh sahifa
+   </button>
 
   </div>
+
+ </div>
+
+</section>
+
+
+<!-- RANKING -->
+
+<section id="ranking" class="page">
+
+ <div class="sectionHead">
+
+  <h2>🏆 Reyting</h2>
+
+  <button onclick="loadRanking()">
+   🔄 Yangilash
+  </button>
+
+ </div>
+
+ <div class="card tableWrap">
+
+  <table>
+
+   <thead>
+    <tr>
+     <th>#</th>
+     <th>F.I.Sh.</th>
+     <th>Fan</th>
+     <th>Quiz</th>
+     <th>Ball</th>
+     <th>Foiz</th>
+    </tr>
+   </thead>
+
+   <tbody id="rankingBody"></tbody>
+
+  </table>
+
+ </div>
 
 </section>
 
 
 <!-- ADMIN -->
+
 <section id="admin" class="page">
 
-  <div class="card">
+ <div class="sectionHead">
 
-    <h2>🔐 Admin panel</h2>
+  <h2>🔐 Admin panel</h2>
 
-    <button class="primary"
-            onclick="loadAdmin()">
-      Admin ma'lumotlarini yuklash
-    </button>
+  <button onclick="loadAdmin()">
+   🔄 Yangilash
+  </button>
 
-    <div id="adminData"></div>
+ </div>
 
-  </div>
+ <div id="adminContent"></div>
 
 </section>
 
@@ -545,1320 +941,1715 @@ on public.admins to authenticated;
 
 
 <footer>
-  © 2026 Milliy Sertifikat va Attestatsiya
+ © 2026 Milliy Sertifikat va Attestatsiya
 </footer>
 
 
-<script src="app.js"></script>
+<div id="toast"
+     class="toast"></div>
 
-</body>
-</html>
-*{
-  box-sizing:border-box;
-}
 
-body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background:#0d0f12;
-  color:#f4f4f4;
-}
+<script>
 
-header{
-  position:sticky;
-  top:0;
-  z-index:20;
+/* =====================================================
+   1. SUPABASE SOZLAMASI
+   =====================================================
 
-  background:#14161b;
-  border-bottom:1px solid #292d35;
+   FAQAT SHU IKKI QATORNI O'ZGARTIRASIZ.
 
-  padding:14px 5%;
+   Supabase:
+   Project Settings → API
 
-  display:flex;
-  align-items:center;
-  gap:20px;
-  flex-wrap:wrap;
-}
+   URL:
+   https://xxxxxxxx.supabase.co
 
-.logo{
-  font-weight:800;
-  font-size:20px;
-  margin-right:auto;
-}
+   Publishable key:
+   sb_publishable_...
 
-nav{
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-}
+   ESki anon key ishlatilsa ham loyiha sozlamasiga
+   qarab ishlashi mumkin.
 
-button{
-  border:1px solid #343943;
-  background:#20232a;
-  color:#fff;
-  padding:10px 14px;
-  border-radius:10px;
-  cursor:pointer;
-}
+   SERVICE ROLE KEYNI BU YERGA QO'YMANG.
+===================================================== */
 
-button:hover{
-  opacity:.85;
-}
+const SUPABASE_URL =
+"YOUR_SUPABASE_URL";
 
-.primary{
-  background:#2563eb;
-  border-color:#2563eb;
-}
+const SUPABASE_KEY =
+"YOUR_SUPABASE_PUBLISHABLE_KEY";
 
-main{
-  max-width:1100px;
-  margin:auto;
-  padding:35px 18px 70px;
-}
 
-.page{
-  display:none;
-}
+/* =====================================================
+   SUPABASE CLIENT
+===================================================== */
 
-.page.active{
-  display:block;
-}
-
-.hero{
-  text-align:center;
-  padding:80px 20px;
-}
-
-.badge{
-  display:inline-block;
-  background:#1d2433;
-  border:1px solid #34405a;
-  padding:7px 12px;
-  border-radius:20px;
-  font-size:12px;
-}
-
-.hero h1{
-  font-size:48px;
-  margin:25px 0 15px;
-}
-
-.hero p{
-  color:#aeb4bf;
-  font-size:18px;
-}
-
-.heroButtons{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-top:30px;
-  flex-wrap:wrap;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-}
-
-.stats div{
-  background:#181a20;
-  border:1px solid #292d35;
-  border-radius:18px;
-  padding:25px;
-  text-align:center;
-}
-
-.stats b{
-  display:block;
-  font-size:30px;
-}
-
-.stats span{
-  color:#999;
-}
-
-.card{
-  background:#181a20;
-  border:1px solid #292d35;
-  border-radius:18px;
-  padding:25px;
-  margin-bottom:20px;
-}
-
-.authCard{
-  max-width:450px;
-  margin:50px auto;
-}
-
-input,
-textarea,
-select{
-  width:100%;
-  background:#0f1115;
-  color:white;
-  border:1px solid #343943;
-  border-radius:10px;
-  padding:13px;
-  margin:7px 0;
-  font-size:15px;
-}
-
-textarea{
-  min-height:100px;
-  resize:vertical;
-}
-
-.authCard button{
-  width:100%;
-  margin-top:10px;
-}
-
-.sectionTitle{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  margin-bottom:20px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:15px;
-}
-
-.quizCard{
-  background:#181a20;
-  border:1px solid #292d35;
-  border-radius:18px;
-  padding:20px;
-}
-
-.quizCard h3{
-  margin-top:0;
-}
-
-.quizCard small{
-  color:#999;
-}
-
-.quizActions{
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-  margin-top:15px;
-}
-
-.questionItem{
-  background:#181a20;
-  border:1px solid #292d35;
-  border-radius:15px;
-  padding:20px;
-  margin-bottom:12px;
-}
-
-.option{
-  padding:12px;
-  margin:6px 0;
-  background:#111318;
-  border:1px solid #2c3038;
-  border-radius:9px;
-}
-
-.correct{
-  border-color:#22c55e;
-}
-
-.switchRow{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  margin:10px 0;
-}
-
-.switchRow input{
-  width:auto;
-}
-
-.hidden{
-  display:none!important;
-}
-
-.resultCard{
-  text-align:center;
-}
-
-#resultScore{
-  font-size:45px;
-  font-weight:800;
-  margin:30px;
-}
-
-footer{
-  border-top:1px solid #292d35;
-  padding:25px;
-  text-align:center;
-  color:#777;
-}
-
-@media(max-width:700px){
-
-  .hero h1{
-    font-size:34px;
-  }
-
-  .stats{
-    grid-template-columns:1fr;
-  }
-
-  header{
-    position:relative;
-  }
-
-  nav{
-    width:100%;
-  }
-
-  nav button{
-    flex:1;
-  }
-}
-// ==========================================
-// SUPABASE
-// ==========================================
-
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_KEY = "YOUR_SUPABASE_PUBLISHABLE_KEY";
-
-const db = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY,
-  {
-    auth:{
-      persistSession:true,
-      autoRefreshToken:true
-    }
-  }
+const db =
+supabase.createClient(
+ SUPABASE_URL,
+ SUPABASE_KEY
 );
 
 
-// ==========================================
-// GLOBAL
-// ==========================================
+/* =====================================================
+   GLOBAL
+===================================================== */
 
-let currentUser = null;
+let user = null;
 
 let currentQuiz = null;
-let currentQuestions = [];
 
-let currentQuestionIndex = 0;
-let currentScore = 0;
+let questions = [];
 
-let editingQuestionId = null;
+let editQuestionId = null;
+
+let playerIndex = 0;
+
+let playerScore = 0;
+
+let selectedAnswer = null;
+
+let timerInterval = null;
+
+let timeLeft = 30 * 60;
 
 
-// ==========================================
-// PAGE
-// ==========================================
+/* =====================================================
+   TOAST
+===================================================== */
 
-function showPage(page){
+function toast(message){
 
-  document.querySelectorAll(".page")
-    .forEach(x => x.classList.remove("active"));
+ const t =
+ document.getElementById("toast");
 
-  const el = document.getElementById(page);
+ t.textContent = message;
 
-  if(el){
-    el.classList.add("active");
-  }
+ t.classList.add("show");
 
-  if(page === "quizzes"){
-    loadPublicQuizzes();
-  }
-
-  if(page === "myQuizzes"){
-    loadMyQuizzes();
-  }
-
-  if(page === "createQuiz"){
-    requireLogin();
-  }
+ setTimeout(()=>{
+  t.classList.remove("show");
+ },3000);
 }
 
 
-// ==========================================
-// AUTH
-// ==========================================
+/* =====================================================
+   PAGE
+===================================================== */
 
-async function login(){
+async function page(name){
 
-  const email =
-    document.getElementById("authEmail").value.trim();
+ document
+ .querySelectorAll(".page")
+ .forEach(x =>
+  x.classList.remove("active")
+ );
 
-  const password =
-    document.getElementById("authPassword").value;
+ const target =
+ document.getElementById(name);
 
-  const {error} =
-    await db.auth.signInWithPassword({
-      email,
-      password
-    });
+ if(target){
+  target.classList.add("active");
+ }
 
-  if(error){
+ if(name==="quizzes"){
+  await loadPublicQuizzes();
+ }
 
-    document.getElementById("authMessage")
-      .textContent = error.message;
+ if(name==="my"){
+  await loadMyQuizzes();
+ }
 
-    return;
-  }
+ if(name==="ranking"){
+  await loadRanking();
+ }
 
-  await initUser();
+ if(name==="admin"){
+  await loadAdmin();
+ }
 
-  showPage("home");
+ if(name==="create" && !user){
+  toast("Avval akkauntga kiring.");
+  page("auth");
+ }
+
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
 }
 
 
-async function register(){
+/* =====================================================
+   AUTH MODE
+===================================================== */
 
-  const email =
-    document.getElementById("authEmail").value.trim();
+let registerMode=false;
 
-  const password =
-    document.getElementById("authPassword").value;
 
-  if(password.length < 6){
+function toggleAuth(){
 
-    document.getElementById("authMessage")
-      .textContent =
-      "Parol kamida 6 ta belgidan iborat bo'lsin.";
+ registerMode=!registerMode;
 
-    return;
-  }
+ const fields=[
+  "fullName",
+  "region",
+  "district",
+  "phone"
+ ];
+
+ fields.forEach(id=>{
+  document
+   .getElementById(id)
+   .classList.toggle(
+    "hidden",
+    !registerMode
+   );
+ });
+
+ document.getElementById("authTitle")
+ .textContent=
+ registerMode
+ ? "👤 Ro‘yxatdan o‘tish"
+ : "👤 Kirish";
+
+ document.getElementById("authButton")
+ .textContent=
+ registerMode
+ ? "Ro‘yxatdan o‘tish"
+ : "Kirish";
+}
+
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+async function authAction(){
+
+ const email =
+ document.getElementById("email")
+ .value.trim();
+
+ const password =
+ document.getElementById("password")
+ .value;
+
+ if(!email || !password){
+
+  toast("Email va parolni kiriting.");
+
+  return;
+ }
+
+
+ if(registerMode){
 
   const {data,error} =
-    await db.auth.signUp({
-      email,
-      password
-    });
+  await db.auth.signUp({
+   email,
+   password
+  });
 
   if(error){
 
-    document.getElementById("authMessage")
-      .textContent = error.message;
+   toast(error.message);
 
-    return;
+   return;
   }
+
 
   if(data.user){
 
-    await db.from("profiles")
-      .insert({
-        id:data.user.id,
-        full_name:""
-      });
+   await db
+   .from("profiles")
+   .upsert({
+    id:data.user.id,
+    full_name:
+    document.getElementById("fullName").value,
+    region:
+    document.getElementById("region").value,
+    district:
+    document.getElementById("district").value,
+    phone:
+    document.getElementById("phone").value
+   });
+
   }
 
-  document.getElementById("authMessage")
-    .textContent =
-    "Ro'yxatdan o'tish muvaffaqiyatli. Emailni tasdiqlang.";
+  toast(
+   "Akkaunt yaratildi. Email tasdiqlash talab qilinsa emailni tasdiqlang."
+  );
+
+  registerMode=false;
+
+  toggleAuth();
+
+  return;
+ }
+
+
+ const {error} =
+ await db.auth.signInWithPassword({
+  email,
+  password
+ });
+
+ if(error){
+
+  toast(error.message);
+
+  return;
+ }
+
+ await loadUser();
+
+ toast("Xush kelibsiz!");
+
+ page("home");
 }
 
 
-async function logout(){
+/* =====================================================
+   LOAD USER
+===================================================== */
 
-  await db.auth.signOut();
+async function loadUser(){
 
-  currentUser = null;
+ const {data} =
+ await db.auth.getUser();
 
-  updateUserBox();
+ user=data.user || null;
 
-  showPage("home");
-}
-
-
-async function initUser(){
-
-  const {data} =
-    await db.auth.getUser();
-
-  currentUser = data.user || null;
-
-  updateUserBox();
+ updateUserBox();
 }
 
 
 function updateUserBox(){
 
-  const box =
-    document.getElementById("userBox");
+ const box =
+ document.getElementById("userBox");
 
-  if(!currentUser){
+ if(!user){
 
-    box.innerHTML = `
-      <button onclick="showPage('auth')">
-        Kirish
-      </button>
-    `;
-
-    return;
-  }
-
-  box.innerHTML = `
-    <button onclick="logout()">
-      Chiqish
-    </button>
+  box.innerHTML=`
+   <button onclick="page('auth')">
+    👤 Kirish
+   </button>
   `;
+
+  return;
+ }
+
+ box.innerHTML=`
+  <span>
+   ${escapeHtml(
+    user.email
+   )}
+  </span>
+
+  <button onclick="logout()">
+   Chiqish
+  </button>
+ `;
 }
 
 
-function requireLogin(){
+async function logout(){
 
-  if(!currentUser){
+ await db.auth.signOut();
 
-    alert("Avval akkauntga kiring.");
+ user=null;
 
-    showPage("auth");
+ updateUserBox();
 
-    return false;
-  }
+ page("home");
 
-  return true;
+ toast("Akkauntdan chiqildi.");
 }
 
 
-// ==========================================
-// CREATE QUIZ
-// ==========================================
+/* =====================================================
+   CREATE QUIZ
+===================================================== */
 
 async function createQuiz(){
 
-  if(!requireLogin()) return;
+ if(!user){
 
-  const title =
-    document.getElementById("quizTitle")
-      .value.trim();
+  toast("Avval akkauntga kiring.");
 
-  const subject =
-    document.getElementById("quizSubject")
-      .value;
+  page("auth");
 
-  const description =
-    document.getElementById("quizDescription")
-      .value.trim();
+  return;
+ }
 
-  const isPublic =
-    document.getElementById("quizPublic")
-      .checked;
+ const title =
+ document.getElementById("newTitle")
+ .value.trim();
 
-  if(!title){
+ const subject =
+ document.getElementById("newSubject")
+ .value;
 
-    alert("Quiz nomini kiriting.");
+ const description =
+ document.getElementById("newDescription")
+ .value.trim();
 
-    return;
-  }
+ const isPublic =
+ document.getElementById("newPublic")
+ .checked;
 
-  const {data,error} =
-    await db.from("quizzes")
-      .insert({
-        owner_id:currentUser.id,
-        title,
-        subject,
-        description,
-        is_public:isPublic
-      })
-      .select()
-      .single();
 
-  if(error){
+ if(!title){
 
-    alert(error.message);
+  toast("Quiz nomini yozing.");
 
-    return;
-  }
+  return;
+ }
 
-  document.getElementById("quizTitle").value="";
-  document.getElementById("quizDescription").value="";
 
-  openEditor(data.id);
+ const {data,error} =
+ await db
+ .from("quizzes")
+ .insert({
+  owner_id:user.id,
+  title,
+  subject,
+  description,
+  is_public:isPublic
+ })
+ .select()
+ .single();
+
+
+ if(error){
+
+  toast(error.message);
+
+  return;
+ }
+
+
+ document.getElementById("newTitle").value="";
+ document.getElementById("newDescription").value="";
+
+ toast("Quiz yaratildi!");
+
+ await openEditor(data.id);
 }
 
 
-// ==========================================
-// PUBLIC QUIZZES
-// ==========================================
+/* =====================================================
+   PUBLIC QUIZZES
+===================================================== */
 
 async function loadPublicQuizzes(){
 
-  const {data,error} =
-    await db.from("quizzes")
-      .select("*")
-      .eq("is_public",true)
-      .order("created_at",{ascending:false});
+ const box =
+ document.getElementById("publicQuizList");
 
-  if(error){
+ box.innerHTML=
+ `<div class="empty">Yuklanmoqda...</div>`;
 
-    console.error(error);
 
-    return;
-  }
+ const {data,error} =
+ await db
+ .from("quizzes")
+ .select("*")
+ .eq("is_public",true)
+ .order("created_at",{ascending:false});
 
-  const list =
-    document.getElementById("quizList");
 
-  if(!data.length){
+ if(error){
 
-    list.innerHTML =
-      `<div class="card">
-        Hozircha quizlar yo'q.
-      </div>`;
+  box.innerHTML=
+  `<div class="empty">
+   ${escapeHtml(error.message)}
+  </div>`;
 
-    return;
-  }
+  return;
+ }
 
-  list.innerHTML =
-    data.map(q => quizCard(q,false)).join("");
 
-  updateStats();
+ if(!data.length){
+
+  box.innerHTML=
+  `<div class="empty">
+   Hozircha ochiq quizlar mavjud emas.
+  </div>`;
+
+  return;
+ }
+
+
+ box.innerHTML =
+ data.map(q=>publicQuizCard(q)).join("");
 }
 
 
-// ==========================================
-// MY QUIZZES
-// ==========================================
+function publicQuizCard(q){
+
+ return `
+ <div class="quizCard">
+
+  <h3>
+   ${escapeHtml(q.title)}
+  </h3>
+
+  <div class="muted">
+   📚 ${escapeHtml(q.subject)}
+  </div>
+
+  <p>
+   ${escapeHtml(q.description || "")}
+  </p>
+
+  <button
+   class="primary"
+   onclick="startQuiz('${q.id}')">
+   ▶ Testni boshlash
+  </button>
+
+ </div>
+ `;
+}
+
+
+/* =====================================================
+   MY QUIZZES
+===================================================== */
 
 async function loadMyQuizzes(){
 
-  if(!requireLogin()) return;
+ const box =
+ document.getElementById("myQuizList");
 
-  const {data,error} =
-    await db.from("quizzes")
-      .select("*")
-      .eq("owner_id",currentUser.id)
-      .order("updated_at",{ascending:false});
+ if(!user){
 
-  if(error){
+  box.innerHTML=
+  `<div class="empty">
+   Avval akkauntga kiring.
+  </div>`;
 
-    alert(error.message);
+  return;
+ }
 
-    return;
-  }
 
-  const list =
-    document.getElementById("myQuizList");
+ box.innerHTML=
+ `<div class="empty">Yuklanmoqda...</div>`;
 
-  if(!data.length){
 
-    list.innerHTML =
-      `<div class="card">
-        Siz hali quiz yaratmagansiz.
-      </div>`;
+ const {data,error} =
+ await db
+ .from("quizzes")
+ .select("*")
+ .eq("owner_id",user.id)
+ .order("updated_at",{ascending:false});
 
-    return;
-  }
 
-  list.innerHTML =
-    data.map(q => quizCard(q,true)).join("");
+ if(error){
+
+  box.innerHTML=
+  `<div class="empty">
+   ${escapeHtml(error.message)}
+  </div>`;
+
+  return;
+ }
+
+
+ if(!data.length){
+
+  box.innerHTML=
+  `<div class="empty">
+   Siz hali quiz yaratmagansiz.
+  </div>`;
+
+  return;
+ }
+
+
+ box.innerHTML =
+ data.map(q=>myQuizCard(q)).join("");
 }
 
 
-function quizCard(q,isOwner){
+function myQuizCard(q){
 
-  return `
-    <div class="quizCard">
+ return `
+ <div class="quizCard">
 
-      <h3>${escapeHtml(q.title)}</h3>
+  <h3>
+   ${escapeHtml(q.title)}
+  </h3>
 
-      <small>
-        Fan: ${escapeHtml(q.subject)}
-      </small>
+  <div class="muted">
+   📚 ${escapeHtml(q.subject)}
+  </div>
 
-      <p>
-        ${escapeHtml(q.description || "")}
-      </p>
+  <p>
+   ${escapeHtml(q.description || "")}
+  </p>
 
-      <div class="quizActions">
+  <p>
+   ${
+    q.is_public
+    ? "🌍 Ommaga ochiq"
+    : "🔒 Yopiq"
+   }
+  </p>
 
-        <button class="primary"
-          onclick="startQuiz('${q.id}')">
-          ▶ Testni ishlash
-        </button>
+  <div class="quizActions">
 
-        ${
-          isOwner
-          ? `
-          <button onclick="openEditor('${q.id}')">
-            ✏️ Tahrirlash
-          </button>
+   <button
+    class="primary"
+    onclick="startQuiz('${q.id}')">
+    ▶ Ishlash
+   </button>
 
-          <button onclick="deleteQuiz('${q.id}')">
-            🗑️ O'chirish
-          </button>
-          `
-          : ""
-        }
+   <button
+    onclick="openEditor('${q.id}')">
+    ✏️ Tahrirlash
+   </button>
 
-      </div>
+   <button
+    class="danger"
+    onclick="deleteQuiz('${q.id}')">
+    🗑️ O‘chirish
+   </button>
 
-    </div>
-  `;
+  </div>
+
+ </div>
+ `;
 }
 
 
-// ==========================================
-// DELETE QUIZ
-// ==========================================
-
-async function deleteQuiz(id){
-
-  if(!confirm(
-    "Bu quiz va uning savollari o'chiriladi. Davom etasizmi?"
-  )) return;
-
-  const {error} =
-    await db.from("quizzes")
-      .delete()
-      .eq("id",id)
-      .eq("owner_id",currentUser.id);
-
-  if(error){
-
-    alert(error.message);
-
-    return;
-  }
-
-  loadMyQuizzes();
-}
-
-
-// ==========================================
-// EDITOR
-// ==========================================
+/* =====================================================
+   OPEN EDITOR
+===================================================== */
 
 async function openEditor(id){
 
-  if(!requireLogin()) return;
+ if(!user){
 
-  const {data,error} =
-    await db.from("quizzes")
-      .select("*")
-      .eq("id",id)
-      .single();
+  toast("Avval akkauntga kiring.");
 
-  if(error){
+  page("auth");
 
-    alert(error.message);
+  return;
+ }
 
-    return;
-  }
 
-  if(data.owner_id !== currentUser.id){
+ const {data,error} =
+ await db
+ .from("quizzes")
+ .select("*")
+ .eq("id",id)
+ .single();
 
-    alert("Bu quizni tahrirlash huquqingiz yo'q.");
 
-    return;
-  }
+ if(error){
 
-  currentQuiz = data;
+  toast(error.message);
 
-  document.getElementById("editorTitle")
-    .textContent =
-    "✏️ " + data.title;
+  return;
+ }
 
-  document.getElementById("editorInfo")
-    .textContent =
-    data.subject;
 
-  showPage("editor");
+ if(data.owner_id !== user.id){
 
-  loadQuestions(id);
+  toast("Bu quizni tahrirlash huquqingiz yo‘q.");
+
+  return;
+ }
+
+
+ currentQuiz=data;
+
+ document.getElementById("editorName")
+ .textContent=
+ "✏️ " + data.title;
+
+ document.getElementById("editorSubject")
+ .textContent=
+ data.subject;
+
+ document.getElementById("editQuizTitle")
+ .value=data.title;
+
+ document.getElementById("editQuizDescription")
+ .value=
+ data.description || "";
+
+ document.getElementById("editQuizPublic")
+ .checked=data.is_public;
+
+
+ await loadQuestions();
+
+ page("editor");
 }
 
 
-// ==========================================
-// LOAD QUESTIONS
-// ==========================================
+/* =====================================================
+   UPDATE QUIZ
+===================================================== */
 
-async function loadQuestions(quizId){
+async function updateQuiz(){
 
-  const {data,error} =
-    await db.from("questions")
-      .select("*")
-      .eq("quiz_id",quizId)
-      .order("sort_order",{ascending:true});
+ if(!currentQuiz || !user)
+  return;
 
-  if(error){
 
-    alert(error.message);
+ const title =
+ document.getElementById("editQuizTitle")
+ .value.trim();
 
-    return;
-  }
+ const description =
+ document.getElementById("editQuizDescription")
+ .value.trim();
 
-  currentQuestions = data;
+ const isPublic =
+ document.getElementById("editQuizPublic")
+ .checked;
 
-  renderQuestions();
+
+ if(!title){
+
+  toast("Quiz nomini kiriting.");
+
+  return;
+ }
+
+
+ const {error} =
+ await db
+ .from("quizzes")
+ .update({
+  title,
+  description,
+  is_public:isPublic,
+  updated_at:new Date().toISOString()
+ })
+ .eq("id",currentQuiz.id)
+ .eq("owner_id",user.id);
+
+
+ if(error){
+
+  toast(error.message);
+
+  return;
+ }
+
+
+ currentQuiz.title=title;
+ currentQuiz.description=description;
+ currentQuiz.is_public=isPublic;
+
+ document.getElementById("editorName")
+ .textContent=
+ "✏️ " + title;
+
+ toast("Quiz saqlandi.");
 }
 
+
+/* =====================================================
+   DELETE QUIZ
+===================================================== */
+
+async function deleteQuiz(id){
+
+ if(!user)
+  return;
+
+
+ if(!confirm(
+  "Quiz va uning barcha savollari o‘chiriladi. Davom etasizmi?"
+ )) return;
+
+
+ const {error} =
+ await db
+ .from("quizzes")
+ .delete()
+ .eq("id",id)
+ .eq("owner_id",user.id);
+
+
+ if(error){
+
+  toast(error.message);
+
+  return;
+ }
+
+
+ toast("Quiz o‘chirildi.");
+
+ await loadMyQuizzes();
+}
+
+
+/* =====================================================
+   LOAD QUESTIONS
+===================================================== */
+
+async function loadQuestions(){
+
+ const box =
+ document.getElementById("editorQuestions");
+
+
+ box.innerHTML=
+ `<div class="empty">
+  Savollar yuklanmoqda...
+ </div>`;
+
+
+ const {data,error} =
+ await db
+ .from("questions")
+ .select("*")
+ .eq("quiz_id",currentQuiz.id)
+ .order("sort_order",{ascending:true});
+
+
+ if(error){
+
+  box.innerHTML=
+  `<div class="empty">
+   ${escapeHtml(error.message)}
+  </div>`;
+
+  return;
+ }
+
+
+ questions=data || [];
+
+ renderQuestions();
+}
+
+
+/* =====================================================
+   RENDER QUESTIONS
+===================================================== */
 
 function renderQuestions(){
 
-  const box =
-    document.getElementById("questionList");
+ const box =
+ document.getElementById("editorQuestions");
 
-  if(!currentQuestions.length){
 
-    box.innerHTML =
-      `<div class="card">
-        Hali savollar qo'shilmagan.
-      </div>`;
+ if(!questions.length){
 
-    return;
+  box.innerHTML=
+  `<div class="empty">
+   Hali savollar qo‘shilmagan.
+  </div>`;
+
+  return;
+ }
+
+
+ box.innerHTML =
+ questions.map((q,i)=>`
+
+ <div class="questionItem">
+
+  <b>
+   ${i+1}. ${escapeHtml(q.question_text)}
+  </b>
+
+  <div class="option ${
+   q.correct_answer==="A"
+   ? "correct":""
+  }">
+   A) ${escapeHtml(q.option_a)}
+  </div>
+
+  <div class="option ${
+   q.correct_answer==="B"
+   ? "correct":""
+  }">
+   B) ${escapeHtml(q.option_b)}
+  </div>
+
+  <div class="option ${
+   q.correct_answer==="C"
+   ? "correct":""
+  }">
+   C) ${escapeHtml(q.option_c)}
+  </div>
+
+  <div class="option ${
+   q.correct_answer==="D"
+   ? "correct":""
+  }">
+   D) ${escapeHtml(q.option_d)}
+  </div>
+
+  ${
+   q.explanation
+   ? `<p class="muted">
+      💡 ${escapeHtml(q.explanation)}
+     </p>`
+   : ""
   }
 
-  box.innerHTML =
-    currentQuestions.map((q,i)=>`
+  <div class="quizActions">
 
-      <div class="questionItem">
+   <button
+    onclick="editQuestion('${q.id}')">
+    ✏️ Tahrirlash
+   </button>
 
-        <b>${i+1}. ${escapeHtml(q.question_text)}</b>
+   <button
+    class="danger"
+    onclick="deleteQuestion('${q.id}')">
+    🗑️ O‘chirish
+   </button>
 
-        <div class="option ${
-          q.correct_answer==="A" ? "correct":""
-        }">
-          A) ${escapeHtml(q.option_a)}
-        </div>
+  </div>
 
-        <div class="option ${
-          q.correct_answer==="B" ? "correct":""
-        }">
-          B) ${escapeHtml(q.option_b)}
-        </div>
+ </div>
 
-        <div class="option ${
-          q.correct_answer==="C" ? "correct":""
-        }">
-          C) ${escapeHtml(q.option_c)}
-        </div>
-
-        <div class="option ${
-          q.correct_answer==="D" ? "correct":""
-        }">
-          D) ${escapeHtml(q.option_d)}
-        </div>
-
-        <div class="quizActions">
-
-          <button onclick="editQuestion('${q.id}')">
-            ✏️ Tahrirlash
-          </button>
-
-          <button onclick="deleteQuestion('${q.id}')">
-            🗑️ O'chirish
-          </button>
-
-        </div>
-
-      </div>
-
-    `).join("");
+ `).join("");
 }
 
 
-// ==========================================
-// SAVE QUESTION
-// ==========================================
+/* =====================================================
+   SAVE QUESTION
+===================================================== */
 
 async function saveQuestion(){
 
-  if(!currentQuiz){
+ if(!currentQuiz || !user){
 
-    alert("Quiz tanlanmagan.");
+  toast("Quiz tanlanmagan.");
 
-    return;
+  return;
+ }
+
+
+ const questionText =
+ document.getElementById("qText")
+ .value.trim();
+
+ const A =
+ document.getElementById("qA")
+ .value.trim();
+
+ const B =
+ document.getElementById("qB")
+ .value.trim();
+
+ const C =
+ document.getElementById("qC")
+ .value.trim();
+
+ const D =
+ document.getElementById("qD")
+ .value.trim();
+
+ const correct =
+ document.getElementById("qCorrect")
+ .value;
+
+ const explanation =
+ document.getElementById("qExplanation")
+ .value.trim();
+
+
+ if(
+  !questionText ||
+  !A ||
+  !B ||
+  !C ||
+  !D
+ ){
+
+  toast(
+   "Savol va barcha variantlarni kiriting."
+  );
+
+  return;
+ }
+
+
+ if(editQuestionId){
+
+  const {error} =
+  await db
+  .from("questions")
+  .update({
+   question_text:questionText,
+   option_a:A,
+   option_b:B,
+   option_c:C,
+   option_d:D,
+   correct_answer:correct,
+   explanation
+  })
+  .eq("id",editQuestionId);
+
+
+  if(error){
+
+   toast(error.message);
+
+   return;
   }
 
-  const questionText =
-    document.getElementById("qText")
-      .value.trim();
 
-  const A =
-    document.getElementById("optA")
-      .value.trim();
+  toast("Savol tahrirlandi.");
 
-  const B =
-    document.getElementById("optB")
-      .value.trim();
+ }else{
 
-  const C =
-    document.getElementById("optC")
-      .value.trim();
 
-  const D =
-    document.getElementById("optD")
-      .value.trim();
+  const {error} =
+  await db
+  .from("questions")
+  .insert({
+   quiz_id:currentQuiz.id,
+   question_text:questionText,
+   option_a:A,
+   option_b:B,
+   option_c:C,
+   option_d:D,
+   correct_answer:correct,
+   explanation,
+   sort_order:questions.length
+  });
 
-  const correct =
-    document.getElementById("correctAnswer")
-      .value;
 
-  const explanation =
-    document.getElementById("explanation")
-      .value.trim();
+  if(error){
 
-  if(!questionText || !A || !B || !C || !D){
+   toast(error.message);
 
-    alert("Savol va barcha 4 variantni kiriting.");
-
-    return;
+   return;
   }
 
 
-  if(editingQuestionId){
+  toast("Savol qo‘shildi.");
+ }
 
-    const {error} =
-      await db.from("questions")
-        .update({
-          question_text:questionText,
-          option_a:A,
-          option_b:B,
-          option_c:C,
-          option_d:D,
-          correct_answer:correct,
-          explanation
-        })
-        .eq("id",editingQuestionId);
 
-    if(error){
+ clearQuestionForm();
 
-      alert(error.message);
-
-      return;
-    }
-
-  }else{
-
-    const {error} =
-      await db.from("questions")
-        .insert({
-          quiz_id:currentQuiz.id,
-          question_text:questionText,
-          option_a:A,
-          option_b:B,
-          option_c:C,
-          option_d:D,
-          correct_answer:correct,
-          explanation,
-          sort_order:currentQuestions.length
-        });
-
-    if(error){
-
-      alert(error.message);
-
-      return;
-    }
-  }
-
-  clearQuestionForm();
-
-  await loadQuestions(currentQuiz.id);
+ await loadQuestions();
 }
 
 
-// ==========================================
-// EDIT QUESTION
-// ==========================================
+/* =====================================================
+   EDIT QUESTION
+===================================================== */
 
 function editQuestion(id){
 
-  const q =
-    currentQuestions.find(x => x.id === id);
+ const q =
+ questions.find(x=>x.id===id);
 
-  if(!q) return;
+ if(!q)
+  return;
 
-  editingQuestionId = id;
 
-  document.getElementById("qText").value =
-    q.question_text;
+ editQuestionId=id;
 
-  document.getElementById("optA").value =
-    q.option_a;
 
-  document.getElementById("optB").value =
-    q.option_b;
+ document.getElementById("questionFormTitle")
+ .textContent=
+ "✏️ Savolni tahrirlash";
 
-  document.getElementById("optC").value =
-    q.option_c;
 
-  document.getElementById("optD").value =
-    q.option_d;
+ document.getElementById("qText")
+ .value=q.question_text;
 
-  document.getElementById("correctAnswer").value =
-    q.correct_answer;
+ document.getElementById("qA")
+ .value=q.option_a;
 
-  document.getElementById("explanation").value =
-    q.explanation || "";
+ document.getElementById("qB")
+ .value=q.option_b;
 
-  document.getElementById("cancelEdit")
-    .classList.remove("hidden");
+ document.getElementById("qC")
+ .value=q.option_c;
 
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
+ document.getElementById("qD")
+ .value=q.option_d;
+
+ document.getElementById("qCorrect")
+ .value=q.correct_answer;
+
+ document.getElementById("qExplanation")
+ .value=q.explanation || "";
+
+
+ document.getElementById("cancelQuestion")
+ .classList.remove("hidden");
+
+
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
 }
 
 
+/* =====================================================
+   CANCEL QUESTION EDIT
+===================================================== */
+
 function cancelQuestionEdit(){
 
-  editingQuestionId = null;
-
-  clearQuestionForm();
+ clearQuestionForm();
 }
 
 
 function clearQuestionForm(){
 
-  document.getElementById("qText").value="";
-  document.getElementById("optA").value="";
-  document.getElementById("optB").value="";
-  document.getElementById("optC").value="";
-  document.getElementById("optD").value="";
-  document.getElementById("explanation").value="";
+ editQuestionId=null;
 
-  document.getElementById("correctAnswer")
-    .value="A";
+ document.getElementById("qText").value="";
+ document.getElementById("qA").value="";
+ document.getElementById("qB").value="";
+ document.getElementById("qC").value="";
+ document.getElementById("qD").value="";
+ document.getElementById("qExplanation").value="";
+ document.getElementById("qCorrect").value="A";
 
-  document.getElementById("cancelEdit")
-    .classList.add("hidden");
+ document.getElementById("questionFormTitle")
+ .textContent=
+ "➕ Savol qo‘shish";
 
-  editingQuestionId=null;
+ document.getElementById("cancelQuestion")
+ .classList.add("hidden");
 }
 
 
-// ==========================================
-// DELETE QUESTION
-// ==========================================
+/* =====================================================
+   DELETE QUESTION
+===================================================== */
 
 async function deleteQuestion(id){
 
-  if(!confirm("Savol o'chirilsinmi?"))
-    return;
+ if(!confirm("Bu savol o‘chirilsinmi?"))
+  return;
 
-  const {error} =
-    await db.from("questions")
-      .delete()
-      .eq("id",id);
 
-  if(error){
+ const {error} =
+ await db
+ .from("questions")
+ .delete()
+ .eq("id",id);
 
-    alert(error.message);
 
-    return;
-  }
+ if(error){
 
-  loadQuestions(currentQuiz.id);
+  toast(error.message);
+
+  return;
+ }
+
+
+ toast("Savol o‘chirildi.");
+
+ await loadQuestions();
 }
 
 
-// ==========================================
-// START QUIZ
-// ==========================================
+/* =====================================================
+   START QUIZ
+===================================================== */
 
 async function startQuiz(id){
 
-  const {data:quiz,error:quizError} =
-    await db.from("quizzes")
-      .select("*")
-      .eq("id",id)
-      .single();
+ const {data:quiz,error:quizError} =
+ await db
+ .from("quizzes")
+ .select("*")
+ .eq("id",id)
+ .single();
 
-  if(quizError){
 
-    alert(quizError.message);
+ if(quizError){
 
-    return;
-  }
+  toast(quizError.message);
 
-  const {data:questions,error} =
-    await db.from("questions")
-      .select("*")
-      .eq("quiz_id",id)
-      .order("sort_order",{ascending:true});
+  return;
+ }
 
-  if(error){
 
-    alert(error.message);
+ const {data,error} =
+ await db
+ .from("questions")
+ .select("*")
+ .eq("quiz_id",id)
+ .order("sort_order",{ascending:true});
 
-    return;
-  }
 
-  if(!questions.length){
+ if(error){
 
-    alert("Bu quizda hali savollar yo'q.");
+  toast(error.message);
 
-    return;
-  }
+  return;
+ }
 
-  currentQuiz=quiz;
 
-  currentQuestions=questions;
+ if(!data || !data.length){
 
-  currentQuestionIndex=0;
+  toast("Bu quizda savollar mavjud emas.");
 
-  currentScore=0;
+  return;
+ }
 
-  showPage("player");
 
-  renderPlayerQuestion();
+ currentQuiz=quiz;
+
+ questions=data;
+
+ playerIndex=0;
+
+ playerScore=0;
+
+ selectedAnswer=null;
+
+ startTimer();
+
+ page("player");
+
+ renderPlayerQuestion();
 }
 
 
-// ==========================================
-// PLAYER
-// ==========================================
+/* =====================================================
+   PLAYER QUESTION
+===================================================== */
 
 function renderPlayerQuestion(){
 
-  const q =
-    currentQuestions[currentQuestionIndex];
+ const q =
+ questions[playerIndex];
 
-  document.getElementById("playerTitle")
-    .textContent=currentQuiz.title;
 
-  document.getElementById("questionNumber")
-    .textContent=
-    `${currentQuestionIndex+1} / ${currentQuestions.length}`;
+ selectedAnswer=null;
 
-  document.getElementById("playerQuestion")
-    .textContent=q.question_text;
 
-  const options=[
-    ["A",q.option_a],
-    ["B",q.option_b],
-    ["C",q.option_c],
-    ["D",q.option_d]
-  ];
+ document.getElementById("playerTitle")
+ .textContent=currentQuiz.title;
 
-  document.getElementById("playerOptions")
-    .innerHTML=
-    options.map(([key,text])=>`
 
-      <button
-        class="option"
-        style="width:100%;text-align:left"
-        onclick="answerQuestion('${key}')">
+ document.getElementById("playerCounter")
+ .textContent=
+ `Savol ${playerIndex+1} / ${questions.length}`;
 
-        <b>${key})</b>
-        ${escapeHtml(text)}
 
-      </button>
+ document.getElementById("playerQuestion")
+ .textContent=
+ q.question_text;
 
-    `).join("");
 
-  document.getElementById("nextQuestion")
-    .style.display="none";
+ const progress =
+ ((playerIndex)/questions.length)*100;
+
+
+ document.getElementById("progressBar")
+ .style.width=
+ progress+"%";
+
+
+ const options=[
+  ["A",q.option_a],
+  ["B",q.option_b],
+  ["C",q.option_c],
+  ["D",q.option_d]
+ ];
+
+
+ document.getElementById("playerOptions")
+ .innerHTML=
+ options.map(x=>`
+
+ <button
+  class="playerOption option"
+  onclick="selectAnswer('${x[0]}',this)">
+
+  <b>${x[0]})</b>
+  ${escapeHtml(x[1])}
+
+ </button>
+
+ `).join("");
+
+
+ document.getElementById("nextBtn")
+ .disabled=true;
 }
 
 
-function answerQuestion(answer){
+/* =====================================================
+   SELECT ANSWER
+===================================================== */
 
-  const q =
-    currentQuestions[currentQuestionIndex];
+function selectAnswer(answer,button){
 
-  const buttons =
-    document.querySelectorAll("#playerOptions button");
+ selectedAnswer=answer;
 
-  buttons.forEach(b=>{
-    b.disabled=true;
-  });
 
-  if(answer === q.correct_answer){
+ document
+ .querySelectorAll(".playerOption")
+ .forEach(x=>{
+  x.classList.remove("selected");
+ });
 
-    currentScore++;
 
-  }
+ button.classList.add("selected");
 
-  document.getElementById("nextQuestion")
-    .style.display="block";
+
+ document.getElementById("nextBtn")
+ .disabled=false;
 }
 
+
+/* =====================================================
+   NEXT
+===================================================== */
 
 async function nextQuestion(){
 
-  currentQuestionIndex++;
+ if(!selectedAnswer)
+  return;
 
-  if(currentQuestionIndex >= currentQuestions.length){
 
-    await finishQuiz();
+ const q =
+ questions[playerIndex];
 
-    return;
-  }
 
-  renderPlayerQuestion();
+ if(
+  selectedAnswer===
+  q.correct_answer
+ ){
+
+  playerScore++;
+ }
+
+
+ playerIndex++;
+
+
+ if(playerIndex>=questions.length){
+
+  await finishQuiz();
+
+  return;
+ }
+
+
+ renderPlayerQuestion();
 }
 
 
-// ==========================================
-// RESULT
-// ==========================================
+/* =====================================================
+   TIMER
+===================================================== */
+
+function startTimer(){
+
+ clearInterval(timerInterval);
+
+ timeLeft=30*60;
+
+ updateTimer();
+
+
+ timerInterval =
+ setInterval(()=>{
+
+  timeLeft--;
+
+  updateTimer();
+
+
+  if(timeLeft<=0){
+
+   clearInterval(timerInterval);
+
+   finishQuiz();
+
+  }
+
+ },1000);
+}
+
+
+function updateTimer(){
+
+ const el =
+ document.getElementById("timer");
+
+
+ const min =
+ Math.floor(timeLeft/60);
+
+ const sec =
+ timeLeft%60;
+
+
+ el.textContent=
+ `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+
+
+ if(timeLeft<=60){
+
+  el.classList.add("dangerTimer");
+
+ }else{
+
+  el.classList.remove("dangerTimer");
+ }
+}
+
+
+/* =====================================================
+   FINISH QUIZ
+===================================================== */
 
 async function finishQuiz(){
 
-  const total =
-    currentQuestions.length;
+ clearInterval(timerInterval);
 
-  const percent =
-    total
-    ? ((currentScore/total)*100).toFixed(2)
-    : 0;
 
-  document.getElementById("resultScore")
-    .innerHTML=
-    `${currentScore} / ${total}<br>
-     <small>${percent}%</small>`;
+ const total =
+ questions.length;
 
-  showPage("result");
 
-  if(currentUser){
+ const percent =
+ total
+ ? ((playerScore/total)*100)
+ : 0;
 
-    await db.from("quiz_results")
-      .insert({
-        quiz_id:currentQuiz.id,
-        user_id:currentUser.id,
-        score:currentScore,
-        total,
-        percent
-      });
-  }
+
+ document.getElementById("progressBar")
+ .style.width="100%";
+
+
+ document.getElementById("resultBig")
+ .textContent=
+ `${playerScore} / ${total}`;
+
+
+ document.getElementById("resultDetails")
+ .innerHTML=
+ `<b>${percent.toFixed(2)}%</b><br><br>
+  ${escapeHtml(currentQuiz.title)}`;
+
+
+ if(user){
+
+  await db
+  .from("quiz_results")
+  .insert({
+   quiz_id:currentQuiz.id,
+   user_id:user.id,
+   score:playerScore,
+   total,
+   percent
+  });
+ }
+
+
+ page("result");
 }
 
 
-// ==========================================
-// ADMIN
-// ==========================================
+/* =====================================================
+   RANKING
+===================================================== */
+
+async function loadRanking(){
+
+ const body =
+ document.getElementById("rankingBody");
+
+
+ body.innerHTML=
+ `<tr>
+  <td colspan="6">Yuklanmoqda...</td>
+ </tr>`;
+
+
+ const {data,error} =
+ await db
+ .from("quiz_results")
+ .select(`
+  score,
+  total,
+  percent,
+  created_at,
+  quizzes(title,subject),
+  profiles(full_name)
+ `)
+ .order("percent",{ascending:false})
+ .limit(100);
+
+
+ if(error){
+
+  body.innerHTML=
+  `<tr>
+   <td colspan="6">
+    ${escapeHtml(error.message)}
+   </td>
+  </tr>`;
+
+  return;
+ }
+
+
+ if(!data || !data.length){
+
+  body.innerHTML=
+  `<tr>
+   <td colspan="6">
+    Hali natijalar mavjud emas.
+   </td>
+  </tr>`;
+
+  return;
+ }
+
+
+ body.innerHTML =
+ data.map((r,i)=>`
+
+ <tr>
+
+  <td>${i+1}</td>
+
+  <td>
+   ${escapeHtml(
+    r.profiles?.full_name ||
+    "Foydalanuvchi"
+   )}
+  </td>
+
+  <td>
+   ${escapeHtml(
+    r.quizzes?.subject || "-"
+   )}
+  </td>
+
+  <td>
+   ${escapeHtml(
+    r.quizzes?.title || "-"
+   )}
+  </td>
+
+  <td>
+   ${r.score}/${r.total}
+  </td>
+
+  <td>
+   ${Number(r.percent).toFixed(2)}%
+  </td>
+
+ </tr>
+
+ `).join("");
+}
+
+
+/* =====================================================
+   ADMIN
+===================================================== */
 
 async function loadAdmin(){
 
-  if(!requireLogin()) return;
+ const box =
+ document.getElementById("adminContent");
 
-  const {data:admin,error} =
-    await db.from("admins")
-      .select("*")
-      .eq("user_id",currentUser.id)
-      .maybeSingle();
 
-  if(error){
+ if(!user){
 
-    alert(error.message);
+  box.innerHTML=
+  `<div class="card">
+   Avval admin akkauntiga kiring.
+  </div>`;
 
-    return;
-  }
+  return;
+ }
 
-  if(!admin){
 
-    document.getElementById("adminData")
-      .innerHTML=
-      `<p>❌ Siz admin emassiz.</p>`;
+ const {data:admin,error} =
+ await db
+ .from("admins")
+ .select("user_id")
+ .eq("user_id",user.id)
+ .maybeSingle();
 
-    return;
-  }
 
-  const {count:users} =
-    await db.from("profiles")
-      .select("*",{count:"exact",head:true});
+ if(error){
 
-  const {count:quizzes} =
-    await db.from("quizzes")
-      .select("*",{count:"exact",head:true});
+  box.innerHTML=
+  `<div class="card">
+   ${escapeHtml(error.message)}
+  </div>`;
 
-  const {count:questions} =
-    await db.from("questions")
-      .select("*",{count:"exact",head:true});
+  return;
+ }
 
-  const {count:results} =
-    await db.from("quiz_results")
-      .select("*",{count:"exact",head:true});
 
-  document.getElementById("adminData")
-    .innerHTML=`
+ if(!admin){
 
-      <div class="stats">
+  box.innerHTML=
+  `<div class="card">
+   ❌ Siz admin emassiz.
+  </div>`;
 
-        <div>
-          <b>${users || 0}</b>
-          <span>Foydalanuvchilar</span>
-        </div>
+  return;
+ }
 
-        <div>
-          <b>${quizzes || 0}</b>
-          <span>Quizlar</span>
-        </div>
 
-        <div>
-          <b>${questions || 0}</b>
-          <span>Savollar</span>
-        </div>
+ const users =
+ await db
+ .from("profiles")
+ .select("*",{count:"exact",head:true});
 
-      </div>
 
-      <div class="card">
-        <h3>Test topshirishlar</h3>
-        <b>${results || 0}</b>
-      </div>
-    `;
+ const quizzes =
+ await db
+ .from("quizzes")
+ .select("*",{count:"exact",head:true});
+
+
+ const questionsCount =
+ await db
+ .from("questions")
+ .select("*",{count:"exact",head:true});
+
+
+ const results =
+ await db
+ .from("quiz_results")
+ .select("*",{count:"exact",head:true});
+
+
+ box.innerHTML=`
+
+ <div class="stats">
+
+  <div class="stat">
+   <b>${users.count || 0}</b>
+   <span>Foydalanuvchilar</span>
+  </div>
+
+  <div class="stat">
+   <b>${quizzes.count || 0}</b>
+   <span>Quizlar</span>
+  </div>
+
+  <div class="stat">
+   <b>${questionsCount.count || 0}</b>
+   <span>Savollar</span>
+  </div>
+
+  <div class="stat">
+   <b>${results.count || 0}</b>
+   <span>Natijalar</span>
+  </div>
+
+ </div>
+
+
+ <div class="card">
+
+  <h3>🔐 Admin holati</h3>
+
+  <p>
+   Admin akkaunt:
+   <b>${escapeHtml(user.email)}</b>
+  </p>
+
+  <p class="muted">
+   Admin panel orqali tizimdagi umumiy
+   ma'lumotlar sonini ko‘rishingiz mumkin.
+  </p>
+
+ </div>
+ `;
 }
 
 
-// ==========================================
-// STATS
-// ==========================================
+/* =====================================================
+   HOME STATISTICS
+===================================================== */
 
 async function updateStats(){
 
-  const {count:quizCount} =
-    await db.from("quizzes")
-      .select("*",{count:"exact",head:true});
+ const users =
+ await db
+ .from("profiles")
+ .select("*",{count:"exact",head:true});
 
-  const {count:questionCount} =
-    await db.from("questions")
-      .select("*",{count:"exact",head:true});
 
-  document.getElementById("quizCount")
-    .textContent=quizCount || 0;
+ const quizzes =
+ await db
+ .from("quizzes")
+ .select("*",{count:"exact",head:true});
 
-  document.getElementById("questionCount")
-    .textContent=questionCount || 0;
+
+ const qs =
+ await db
+ .from("questions")
+ .select("*",{count:"exact",head:true});
+
+
+ document.getElementById("statUsers")
+ .textContent=
+ users.count || 0;
+
+
+ document.getElementById("statQuizzes")
+ .textContent=
+ quizzes.count || 0;
+
+
+ document.getElementById("statQuestions")
+ .textContent=
+ qs.count || 0;
 }
 
 
-// ==========================================
-// SECURITY / HTML
-// ==========================================
+/* =====================================================
+   ESCAPE
+===================================================== */
 
 function escapeHtml(value){
 
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+ return String(value ?? "")
+ .replaceAll("&","&amp;")
+ .replaceAll("<","&lt;")
+ .replaceAll(">","&gt;")
+ .replaceAll('"',"&quot;")
+ .replaceAll("'","&#039;");
 }
 
 
-// ==========================================
-// INIT
-// ==========================================
+/* =====================================================
+   INIT
+===================================================== */
 
 (async function(){
 
-  await initUser();
+ await loadUser();
 
-  await updateStats();
-
-  showPage("home");
+ await updateStats();
 
 })();
+
+</script>
+
+</body>
+</html>
